@@ -11,7 +11,22 @@ web开发少不了移动端开发，这里的内容只是一个简单的模板�
 添加了clientrem.js文件（来自徐宏&何辩）
 也是一种是想页面rem布局的方法，采用此方法较为简单的设计。
 一般不使用. 大多时候还是采用的rem.min.js文件来实现rem的页面布局（移动端）！
-
+----------------
+采用1、
+```
+(function(win,doc){
+    win.onload = win.onresize = function(){
+        doc.documentElement.style.fontSize = doc.documentElement.clientWidth*100/750+'px';
+    };
+})(window,document);
+```
+采用2、
+```
+doc.documentElement.style.fontSize = doc.documentElement.clientWidth*100/750+'px';
+win.addEventListener("resize",function(){
+  doc.documentElement.style.fontSize = doc.documentElement.clientWidth*100/750+'px';
+},false);
+```
 /20170824  17:00
 
 ------------------------
