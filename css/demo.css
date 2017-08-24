@@ -1,0 +1,15 @@
+.header{
+	height: 0.88rem;
+	width: 100%;
+	background: magenta;
+}
+.section{
+	height: 0.88rem;
+	width: 100%;
+	background: bisque;
+}
+.footer{
+	height: 0.88rem;
+	width: 100%;
+	background: darkgoldenrod;
+}
