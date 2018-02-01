@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="blank" />
+		<meta name="format-detection" content="telephone=no" />
+
+		<link rel="stylesheet" type="text/css" href="css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="css/media2.css" />
+		<style type="text/css">
+			img {
+				width: 100%;
+				height: 100%;
+			}
+			
+			#header {
+				width: 100%;
+				height: 0.88rem;
+				line-height: 0.88rem;
+				background: #888;
+				font-size: 0.32rem;
+				color: #fff;
+				position: fixed;
+				top: 0;
+				left: 0;
+				z-index: 999;
+			}
+			
+			#header span {
+				display: inline-block;
+				width: 10%;
+				height: 100%;
+				line-height: 0.88rem;
+				text-align: center;
+				font-size: 0.32rem;
+				color: #fff;
+			}
+			
+			#header p {
+				display: inline-block;
+				width: 80%;
+				height: 100%;
+				line-height: 0.88rem;
+				text-align: center;
+				font-size: 0.32rem;
+				color: #fff;
+			}
+			/*------*/
+			
+			#content {
+				margin: 0.88rem 0;
+				width: 100%;
+				height: auto;
+			}
+			
+			#content .banner {
+				width: 100%;
+				height: 4.5rem;
+			}
+			
+			#content .nav {
+				width: 100%;
+				height: auto;
+			}
+			
+			#content .nav li {
+				box-sizing: border-box;
+				padding: 2%;
+				float: left;
+				width: 50%;
+				height: 1.8rem;
+			}
+			
+			#content .indextitle {
+				clear: both;
+				width: 100%;
+				height: 1.0rem;
+				line-height: 1.0rem;
+				font-size: 0.35rem;
+				color: #fa2855;
+				text-align: center;
+				position: relative;
+			}
+			
+			#content .indextitle:after {
+				content: " ";
+				font-size: 0;
+				position: absolute;
+				bottom: 11px;
+				left: 50%;
+				z-index: 100;
+				margin-left: -25px;
+				width: 50px;
+				height: 1px;
+				background-color: #fb2855;
+			}
+			
+			#content .list {
+				width: 100%;
+				height: auto;
+			}
+			
+			#content .list li {
+				box-sizing: border-box;
+				padding: 2%;
+				float: left;
+				width: 50%;
+				height: 4.5rem;
+			}
+			/*------*/
+			
+			#footer {
+				width: 100%;
+				height: 0.88rem;
+				line-height: 0.88rem;
+				background: #666;
+				text-align: center;
+				font-size: 0.32rem;
+				color: #fff;
+				position: fixed;
+				bottom: 0;
+				left: 0;
+				z-index: 999;
+			}
+		</style>
+	</head>
+	<body>
+		<header id="header"><span onclick="javascript:history.back();"> 
+			< </span>
+			<p>
+				相册集</p><span>
+					...</span>
+		</header>
+		<section id="content">
+			<div class="banner">
+				<img src="img/shu1.jpg" />
+			</div>
+			<ul class="nav">
+				<li>
+					<a href="##"><img src="img/han.jpg" /></a>
+				</li>
+				<li>
+					<a href="##"><img src="img/ri.jpg" /></a>
+				</li>
+				<li>
+					<a href="##"><img src="img/ou.jpg" /></a>
+				</li>
+				<li>
+					<a href="##"><img src="img/tai.jpg" /></a>
+				</li>
+			</ul>
+			<h2 class="indextitle">图集精选</h2>
+			<div class="list">
+				<ul>
+					<li>
+						<a href="##"><img src="img/bei10.JPEG" /></a>
+					</li>
+					<li>
+						<a href="##"><img src="img/bei4.JPEG" /></a>
+					</li>
+					<li>
+						<a href="##"><img src="img/bei5.JPEG" /></a>
+					</li>
+					<li>
+						<a href="##"><img src="img/bei6.JPEG" /></a>
+					</li>
+					<li>
+						<a href="##"><img src="img/bei7.JPEG" /></a>
+					</li>
+					<li>
+						<a href="##"><img src="img/bei8.JPEG" /></a>
+					</li>
+					<li>
+						<a href="##"><img src="img/bei9.JPEG" /></a>
+					</li>
+					<li>
+						<a href="##"><img src="img/chong1.JPEG" /></a>
+					</li>
+					<li>
+						<a href="##"><img src="img/chong2.JPEG" /></a>
+					</li>
+					<li>
+						<a href="##"><img src="img/chong3.JPEG" /></a>
+					</li>
+					<li>
+						<a href="##"><img src="img/chong4.JPEG" /></a>
+					</li>
+					<li>
+						<a href="##"><img src="img/jie3.JPEG" /></a>
+					</li>
+					<li>
+						<a href="##"><img src="img/jie4.JPEG" /></a>
+					</li>
+					<li>
+						<a href="##"><img src="img/jie5.JPEG" /></a>
+					</li>
+					<li>
+						<a href="##"><img src="img/jie6.JPEG" /></a>
+					</li>
+					<li>
+						<a href="##"><img src="img/jie8.JPEG" /></a>
+					</li>
+				</ul>
+			</div>
+			<div style="clear: both;"></div>
+		</section>
+		<!--<footer id="footer">这里是尾部栏</footer>-->
+	</body>
+</html>

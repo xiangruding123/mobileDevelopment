@@ -1,0 +1,37 @@
+{
+	"result": [
+		{
+		"prize_id": "1001",
+		"prize_name": "3倍积分",
+		"prize_pic": "img/prize_1.png"
+		},
+		{
+		"prize_id": "1002",
+		"prize_name": "迪卡侬代金券代",
+		"prize_pic": "img/prize_2.png"
+		},
+		{
+		"prize_id": "1003",
+		"prize_name": "健身房优惠券优惠券",
+		"prize_pic": "img/prize_3.png"
+		},
+		{
+		"prize_id": "1004",
+		"prize_name": "瑜伽体验卡",
+		"prize_pic": "img/prize_4.png"
+		},
+		{
+		"prize_id": "1005",
+		"prize_name": "iPhone6手机手机",
+		"prize_pic": "img/prize_5.png"
+		},
+		{
+		"prize_id": "1006",
+		"prize_name": "运动哑铃运动哑铃运",
+		"prize_pic": "img/prize_6.png"
+		}
+	],
+	"prize_chance": "4",
+	"message": "ok",
+    "status": 200
+}

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
+		<title>网易的移动端实现方法</title>
+		<!--定义rem值：网易移动适配方案！-->
+		<script>
+	        document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px';
+	        //7.5是根据你的设计稿的width决定写多少，如果是640的，那就写6.4；其他道理一样！
+		</script>
+		
+		<!--下两种方式-->
+		<!--<script>
+		    (function(win,doc){
+		        win.onload = win.onresize = function(){
+		            doc.documentElement.style.fontSize = doc.documentElement.clientWidth*100/750+'px';
+		        };
+		
+		//		doc.documentElement.style.fontSize = doc.documentElement.clientWidth*100/750+'px';
+		//      win.addEventListener("resize",function(){
+		//      	doc.documentElement.style.fontSize = doc.documentElement.clientWidth*100/750+'px';
+		//      },false);
+		    })(window,document);
+		</script>-->
+		
+		
+		<style type="text/css">
+			*{
+				padding: 0;
+				margin: 0;
+			}
+			/*某些部分需要单独设置media拉实现适配*/
+			@media screen and (max-width:321px){
+			    body{font-size:15px}
+			}
+			@media screen and (min-width:321px) and (max-width:400px){
+			    body{font-size:16px}
+			}
+			@media screen and (min-width:400px){
+			    body{font-size:18px}
+			}
+			/*某些部分需要单独设置media拉实现适配*/
+			
+			header,footer{
+				width: 100%;
+				height: 0.90rem;
+				line-height: 0.9rem;
+				background: seagreen;
+				position: fixed!important;
+				text-align: center;
+			}
+			header {
+				width: 100%;
+				height: 0.90rem;
+				top: 0;
+				left: 0;
+			}
+			footer {
+				width: 100%;
+				height: 0.90rem;
+				bottom: 0;
+				left: 0;
+			}
+			section{
+				width: 100%;
+				height: 1000px;
+				background: antiquewhite;
+				margin: 0.9rem 0;
+				white-space:pre-line;
+			}
+		</style>
+	</head>
+	<body>
+		<header>网易头条</header>
+		<section>
+			1、网易页面里除了font-size之外的其它css尺寸都使用了rem作为单位;
+			2、使用rem布局结合在html上根据不同分辨率设置不同font-size有很多不好解决的麻烦，网易是如何解决的呢？最根本的原因在于，网易页面上html的font-size不是预先通过媒介查询在css里定义好的，而是通过JS计算出来的，所以当分辨率发生变化时，html的font-size就会变，不过这得在你调整分辨率后，刷新页面才能看得到效果;
+			3、font-size可能需要额外的媒介查询，并且font-size不能使用rem，如网易的设置：
+				@media screen and (max-width:321px){
+				    .m-navlist{font-size:15px}
+				}
+				@media screen and (min-width:321px) and (max-width:400px){
+				    .m-navlist{font-size:16px}
+				}
+				@media screen and (min-width:400px){
+				    .m-navlist{font-size:18px}
+				}
+			4、视口要如下设置：&lt;meta name="viewport" content="initial-scale=1,maximum-scale=1, minimum-scale=1"&gt;
+			5、js变换px为rem：document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px';
+		</section>
+		<footer>我的</footer>
+	</body>
+</html>
