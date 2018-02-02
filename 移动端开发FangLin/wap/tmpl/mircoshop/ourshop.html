@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>我的店铺</title>
+		<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+		<link rel="shortcut icon" href="/favicon.ico">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+		<link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+		<link rel="stylesheet" href="../../src/css/mirco.css">
+
+	</head>
+
+	<body>
+		<div class="page-group">
+			<!-- 单个page ,第一个.page默认被展示-->
+			<div class="page">
+				<div class="content infinite-scroll infinite-scroll-bottom" data-distance="5">
+
+					<div class='home-top'>
+						<a href="home.html" class="home_link ml10"><img src="../../images/weidian/comeback.png" alt="" class="w20"></a>
+						<a class="home_link_shop ml10 -mob-share-open homeshare mr10"><img src="../../images/weidian/sharewith.png" alt=""></a>
+						<a class="home_link_shop ml10 link-shop"><img src="../../images/weidian/look.png" alt=""></a>
+						<!-- <a class="home_link_shop ml10"><img src="../../images/weidian/paixu.png" alt=""></a> -->
+
+						<div class="headphoto">
+							<div class="primg">
+								<div class="paimg">
+									<div style="position:relative;">
+										<img src="../../images/weidian/headphone.png" alt="" class='shoplogo'>
+										<img src="../../images/weidian/365.png" alt="" class="icon365 iconbutton365">
+										<img src="../../images/weidian/666.png" alt="" class="icon365 iconbutton666">
+									</div>
+								</div>
+							</div>
+							<p class="f14 mt1 mircoshop_name"></p>
+						</div>
+					</div>
+					<div class='home-top-bottom'>
+						<a class="open-about"> <img src="../../images/weidian/book.png" alt=""></a>
+						<span class="none"><img src="../../images/weidian/shenji.png" alt="" class="shenji-icon"></span>
+					</div>
+					<div class="bar-header-secondary" id="goods">
+						<script type='text/html' id='goodstpl'>
+							<%for(var i = 0;i<result.length;i++){%>
+							<div class="inditem mt10">
+								<a class="link" href="../shopping/goods_details.html?goods_id=<%=result[i].goods_id%>!goodsdetail">
+									<div class="linkin clearfix">
+										<div class="img pull-left">
+											<img width="90" height="90" src="<%=result[i].goods_image%>">
+										</div>
+										<div class="param">
+											<div class="tit text-overflow">
+												<%=result[i].goods_name%>
+											</div>
+											<div class="price">
+												<span class="p1">￥<%=result[i].goods_price%> </span>
+												<span class="f12 ml2 fh-red">赚  ￥<span><%=result[i].goods_reward_money%></span></span>
+											</div>
+											<div class="f12"><span class='redblock'>仅剩 <%=result[i].goods_storage%></span>
+												<!-- <span>4000人在卖</span> -->
+											</div>
+										</div>
+									</div>
+								</a>
+								<div class="other">
+									<span><b goods_id='<%=result[i].goods_id%>'><img src="../../images/weidian/up.png" alt="" class="icon">下架</b></span>
+									<!-- <span><a href="product_info.html?goods_commonid=<%=result[i].goods_commonid%>"><img src="../../images/weidian/file.png" alt="" class="icon">中央文案</a></span> -->
+                  <span></span>
+									<span class='-mob-share-open goodshare' desc='<%=result[i].share_describe%>' title='<%=result[i].share_title%>' img='<%=result[i].share_pic%>' goods_id='<%=result[i].goods_id%>'><img src="../../images/weidian/share.png" alt="" class="icon">分享</span> </div>
+							</div>
+							<%}%>
+						</script>
+
+					</div>
+
+					<div style="height:60px;"></div>
+
+				</div>
+				<footer class="footer"><span class='active'>单品管理</span><span>品牌管理</span></footer>
+
+			</div>
+			<!-- 证书 -->
+			<div class="popup popup-about pagebook">
+				<a class="close-popup">
+					<div class="pageground">
+						<img src="../../images/weidian/moban.png" alt="" class="bookphoto" />
+						<div class="pagecontent">
+
+							<h2 class="f16">兹授权 <span class='bookborder bookname'>  </span>（女士/先生）</h2>
+							<h3 class="f16 booknick">为分红全球购 <span class='bookborder booknickname'>  </span> 红人店主</h3>
+							<p class="f14 bookgray">（授权期间享受平台为红人店提供的所有权益）</p>
+							<div class="mt1">
+								<img src="../../images/wap/code.jpg" alt="" class="bookecode" />
+								<div class="pull-right tr">
+
+									<h2 class="f16">特此授权</h2>
+									<p class="f12 mt1 bookgray">授权时间：<span class="time">20161010</span></p>
+									<p class="f12 bookgray">授权编号：<span class='auth_sn'>0000001000</span></p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</a>
+			</div>
+		</div>
+
+		</div>
+
+		<script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+		<script>
+			$.config = {
+				router: false
+			}
+		</script>
+		<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+		<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+		<script type="text/javascript" src="../../js/config.js"></script>
+		<script src="../../js/apiLink.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../../js/plugins/layer/layer.js"></script>
+		<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+		<script type="text/javascript" src="../../js/common.js"></script>
+		<script type="text/javascript" src="../../js/plugins/template.js"></script>
+		<script src="../../js/base64.js"></script>
+        <script src="../../js/fh.js"></script>
+		<script src="../../src/js/tmpl/mircoshop/ourshop.js"></script>
+	</body>
+
+</html>

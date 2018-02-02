@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>红人学院</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta http-equiv="Cache-Control" content="no-cache">
+		<meta http-equiv="Pragma" content="no-cache">
+		<link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+		<link rel="stylesheet" href="../../css/fhbase.css">
+		<link rel="stylesheet" href="../../css/fhwap.css">
+		<style>
+			#college article {
+				width: 92%;
+				background-color: #fff;
+				border-radius: 10px;
+				margin: 10px auto 20px;
+				padding: 15px 20px 10px;
+			}
+			
+			#college article h2 {
+				font-size: 16px;
+				color: #000;
+				-webkit-line-clamp: 1;
+			}
+			
+			#college article h4 {
+				font-size: 14px;
+				color: #000;
+				float: left;
+			}
+			
+			/*#college article section {
+				margin-top: 10px;
+				padding-top: 5px;
+				border-top: 1px solid #eaeaea;
+				clear: both;
+				overflow: hidden;
+			}*/
+			
+			#college article p i {
+				/*position:absolute;*/
+				float: right;
+				font-size: 30px;
+				margin-top: -50px;
+				font-size: 30px;
+			}
+			
+			#college article a>p {
+				color: eaeaea;
+			}
+			
+			#college article a {
+				text-decoration: none;
+			}
+			
+			#college article>div {
+				position: relative;
+			}
+			
+			#college article a>div img {
+				width: 100%;
+			}
+			
+			#college article a>div p {
+				color: #fff;
+				font-size: 16px;
+				background: rgba(0, 0, 0, .5);
+				padding-top: 5px;
+				width: 100%;
+				padding: 5px 3px 3px;
+			}
+		</style>
+	</head>
+
+	<body data-spy="scroll" data-target=".navbar">
+		<div class="container layout" id="college">
+
+			<div class="row bg-body">
+				<header class="fh-header none">
+					<span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+					<h1 class="header-title">红人学院</h1>
+				</header>
+				<script type="text/html" id="article-tpl">
+				
+					<%for(var i=0;i<result.length;i++){%>
+						<article>
+							<a class="sub_msg_item" href="<%=result[i].article_url%>">
+								<img class="m_pic" style="float:left;width:50px;height:50px;margin-right: 10px;" src="<%=result[i].article_img%>">
+								<h2 class="overhide"><%=result[i].article_title%></h2>
+								<p class="pt10 pb10 time_c">
+									<%=result[i].article_time%>
+								</p>
+
+								<p><i class="icon-angle-right"></i></p>
+								<div>						
+						
+					</div>					
+                    
+							</a>
+						</article>
+						<%}%>
+				</script>
+
+			</div>
+		</div>
+		<script  src="../../js/libs/jquery/jquery-1.8.3.min.js"></script>
+		<script  src="../../js/plugins/layer/layer.js"></script>
+		<script  src="../../js/plugins/fastclick.js"></script>
+		<script  src="../../js/config.js"></script>
+		<script  src="../../js/common.js"></script>
+		<script  src="../../js/fh.js">
+		</script>
+		<script  src="../../js/plugins/template.js"></script>
+		<script>
+			$(function(){
+			    	if(native_flag==-1){
+			    		$('header').removeClass('none');
+			    	}
+			    
+			       FL.fhload();
+				var regu = /^[-]{0,1}[0-9]{1,}$/; //判断是否是整数;
+				var count = 0; //当前商品总数 用来判断是否还要继续加载更多
+					var num =7,
+					page=1;
+					function getArticle(page,num){
+						$.ajax({
+						
+						type:'get',
+						
+						url:WapSiteUrl+"/api/index.php?act=common_article&op=get_article_list",
+			
+						data:{ac_id:29,numm:num,curpage:page,flag:'wap'},
+			
+						dataType:'json',
+			
+						success:function(data){
+							if(data&&data.error=="0"){
+							 	var html = template('article-tpl',data);
+							 	$('header').after(html);
+							}
+							$('.time_c').each(function(){
+								var t =$(this).text();			    
+							    commonTime = new Date(parseInt(t) * 1000).toLocaleString().replace(/:\d{1,2}$/,' '); 
+							    $(this).text(commonTime.replace('GMT+8',''));
+							    
+							})
+						}
+					  });
+					}
+			      
+					 
+					//绑定滚动
+				function bindRefresh() {
+					$(window).scroll(function() {
+						var htmlHeight = document.body.scrollHeight || document.documentElement.scrollHeight;
+						var clientHeight = document.body.clientHeight || document.documentElement.clientHeight;
+						var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+						if (scrollTop + clientHeight == htmlHeight) {
+							var showNum = $("article").length; //当前页面显示的个数
+							page = showNum / 7 + 1; //上拉加载要显示的页数
+							if (count != page && regu.test(page)) {
+								getArticle(page, num);
+								count = page;
+							} else {
+								
+								
+								layer.msg("后续秘籍正在积极准备中");
+							}
+						}
+					})
+				}
+					getArticle(page, num);
+					bindRefresh();
+					
+				})
+		</script>
+	</body>
+
+</html>

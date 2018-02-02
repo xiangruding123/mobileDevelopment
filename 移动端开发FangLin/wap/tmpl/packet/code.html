@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>邀请好友 立得红包</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta name = "format-detection" content = "telephone=no">
+    <link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/buttons.css">
+    <link rel="stylesheet" href="../../src/css/fhbase.css">
+    <link rel="stylesheet" href="../../src/css/fhwap.css">
+    <link rel="stylesheet" href="../../css/animate.css" />
+</head>
+<body class="bg_y">
+<div class="container layout" id="invitebag">
+    <div class="row">
+	    <header class="fh-header none">
+	        <span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+	        <h1 class="header-title">邀请好友 立得红包 </h1>
+	    </header>
+        <p class="tc f16 l200 mt40 mb30">接受“<span id="person">分红全球购</span>”的邀请，领取<span class="focus-font" id="bagMoney">168元</span>现金券
+	    <br />到分红全球购买买买！</p>
+        <div id="qrcode"><img src="../../images/wap/header_phone.png" alt=""/></div>
+        
+        
+     </div>
+</div>
+ 
+
+
+
+    <script  src="../../js/libs/jquery/jquery-1.8.3.min.js"></script>
+    <script  src="../../js/config.js"></script>
+    <script  src="../../js/plugins/fastclick.js"></script>
+    <script  src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script  src="../../js/plugins/jquery.lazyload.js"></script>
+    <script  src="../../js/common.js"></script>
+    <script  src="../../js/plugins/layer/layer.js"></script>
+    <script  src="../../js/plugins/template.js"></script>
+    <script  src="../../js/fh.js"></script>
+    <script>
+        $(function(){
+
+        var bag_success_wx_link = "https%3a%2f%2fopen.weixin.qq.com%2fconnect%2foauth2%2fauthorize%3fappid%3dwx5853a3512939c939%26redirect_uri=http%3A%2F%2Fwww.fenhongshop.com%2Fwap%2Ftmpl%2Fpacket%2Fbag_success.html%3F";
+        
+
+        if(unescape(getcookie('nickname'))=='null'||unescape(getcookie('nickname'))=='undefined'){
+					   member_name = unescape(getcookie('member_name'));
+		 }else{
+					   member_name = unescape(getcookie('nickname'));
+		}
+		 
+	    $('#person').text(member_name);
+	      
+	      //扫码邀请
+			
+		var mid;							
+		call_url = bag_success_wx_link +"member_name%3d"+member_name+"deduct_userid"+mid+"%26response_type%3dcode%26scope%3dsnsapi_login%26state%3dSTATE%23wechat_redirect";
+               
+		
+	    var img = "http://qr.topscan.com/api.php?text="+call_url;
+	    $('#qrcode img').prop('src',img);
+	        
+	    
+        })
+    </script>
+</div>
+
+</body>
+</html>

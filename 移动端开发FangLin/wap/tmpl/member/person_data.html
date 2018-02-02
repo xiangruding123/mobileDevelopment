@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <title>个人资料</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+   	<meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="http://cdn.amazeui.org/amazeui/2.7.1/css/amazeui.min.css"/>
+    <link rel="stylesheet" href="../../css/fhbase.css">
+    <link rel="stylesheet" href="../../css/fhwap.css">
+    <link rel="stylesheet" href="../../css/animate.css">
+
+</head>
+
+<body>
+    <div class="container layout" id="person_data">
+        <div class="row">
+            <header class="fh-header">
+                <span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+                <h1 class="header-title">个人资料</h1>
+                <a class="header-edit" id="nav-show"></a>
+            </header>
+            <section class="fh-link-bar">
+            	 <a class="skip-link"><span>头像</span>
+	            	 <input type="file" accept="image/*" capture=camera class="fh-file" id="avatar" name="avatar" />
+	            	 <i class='icon-angle-right'></i>
+	            	 <img src="" class="fh-img"/>
+            	 </a>
+            </section>
+            <section class="fh-link-bar">
+                <span class="data">用户名</span>
+                <span class="fh-data" id="member_name"></span>
+            </section>
+            <section class="fh-link-bar">
+            	 <a id="nicknameLink" class="skip-link">
+            	 	<span>昵称</span>
+            	    <i class='icon-angle-right'></i>
+            	    <span class="fh-data" id="nickname"></span>
+            	 </a> 
+            </section>
+            <section class="fh-link-bar" id="sexlog">
+            	 	<span>性别</span>
+            	    <i class='icon-angle-right'></i>
+            	    <span class="fh-data" id="personsex">保密</span>
+            </section>
+            <section class="fh-link-bar">
+            	 	<span>生日</span>
+            	    <i class='icon-angle-right'></i>
+            	    <!--<span class="fh-data" id="birthday"></span>-->
+            	    <input type="text" id="birthday" class="am-form-field"  data-am-datepicker readonly required />
+            </section>
+            <section class="empty bck-color"></section>
+            <!--<section class="fh-link-bar">
+            	 <a href="bind_mobile.html" class="skip-link">
+            	 	<span>绑定手机</span>
+            	 	<i class='icon-angle-right'></i>
+            	 	<span class="fh-data" id="mobile"></span>
+            	 </a>
+            </section>-->
+            <section class="fh-link-bar">
+                <a href="modify_password_one.html" class="skip-link"><span>修改登录密码</span>
+                <i class='icon-angle-right'></i></a>
+            </section>
+            <div class="personsex">
+            	<p data-sex='0'>保密</p>
+            	<p data-sex='1'>男</p>
+            	<p data-sex='2'>女</p>
+            </div>
+            
+
+        </div>
+    </div>
+    <script  src="../../js/libs/jquery/jquery-1.8.3.min.js"></script>
+    <script src="http://cdn.amazeui.org/amazeui/2.7.1/js/amazeui.min.js"  charset="utf-8"></script>
+    <script  src="../../js/plugins/fastclick.js"></script>
+    <script  src="../../js/config.js"></script>
+    <script  src="../../js/common.js"></script>
+    <script  src="../../js/plugins/template.js"></script>
+    <script  src="../../src/js/tmpl/member/person_data.js"></script>
+    
+</body>
+
+</html>

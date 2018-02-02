@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <title>付款/类目清单</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="../../css/store_joinin.css">
+    <link rel="stylesheet" href="../../js/plugins/sweetalert/sweetalert.css">
+</head>
+
+<body>
+    <div class="container-fluid" id="payment"></div>
+    <script type="text/html" id="payment_tpl">
+    <div class="layout">
+        <header>
+            <span class="back" onclick="location.replace('../index/index.html')">返回</span>
+            <h2>付款/类目清单</h2>
+        </header>
+        <div class="joinin-summary">
+            <div class="list clearfix">
+                <div class="paylist">
+                    商家帐号:&nbsp;&nbsp;<span><%=seller_name%></span>
+                </div>
+                <div class="paylist">
+                    店铺名称:&nbsp;&nbsp;<span><%=store_name%></span>
+                </div>
+                <div class="paylist">
+                    收费标准:&nbsp;&nbsp;<span class="xiao"><%=charge_std%></span>
+                </div>
+                <div class="paylist">
+                    开店时长:&nbsp;&nbsp;<span><%=joinin_year%> 年</span>
+                </div>
+                <div class="paylist">
+                    店铺分类:&nbsp;&nbsp;<span><%=store_class%></span>
+                </div>
+                <div class="paylist">
+                    开店保证金:&nbsp;&nbsp;<span>¥<%=deposit%></span>
+                </div>
+                <div class="paylist">
+                    应付金额:&nbsp;&nbsp;<span class="red">¥<%=pay_amount%></span> 
+                </div>
+                <div class="paylist">
+                </div>
+                <div class="typeinfo">
+                    <ul>
+                        <li>一级类目
+                        </li>
+                        <li>二级类目
+                        </li>
+                        <li>三级类目
+                        </li>
+                        <li>分佣比例</li>
+                        <% if (store_class_names[0]){%>
+                            <% for (var i=0, len = store_class_names.length;i<len;i++){%>
+                                <li class="scope-list"><%=store_class_names[i][0]%></li>
+                                <li class="scope-list"><%=store_class_names[i][1]%></li>
+                                <li class="scope-list"><%=store_class_names[i][2]%></li>
+                                <li class="scope-list"><%=store_class_deduct_rates[i]%>%</li>
+                            <%}%>
+                        <%}%>
+                    </ul>
+                </div>
+                <div class="typepic"></div>
+            </div>
+            <section class="item zhongdian">
+                <p class="tip red"><%=tip%></p>
+                <p class="next hide">重新提交信息</p>
+            </section>
+            <p class="next submit hide">确认并付款</p>
+        </div>
+    </div>
+    </script>
+    <script src="../../js/config.js"></script>
+    <script src="../../js/libs/jquery/jquery-1.8.3.min.js"></script>
+    <script src="../../js/plugins/sweetalert/sweetalert.min.js"></script>
+    <script src="../../js/plugins/layer/layer.js"></script>
+    <script src="../../js/plugins/template.js"></script>
+    <script src="../../js/FL.js"></script>
+    <script src="../../js/common.js"></script>
+    <script src="../../js/tmpl/store_joinin/payment.js"></script>
+</body>
+
+</html>

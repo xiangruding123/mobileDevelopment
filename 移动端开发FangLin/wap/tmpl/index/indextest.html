@@ -1,0 +1,1327 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>分红全球购</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta property="qc:admins" content="13206332772013631611006375" />
+		<meta property="wb:webmaster" content="583adb75f6362de2" />
+		<meta name="description" content="分红全球购——中国跨境直购平台！众享全球尖货，分销享分红，正品、低价、海外直邮！"/>
+		<link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+		<link rel="stylesheet" href="../../js/plugins/swiper/swiper.css">
+		<link rel="stylesheet" href="../../css/fhbase.css">
+		<link rel="stylesheet" href="../../css/fhwap.css">
+		<link rel="stylesheet" href="../../css/animate.css">
+		<link rel="stylesheet" href="../../css/activity.css">
+	</head>
+
+	<body>
+		<div class="layout fh-bg-white" id="indexhome">
+            <header class="fh-header">
+            	<div class="pull-left">
+					<a href="classifying.html">
+						<img src="../../images/wap/fenlei.png" class="right-icon left-icon" style="margin-top:-3px;"/>
+					</a>
+				</div>
+				<a href="search.html"><i class="icon-search"></i>
+				<input type="text" placeholder="分红全球购 精彩无限" id="goods_search"></a>
+			</header>
+			<!--顶部导航-->
+			<div class="f-nav-wrap" id="f-nav-wrap">
+				<article class="f-nav-stickytabs">
+					<div class="navbox js-navbox m-tbl scroll-navbox">
+						<script type="text/html" id="head-tpl">
+							<%for(var i=0;i<result.length;i++){%>
+								<span class="tab" data-url='<%=result[i].nav_url%>'><%=result[i].nav_title%></span>
+							<%}%>
+						</script>
+					</div>
+				</article>
+			</div>
+
+
+			<section id="page1"></section>
+			<section id="page2" style="display: none;"></section>
+			<section id="page3" style="display: none;">
+				<iframe src="" id="iframepage" style="width:100%;border:0;overflow-x: hidden;"></iframe>
+
+			</section>
+			<div class="empty h50"></div>
+			<div class="allBtmFooter">
+				<li>
+					<a data-href="../index/index.html">
+						<img src='../../images/index/footer1click.png' />
+					</a>
+				</li>
+				<li>
+					<a data-href="../index/classifying.html">
+						<img src='../../images/index/footer2.png' />
+					</a>
+				</li>
+				<li>
+					<a data-href="../activity/discover.html">
+						<img src='../../images/index/footer3.png' />
+					</a>
+				</li>
+				<li class="pr">
+					<a data-href="../shopping/shopping_cart_cn.html" class="shoppingurl">
+						<img src='../../images/index/footer4.png' />
+					</a>
+				</li>
+				<li>
+					<a data-href="../member/person.html">
+						<img src='../../images/index/footer5.png' />
+					</a>
+				</li>
+			</div>
+			<script type="text/html" id="page1-tpl">
+
+			<!--轮播-->
+			<div class="swiper-container" id="swiper-index">
+				<div class="swiper-wrapper bg-banner" id="swiper-wrapper">
+				<%if(result.slides){%>
+					<%for(var i=0;i<result.slides.length;i++){%>
+						<div class="swiper-slide">
+							<a href="<%=result.slides[i].link_url%>&resource_tags=<%=result.slides[i].resource_tags%>&">
+								<img src="<%=result.slides[i].image_url%>!thumb" alt="" />
+							</a>
+						</div>
+					<%}%>
+				<%}%>
+				</div>
+				<div class="swiper-pagination"></div>
+			</div>
+
+            <!--按钮导航-->
+			<nav class="indnav">
+				<ul class="clearfix" id="nav_bars">
+
+					<%if(result.btn_navs){%>
+
+						<%for(var i=0;i<result.btn_navs.length;i++){%>
+							<li class="nav<%=i+1%>">
+									<a href="<%=result.btn_navs[i].nav_url%>">
+										<img src='<%=result.btn_navs[i].nav_icon%>' />
+										<br><%=result.btn_navs[i].nav_title%>
+									</a>
+							</li>
+						<%}%>
+
+					<%}%>
+				</ul>
+			</nav>
+			<div class="empty"></div>
+			<!--秒杀-->
+			<article class="f-seckill-wrap">
+				<div class="seckill-left">
+					<%if(result.activities[0].seckilling){%>
+						<h2 class="focus-font f13"><!--<img src="../../images/index/miaosha.png"/>-->秒杀 ·</h2>
+						<%if(result.activities[0].seckilling.sequence_goods[0].countdown){%>
+								  <p class="cut-down pull-right mt5">距开抢<span class="sk-h ml10">00</span>：<span class="sk-m">00</span>：<span class="sk-s">00</span></p>
+                        <%}else if(result.activities[0].seckilling.sequence_goods[0].countdown_end){%>
+                                  <p class="cut-down pull-right mt5">距结束<span class="sk-h ml10">00</span>：<span class="sk-m">00</span>：<span class="sk-s">00</span></p>
+                        <%}%>
+						<div class="group-goods">
+
+							<a href="../activity/seckill.html">
+
+								<div id="" class="seckillbox">
+
+								  <%if(result.activities[0].seckilling.sequence_goods[0]){%>
+								    	<img src="<%=result.activities[0].seckilling.sequence_goods[0].goods_pic%>" alt="" class="seckill-pic">
+								  <%}else{%>
+								  	    <img src="../../images/wap/guanggao-1.jpg" alt="" class="seckill-pic">
+
+								  <%}%>
+
+
+
+								</div>
+
+							</a>
+							<div class="group-goods-detail mt5">
+								<%if(result.activities[0].seckilling.sequence_goods[0]){%>
+								<a href="../activity/seckill.html">
+									<h3 class="goods-txt border-b0 pb5 l150 overhide pr"><%=result.activities[0].seckilling.sequence_goods[0].goods_name%></h3>
+								</a>
+								<p class="price"><!--<span class="goods_price mr10">￥<%=result.activities[0].seckilling.sequence_goods[0].killing_price%></span>--><del>￥<span class="goods_marketprice"><%=result.activities[0].seckilling.sequence_goods[0].goods_price%></span></del></p>
+							    <%}%>
+							</div>
+
+						</div>
+					<%}else{%>
+						<a href="<%=result.activities[0].seckilling_adv.adv_link%>"><img src="<%=result.activities[0].seckilling_adv.adv_pic%>" alt="" class="adv_pic" style="min-width:176px;"/></a>
+					<%}%>
+
+
+				</div>
+
+				<div class="seckill-right">
+					<%if(result.activities){%>
+						<%for(var i=0;i<result.activities[0].advs.length;i++){%>
+							<li>
+								<a href="<%=result.activities[0].advs[i].adv_link%>&resource_tags=<%=result.activities[0].advs[i].resource_tags%>&">
+									<img src="<%=result.activities[0].advs[i].adv_pic%>" alt="" class="advs-pic"/>
+								</a>
+							</li>
+						<%}%>
+					<%}%>
+
+				</div>
+			</article>
+			<div class="empty"></div>
+
+			<!--国家馆-->
+			<section class="home" id="nation">
+				<ul class="clearfix nation-ul">
+					<%if(result.guojiaguan){%>
+						<%for(var i=0;i<result.guojiaguan.list.length;i++){%>
+							<li>
+								<a href="../activity/pavilion.html?activity_id=<%=result.guojiaguan.list[i].activity_id%>&activity_title=<%=result.guojiaguan.list[i].activity_title%>">
+									<img src="../../images/wap/tuangou.jpg" data-url="<%=result.guojiaguan.list[i].activity_pic%>!thumb" alt="" />
+								</a>
+							</li>
+						<%}%>
+					<%}%>
+				</ul>
+			</section>
+
+			<div class="empty"></div>
+
+			<!--分红精选-->
+			<div class="f-handpick-wrap" id="handpick">
+
+				<article class="f-handpick">
+					<h2 class="indextitle">分红精选</h2>
+					<%if(result.zhutiguan){%>
+						<%for(var i=0;i<result.zhutiguan.list.length;i++){%>
+							<a href="<%=result.zhutiguan.list[i].activity_url%>&resource_tags=<%=result.zhutiguan.list[i].resource_tags%>"><img src="../../images/wap/tuangou.jpg" data-url="<%=result.zhutiguan.list[i].activity_banner%>!thumb" alt="" class="width100"/></a>
+							<%if(result.zhutiguan.list[i].goods_list.length>0){%>
+							<div class="f-handpick-bar f-handpick-bar<%=i%>">
+							<ul class="clearfix">
+
+								<%for(var k=0;k<result.zhutiguan.list[i].goods_list.length;k++){%>
+								<li>
+			        				<a href="../shopping/goods_details.html?goods_id=<%=result.zhutiguan.list[i].goods_list[k].goods_id%>&resource_tags=<%=result.zhutiguan.list[i].resource_tags%>" class="pr dis-b">
+
+										<img src="<%=result.zhutiguan.list[i].goods_list[k].goods_image%>!thumb">
+		                                <p class="overhide handpick-title h35">
+		                                                          <%=result.zhutiguan.list[i].goods_list[k].goods_name%></p>
+										<div><span class="like-price"><span class="f11">￥</span><%=result.zhutiguan.list[i].goods_list[k].goods_price%></span>
+										<del>￥<span><%=result.zhutiguan.list[i].goods_list[k].goods_marketprice%></span></del>
+										</div>
+									</a>
+								</li>
+								<%}%>
+
+								<li>
+									<a href="<%=result.zhutiguan.list[i].activity_url%>&resource_tags=<%=result.zhutiguan.list[i].resource_tags%>" class="pr dis-b">
+
+										<img src="../../images/index/handpick_all.png" class="mb150"/>
+
+									</a>
+								</li>
+								</ul>
+							</div>
+							<%}else{%>
+								<section class="empty"></section>
+							<%}%>
+						<%}%>
+				    <%}%>
+
+				</article>
+			</div>
+			<section class="empty"></section>
+			<!--品牌馆-->
+			<div class="home" id="brand">
+				<h2 class="indextitle">全球好货</h2>
+				<ul class="clearfix">
+					<%if(result.pinpaiguan){%>
+                        <%for(var i=0;i<result.pinpaiguan.list.length;i++){%>
+						<li>
+							<%if(result.pinpaiguan.list[i].brand_url){%>
+							<a href="<%=result.pinpaiguan.list[i].brand_url%>">
+							<%}else{%>
+							<a href="../activity/brand_details.html?brand_id=<%=result.pinpaiguan.list[i].brand_id%>&brand_banner=<%=result.pinpaiguan.list[i].brand_banner%>&brand_name=<%=result.pinpaiguan.list[i].brand_name%>&share_desc=<%=result.pinpaiguan.list[i].share_desc%>&share_img=<%=result.pinpaiguan.list[i].share_img%>&share_title=<%=result.pinpaiguan.list[i].share_title%>">
+
+							<%}%>
+								<img src="../../images/wap/tuangou.jpg" data-url="<%=result.pinpaiguan.list[i].brand_pic%>!thumb" alt="" />
+							</a>
+						</li>
+					    <%}%>
+					<%}%>
+				</ul>
+			</div>
+			<p class="pinpaiall"><a href="../activity/brand_list.html"><img src="../../images/index/pinpaiall.png" class="w20"/>戳我加载更多</a></p>
+			<!--单品推荐-->
+			<div class="home" id="love-goods">
+				<h2 class="indextitle">单品推荐</h2>
+				<%if(result.recommended_goods){%>
+					<%for(var i=0;i<result.recommended_goods.list.length;i++){%>
+						<article class="love-group-goods">
+							<img class="goods-japan" src="<%=result.recommended_goods.list[i].nation_flag%>">
+							<p class="pb5 f14"><%=result.recommended_goods.list[i].goods_promise%></p>
+							<div class="tc"><a href="../shopping/goods_details.html?goods_id=<%=result.recommended_goods.list[i].goods_id%>"><img src="../../images/wap/pinpaiguan.jpg" data-url="<%=result.recommended_goods.list[i].goods_image%>!thumb" alt="" class="love-group-goods-img"/></a></div>
+							<div class="clearfix mb15"><span class="love-group-goods-price" goods_id="<%=result.recommended_goods.list[i].goods_id%>" goods_source="<%=result.recommended_goods.list[i].goods_source%>" resource_tags="<%=result.recommended_goods.list[i].resource_tags%>"><img src="../../images/index/goodbag.png" class="icon-shopping-cart"/>￥<%=result.recommended_goods.list[i].goods_price%></span> <span class="pull-right iconheart"><i class="icon-heart-empty f24 mr5"></i><br />99+</span></div>
+							<div class="">
+							<a href="../shopping/goods_details.html?goods_id=<%=result.recommended_goods.list[i].goods_id%>">
+								<h3 class="goods-txt border-b0 pb5 l150 overhide pr f15" style="-webkit-line-clamp:3 !important;"><%=result.recommended_goods.list[i].goods_name%></h3>
+								<p class="f13 color6"><%=result.recommended_goods.list[i].goods_desc%></p>
+							</a>
+							</div>
+						</article>
+					<%}%>
+				<%}%>
+			</div>
+			</script>
+			<script type="text/html" id="love-goods-tpl">
+
+			<!--单品推荐-->
+
+				<%if(result){%>
+					<%for(var i=0;i<result.length;i++){%>
+						<article class="love-group-goods">
+							<img class="goods-japan" src="<%=result[i].nation_flag%>">
+							<p class="pb5 f14"><%=result[i].goods_promise%></p>
+							<div class="tc"><a href="../shopping/goods_details.html?goods_id=<%=result[i].goods_id%>"><img src="../../images/wap/tuangou.jpg" data-url="<%=result[i].goods_image%>!thumb" alt="" class="love-group-goods-img"/></a></div>
+							<div class="clearfix mb15"><span class="love-group-goods-price" goods_id="<%=result[i].goods_id%>" goods_source="<%=result[i].goods_source%>" resource_tags="<%=result[i].resource_tags%>"><img src="../../images/index/goodbag.png" class="icon-shopping-cart"/>￥<%=result[i].goods_price%></span> <span class="pull-right iconheart"><i class="icon-heart-empty f30 mr5"></i><br />99+</span></div>
+							<div class="">
+							<a href="../shopping/goods_details.html?goods_id=<%=result[i].goods_id%>">
+								<h3 class="goods-txt border-b0 pb5 l150 overhide pr f15" style="-webkit-line-clamp:3 !important;"><%=result[i].goods_name%></h3>
+								<p class="f13 color6"><%=result[i].goods_desc%></p>
+							</a>
+							</div>
+						</article>
+					<%}%>
+				<%}%>
+
+			</script>
+
+			<!--频道页面-->
+			<script type="text/html" id="page2-tpl">
+				<div class="swiper-container">
+				<div class="swiper-wrapper bg-banner">
+				<%if(result.channel_slides){%>
+					<%for(var i=0;i<result.channel_slides.length;i++){%>
+						<div class="swiper-slide">
+							<a href="<%=result.channel_slides[i].link_url%>">
+								<img src="../../images/wap/tuangou.jpg" data-url="<%=result.channel_slides[i].image_url%>!thumb" alt="" />
+							</a>
+						</div>
+					<%}%>
+				<%}%>
+				</div>
+				<div class="swiper-pagination"></div>
+			</div>
+			<section class="home">
+				<ul class="clearfix nation-ul">
+					<%if(result.channel_classes){%>
+						<%for(var i=0;i<result.channel_classes.length;i++){%>
+							<li>
+								<a href="<%=result.channel_classes[i].class_url%>">
+									<img src="../../images/wap/tuangou.jpg" data-url="<%=result.channel_classes[i].class_pic%>!thumb" alt="" />
+								</a>
+							</li>
+						<%}%>
+					<%}%>
+				</ul>
+			</section>
+			<!--分红精选-->
+			<div class="f-handpick-wrap" id="handpick">
+
+				<article class="f-handpick">
+					<h2 class="indextitle">分红精选</h2>
+					<%if(result.hot_activities){%>
+						<%for(var i=0;i<result.hot_activities.list.length;i++){%>
+							<a href="<%=result.hot_activities.list[i].activity_url%>&resource_tags=<%=result.hot_activities.list[i].resource_tags%>"><img src="../../images/wap/tuangou.jpg" data-url="<%=result.hot_activities.list[i].activity_banner%>!thumb" alt="" class="width100"/></a>
+							<%if(result.hot_activities.list[i].goods_list){%>
+
+							<div class="f-handpick-bar f-hot-bar<%=i%>">
+							<ul class="clearfix">
+
+									<%for(var k=0;k<result.hot_activities.list[i].goods_list.length;k++){%>
+									<li>
+				        				<a href="../shopping/goods_details.html?goods_id=<%=result.hot_activities.list[i].goods_list[k].goods_id%>&resource_tags=<%=result.hot_activities.list[i].resource_tags%>" class="pr dis-b">
+
+											<img src="<%=result.hot_activities.list[i].goods_list[k].goods_image%>">
+			                                <p class="overhide handpick-title h35">
+			                                                          <%=result.hot_activities.list[i].goods_list[k].goods_name%></p>
+											<div><span class="like-price"><span class="f11">￥</span><%=result.hot_activities.list[i].goods_list[k].goods_price%></span>
+											<del>￥<span><%=result.hot_activities.list[i].goods_list[k].goods_marketprice%></span></del>
+											</div>
+										</a>
+									</li>
+									<%}%>
+
+								<li>
+									<a href="<%=result.hot_activities.list[i].activity_url%>&resource_tags=<%=result.hot_activities.list[i].resource_tags%>" class="pr dis-b">
+
+										<img src="../../images/index/handpick_all.png" class="mb150"/>
+
+									</a>
+								</li>
+								</ul>
+							</div>
+							<%}else{%>
+								<section class="empty"></section>
+
+							<%}%>
+						<%}%>
+				    <%}%>
+
+				</article>
+			</div>
+			<!--热门好货-->
+			<%if(result.hot_goods.list){%>
+			<div class="f-handpick-wrap">
+
+				<article class="f-handpick">
+					<h2 class="indextitle">热门好货</h2>
+					<%if(result.hot_goods.list){%>
+
+						<%for(var i=0;i<3;i++){%>
+							<%if(result.hot_goods.list[i]){%>
+								<a href="../shopping/goods_details.html?goods_id=<%=result.hot_goods.list[i].goods_id%>">
+								<img src="../../images/wap/tuangou.jpg" data-url="<%=result.hot_goods.list[i].goods_image%>!thumb" alt="" class="width100"/>
+							</a>
+							<div class="empty"></div>
+							<%}%>
+
+						<%}%>
+
+
+						<ul class="clearfix hot-floor-goods bg-body">
+							<%if(result.hot_goods.list[4]){%>
+
+							<%for(var i=3;i<result.hot_goods.list.length;i++){%>
+							<li class="fh-bg-white">
+		        				<a href="../shopping/goods_details.html?goods_id=<%=result.hot_goods.list[i].goods_id%>" class="pr dis-b">
+									<img src="<%=result.hot_goods.list[i].goods_image%>!thumb">
+	                                <p class="overhide handpick-title h35"><%=result.hot_goods.list[i].goods_name%></p>
+	                                <div class="pt5">原价 ￥<%=result.hot_goods.list[i].goods_marketprice%></div>
+	                                <div class="like-price">售价 ￥<%=result.hot_goods.list[i].goods_price%></div>
+
+								</a>
+							</li>
+							<%}%>
+							<%}%>
+						</ul>
+
+
+				    <%}%>
+				    <%}%>
+				</article>
+			</div>
+			</script>
+       
+
+
+		</div>
+		<script  src="../../js/libs/jquery/jquery-1.11.3.min.js"></script>
+		<script  src="http://api.map.baidu.com/api?v=2.0&ak=40f8726220ef76bb9071cd8f9121ba3b"></script>
+		<script  src="../../js/plugins/convertor.js"></script>
+		<script  src="../../js/plugins/jquery.scrollLoading.js"></script>
+		<script  src="../../js/config.js"></script>
+		<script  src="../../js/plugins/fastclick.js"></script>
+		<script  src="../../js/plugins/iscroll.js"></script>
+		<script  src="../../js/plugins/fhScroll.js"></script>
+		<script  src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+		<script  src="../../js/common.js"></script>
+		<script  src="../../js/plugins/template.js"></script>
+		<script  src="../../js/plugins/layer/layer.js"></script>
+		<script  src="../../js/plugins/swiper/swiper.js"></script>
+		<!-- <script  src="../../src/js/tmpl/index/index.js"></script> -->
+    <script >
+      data = {
+error: 0,
+result: [
+{
+type: 7,
+title: "大版块",
+list: [
+{
+goods_id: "22892",
+goods_name: "日本Beauty BAR 24k黄金棒脸部按摩棒美容仪 T型",
+brand_id: "913",
+goods_pic: null,
+goods_image: "http://img.fenhongshop.com/goods/325811/20160826/57c00a2fcfed0.png",
+goods_promotion_price: "680.00",
+goods_price: "680.00",
+goods_marketprice: "859.00",
+goods_source: "0",
+sale_stop: "0",
+is_own_shop: "0",
+goods_origin: "191",
+goods_storage: "50",
+goods_state: "1",
+is_presell: "0",
+custom_index: null,
+store_id: "325811",
+goods_desc: "日本不老仙妻水谷雅子，台湾不老女神徐若瑄、林心如、小S 众多女星推荐！超人气Beauty BAR 24k黄金棒 ！24K土豪黄金版，每分钟震动6000次！",
+scheme_name: "",
+scheme_desc: "日本不老仙妻水谷雅子，台湾不老女神徐若瑄、林心如、小S 众多女星推荐！超人气Beauty BAR 24k黄金棒 ！24K土豪黄金版，每分钟震动6000次！",
+brand_name: "BEAUTY BAR蔚丽吧",
+brand_pic: "http://www.fenhongshop.com/data/upload/shop/brand/05255471283859576_small.png",
+nation_name: "日本",
+nation_flag: "http://pic.fenhongshop.com/tags/20160511/5732e06b55b55.png",
+groupbuy_flag: 0,
+xianshi_flag: 0,
+seckilling_flag: 0,
+is_import: 1,
+goods_promise: "日本进口 正品保证",
+resource_tags: "eyJ0eXBlIjoiamluZ3h1YW50dWlqaWFuIiwiY2hhbm5lbCI6IjkxMyJ9"
+},
+{
+goods_id: "22880",
+goods_name: "it's skin伊思 蜗牛再生乳液2号滋润型淡斑美白保湿滋润",
+brand_id: "632",
+goods_pic: null,
+goods_image: "http://img.fenhongshop.com/goods/325784/20160826/57bfd1f269b7d.jpg",
+goods_promotion_price: "183.00",
+goods_price: "183.00",
+goods_marketprice: "230.00",
+goods_source: "0",
+sale_stop: "0",
+is_own_shop: "0",
+goods_origin: "190",
+goods_storage: "19",
+goods_state: "1",
+is_presell: "0",
+custom_index: "3",
+store_id: "325784",
+goods_desc: "晶钻蜗牛乳液2号（高保湿），强修复力，痘痘肌、脱皮肌“任性”用！有了它，同事再也不嫌弃我上妆“脱皮”了，组合装更划算，立省98！！！只要268！！！",
+scheme_name: "it's skin伊思 蜗牛再生乳液2号滋润型淡斑美白保湿滋润",
+scheme_desc: "晶钻蜗牛乳液2号（高保湿），强修复力，痘痘肌、脱皮肌“任性”用！有了它，同事再也不嫌弃我上妆“脱皮”了，组合装更划算，立省98！！！只要268！！！",
+brand_name: "It'S SKIN伊思",
+brand_pic: "http://www.fenhongshop.com/data/upload/shop/brand/05018584032632302_small.png",
+nation_name: "韩国",
+nation_flag: "http://pic.fenhongshop.com/tags/20160510/5731cb7bb73be.png",
+groupbuy_flag: 0,
+xianshi_flag: 0,
+seckilling_flag: 0,
+goods_promise: "韩国进口 正品保证",
+goods_source_tmp: "1",
+resource_tags: "eyJ0eXBlIjoiamluZ3h1YW50dWlqaWFuIiwiY2hhbm5lbCI6IjYzMiJ9"
+},
+{
+goods_id: "22850",
+goods_name: "Rose Nobile胎盘玫瑰酵素果冻条 瘦身养颜",
+brand_id: "900",
+goods_pic: null,
+goods_image: "http://img.fenhongshop.com/goods/325811/20160831/57c64cf98e534.jpg",
+goods_promotion_price: "168.00",
+goods_price: "168.00",
+goods_marketprice: "210.00",
+goods_source: "0",
+sale_stop: "0",
+is_own_shop: "0",
+goods_origin: "191",
+goods_storage: "9999",
+goods_state: "1",
+is_presell: "0",
+custom_index: null,
+store_id: "325811",
+goods_desc: "不一样的玫瑰酵素果冻，它是以“健胃整肠、调理修复、增加有益菌、激活自体排毒功能”四位一体，彻底激活自体排毒功能；（活动期间买二送一）",
+scheme_name: "Rose Nobile胎盘玫瑰酵素果冻条 瘦身养颜",
+scheme_desc: "不一样的玫瑰酵素果冻，它是以“健胃整肠、调理修复、增加有益菌、激活自体排毒功能”四位一体，彻底激活自体排毒功能；（活动期间买二送一）",
+brand_name: "Rose Nobile 贵族玫瑰",
+brand_pic: "http://www.fenhongshop.com/data/upload/shop/brand/05254357583527472_small.png",
+nation_name: "日本",
+nation_flag: "http://pic.fenhongshop.com/tags/20160511/5732e06b55b55.png",
+groupbuy_flag: 0,
+xianshi_flag: 0,
+seckilling_flag: 0,
+is_import: 1,
+goods_promise: "日本进口 正品保证",
+resource_tags: "eyJ0eXBlIjoiamluZ3h1YW50dWlqaWFuIiwiY2hhbm5lbCI6IjkwMCJ9"
+}
+]
+},
+{
+type: 2,
+title: "左一右二",
+list: [
+{
+adv_pic: "http://pic.fenhongshop.com/activity/20160831/57c62eb10511f.jpg",
+adv_link: "http://1991th.com"
+},
+{
+adv_pic: "http://www.fenhongshop.com/data/upload/shop/adv/05242516468277036.jpg",
+adv_link: "http://t.tt"
+},
+{
+adv_pic: "http://www.fenhongshop.com/data/upload/shop/adv/05228389856842299.jpg",
+adv_link: "http://t.tt"
+}
+]
+},
+{
+type: 3,
+title: "左二右一",
+list: [
+{
+adv_pic: "http://www.fenhongshop.com/data/upload/shop/adv/05228389856842299.jpg",
+adv_link: "http://1991th.com"
+},
+{
+adv_pic: "http://www.fenhongshop.com/data/upload/shop/adv/05242516468277036.jpg",
+adv_link: "http://t.tt"
+},
+{
+adv_pic: "http://pic.fenhongshop.com/activity/20160831/57c62eb10511f.jpg",
+adv_link: "http://t.tt"
+}
+]
+},
+{
+type: 1,
+title: "左一右一",
+list: [
+{
+adv_pic: "http://img.fenhongshop.com/goods/325805/20160713/578609b93c21c.jpg!thumb",
+adv_link: "http://1991th.com"
+},
+{
+adv_pic: "http://img.fenhongshop.com/goods/325805/20160713/5786064648951.jpg!thumb",
+adv_link: "http://t.tt"
+}
+]
+},
+{
+type: 4,
+title: "一排四分类",
+list: [
+{
+class_name: "营养保健",
+class_url: "http://t.tt",
+class_pic: "http://pic.fenhongshop.com/tags/20151203/565f9578abc76.jpg"
+},
+{
+class_name: "化妆护理",
+class_url: "http://t.tt",
+class_pic: "http://pic.fenhongshop.com/tags/20151203/565f8fa73609f.jpg"
+},
+{
+class_name: "食品冲调",
+class_url: "http://t.tt",
+class_pic: "http://pic.fenhongshop.com/tags/20151203/565f8d227a6bb.jpg"
+},
+{
+class_name: "宝宝专区",
+class_url: "http://t.tt",
+class_pic: "http://pic.fenhongshop.com/tags/20151218/5673581eab02b.jpg"
+}
+]
+},
+{
+type: 6,
+title: "图+单品",
+list: [
+{
+activity_id: "502",
+activity_title: "“功能”面膜争夺战",
+activity_pic: "http://pic.fenhongshop.com/activity/20160831/57c69a0363d08.jpg",
+activity_banner: "http://pic.fenhongshop.com/activity/20160831/57c69a0363d08.jpg",
+activity_url: "http://www.fenhongshop.com/wap/tmpl/activity/theme_act.html?activity_id=503",
+goods_list: [
+{
+goods_id: "21960",
+store_id: "325778",
+item_name: "告别“干”尬常态",
+goods_name: "告别“干”尬常态",
+goods_promotion_price: "108.00",
+goods_price: "108.00",
+goods_marketprice: "278.00",
+item_pic: null,
+goods_image: "http://img.fenhongshop.com/goods/325778/20160712/57844d4e61435.jpg",
+sale_stop: "0",
+activity_floor: "0",
+goods_source: "0",
+is_own_shop: "1",
+goods_storage: "6",
+goods_state: "1",
+is_presell: "0",
+custom_index: null,
+goods_origin: "190",
+nation_name: "韩国",
+nation_flag: "http://pic.fenhongshop.com/tags/20160510/5731cb7bb73be.png",
+groupbuy_flag: 0,
+xianshi_flag: 0,
+seckilling_flag: 0,
+is_import: 1,
+goods_promise: "韩国进口 正品保证"
+},
+{
+goods_id: "18552",
+store_id: "325779",
+item_name: "肌肤“返老还童”逆生长",
+goods_name: "肌肤“返老还童”逆生长",
+goods_promotion_price: "320.00",
+goods_price: "320.00",
+goods_marketprice: "356.00",
+item_pic: "http://img.fenhongshop.com/activity/20160831/57c69dd20d9be.jpg",
+goods_image: "http://img.fenhongshop.com/activity/20160831/57c69dd20d9be.jpg",
+sale_stop: "0",
+activity_floor: "0",
+goods_source: "0",
+is_own_shop: "0",
+goods_storage: "50",
+goods_state: "1",
+is_presell: "0",
+custom_index: null,
+goods_origin: "214",
+nation_name: "新西兰",
+nation_flag: "http://pic.fenhongshop.com/tags/20160510/5731cbc59f9b1.png",
+groupbuy_flag: 0,
+xianshi_flag: 0,
+seckilling_flag: 0,
+is_import: 1,
+goods_promise: "新西兰进口 正品保证"
+},
+{
+goods_id: "20160",
+store_id: "325778",
+item_name: "女神范冰冰御用面膜",
+goods_name: "女神范冰冰御用面膜",
+goods_promotion_price: "78.00",
+goods_price: "78.00",
+goods_marketprice: "136.00",
+item_pic: null,
+goods_image: "http://img.fenhongshop.com/goods/325778/20160707/577dc766552e0.jpg",
+sale_stop: "0",
+activity_floor: "0",
+goods_source: "0",
+is_own_shop: "1",
+goods_storage: "8",
+goods_state: "1",
+is_presell: "0",
+custom_index: null,
+goods_origin: "191",
+nation_name: "日本",
+nation_flag: "http://pic.fenhongshop.com/tags/20160511/5732e06b55b55.png",
+groupbuy_flag: 0,
+xianshi_flag: 0,
+seckilling_flag: 0,
+is_import: 1,
+goods_promise: "日本进口 正品保证"
+},
+{
+goods_id: "18607",
+store_id: "325768",
+item_name: "韩国蜗牛面膜的鼻祖！",
+goods_name: "韩国蜗牛面膜的鼻祖！",
+goods_promotion_price: "139.00",
+goods_price: "139.00",
+goods_marketprice: "188.00",
+item_pic: "http://img.fenhongshop.com/activity/20160831/57c69df2506bb.jpg",
+goods_image: "http://img.fenhongshop.com/activity/20160831/57c69df2506bb.jpg",
+sale_stop: "0",
+activity_floor: "0",
+goods_source: "0",
+is_own_shop: "0",
+goods_storage: "20",
+goods_state: "1",
+is_presell: "0",
+custom_index: "3",
+goods_origin: "190",
+nation_name: "韩国",
+nation_flag: "http://pic.fenhongshop.com/tags/20160510/5731cb7bb73be.png",
+groupbuy_flag: 0,
+xianshi_flag: 0,
+seckilling_flag: 0,
+goods_promise: "韩国进口 正品保证",
+goods_source_tmp: "1"
+},
+{
+goods_id: "21851",
+store_id: "325802",
+item_name: "净白紧致纤维面膜",
+goods_name: "净白紧致纤维面膜",
+goods_promotion_price: "278.00",
+goods_price: "278.00",
+goods_marketprice: "280.00",
+item_pic: "http://img.fenhongshop.com/activity/20160831/57c69e0886a15.jpg",
+goods_image: "http://img.fenhongshop.com/activity/20160831/57c69e0886a15.jpg",
+sale_stop: "0",
+activity_floor: "0",
+goods_source: "10",
+is_own_shop: "0",
+goods_storage: "9",
+goods_state: "1",
+is_presell: "0",
+custom_index: "7",
+goods_origin: "726",
+nation_name: "台湾",
+nation_flag: "http://pic.fenhongshop.com/tags/20160720/578f46f864ec8.png",
+groupbuy_flag: 0,
+xianshi_flag: 0,
+seckilling_flag: 0,
+goods_promise: "台湾直邮 正品保证",
+goods_source_tmp: "10"
+},
+{
+goods_id: "21945",
+store_id: "325778",
+item_name: "这个秋天，让你水润到爆！",
+goods_name: "这个秋天，让你水润到爆！",
+goods_promotion_price: "108.00",
+goods_price: "108.00",
+goods_marketprice: "168.00",
+item_pic: "http://img.fenhongshop.com/activity/20160831/57c69e1eeb6a1.jpg",
+goods_image: "http://img.fenhongshop.com/activity/20160831/57c69e1eeb6a1.jpg",
+sale_stop: "0",
+activity_floor: "0",
+goods_source: "0",
+is_own_shop: "1",
+goods_storage: "5",
+goods_state: "1",
+is_presell: "0",
+custom_index: null,
+goods_origin: "190",
+nation_name: "韩国",
+nation_flag: "http://pic.fenhongshop.com/tags/20160510/5731cb7bb73be.png",
+groupbuy_flag: 0,
+xianshi_flag: 0,
+seckilling_flag: 0,
+is_import: 1,
+goods_promise: "韩国进口 正品保证"
+},
+{
+goods_id: "21968",
+store_id: "325778",
+item_name: "360°清洁，50倍肌肤吸收力，活氧呼吸，深层补水",
+goods_name: "360°清洁，50倍肌肤吸收力，活氧呼吸，深层补水",
+goods_promotion_price: "78.00",
+goods_price: "78.00",
+goods_marketprice: "99.00",
+item_pic: "http://img.fenhongshop.com/activity/20160831/57c69e30b37b1.jpg",
+goods_image: "http://img.fenhongshop.com/activity/20160831/57c69e30b37b1.jpg",
+sale_stop: "0",
+activity_floor: "0",
+goods_source: "0",
+is_own_shop: "1",
+goods_storage: "4",
+goods_state: "1",
+is_presell: "0",
+custom_index: null,
+goods_origin: "190",
+nation_name: "韩国",
+nation_flag: "http://pic.fenhongshop.com/tags/20160510/5731cb7bb73be.png",
+groupbuy_flag: 0,
+xianshi_flag: 0,
+seckilling_flag: 0,
+is_import: 1,
+goods_promise: "韩国进口 正品保证"
+}
+],
+resource_tags: "eyJ0eXBlIjoieGluemh1dGlndWFuIiwiY2hhbm5lbCI6IjUwMiJ9"
+},
+{
+activity_id: "501",
+activity_title: "女性必备营养品",
+activity_pic: "http://pic.fenhongshop.com/activity/20160830/57c53f601fb5c.jpg",
+activity_banner: "http://pic.fenhongshop.com/activity/20160830/57c53f601fb5c.jpg",
+activity_url: "http://www.fenhongshop.com/wap/tmpl/activity/theme_act.html?activity_id=500",
+goods_list: [
+{
+goods_id: "22004",
+store_id: "325795",
+item_name: "双眼无神，显老？蓝莓叶黄素帮你神采奕奕",
+goods_name: "双眼无神，显老？蓝莓叶黄素帮你神采奕奕",
+goods_promotion_price: "128.00",
+goods_price: "128.00",
+goods_marketprice: "146.00",
+item_pic: "http://img.fenhongshop.com/activity/20160830/57c53f7a90823.jpg",
+goods_image: "http://img.fenhongshop.com/activity/20160830/57c53f7a90823.jpg",
+sale_stop: "0",
+activity_floor: "0",
+goods_source: "2",
+is_own_shop: "1",
+goods_storage: "20",
+goods_state: "1",
+is_presell: "0",
+custom_index: "7",
+goods_origin: "191",
+nation_name: "日本",
+nation_flag: "http://pic.fenhongshop.com/tags/20160511/5732e06b55b55.png",
+groupbuy_flag: 0,
+xianshi_flag: 0,
+seckilling_flag: 0,
+goods_promise: "日本直邮 正品保证",
+goods_source_tmp: "2"
+},
+{
+goods_id: "21978",
+store_id: "325795",
+item_name: "气色差，皮肤没光泽？补血叶酸吃出红润气色",
+goods_name: "气色差，皮肤没光泽？补血叶酸吃出红润气色",
+goods_promotion_price: "79.00",
+goods_price: "79.00",
+goods_marketprice: "95.00",
+item_pic: "http://img.fenhongshop.com/activity/20160830/57c53fb43a0b2.jpg",
+goods_image: "http://img.fenhongshop.com/activity/20160830/57c53fb43a0b2.jpg",
+sale_stop: "0",
+activity_floor: "0",
+goods_source: "2",
+is_own_shop: "1",
+goods_storage: "18",
+goods_state: "1",
+is_presell: "0",
+custom_index: "7",
+goods_origin: "191",
+nation_name: "日本",
+nation_flag: "http://pic.fenhongshop.com/tags/20160511/5732e06b55b55.png",
+groupbuy_flag: 0,
+xianshi_flag: 0,
+seckilling_flag: 0,
+goods_promise: "日本直邮 正品保证",
+goods_source_tmp: "2"
+},
+{
+goods_id: "21985",
+store_id: "325795",
+item_name: "代谢差，赘肉多？左旋肉碱瘦身抗疲劳",
+goods_name: "代谢差，赘肉多？左旋肉碱瘦身抗疲劳",
+goods_promotion_price: "236.00",
+goods_price: "236.00",
+goods_marketprice: "278.00",
+item_pic: "http://img.fenhongshop.com/activity/20160830/57c53fa20fbbc.jpg",
+goods_image: "http://img.fenhongshop.com/activity/20160830/57c53fa20fbbc.jpg",
+sale_stop: "0",
+activity_floor: "0",
+goods_source: "2",
+is_own_shop: "1",
+goods_storage: "20",
+goods_state: "1",
+is_presell: "0",
+custom_index: "7",
+goods_origin: "191",
+nation_name: "日本",
+nation_flag: "http://pic.fenhongshop.com/tags/20160511/5732e06b55b55.png",
+groupbuy_flag: 0,
+xianshi_flag: 0,
+seckilling_flag: 0,
+goods_promise: "日本直邮 正品保证",
+goods_source_tmp: "2"
+},
+{
+goods_id: "22063",
+store_id: "325795",
+item_name: "大肚腩，保险圈？腹部排抽丸脂肪轻松甩掉",
+goods_name: "大肚腩，保险圈？腹部排抽丸脂肪轻松甩掉",
+goods_promotion_price: "419.00",
+goods_price: "419.00",
+goods_marketprice: "478.00",
+item_pic: "http://img.fenhongshop.com/activity/20160830/57c53fd929156.jpg",
+goods_image: "http://img.fenhongshop.com/activity/20160830/57c53fd929156.jpg",
+sale_stop: "0",
+activity_floor: "0",
+goods_source: "2",
+is_own_shop: "1",
+goods_storage: "20",
+goods_state: "1",
+is_presell: "0",
+custom_index: "7",
+goods_origin: "191",
+nation_name: "日本",
+nation_flag: "http://pic.fenhongshop.com/tags/20160511/5732e06b55b55.png",
+groupbuy_flag: 0,
+xianshi_flag: 0,
+seckilling_flag: 0,
+goods_promise: "日本直邮 正品保证",
+goods_source_tmp: "2"
+},
+{
+goods_id: "22003",
+store_id: "325795",
+item_name: "皮肤干燥，细纹多？和范爷一样吃胶原蛋吧",
+goods_name: "皮肤干燥，细纹多？和范爷一样吃胶原蛋吧",
+goods_promotion_price: "208.00",
+goods_price: "208.00",
+goods_marketprice: "279.00",
+item_pic: "http://img.fenhongshop.com/activity/20160830/57c53f8cd67be.jpg",
+goods_image: "http://img.fenhongshop.com/activity/20160830/57c53f8cd67be.jpg",
+sale_stop: "0",
+activity_floor: "0",
+goods_source: "2",
+is_own_shop: "1",
+goods_storage: "20",
+goods_state: "1",
+is_presell: "0",
+custom_index: "7",
+goods_origin: "191",
+nation_name: "日本",
+nation_flag: "http://pic.fenhongshop.com/tags/20160511/5732e06b55b55.png",
+groupbuy_flag: 0,
+xianshi_flag: 0,
+seckilling_flag: 0,
+goods_promise: "日本直邮 正品保证",
+goods_source_tmp: "2"
+},
+{
+goods_id: "21986",
+store_id: "325795",
+item_name: "免疫力低，易感冒？维他命VB助你回复元气",
+goods_name: "免疫力低，易感冒？维他命VB助你回复元气",
+goods_promotion_price: "35.00",
+goods_price: "35.00",
+goods_marketprice: "59.00",
+item_pic: "http://img.fenhongshop.com/activity/20160830/57c53fe99fb80.jpg",
+goods_image: "http://img.fenhongshop.com/activity/20160830/57c53fe99fb80.jpg",
+sale_stop: "0",
+activity_floor: "0",
+goods_source: "2",
+is_own_shop: "1",
+goods_storage: "20",
+goods_state: "1",
+is_presell: "0",
+custom_index: "7",
+goods_origin: "191",
+nation_name: "日本",
+nation_flag: "http://pic.fenhongshop.com/tags/20160511/5732e06b55b55.png",
+groupbuy_flag: 0,
+xianshi_flag: 0,
+seckilling_flag: 0,
+goods_promise: "日本直邮 正品保证",
+goods_source_tmp: "2"
+},
+{
+goods_id: "21979",
+store_id: "325795",
+item_name: "便秘，排泄差？浓缩蔬菜精华润肠排毒",
+goods_name: "便秘，排泄差？浓缩蔬菜精华润肠排毒",
+goods_promotion_price: "59.00",
+goods_price: "59.00",
+goods_marketprice: "73.00",
+item_pic: "http://img.fenhongshop.com/activity/20160830/57c53ff931977.jpg",
+goods_image: "http://img.fenhongshop.com/activity/20160830/57c53ff931977.jpg",
+sale_stop: "0",
+activity_floor: "0",
+goods_source: "2",
+is_own_shop: "1",
+goods_storage: "20",
+goods_state: "1",
+is_presell: "0",
+custom_index: "7",
+goods_origin: "191",
+nation_name: "日本",
+nation_flag: "http://pic.fenhongshop.com/tags/20160511/5732e06b55b55.png",
+groupbuy_flag: 0,
+xianshi_flag: 0,
+seckilling_flag: 0,
+goods_promise: "日本直邮 正品保证",
+goods_source_tmp: "2"
+}
+],
+resource_tags: "eyJ0eXBlIjoieGluemh1dGlndWFuIiwiY2hhbm5lbCI6IjUwMSJ9"
+}
+]
+},
+{
+type: 10,
+title: "一行一张图片",
+list: [
+{
+adv_pic: "http://pic.fenhongshop.com/channel/20160825/57bebd1826386.jpg!thumb",
+adv_link: "http://www.fenhongshop.com/wap/tmpl/activity/theme_act.html?activity_id=494"
+}
+]
+},
+{
+type: 9,
+title: "横向列表",
+list: [
+{
+goods_id: "18552",
+store_id: "325779",
+item_name: "肌肤“返老还童”逆生长",
+goods_name: "肌肤“返老还童”逆生长",
+goods_promotion_price: "320.00",
+goods_price: "320.00",
+goods_marketprice: "356.00",
+item_pic: "http://img.fenhongshop.com/activity/20160831/57c69dd20d9be.jpg",
+goods_image: "http://img.fenhongshop.com/activity/20160831/57c69dd20d9be.jpg",
+sale_stop: "0",
+activity_floor: "0",
+goods_source: "0",
+is_own_shop: "0",
+goods_storage: "50",
+goods_state: "1",
+is_presell: "0",
+custom_index: null,
+goods_origin: "214",
+nation_name: "新西兰",
+nation_flag: "http://pic.fenhongshop.com/tags/20160510/5731cbc59f9b1.png",
+groupbuy_flag: 0,
+xianshi_flag: 0,
+seckilling_flag: 0,
+is_import: 1,
+goods_promise: "新西兰进口 正品保证"
+},
+{
+goods_id: "20160",
+store_id: "325778",
+item_name: "女神范冰冰御用面膜",
+goods_name: "女神范冰冰御用面膜",
+goods_promotion_price: "78.00",
+goods_price: "78.00",
+goods_marketprice: "136.00",
+item_pic: null,
+goods_image: "http://img.fenhongshop.com/goods/325778/20160707/577dc766552e0.jpg",
+sale_stop: "0",
+activity_floor: "0",
+goods_source: "0",
+is_own_shop: "1",
+goods_storage: "8",
+goods_state: "1",
+is_presell: "0",
+custom_index: null,
+goods_origin: "191",
+nation_name: "日本",
+nation_flag: "http://pic.fenhongshop.com/tags/20160511/5732e06b55b55.png",
+groupbuy_flag: 0,
+xianshi_flag: 0,
+seckilling_flag: 0,
+is_import: 1,
+goods_promise: "日本进口 正品保证"
+},
+{
+goods_id: "18607",
+store_id: "325768",
+item_name: "韩国蜗牛面膜的鼻祖！",
+goods_name: "韩国蜗牛面膜的鼻祖！",
+goods_promotion_price: "139.00",
+goods_price: "139.00",
+goods_marketprice: "188.00",
+item_pic: "http://img.fenhongshop.com/activity/20160831/57c69df2506bb.jpg",
+goods_image: "http://img.fenhongshop.com/activity/20160831/57c69df2506bb.jpg",
+sale_stop: "0",
+activity_floor: "0",
+goods_source: "0",
+is_own_shop: "0",
+goods_storage: "20",
+goods_state: "1",
+is_presell: "0",
+custom_index: "3",
+goods_origin: "190",
+nation_name: "韩国",
+nation_flag: "http://pic.fenhongshop.com/tags/20160510/5731cb7bb73be.png",
+groupbuy_flag: 0,
+xianshi_flag: 0,
+seckilling_flag: 0,
+goods_promise: "韩国进口 正品保证",
+goods_source_tmp: "1"
+}
+]
+},
+{
+type: 5,
+title: "一排二分类",
+list: [
+{
+class_name: "A",
+class_url: "http://t.tt",
+class_pic: "http://pic.fenhongshop.com/tags/20160607/57568fe9200de.jpg!thumb"
+},
+{
+class_name: "B",
+class_url: "http://t.tt",
+class_pic: "http://pic.fenhongshop.com/tags/20160607/57569002d99cc.jpg!thumb"
+},
+{
+class_name: "C",
+class_url: "http://t.tt",
+class_pic: "http://pic.fenhongshop.com/tags/20160607/5756901be4302.jpg!thumb"
+},
+{
+class_name: "D",
+class_url: "http://t.tt",
+class_pic: "http://pic.fenhongshop.com/tags/20160720/578ed7dc7fce5.jpg!thumb"
+}
+]
+},
+{
+type: 0,
+title: "轮播图",
+channel_slides: [
+{
+image_url: "http://pic.fenhongshop.com/channel/20160825/57bebd1826386.jpg!thumb",
+link_url: "http://www.fenhongshop.com/wap/tmpl/activity/theme_act.html?activity_id=494"
+},
+{
+image_url: "http://pic.fenhongshop.com/channel/20160901/57c7e4712e511.jpg!thumb",
+link_url: "http://www.fenhongshop.com/wap/tmpl/activity/theme_act.html?activity_id=475"
+}
+]
+},
+{
+type: 8,
+title: "四宫格",
+list: [
+{
+goods_id: "18552",
+store_id: "325779",
+item_name: "肌肤“返老还童”逆生长",
+goods_name: "肌肤“返老还童”逆生长",
+goods_promotion_price: "320.00",
+goods_price: "320.00",
+goods_marketprice: "356.00",
+item_pic: "http://img.fenhongshop.com/activity/20160831/57c69dd20d9be.jpg",
+goods_image: "http://img.fenhongshop.com/activity/20160831/57c69dd20d9be.jpg",
+sale_stop: "0",
+activity_floor: "0",
+goods_source: "0",
+is_own_shop: "0",
+goods_storage: "50",
+goods_state: "1",
+is_presell: "0",
+custom_index: null,
+goods_origin: "214",
+nation_name: "新西兰",
+nation_flag: "http://pic.fenhongshop.com/tags/20160510/5731cbc59f9b1.png",
+groupbuy_flag: 0,
+xianshi_flag: 0,
+seckilling_flag: 0,
+is_import: 1,
+goods_promise: "新西兰进口 正品保证"
+},
+{
+goods_id: "20160",
+store_id: "325778",
+item_name: "女神范冰冰御用面膜",
+goods_name: "女神范冰冰御用面膜",
+goods_promotion_price: "78.00",
+goods_price: "78.00",
+goods_marketprice: "136.00",
+item_pic: null,
+goods_image: "http://img.fenhongshop.com/goods/325778/20160707/577dc766552e0.jpg",
+sale_stop: "0",
+activity_floor: "0",
+goods_source: "0",
+is_own_shop: "1",
+goods_storage: "8",
+goods_state: "1",
+is_presell: "0",
+custom_index: null,
+goods_origin: "191",
+nation_name: "日本",
+nation_flag: "http://pic.fenhongshop.com/tags/20160511/5732e06b55b55.png",
+groupbuy_flag: 0,
+xianshi_flag: 0,
+seckilling_flag: 0,
+is_import: 1,
+goods_promise: "日本进口 正品保证"
+},
+{
+goods_id: "18607",
+store_id: "325768",
+item_name: "韩国蜗牛面膜的鼻祖！",
+goods_name: "韩国蜗牛面膜的鼻祖！",
+goods_promotion_price: "139.00",
+goods_price: "139.00",
+goods_marketprice: "188.00",
+item_pic: "http://img.fenhongshop.com/activity/20160831/57c69df2506bb.jpg",
+goods_image: "http://img.fenhongshop.com/activity/20160831/57c69df2506bb.jpg",
+sale_stop: "0",
+activity_floor: "0",
+goods_source: "0",
+is_own_shop: "0",
+goods_storage: "20",
+goods_state: "1",
+is_presell: "0",
+custom_index: "3",
+goods_origin: "190",
+nation_name: "韩国",
+nation_flag: "http://pic.fenhongshop.com/tags/20160510/5731cb7bb73be.png",
+groupbuy_flag: 0,
+xianshi_flag: 0,
+seckilling_flag: 0,
+goods_promise: "韩国进口 正品保证",
+goods_source_tmp: "1"
+}
+]
+}
+],
+msg: ""
+}
+//    var dom='';
+//
+//    for(var i = 0; i<data.result.length; i++){
+//
+//    switch(data.result[i].type)
+//    {
+//    case '0':
+//          dom = '<div class="swiper-container">'+
+//				'<div class="swiper-wrapper bg-banner">'+
+//				'<%if(result.channel_slides){%>'+
+//					'<%for(var i=0;i<result.channel_slides.length;i++){%>'+
+//						'<div class="swiper-slide">'+
+//							'<a href="<%=result.channel_slides[i].link_url%>">'+
+//								'<img src="../../images/wap/tuangou.jpg" data-url="<%=result.channel_slides[i].image_url%>!thumb" alt="" />'+
+//							'</a>'+
+//						'</div>'+
+//					'<%}%>'+
+//				'<%}%>'+
+//				'</div>'+
+//				'<div class="swiper-pagination"></div>'+
+//			'</div>';
+//    break;
+//    case '1':
+//
+//    break;
+//    case '2':
+//
+//    break;
+//
+//    case '3':
+//
+//    break;
+//    case '4':
+//
+//    break;
+//    case '5':
+//
+//    break;
+//    case '6':
+//
+//    break;
+//    case '7':
+//
+//    break;
+//    case '8':
+//
+//    break;
+//    case '9':
+//
+//    break;
+//    case '10':
+//
+//    break;
+//    case '11':
+//
+//    break;
+//    default:
+//
+//    }
+//    dom += dom;
+//  }
+//    
+      
+   
+
+       
+      $('#indexhome').append('<script  type="text/html" id="page4-tpl">'++'</script');
+
+<!--$('#page4-tpl').append("dom");-->
+<!--//var html = template('page4-tpl',data);-->
+<!--//$('#page2').html(html);-->
+
+    </script>
+
+	</body>
+
+</html>

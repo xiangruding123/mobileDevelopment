@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>今日订单</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+   	<meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+   	<link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../src/css/fhbase.css">
+    <link rel="stylesheet" href="../../src/css/fhwap.css">
+    <style media="screen">
+      #commission .cos-ul1 li{
+        width:20%;
+      }
+      #allorder .button{
+        background:#fff;
+      }
+    </style>
+</head>
+
+<body>
+    <div class="container layout" id="commission">
+        <section class="row" id="allorder">
+            <header class="fh-header">
+                <span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+                <h1 class="header-title">今日订单</h1>
+            </header>
+
+
+            	<ul class="cos-ul1 fh-bg-white">
+            		<li tab="0" class="focus-btn">全部订单</li>
+            		<li tab="10">待付款</li>
+            		<li tab="20">代发货</li>
+            		<li tab="50">已结算</li>
+                <li tab="70">已失效</li>
+            	</ul>
+              <ul id="search_goods_list" class="clearfix"></ul>
+                <script id="commission_list" type="text/html">
+                    <%for(var i=0;i<result.length;i++){%>
+
+                        <%if(result[i].extend_order_goods&&result[i].extend_order_goods.length>0){%>
+                          <li>
+                            <div class="media fh-goods">
+                            	<%for(var k=0;k<result[i].extend_order_goods.length;k++){%>
+                                <%if(result[i].pay_count>1){%>
+                                <a href="../order/order_merge.html?pay_sn=<%=result[i].pay_sn%>" class="dis-in-b mb10">
+                                  <%}else{%>
+                                  	<a href="../order/ord_details.html?order_id=<%=result[i].order_id%>"  class="dis-in-b mb10">
+                                      <%}%>
+          	                            <div class="media-left pr">
+												<img class="media-img" src="<%=result[i].extend_order_goods[k].goods_image%>" />
+          	                            </div>
+          	                            <div class="media-body">
+          	                                <h4 class="media-heading overhide mb5 h45"> <%=result[i].extend_order_goods[k].goods_name%></h4>
+          	                                    <div class="mb10 color9">所属店铺： </div>
+                                                <span class="commission-status fh-bg-green">已付款</span>
+          	                            </div>
+          	                        </a>
+          	                        <%}%>
+                                    <ul class="mt5 f15 l200 mb20 clearfix">
+                                      <li class='itemList'>付款金额 <br><span class='fh-red f14'>￥10</span></li>
+                                      <li class='itemList tc'><span class="save">省</span><br><span class='fh-red f14'>￥10</span></li>
+                                      <li class='itemList tc'>返<br><span class='fh-red f14'>10</span></li>
+                                    </ul>
+                                    <div class="f14 color9"><span class="commission-buy">卖</span><span class="pl15 pr20">2014-10-25 </span><span> 10:22创建</span></div>
+</div><div class="clearfix border-t fh-bg-white pad10">
+                                    <div class="pull-right">
+
+                        							<%if(result[i].order_state=='0'){%>
+                        								<button class="button button-rounded button-small delorder button-caution" order_id='<%=result[i].order_id%>'>删除订单</button>
+                        							<%}else if(result[i].order_state=='10'&&result[i].validity_pay_time!='0'){%>
+
+                        								<button class="button button-rounded button-small cancelorder" order_id='<%=result[i].order_id%>'>取消订单</button>
+                        							    <%if(result[i].pay_count>1){%>
+                        							    <a href="order_merge.html?pay_sn=<%=result[i].pay_sn%>"><button class="button button-primary  button-rounded button-caution button-small">付款</button></a>
+
+                        							    <%}else{%>
+
+                        							    <a class="unweixin" pay_sn="<%=result[i].pay_sn%>" payment='<%=result[i].payment_list.join("|")%>' real_amount="<%=result[i].real_amount%>" country_source=="<%=result[i].country_source%>"><button class="button button-primary  button-rounded button-caution button-small">付款</button></a>
+
+                        							    <%}%>
+
+                        							<%}else if(result[i].order_state=='20'){%>
+
+                        							<!--<a href="http://wpa.b.qq.com/cgi/wpa.php?ln=1&key=XzkzODAwNDY0MV8zMzI5NDJfNDAwNjg4ODUwNl8yXw"><button class="button button-primary  button-rounded button-caution button-small">联系客服</button></a>-->
+                        							<a href="../logistics/logistics.html?order_id=<%=result[i].order_id%>&shipping_code=<%=result[i].shipping_code%>"><button class="button button-rounded button-small button-caution">订单跟踪</button></a>
+
+
+                        							<%}else if(result[i].order_state=='30'){%>
+
+                        								<a href="../logistics/logistics.html?order_id=<%=result[i].order_id%>&shipping_code=<%=result[i].shipping_code%>"><button class="button button-rounded button-small">订单跟踪</button></a>
+                        							    <a class='receipt' order_id='<%=result[i].order_id%>' order_sn='<%=result[i].order_sn%>' order_state='<%=result[i].order_state%>'><button class="button button-primary  button-rounded button-caution button-small">确认收货</button></a>
+                        							<%}else if(result[i].order_state=='40'){%>
+
+                        								<a href="../logistics/logistics.html?order_id=<%=result[i].order_id%>&shipping_code=<%=result[i].shipping_code%>"><button class="button button-rounded button-small">订单跟踪</button></a>
+                        							    <%if(result[i].evaluation_state=='0'){%>
+
+                        							    <a href="../order/evaluation_guide.html?order_id=<%=result[i].order_id%>" order_id='<%=result[i].order_id%>' order_sn='<%=result[i].order_sn%>' order_state='<%=result[i].order_state%>'><button class="button button-primary  button-rounded button-caution button-small">去评价</button></a>
+
+                        	                            <%}else if(result[i].evaluation_state=='1'){%>
+
+                        	                            	<a href="../shopping/evaluation.html?order_id=<%=result[i].order_id%>&if_append_evaluate=1" order_id='<%=result[i].order_id%>'  order_state='<%=result[i].order_state%>'><button class="button button-rounded button-small button-caution">追加评价</button></a>
+
+                        	                            <%}else{%>
+
+                        	                            	<button class="button button-rounded button-small delorder button-caution" order_id='<%=result[i].order_id%>'>删除订单</button>
+
+                        	                            <%}%>
+                                					<%}else if(result[i].order_state=='50'){%>
+                                						<a href="http://wpa.b.qq.com/cgi/wpa.php?ln=1&key=XzkzODAwNDY0MV8zMzI5NDJfNDAwNjg4ODUwNl8yXw"><button class="button button-rounded button-small fh-bg-red fh-white button-caution" order_id='<%=result[i].order_id%>'>联系客服</button></a>
+                                					<%}else if(result[i].order_state=='10'&&result[i].validity_pay_time=='0'){%>
+                                						<button class="button button-rounded button-small cancelorder button-caution" order_id='<%=result[i].order_id%>'>取消订单</button>
+                                					<%}%>
+
+                        						</div>
+
+                                  </div>
+                          </li>
+                        <%}else{%>
+                          <li>
+                            <div class="media fh-goods">
+                                  	<a href="goods_details.html?goods_id=<%=result[i].goods_id%>" goods_id="<%=result[i].goods_id%>">
+          	                            <div class="media-left pr">
+          	                        		<img class="media-img" src="<%=result[i].goods_image%>" />
+          	                            </div>
+          	                            <div class="media-body">
+          	                                <h4 class="media-heading overhide mb5 h45"><%=result[i].goods_name%></h4>
+          	                                    <div class="mb10 color9">所属店铺：<%=result[i].store_name%> </div>
+                                                <span class="commission-status fh-bg-gray">已付款</span>
+          	                            </div>
+          	                        </a>
+                                    <ul class="mt15 f15 l200 mb20 clearfix">
+                                      <li class='itemList'>付款金额 <br><span class='fh-red f14'>￥<%=result[i].goods_price%></span></li>
+                                      <li class='itemList tc'><span class="reward">奖</span><br><span class='fh-red f14'>￥<%=result[i].deduct_price%></span></li>
+                                      <li class='itemList tc'>返<br><span class='fh-red f14'></span></li>
+                                    </ul>
+                                    <div class="f14 color9"><span class="commission-sale">卖</span><span class="pl15 pr20"><%=result[i].order_date%>创建 </span><span class="pull-right"><%if(result[i].change_date){%><%=result[i].change_date%>结算<%}%></span></div>
+                                  </div>
+                          </li>
+	                      <%}%>
+	                  <%}%>
+                </script>
+
+            </section>
+
+    </div>
+
+    <script type="text/javascript" src="../../js/libs/jquery/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="../../js/config.js"></script>
+    <script type="text/javascript" src="../../js/plugins/fastclick.js"></script>
+    <script type="text/javascript" src="../../js/common.js"></script>
+    <script src="../../js/plugins/layer/layer.js"></script>
+    <script type="text/javascript" src="../../js/plugins/swiper/swiper.js"></script>
+    <script type="text/javascript" src="../../js/plugins/template.js"></script>
+    <script type="text/javascript" src="../../src/js/tmpl/mircoshop/today.js"></script>
+    <script>
+	    Member.Commission.onLoad();
+    </script>
+</body>
+
+</html>

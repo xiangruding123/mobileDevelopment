@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>分红全球购</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta property="qc:admins" content="13206332772013631611006375" />
+		<meta property="wb:webmaster" content="583adb75f6362de2" />
+		<meta name="description" content="分红全球购——中国跨境直购平台！众享全球尖货，分销享分红，正品、低价、海外直邮！"/>
+		<link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+		<link rel="stylesheet" href="../../js/plugins/swiper/swiper.css">
+		<link rel="stylesheet" href="../../css/fhbase.css">
+		<link rel="stylesheet" href="../../css/fhwap.css">
+		<link rel="stylesheet" href="../../css/animate.css">
+		<link rel="stylesheet" href="../../css/activity.css">
+	</head>
+
+	<body>
+		<div class="layout" id="homepage">
+
+			<header class="layout tc pr">
+				<div class="pull-left">
+					<a href="classifying.html">
+						<img src="../../images/wap/fenlei.png" class="right-icon left-icon" />
+					</a>
+				</div>
+				<img src="../../images/index/title.svg" class="h30" />
+				<a href="search.html"><img src="../../images/wap/iconfont-sousuo.svg" class="iconfont_search"/></a>
+				<div class="pull-right shop-icon">
+
+					<a href="../shopping/shopping_cart_cn.html">
+						<img class="right-icon" src="../../images/wap/gouwuche-black.png" />
+					</a>
+				</div>
+			</header>
+			<div class="swiper-container" id="swiper-index">
+				<div class="swiper-wrapper bg-banner" id="swiper-wrapper"></div>
+				<script type="text/html" id="swiper-tpl">
+					<%for(var i=0;i<result.length;i++){%>
+						<div class="swiper-slide">
+							<a href="<%=result[i].link_url%>">
+								<img src="<%=result[i].image_url%>!thumb" />
+							</a>
+						</div>
+					<%}%>
+				</script>
+				<div class="swiper-pagination"></div>
+			</div>
+
+			<nav class="indnav">
+				<ul class="clearfix" id="nav_bars">
+				</ul>
+			</nav>
+			<script id="navBars" type="text/html">
+				<%for(var i=0;i<result.length;i++){%>
+					<li class="nav<%=i+1%>">
+							<a href="<%=result[i].nav_url%>">
+								<img src="<%=result[i].nav_icon%>" />
+								<br><%=result[i].nav_title%>
+							</a>
+					</li>
+				<%}%>
+			</script>
+					
+			<div class="empty"></div>
+			
+			<div class="skip-link pad10">
+				<img src="../../images/wap/horn.png" alt="">
+				
+				<div class="swiper-container dis-in-b h15" id="affiche">
+				<div class="swiper-wrapper">
+					<script type="text/html" id="affiche-tpl">	
+					<%for(var y=0;y<result.length;y++){%>
+					<div class="swiper-slide" url='<%=result[y].article_url%>'><%=result[y].article_title%></div>
+					<%}%>					
+					</script>					
+				</div>
+			    </div>	
+				<a class="detailLink">查看详情</a>
+				
+			</div>
+			<!--<a href="index_home.html" style="font-size: 40px;color: #fa2855;text-align: center;float: left;width: 100%;height: 93px;margin-top: 90px;">新版首页点我</a>-->
+			<div class="empty"></div>
+			<!--<a href="../activity/seckill.html">
+				秒杀
+				<img src="http://pic.fenhongshop.com/activity/20160203/56b1a26b09407.jpg!thumb" data-original="http://pic.fenhongshop.com/activity/20160203/56b1a26b09407.jpg!thumb" alt="" style="display: inline-block;">
+			</a>-->
+			<!--秒杀-->
+			<!--<section class="seckill" id="index_seckill">
+				<script id="indexSeckill" type="text/html">
+					<a class="skip-link pad10 " href="../activity/seckill.html">
+						<h2 class="title"><span class="focus-font">秒杀</span> ·<%=result.sequence_flag%>点场</h2>		
+						<i class="icon-angle-right"></i>
+					</a>
+					<%if(result.sequence_goods.length==1){%>
+					<a href="../activity/seckill.html">
+					<div class="fh-goods">
+	                    <div class="media-left pr">
+								<img class="media-img" src="<%=result.sequence_goods[0].goods_pic%>"  style="display: inline-block;">
+	                    </div>
+	                    <div class="media-body">
+	                        <h4 class="media-heading overhide  pr l150 f16">
+	                        	<%=result.sequence_goods[0].goods_name%>
+	                        </h4>
+	                        <div class="sk-price">
+	                            <span class="media-tailing fh-price">￥<%=result.sequence_goods[0].killing_price%></span>
+	                            <del>￥<%=result.sequence_goods[0].goods_price%></del>
+	                        </div>
+	                    </div>
+	                </div>
+	                </a>
+	                <%}else if(result.sequence_goods.length>1){%>
+	                	<div class="sk-div"  id="sk_div">
+		                <ul class="sk-ul"  style="width: 660px;overflow: hidden;">
+		                	<%for(var i=0;i<result.sequence_goods.length;i++){%>
+		                	<li>
+		                		<div>
+		                			<img src="<%=result.sequence_goods[i].goods_pic%>" style="width: 100%;"/>
+		                		</div>
+		                		<div class="sk-ul-price">
+		                            <span class="media-tailing clearfix fh-price">￥<%=result.sequence_goods[i].killing_price%></span>
+		                            <del>￥<%=result.sequence_goods[i].goods_price%></del>
+		                        </div>
+		                	</li>
+		                	<%}%>
+		                </ul>
+		                </div>
+	                <%}%>
+                </script>-->
+               <!-- <div style="width: 100%;position: relative;overflow: hidden;" id="sk_div">
+	                <ul class="sk-ul"  style="width: 660px;overflow: hidden;">
+	                	<li style="width: 110px;">
+	                		<div>
+	                			<img src="http://img.fenhongshop.com/goods/325784/20151230/5683399ca67f1.jpg!thumb" style="width: 100%;"/>
+	                		</div>
+	                		<div class="sk-ul-price">
+	                            <span class="media-tailing clearfix fh-price">￥99.00</span>
+	                            <del>￥178.00</del>
+	                        </div>
+	                	</li>
+	                	<li style="width: 110px;">
+	                		<div>
+	                			<img src="http://img.fenhongshop.com/goods/325784/20151230/5683399ca67f1.jpg!thumb" style="width: 100%;"/>
+	                		</div>
+	                		<div class="sk-ul-price">
+	                            <span class="media-tailing clearfix fh-price">￥99.00</span>
+	                            <del>￥178.00</del>
+	                        </div>
+	                	</li>
+	                	<li style="width: 110px;">
+	                		<div>
+	                			<img src="http://img.fenhongshop.com/goods/325784/20151230/5683399ca67f1.jpg!thumb" style="width: 100%;"/>
+	                		</div>
+	                		<div class="sk-ul-price">
+	                            <span class="media-tailing clearfix fh-price">￥99.00</span>
+	                            <del>￥178.00</del>
+	                        </div>
+	                	</li>
+	                	<li style="width: 110px;">
+	                		<div>
+	                			<img src="http://img.fenhongshop.com/goods/325784/20151230/5683399ca67f1.jpg!thumb" style="width: 100%;"/>
+	                		</div>
+	                		<div class="sk-ul-price">
+	                            <span class="media-tailing clearfix fh-price">￥99.00</span>
+	                            <del>￥178.00</del>
+	                        </div>
+	                	</li>
+	                	<li style="width: 110px;">
+	                		<div>
+	                			<img src="http://img.fenhongshop.com/goods/325784/20151230/5683399ca67f1.jpg!thumb" style="width: 100%;"/>
+	                		</div>
+	                		<div class="sk-ul-price">
+	                            <span class="media-tailing clearfix fh-price">￥99.00</span>
+	                            <del>￥178.00</del>
+	                        </div>
+	                	</li>
+	                	<li style="width: 110px;">
+	                		<div>
+	                			<img src="http://img.fenhongshop.com/goods/325784/20151230/5683399ca67f1.jpg!thumb" style="width: 100%;"/>
+	                		</div>
+	                		<div class="sk-ul-price">
+	                            <span class="media-tailing clearfix fh-price">￥99.00</span>
+	                            <del>￥178.00</del>
+	                        </div>
+	                	</li>
+	                </ul>
+                </div>-->
+			<!--</section>-->
+			<!--广告位-->
+			<!--<div class="theme bg-body clearfix" >
+				<a id="adv1">
+					<img src="../../images/wap/guanggao-1.jpg" class="pull-left" />
+				</a>
+				<a id="adv2">
+					<img src="../../images/wap/guanggao-1.jpg" class="pull-right" />
+				</a>
+			</div>-->
+			<!--国家馆-->
+			<section class="home" id="nation"></section>
+			<div class="empty"></div>
+			<script type="text/html" id="nation_list">
+				<a class="skip-link pad10 ">
+					<span class="title-icon"></span>
+					<h2 class="title">国家馆</h2>					
+				</a>
+				<ul class="clearfix nation-ul">
+					<%for(var i=0;i<result.length;i++){%>
+						<li>
+							<a href="../activity/pavilion.html?activity_id=<%=result[i].activity_id%>&activity_title=<%=result[i].activity_title%>">
+								<img src="../../images/wap/pinpaiguan.jpg" data-original="<%=result[i].activity_pic%>!thumb" alt="" />
+							</a>
+						</li>
+					<%}%>
+				</ul>
+			</script>
+			<!--主题馆-->
+			<section class="home" id="theme"></section>
+			<script type="text/html" id="theme_list">
+				<a class="skip-link pad10 " href="../activity/theme_list.html">
+					<span class="title-icon"></span>
+					<h2 class="title">主题馆</h2>
+					<i class="icon-angle-right"></i>
+				</a>
+				<%for(var i=0;i<result.length;i++){%>
+					<%if(result[i].activity_url){%>
+						<a href="<%=result[i].activity_url%>" class="layout">
+					<%}else{%>
+						<a href="../activity/theme_details.html?title=<%=result[i].activity_title%>&activity_id=<%=result[i].activity_id%>" class="layout">
+					<%}%>	
+						<img src="../../images/wap/default.jpg" data-original="<%=result[i].activity_banner%>!thumb"  class="width100">
+					</a>
+					<div class="empty"></div>
+					<%}%>
+			</script>
+			<!--品牌馆-->
+			<section class="home" id="brand"></section>
+			<div class="empty"></div>
+			<script type="text/html" id="brand_list">
+				<a class="skip-link pad10 " href="../activity/brand_list.html?area=">
+					<span class="title-icon"></span>
+					<h2 class="title">品牌馆</h2>
+					<i class="icon-angle-right"></i>
+				</a>
+				<ul class="clearfix brand-ul">
+					<%for(var i=0;i<result.length;i++){%>
+						<li>
+							<a href="../activity/brand_details.html?brand_id=<%=result[i].brand_id%>&brand_banner=<%=result[i].brand_banner%>&brand_name=<%=result[i].brand_name%>&share_desc=<%=result[i].share_desc%>&share_img=<%=result[i].share_img%>&share_title=<%=result[i].share_title%>">
+								<img src="../../images/wap/pinpaiguan.jpg" data-original="<%=result[i].brand_pic%>!thumb" alt="" />
+							</a>
+						</li>
+					<%}%>
+				</ul>
+			</script>			
+			<!--广告位3-->
+			<a id="adv3">
+				<img src="../../images/wap/guanggao-2.jpg" class="width100" />
+			</a>
+			<div class="empty"></div>
+			<!--精选推荐-->
+			<section class="home" id="recommends"></section>
+			<script type="text/html" id="recommends_list">
+				<a class="skip-link pad10" href="../activity/choiceness.html?area=">
+					<span class="title-icon"></span>
+					<h2 class="title">精选推荐</h2>
+					<i class="icon-angle-right"></i>
+				</a>
+				<ul class="clearfix recom">
+					<%for(var i=0;i<result.length;i++){%>
+						<a href="../shopping/goods_details.html?goods_id=<%=result[i].goods_id%>" class="layout jp">
+								<%if(result[i].goods_source>0){%>
+									<img src="../../images/wap/global-icon.png" class="global-icon" />
+								<%}%>
+								<img src="../../images/wap/jingxuan.jpg" data-original="<%=result[i].goods_pic%>!thumb"  class="width100" />
+								<%if(result[i].goods_state==0){%>
+									<img src="../../images/wap/widthdown.png" class="big-long-tip"/>
+								<%}else if(result[i].sale_stop==1){%>
+									<img src="../../images/wap/stop.png" class="big-long-tip" />
+								<%}else if(result[i].is_presell==1){%>
+									<img src="../../images/wap/presell.png" class="big-long-tip"/>
+								<%}else if(result[i].goods_storage==0){%>
+									<img src="../../images/wap/soldout.png" class="big-long-tip"/>
+								<%}%>
+							<div>
+								<img class="goods-japan" src="<%=result[i].nation_flag%>" />
+								<p class="pb5 color9 f12"><%=result[i].goods_promise%></p>
+								<span class="jp-name"><%=result[i].goods_name%>
+									<!--<%if(result[i].goods_source>0){%>
+										<img class="origin" src="../../images/wap/direct.png"  />
+									<%}else if(result[i].is_own_shop==1){%>
+										<img class="origin" src="../../images/wap/self.png"  />
+									<%}%>-->
+								</span>
+								<p class="mt15"><span class="f12">￥</span><%=result[i].goods_price%></p>
+								<!--<del>￥<%=result[i].goods_marketprice%></del>-->
+							</div>
+						</a>
+						<div class="empty"></div>
+					<%}%>
+				</ul>
+			</script>			
+			<!--广告位4-->
+			<a  id="adv4">
+				<img src="../../images/wap/guanggao-2.jpg" class="width100" />
+			</a>
+			<div class="empty"></div>
+			<!--首页-猜你喜欢-->
+			<section class="home">
+				<div class="skip-link pad10 ">
+					<span class="title-icon"></span>
+					<h2 class="title">猜你喜欢</h2>
+				</div>
+				<section id='group-goods'></section>
+				<script type="text/html" id='group-goods-tpl'>
+					<%for(var l=0;l<result.length;l++){%>
+						<div class="group-goods">
+							<%if(result[l].goods_source>0){%>
+								<img src="../../images/wap/global-icon.png" class="global-icon" />
+							<%}%>
+							<a href="../shopping/goods_details.html?goods_id=<%=result[l].goods_id%>" class="pull-left pr">
+								<%if(result[l].goods_pic){%>
+									<img src="../../images/wap/pinpaiguan.jpg" data-original="<%=FormatImg(result[l].goods_pic)%>" alt="" />
+								<%}else{%>
+									<img src="../../images/wap/pinpaiguan.jpg" data-original="<%=FormatImg(result[l].goods_image)%>" alt="" />
+								<%}%>
+								<%if(result[l].goods_state==0){%>
+									<img src="../../images/wap/widthdown.png" class="long-tip"/>
+								<%}else if(result[l].sale_stop==1){%>
+									
+								<%}else if(result[l].is_presell==1){%>
+									<img src="../../images/wap/presell.png" class="long-tip"/>
+								
+								<%}%>
+							</a>
+							<div class="pull-left mt15">
+								<img class="goods-japan" style="margin-top: 0px !important;" src="<%=result[l].nation_flag%>" />
+								<p class="pb5 color9"><%=result[l].goods_promise%></p>
+								<a href="../shopping/goods_details.html?goods_id=<%=result[l].goods_id%>">
+									<h3 class="goods-txt border-b0 pb5 l150 overhide pr" style="-webkit-line-clamp:3 !important;"><%=result[l].goods_name%>
+										<%if(result[l].goods_source>0){%>
+											<img class="origin" src="../../images/wap/direct.png" style="bottom: 5px !important;"  />
+										<%}else if(result[l].is_own_shop==1){%>
+											<img class="origin" src="../../images/wap/self.png" style="bottom: 5px !important;" />
+										<%}%>
+									</h3>
+								</a>
+								<div class="group-price">
+									<p class="price pt20">￥<span class="goods_price"><%=result[l].goods_price%></span><del class="ml10">￥<span class='goods_marketprice'><%=result[l].goods_marketprice%></span></del></p>
+									<!--<p class="pr">国内参考价：
+										<del>￥<span class='goods_marketprice'><%=result[l].goods_marketprice%></span></del>
+										<%if(result[l].goods_price!=result[l].goods_marketprice){%>
+											<i class="redbtn dis"></i>
+										<%}%>
+										
+									</p>-->
+								</div>
+							</div>
+						</div>
+						<%}%>
+				</script>
+
+			</section>
+		</div>
+		<script  src="../../js/libs/jquery/jquery-1.11.3.min.js"></script>
+		<script  src="http://api.map.baidu.com/api?v=2.0&ak=40f8726220ef76bb9071cd8f9121ba3b"></script>
+		<script  src="../../js/plugins/convertor.js"></script>
+		<script  src="../../js/plugins/jquery.lazyload.js"></script>		
+		<script  src="../../js/config.js"></script>
+		<script  src="../../js/plugins/fastclick.js"></script>
+		<script  src="../../js/plugins/iscroll.js"></script>
+		<script  src="../../js/plugins/fhScroll.js"></script>
+		<script  src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>		
+		<script  src="../../js/common.js"></script>
+		<script  src="../../js/plugins/template.js"></script>
+		<script  src="../../js/plugins/layer/layer.js"></script>		
+		<script  src="../../js/plugins/swiper/swiper.js"></script>		
+		<script  src="../../js/tmpl/index/indexold.js"></script>
+	</body>
+
+</html>

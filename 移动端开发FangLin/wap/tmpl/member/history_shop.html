@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <title>浏览历史</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+   	<meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/animate.css">
+    <link rel="stylesheet" href="../../css/buttons.css">
+    <link rel="stylesheet" href="../../css/fhbase.css">
+    <link rel="stylesheet" href="../../css/fhwap.css">
+</head>
+<body>
+    <div class="container layout" id="history">
+        <div class="row">
+            <header class="fh-header">
+                <span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+                <h1 class="header-title">浏览历史</h1>
+                <img src="../../images/wap/daipingjia.svg" class="icon_edit"/>
+                <a class="header-edit" id="nav-show"></a>
+            </header>
+
+            <div class="f-nav-wrap" id="f-nav-wrap">
+                <article class="f-nav-stickytabs">
+                    <ul class="navbox js-navbox m-tbl scroll-navbox">
+                            <li class="tab selected" tab="0">收藏商品</li>
+                            <li class="tab" tab="1">收藏店铺</li>
+                            <!-- <li class="tab" tab="2">收藏微店</li>
+                            <li class="tab" tab="3">收藏达人</li>
+                            <li class="tab" tab="4">收藏时光</li> -->
+                            <li class="tab" tab="6">关注品牌</li>
+                            <li class="tab" tab="5">我的足迹</li>
+                    </ul>
+                </article>
+            </div>
+
+
+            	<section class="empty"></section>
+            	<!--商品收藏-->
+                <section class="tableChange" id="product-collect" tab="0"></section>
+                <!--店铺收藏-->
+                <section class="tableChange" id="shop-collect" tab="1" style="display: none;"></section>
+                <!--店铺收藏-->
+
+                <section class="tableChange" id="microshop-collect" tab="2" style="display: none;"></section>
+
+                <!--达人收藏-->
+                <section class="tableChange" id="talent-collect" tab="3" style="display: none;"></section>
+                <!--时光收藏-->
+                <section class="tableChange" id="time-collect" tab="4" style="display: none;"></section>
+                <!--我的足迹-->
+                <section class="tableChange" id="library-collect" tab="5" style="display: none;"></section>
+                <!-- 品牌收藏 -->
+                <section class="tableChange" id="brand-collect" tab="6" style="display: none;"></section>
+
+            <!--商品收藏-->
+            <script type="text/html" id="goods-tpl">
+                <%for (var i=0, len =result.length;i<len;i++){%>
+
+	                <div class="media fh-goods border-b pad15" goods_id='<%=result[i].goods_id%>'>
+                        <div class="media_l">
+                        	<i class="icon-circle-blank single"></i>
+                        </div>
+		                <div class="media-left">
+		                     <a href="../shopping/goods_details.html?goods_id=<%=result[i].goods_id%>">
+		                     <img class="media-object img-size border-full" src="<%=result[i].goods_image%>" alt="...">
+		                    </a>
+		                </div>
+		                <div class="media-body">
+                        <a href="../shopping/goods_details.html?goods_id=<%=result[i].goods_id%>">
+		                    <h4 class="media-heading h50"><%=result[i].goods_name%></h4></a>
+		                    <div class="media-tailing clearfix fh-price">￥<%=result[i].goods_price%></div>
+                            <!--<button class="del pull-right button button-primary button-rounded button-small button-caution">删除</button>-->
+		                </div>
+		            </div>
+
+               <%}%>
+                <footer class="layout width100">
+            	<p><i class="icon-circle-blank all"></i>全选</p><button class="pull-right button button-rounded button-small delHis">删除</button>
+
+            </footer>
+            </script>
+
+          <!--店铺收藏-->
+
+          <script type="text/html" id="shop-tpl">
+              <%for(var i=0;i<result.length;i++){%>
+
+                <section class="collection media bg-body" store_id='<%=result[i].store_id%>'>
+
+                    <div class="collect-top border-b0" >
+                    	    <div class="media_l mt0">
+                        	<i class="icon-circle-blank single"></i>
+                            </div>
+                             <a href="../store/store_index.html?store_id=<%=result[i].store_id%>">
+                            <img src="<%=result[i].store_avatar%>" alt="" style='width:31px;height:31px;'>
+                            <h2 ><%=result[i].store_name%></h2></a>
+
+                            <p class="pull-right"><%for(var k=1;k<=result[i].store_credit/20;k++){%>
+                                        <img src="../../images/wap/star.png" alt="" class="star">
+                                    <%}%>
+                                    <%if((result[i].store_credit/20).toString().indexOf( '.')>-1){%>
+                                        <img src="../../images/wap/Bstar.png" alt="" class="star">
+                                    <%}%>
+                                    <%for(var j=1;j<=(5-(result[i].store_credit/20));j++){%>
+                                        <img src="../../images/wap/Estar.png" alt="" class="star">
+                                    <%}%></p>
+                    </div>
+                   <div class="swiper-container bck-color" id="t_tabs_<%=i%>">
+                    <ul class="collect_list swiper-wrapper">
+                       <%for(var m=0;m<result[i].commend_goods.length;m++){%>
+                        <li class="img-single">
+                            <a href="../shopping/goods_details.html?goods_id=<%=result[i].commend_goods[m].goods_id%>"><img src="<%=result[i].commend_goods[m].goods_image%>" alt="">
+                                <div class="fh-black tc">￥<%=result[i].commend_goods[m].goods_price%></div>
+                            </a>
+                        </li>
+                       <%}%>
+                    </ul>
+                    </div>
+                    <section class="empty"></section>
+                </section>
+
+               <%}%>
+                <footer class="layout width100">
+            	<p><i class="icon-circle-blank all"></i>全选</p><button class="pull-right button button-rounded button-small delHis">删除</button>
+
+                </footer>
+               </script>
+
+            <!--微店收藏-->
+            <script type="text/html" id="microshop-tpl">
+            	<%for(var i=0;i<result.length;i++){%>
+            		<section class="media" shop_id='<%=result[i].shop_id%>'>
+
+            		<a href="../activity/discover_details.html?shop_id=<%=result[i].shop_id%>">
+		                <section class="collection">
+		                    <div class="collect-top">
+		                    	<div class="media_l">
+                        	    <i class="icon-circle-blank single"></i>
+                                </div>
+		                        <div class="collect-logo">
+		                            <img src="<%=result[i].shop_logo%>" alt="">
+		                        </div>
+		                        <div class="collect-md pull-left">
+		                            <span class="collect-span"><%=result[i].shop_name%></span>
+		                        </div>
+		                        <span class="collect-select"><%=result[i].collect_count %>人收藏</span>
+		                    </div>
+		                </section>
+		            </a>
+		            <section class="empty"></section>
+		            </section>
+
+            	<%}%>
+            	 <footer class="layout width100">
+            	 <p><i class="icon-circle-blank all"></i>全选</p><button class="pull-right button button-rounded button-small delHis">删除</button>
+                 </footer>
+            </script>
+
+             <!--达人收藏-->
+            <script type="text/html" id="talent-tpl">
+            	<%for(var i=0;i<result.length;i++){%>
+            		<section class="media" talent_id="<%=result[i].talent_id%>">
+            		<a href="../specialty/talent_index.html?talent_id=<%=result[i].talent_id%>">
+		                <section class="collection">
+		                    <div class="collect-top">
+		                    	<div class="media_l" style="display: none;">
+                        	    <i class="icon-circle-blank single"></i>
+                                </div>
+		                        <div class="collect-logo mr10">
+		                            <img src="<%=result[i].talent_avatar%>" alt="">
+		                        </div>
+		                        <div class="collect-md pull-left">
+		                            <span class="collect-span"><%=result[i].talent_name%></span><br>
+		                            <span class="collect-select">时光·<%=result[i].time_count%></span></div>
+		                        </div>
+		                </section>
+		            </a>
+		            <section class="empty"></section>
+		            </section>
+            	<%}%>
+            	 <footer class="layout width100">
+            	 <p><i class="icon-circle-blank all"></i>全选</p><button class="pull-right button button-rounded button-small delHis">删除</button>
+                 </footer>
+            </script>
+
+
+            <!--时光收藏-->
+            <script type="text/html" id="time-tpl">
+                <%for (var i=0, len =result.length;i<len;i++){%>
+
+	                <div class="media fh-goods border-b pad15" time_id='<%=result[i].time_id%>'>
+                        <div class="media_l">
+                        	<i class="icon-circle-blank single"></i>
+                        </div>
+		                <div class="media-left">
+		                     <a href="../specialty/time_detail.html?time_id=<%=result[i].time_id%>">
+		                     <img class="media-object img-size border-full" src="<%=result[i].time_image%>" alt="...">
+		                    </a>
+		                </div>
+		                <div class="media-body">
+                        <a href="../specialty/time_detail.html?time=<%=result[i].time_id%>">
+		                    <h4 class="media-heading h55 f13 overhide l150 line-clamp3"><%=result[i].time_content%></h4></a>
+		                    <div class="media-tailing clearfix"><img src="<%=result[i].time_talent_avatar%>" alt="" class="mr10"/><%=result[i].time_talent_name%></div>
+		                </div>
+		            </div>
+
+               <%}%>
+                <footer class="layout width100">
+            	<p><i class="icon-circle-blank all"></i>全选</p><button class="pull-right button button-rounded button-small delHis">删除</button>
+
+            </footer>
+            </script>
+            <!--我的足迹-->
+            <script type="text/html" id="library-tpl">
+                <%for (var i=0, len =result.length;i<len;i++){%>
+	                <div class="media fh-goods border-b pad15" goods_id='<%=result[i].goods_id%>'>
+	                	    <div class="media_l">
+                        	<i class="icon-circle-blank single"></i>
+                            </div>
+			                <div class="media-left">
+			                	<a href="../shopping/goods_details.html?goods_id=<%=result[i].goods_id%>" >
+			                     <img class="media-object img-size border-full" src="<%=result[i].goods_image%>" alt="...">
+			                     </a>
+			                </div>
+			                <div class="media-body">
+			                	<a href="../shopping/goods_details.html?goods_id=<%=result[i].goods_id%>" >
+			                   	   <span class="history-goods-msg"><%=result[i].goods_name%></span>
+			                	</a>
+			                    <div class="media-tailing clearfix fh-price  mt20">
+			                    	<span>￥<%=result[i].goods_price%></span>
+			                    	<!--<button class="history-cancel del_his button button-primary button-rounded button-small button-caution">删除</button>-->
+			                    </div>
+
+			                </div>
+
+		            </div>
+               <%}%>
+                <footer class="layout width100">
+            	<p><i class="icon-circle-blank all"></i>全选</p><button class="pull-right button button-rounded button-small delHis">删除</button>
+                </footer>
+            </script>
+            <!--品牌收藏-->
+            <script type="text/html" id="brand-tpl">
+                <%for (var i=0, len =result.length;i<len;i++){%>
+
+	                <div class="media fh-goods border-b pad15" brand_id='<%=result[i].brand_id%>'>
+                        <div class="media_l">
+                        	<i class="icon-circle-blank single"></i>
+                        </div>
+		                <div class="media-left">
+		                     <a href="../activity/brand.html?brand_id=<%=result[i].brand_id%>">
+		                     <img class="media-object img-size border-full" src="<%=result[i].brand_image%>" alt="">
+		                    </a>
+		                </div>
+		                <div class="media-body">
+                        <a href="../activity/brand.html?brand_id=<%=result[i].brand_id%>">
+		                    <h4 class="media-heading h55 f13 overhide l150 line-clamp3"><%=result[i].brand_name%></h4></a>
+		                    <div class="media-tailing clearfix">3.3万关注<%=%></div>
+		                </div>
+		            </div>
+
+               <%}%>
+                <footer class="layout width100">
+            	<p><i class="icon-circle-blank all"></i>全选</p><button class="pull-right button button-rounded button-small delHis">删除</button>
+
+            </footer>
+            </script>
+
+             <section class="empty"></section>
+             <section class="empty"></section>
+             <section class="empty"></section>
+             <section class="empty"></section>
+             <section class="empty"></section>
+        </div>
+    </div>
+
+    <script src="../../js/libs/jquery/jquery-1.8.3.min.js"></script>
+    <script src="../../js/plugins/fastclick.js"></script>
+    <script src="../../js/config.js"></script>
+    <script src="../../js/plugins/layer/layer.js"></script>
+    <script src="../../js/plugins/swiper/swiper.js"></script>
+    <script src="../../js/plugins/iscroll.js"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script src="../../js/common.js"></script>
+    <script src="../../js/plugins/jquery.lazyload.js"></script>
+    <script src="../../js/plugins/template.js"></script>
+    <script src="../../src/js/tmpl/member/history.js"></script>
+
+    </body>
+</html>

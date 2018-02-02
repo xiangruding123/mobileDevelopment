@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <title>退款</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+   	<meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <link rel="stylesheet" href="../../css/animate.css">
+    <link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/buttons.css">
+    <link rel="stylesheet" href="../../css/fhbase.css">
+    <link rel="stylesheet" href="../../css/fhwap.css">
+</head>
+
+<body class="fh-bg-white">
+    <div class="container layout" id="apply-success">
+        <div class="row">
+            <header class="fh-header border-b">
+                <span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+                <h1 class="header-title">退款</h1>
+                <a class="header-edit" id="nav-show"></a>
+            </header>
+            <!--退货状态1--->
+            <section class="apply-s-body" id="apply_s1">
+            	<script type="text/html" id="applyS1">
+		            <div class="apply-s-title">
+		            	<img src="../../images/wap/ok.svg" />
+		            	<span class="f16">提交成功</span>
+		            </div>
+		            <p>您的申请我们已经受理，立即反馈给卖家，如果卖家在<span class="focus-font" id="days"></span>天<span class="focus-font" id="hours"></span>小时<span class="focus-font" id="minutes"></span>分之内没有回应，系统将自动退款到您的帐户。</p>
+		            <p class="mt10">您也可以主动与卖家协商处理该问题</p>
+		            
+		            <p class="mt30">
+		            	<span>店铺名称:</span>
+		            	<span class="color3"><%=result.store_name%></span>
+		            </p>
+		           	 <p class="mt10">
+		            	<span>QQ:</span>
+		            	<span class="color3"><%=result.store_qq%></span>
+		            	<span class="ml10">电话:</span>
+		            	<span class="color3"><%=result.store_phone%></span>
+		            </p>
+	            </script>
+	        </section> 
+	        <div class="apply-s-bottom">
+		      <!--  <button class="button button-caution button-empty">撤销申请</button>-->
+		        <button class="button button-caution button-solid ml20" onclick="javascript:history.back();">返回</button>
+	        </div>
+        </div>
+    </div>
+    <script  src="../../js/libs/zepto.min.js"></script>
+    <script  src="../../js/plugins/fastclick.js"></script>
+    <script  src="../../js/plugins/layer/layer.js"></script>
+    <script  src="../../js/plugins/template.js"></script>
+    <script  src="../../js/config.js"></script>
+    <script  src="../../js/common.js"></script>
+    <script  src="../../js/tmpl/refund/apply_result.js"></script>
+    <script>
+    	Goods.refundResult.onLoad();
+    </script>
+</body>
+
+</html>

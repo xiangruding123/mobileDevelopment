@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <title>物流助手</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+   <meta name="apple-mobile-web-app-status-bar-style" content="black">
+   	<meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+   	<link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/fhbase.css">
+    <link rel="stylesheet" href="../../css/fhwap.css">
+</head>
+
+<body>
+    <div class="container layout" id="assistant">
+        <div class="row">
+            <header class="fh-header">
+                <span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+                <h1 class="header-title">物流助手</h1>
+            </header>
+            <section id="assistant-info"></section>
+            <script type="text/html" id='assistant-tpl'>
+                <section class="fill">
+                    <img src="../images/wap/1.jpg" alt="">
+                    <!-- <img src="<%=goods_image_url%>" alt=""> -->
+                    <div>
+                        <h3>青岛特产崂山红茶青岛特产<!-- <%=goods_name%> --></h3>
+                        <p>已到达青岛，等待派送<!-- <%=deliver_info%> --></p>
+                    </div>
+                    <i class="icon-angle-right"></i>
+                </section>
+            </script>
+        </div>
+    </div>
+    <script  src="../../js/libs/zepto.min.js"></script>
+    <script  src="../../js/config.js"></script>
+    <script  src="../../js/plugins/fastclick.js"></script>
+    <script  src="../../js/common.js"></script>
+    <script  src="../../js/plugins/template.js"></script>
+    <script>
+    $(function() {
+      var key=getcookie("key");
+      //订单列表
+      $.ajax({
+        type:'post',
+        url:ApiUrl+'/index.php?act=member_order&op=order_list',
+        datatype:'json',
+        data:{key:key},
+        success:function(res){
+        var res={code:200,datas:{}};
+        var data=res.datas;
+        var html = template('assistant-tpl', data);
+        $('#assistant-info').html(html);
+        }
+      });
+      //订单物流信息
+        $.ajax({
+        type:'post',
+        url:ApiUrl+'/index.php?act=member_order&op=search_deliver',
+        datatype:'json',
+        data:{key:key},
+        success:function(res){
+        var res={code:200,datas:{}};
+        var data=res.datas;
+        var html = template('assistant-tpl', data);
+        $('#assistant-info').html(html);
+        }
+      });
+        
+    });
+    </script>
+</body>
+
+</html>

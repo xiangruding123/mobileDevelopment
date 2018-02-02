@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <title>品牌馆商品</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+   	<meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/animate.css">
+    <link rel="stylesheet" href="../../css/buttons.css">
+    <link rel="stylesheet" href="../../src/css/fhbase.css">
+    <link rel="stylesheet" href="../../css/fhwap.css">
+</head>
+<body>
+    <div class="container layout" id='search_goods_list'>
+        <div class="row">
+            <header class="fh-header pd-none none">
+                <span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+                <h1 class="header-title"></h1>
+                <img src="../../images/weidian/share.png" class="share -mob-share-open">
+            </header>
+            <div class='brandBlock'></div>
+            <script type="text/html" id="brandBlock-tpl">
+            	<%if(result.brand_page_pic){%>
+					<img src="<%=result.brand_page_pic%>" id="brand_img" class="img-list">
+				<%}%>
+
+			<div class="clearfix brand_info">
+				<img src="<%=result.brand_pic%>" alt="" class="pull-left"/>
+				<div id="" class="pull-left pt15">
+					<h2><%=result.brand_name%></h2>
+					<%if(result.country_name&&result.country_pic){%>
+						<img src="<%=result.country_pic%>" alt="" class="flag mt10" style="border-radius:0;"/><%=result.country_name%>
+					<%}%>
+				</div>
+				<span id="" class="pull-right pt25">在售商品<%=result.goods_storage%>件</span>
+				<p class="clearfix"><span class="overhide" id="noticetxt"><%=result.brand_intro%></span></p>
+				<h3 class="f14 pt15 tc down hide" style="color:#la1a1a;" id="notice"><img src="../../images/wap/detail/notice.png" alt="" class="ml5" style="width:9px;height:8px;border-radius: 0;"/></h3>
+			</div>
+            </script>
+
+			<div class="empty"></div>
+            <ul class="nav nav-pills fh-nav">
+                <li num="3"><a  class="focus-font">综合</a></li>
+                <li num="1"><a >销量</a></li>
+                <li num="2"><a >价格<i class='icon-sort-up'></i></a></li>
+                <li num="4"><a >人气</a></li>
+            </ul>
+            <div class="empty"></div>
+            <div id='brand_details' class="min-scroller" >
+            	<div class="pullUp"></div>
+            </div>
+            <script type="text/html" id='brandDetails'>
+                <%if(result){%>
+                    <%for(var i=0;i<result.length;i++){%>
+                        <div class="media fh-goods">
+                        	<%if(result[i].goods_source>0){%>
+								<img src="../../images/wap/global-icon.png" class="global-icon" />
+							<%}%>
+                        	<a href="../shopping/goods_details.html?goods_id=<%=result[i].goods_id%>&resource_tags=<%=result[i].resource_tags%>!goodsdetail" good_id='<%=result[i].goods_id%>' class="pr dis-b">
+	                            <div class="media-left pr">
+	                            	<%if(result[i].goods_pic){%>
+										<img class="media-img" src="../../images/wap/guanggao-1.jpg" data-original="<%=FormatImg(result[i].goods_pic)%>" />
+									<%}else{%>
+										<img class="media-img" src="../../images/wap/guanggao-1.jpg" data-original="<%=FormatImg(result[i].goods_image)%>" />
+									<%}%>
+									<%if(result[i].goods_state==0){%>
+										<img src="../../images/wap/widthdown.png" class="half-tip"/>
+									<%}else if(result[i].sale_stop==1){%>
+
+									<%}else if(result[i].is_presell==1){%>
+										<img src="../../images/wap/presell.png" class="half-tip"/>
+
+									<%}%>
+	                            </div>
+	                            <div class="media-body" style='vertical-align: middle;'>
+	                            	<img class="flag mr5 pull-left" src="<%=result[i].nation_flag%>" />
+									<p class="pb5 color9 f12"><%=result[i].goods_promise%></p>
+	                                <h4 class="media-heading overhide  pr l150">
+	                                	<%=result[i].goods_name%>
+									<!--	<%if(result[i].goods_source>0){%>
+											<img class="origin" src="../../images/wap/direct.png"  />
+										<%}else if(result[i].is_own_shop==1){%>
+											<img class="origin" src="../../images/wap/self.png"  />
+										<%}%>-->
+	                                </h4>
+	                                <div class="pull-left">
+	                                    <div class="media-tailing clearfix fh-price pull-left pr5">￥
+	                                        <%=result[i].goods_price%>
+	                                    </div>
+	                                    <del>￥
+	                                        <%=result[i].goods_marketprice%>
+	                                    </del>
+	                                </div>
+	                            </div>
+	                        </a>
+                        </div>
+                    <%}%>
+                <%}else{%>
+                <%}%>
+            </script>
+        </div>
+    </div>
+    <script  src="../../js/libs/jquery/jquery-1.8.3.min.js"></script>
+     <script  src="../../js/plugins/jquery.lazyload.js"></script>
+    <script  src="../../js/plugins/fastclick.js"></script>
+    <script  src="../../js/plugins/layer/layer.js"></script>
+    <script  src="../../js/plugins/template.js"></script>
+    <script  src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script  src="../../js/config.js"></script>
+    <script  src="../../js/apiLink.js"></script>
+    <script  src="../../js/common.js"></script>
+    <script src="../../js/base64.js"></script>
+    <script src="../../js/fh.js"></script>
+    <script  src="../../src/js/tmpl/activity/brand.js"></script>
+
+</body>
+
+</html>

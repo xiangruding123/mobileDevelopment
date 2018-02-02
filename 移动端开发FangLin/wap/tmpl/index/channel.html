@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>分红全球购</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta property="qc:admins" content="13206332772013631611006375" />
+		<meta property="wb:webmaster" content="583adb75f6362de2" />
+		<meta name="description" content="分红全球购——中国跨境直购平台！众享全球尖货，分销享分红，正品、低价、海外直邮！"/>
+		<link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+		<link rel="stylesheet" href="../../js/plugins/swiper/swiper.css">
+		<link rel="stylesheet" href="../../css/fhbase.css">
+		<link rel="stylesheet" href="../../css/fhwap.css">
+		<link rel="stylesheet" href="../../css/animate.css">
+		<link rel="stylesheet" href="../../css/activity.css">
+	</head>
+
+	<body>
+		<div class="layout" id="indexhome">		
+            <header class="fh-header"  style="padding:0;">
+                <span class="goback icon-angle-left" onclick="javascript:history.back(-2);"></span>
+                <h1 class="header-title">频道</h1>
+                <a class="header-edit" id="nav-show"></a>
+            </header>		
+			<section id="page2"></section>		
+
+			
+			<!--频道页面-->
+			<script type="text/html" id="page2-tpl">
+			
+				<div class="swiper-container">
+				<div class="swiper-wrapper bg-banner">								
+				<%if(result.channel_slides){%>
+					<%for(var i=0;i<result.channel_slides.length;i++){%>
+						<div class="swiper-slide">
+							<a href="<%=result.channel_slides[i].link_url%>">
+								<img src="../../images/wap/tuangou.jpg" data-original="<%=result.channel_slides[i].image_url%>!thumb" alt="" />
+							</a>							
+						</div>
+					<%}%>
+				<%}%>
+				</div>
+				<div class="swiper-pagination"></div>
+			</div>
+			<section class="home">
+				<ul class="clearfix nation-ul">                    
+					<%if(result.channel_classes){%>
+						<%for(var i=0;i<result.channel_classes.length;i++){%>
+							<li>
+								<a href="../activity/pavilion.html?activity_id=<%=result.channel_classes[i].activity_id%>&activity_title=<%=result.channel_classes[i].activity_title%>">
+									<img src="../../images/wap/tuangou.jpg" data-original="<%=result.channel_classes[i].class_pic%>!thumb" alt="" />
+								</a>
+							</li>
+						<%}%> 
+					<%}%> 
+				</ul>
+			</section>
+			<!--分红精选-->
+			<div class="f-handpick-wrap" id="handpick">
+				
+				<article class="f-handpick">
+					<h2 class="indextitle">分红精选</h2>	
+					<%if(result.hot_activities){%>
+						<%for(var i=0;i<result.hot_activities.list.length;i++){%>
+							<img src="../../images/wap/pinpaiguan.jpg" data-original="<%=result.hot_activities.list[i].activity_banner%>!thumb" alt="" class="width100"/>
+							<div class="f-handpick-bar f-hot-bar<%=i%>">
+							<ul class="clearfix">
+								<%if(result.hot_activities.list[i].goods){%>
+								<%for(var k=0;k<result.hot_activities.list[i].goods.length;k++){%>
+								<li>
+			        				<a href="../shopping/goods_details.html?goods_id=<%=result.hot_activities.list[i].goods[k].goods_id%>" class="pr dis-b">
+			        					
+										<img src="<%=result.hot_activities.list[i].goods[k].goods_image%>">  
+		                                <p class="overhide handpick-title">						    		
+		                                                          <%=result.hot_activities.list[i].goods[k].goods_name%></p>
+										<div><span class="like-price"><span class="f11">￥</span><%=result.hot_activities.list[i].goods[k].goods_price%>.00</span>							
+										<del>￥<span><%=result.hot_activities.list[i].goods[k].goods_marketprice%></span></del>
+										</div>
+									</a>
+								</li>
+								<%}%>
+								<%}%>
+								<li>
+									<a href="<%=result.hot_activities.list[i].activity_url%>" class="pr dis-b">
+			        					
+										<img src="../../images/index/handpick_all.png" class="mb200"/> 
+		                                
+									</a>
+								</li>
+								</ul>
+							</div>
+						<%}%>				
+				    <%}%>			   
+				    
+				</article>  
+			</div>
+			<!--热门好货-->
+			<div class="f-handpick-wrap">
+				
+				<article class="f-handpick">
+					<h2 class="indextitle">热门好货</h2>	
+					<%if(result.hot_goods){%>
+						
+						<%for(var i=0;i<3;i++){%>
+							
+							<a href="../shopping/goods_details.html?goods_id=<%=result.hot_goods.list[i].goods_id%>">
+								<img src="../../images/wap/pinpaiguan.jpg" data-original="<%=result.hot_goods.list[i].goods_image%>!thumb" alt="" class="width100"/>
+							</a>
+							<div class="empty"></div>
+						<%}%>
+						
+						
+						<ul class="clearfix hot-floor-goods bg-body">
+							<%for(var i=3;i<result.hot_goods.list.length;i++){%>							
+							<li class="fh-bg-white">
+		        				<a href="../shopping/goods_details.html?goods_id=<%=result.hot_goods.list[i].goods_id%>" class="pr dis-b">
+									<img src="<%=result.hot_goods.list[i].goods_image%>!thumb">  
+	                                <p class="overhide handpick-title"><%=result.hot_goods.list[i].goods_name%></p>
+									<div><span class="like-price"><span class="f11">￥</span><%=result.hot_goods.list[i].goods_price%>.00</span>							
+									<del>￥<span><%=result.hot_goods.list[i].goods_marketprice%></span></del>
+									</div>
+								</a>
+							</li>
+							<%}%>	
+							
+						</ul>
+							
+									
+				    <%}%>			   
+				    
+				</article>  
+			</div>
+			</script>
+			
+			
+		</div>
+		<script  src="../../js/libs/jquery/jquery-1.11.3.min.js"></script>
+		<script  src="http://api.map.baidu.com/api?v=2.0&ak=40f8726220ef76bb9071cd8f9121ba3b"></script>
+		<script  src="../../js/plugins/convertor.js"></script>
+		<script  src="../../js/plugins/jquery.lazyload.js"></script>		
+		<script  src="../../js/config.js"></script>
+		<script  src="../../js/plugins/fastclick.js"></script>
+		<script  src="../../js/plugins/iscroll.js"></script>
+		<script  src="../../js/plugins/fhScroll.js"></script>
+		<script  src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>		
+		<script  src="../../js/common.js"></script>
+		<script  src="../../js/plugins/template.js"></script>
+		<script  src="../../js/plugins/layer/layer.js"></script>		
+		<script  src="../../js/plugins/swiper/swiper.js"></script>		
+		<script  src="../../js/tmpl/index/channel.js"></script>
+	</body>
+
+</html>

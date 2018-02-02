@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <title>订单评价</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+   	<meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/buttons.css">
+    <link rel="stylesheet" href="../../css/fhbase.css">
+    <link rel="stylesheet" href="../../css/fhwap.css">
+    
+</head>
+
+<body class="nav">
+    <div class="container layout" id="evaluation_list">
+        <div class="row">
+            <header class="fh-header">
+                <span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+                <h1 class="header-title">订单评价</h1>
+                <a class="header-edit" id="nav-show"></a>
+            </header>
+            <script type="text/html" id='eva_tpl'>
+            
+           <div class="title clearfix border-b">
+           	<a href="../store/store_index.html?store_id=<%=result.store_id%>">
+                            <h3 class="pull-left mr10" store_id="50081"><%=result.store_name%></h3>
+                            
+                            <i class="icon-angle-right pull-left"></i></a>
+                            <p class="pull-right fh-red order_state"></p>
+                                
+                 </div>
+                 <%for(var i=0;i<result.order_goods.length;i++){%>
+
+                
+              <div class="fh-goods">
+                  
+                <div class="module-left pull-left">
+                    <a href="#">
+                        <img class="border-full" style="width:60px;height:55px"  src="<%=result.order_goods[i].goods_image%>" alt="...">
+                    </a>
+                </div>
+                <div class="media-body">
+                    <h4 class="module-right overhide f14"><%=result.order_goods[i].goods_name%></h4>
+                    <div>
+                    	 <span class="f14">￥<%=result.order_goods[i].goods_price%></span>
+                        
+                         
+                    </div>
+                    
+                </div>
+                <%if(result.order_goods[i].evaluation_state=='0'){%>
+							<a class="pull-right" href="../shopping/evaluation.html?order_id=<%=result.order_id%>&&goods_id=<%=result.order_goods[i].goods_id%>"><button class="button button-primary  button-rounded button-caution button-small ml15">去评价</button></a>
+                    <%}else{%>
+                     <a class="pull-right"><button class="button button-primary  button-rounded button-caution button-small ml15" disabled="disabled">已评价</button></a>
+
+                    <%}%>
+            </div>
+               
+            <%}%>
+            
+            <div id="">
+            <section class="empty"></section>	
+             
+            <p class="mt15 ml10">描述相符<span class="pl15 starnum">
+            	<i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i>
+                        </span></p>
+            <p class="mt15 ml10">服务态度<span class="pl15 starnum">
+            	<i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i>
+                        </span></p>
+            <p class="mt15 ml10">发货速度<span class="pl15 starnum">
+                 <i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i>                        </span></p>
+                   <%if(result.store_evaluated=='0'){%>
+                       <button class="button button-caution button-rounded button-small pull-right store_evaluate">评价店铺</button>
+                    <%}else{%>
+                         <button class="button button-caution button-rounded button-small pull-right store_evaluate" disabled="disabled">已评价</button>
+
+                    <%}%>     
+                       
+             </div>            
+            </script>
+            
+        </div>
+    </div>
+    <script  src="../../js/wap.js"></script>   
+    <script  src="../../js/config.js"></script>
+    <script  src="../../js/common.js"></script>    
+    <script  src="../../js/tmpl/order/evaluate_list.js"></script>
+</body>
+
+</html>

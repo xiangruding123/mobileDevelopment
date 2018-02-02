@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <title>完善登录信息</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+   <meta name="apple-mobile-web-app-status-bar-style" content="black">
+   	<meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+   	<link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/buttons.css">
+    <link rel="stylesheet" href="../../css/fhbase.css">
+    <link rel="stylesheet" href="../../css/fhwap.css">
+</head>
+<body>
+    <div class="container layout" id="register2">
+        <div class="row bg-body">
+             <header class="fh-header">
+                <span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+                <h1 class="header-title">完善登录信息</h1>
+            </header>
+        <form class="fill" id="registerForm">
+            <div class="ptb10 mt15 bg-body">
+                <input type="password" placeholder="请输入登录密码" name="password" value="" id="login_pwd" class="input width100" />
+            </div>
+            <div class="ptb10 bg-body">
+                <input type="password" placeholder="请确认登录密码" name="com_pwd" value="" id="confirm_pwd" class="input width100" />
+            </div>
+            <button class="button mt20 fh-btn btn" id="register" type="button">完成绑定</button>
+        </form>
+        </div>
+    </div>
+     <script  src="../../js/libs/jquery/jquery-1.8.3.min.js"></script>
+    <script  src="../../js/plugins/fastclick.js"></script>
+    <script  src="../../js/plugins/jquery.validate.js"></script>
+    <script  src="../../js/plugins/layer/layer.js"></script>
+    <script  src="../../js/config.js"></script>
+    <script  src="../../js/common.js"></script>
+    <script  src="../../js/tmpl/login/bind_register.js"></script>
+    <script> 
+    	Member.ThirdRegister.onLoad();
+    </script>
+</body>
+</html>

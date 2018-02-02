@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>现金红包</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta http-equiv="Cache-Control" content="no-cache">
+		<meta http-equiv="Pragma" content="no-cache">
+		<link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+		<link rel="stylesheet" href="../../css/animate.css">
+		<link rel="stylesheet" href="../../css/fhbase.css">
+		<link rel="stylesheet" href="../../css/fhwap.css">
+	</head>
+
+	<body>
+		<div class="container layout" id="bag_activity">
+			<div class="row bg-body" id="order-success">
+				<header class="fh-header none">
+					<span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+					<h1 class="header-title">现金礼包</h1>
+					<a class="question"><img src="../../images/wap/activity/questionbag.png" /></a>
+				</header>
+				<img src="../../images/wap/activity/banner.jpg" class="banner">
+
+				<div style="background:#fbd800;">
+					<img src="../../images/wap/activity/new.png" alt="" class="new" />
+					<img src="../../images/wap/activity/checked.png" alt="" class="checked none" />
+					<img src="../../images/wap/activity/oldy.png" class="oldy none"/>
+				</div>
+				<img src="../../images/wap/activity/rule.jpg" alt="" />
+				<ul class="floor-ul" id="floor">
+					<script type="text/html" id="floor_tpl">
+						<%for(var i=0;i<result.goods_list.length;i++){%>
+							<li data-id="<%=result.goods_list[i].goods_id%>">
+								<a>
+        				<img src="<%=result.goods_list[i].goods_image%>" class="tm-imgList">
+						<p class="overhide pl10 pr10 h35"><%=result.goods_list[i].goods_name%></p>
+						<div class="pl10 pr10"><span class="like-price f15"><span class="f11">￥</span><%=parseFloat(result.goods_list[i].goods_price)%></span>
+						</div>
+					</a>
+							</li>
+							<%}%>
+
+					</script>
+				</ul>
+			</div>
+			<div id="mask">
+        	<div class="maskbox zoomIn animated fh-bg-white">
+        		<div class="clearfix" style="border-radius: 8px;"><img src="../../images/wap/top-x.png" alt="" id="closebag"/></div>
+        		<h2>红包规则</h2>
+        		<p>①红包新老用户同享</p>
+				<p>②红包领取后7天内有效。 </p>
+				<p>③每个订单仅限使用一张优惠券，订单总额9.9元不参与此活动。</p>
+				<p>④红包暂不支持电脑端使用，请下载分红全球购移动客户端。</p>
+				<p>⑤领取的红包将会记录在您的手机号码绑定的分红账户中。 </p>
+				<p>⑥本活动最终解释权归分红全球购所有。</p>
+        	</div>
+        </div>
+		</div>
+
+
+
+		<script  src="../../js/libs/jquery/jquery-1.8.3.min.js"></script>
+		<script  src="../../js/plugins/fastclick.js"></script>
+		<script  src="../../js/plugins/layer/layer.js"></script>
+		<script  src="../../js/plugins/template.js"></script>
+		<script  src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+		<script  src="../../js/config.js"></script>
+		<script  src="../../js/common.js"></script>
+		<script src="../../js/base64.js"></script>
+		<script src="../../js/fh.js"></script>
+		<script  src="../../js/tmpl/activity/bagactivity.js">
+		</script>
+	</body>
+
+</html>

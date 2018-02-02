@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <title>忘记密码</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+   	<meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+   	<link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/buttons.css">
+    <link rel="stylesheet" href="../../src/css/fhbase.css">
+    <link rel="stylesheet" href="../../src/css/fhwap.css">
+</head>
+<body class="fh-bg-white">
+    <div class="container layout" id="forgetPwd">
+        <div class="row">
+             <header class="fh-header">
+                <span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+                <h1 class="header-title">忘记密码</h1>
+            </header>
+	        <form id="forgetPwdForm">
+                <p id="member_login">登陆账号：<span class="focus-font merber">18366626195</span></p>
+	            <div class="pl20 pr20 disflex mb25" id="secodebox">
+	                <input type="tel" placeholder="请输入验证码"  value="" id="secode" class="input" />
+		          	<img id="img_secode" />
+	            </div>
+	            <div class="pl20 pr20 disflex">
+	                <input type="tel" placeholder="请输入手机验证码" name="code" value="" id="code" class="input" />
+	          		<button type="button" class="pull-right"  countdown='' id="getCode">获取验证码</button>
+	            </div>
+                <div class="pl20 pr20">
+	            <button type="button" class="" id="nextStep" disabled="disabled">下一步</button>
+                </div>
+	        </form>
+        </div>
+    </div>
+    <script  src="../../js/libs/jquery/jquery-1.8.3.min.js"></script>
+    <script  src="../../js/plugins/fastclick.js"></script>
+    <script  src="../../js/plugins/jquery.validate.js"></script>
+    <script  src="../../js/plugins/layer/layer.js"></script>
+    <script  src="../../js/config.js"></script>
+    <script  src="../../js/apiLink.js"></script>
+    <script  src="../../js/common.js"></script>
+    <script  src="../../src/js/tmpl/login/forget_pwd_one.js"></script>
+    <script> 
+    	Member.ForgetPwd.onLoad();
+    </script>
+</body>
+</html>

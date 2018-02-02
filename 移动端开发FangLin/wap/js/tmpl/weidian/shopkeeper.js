@@ -1,0 +1,1 @@
+$(function(){$("#closeBtn").click(function(){$(".foot-fix").hide()});localStorage.getItem("key")});

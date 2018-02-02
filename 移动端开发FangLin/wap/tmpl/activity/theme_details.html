@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <title>主题馆详情</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+   	<meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+   	<link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../js/plugins/swiper/swiper.css" />
+    <link rel="stylesheet" href="../../css/animate.css">
+    <link rel="stylesheet" href="../../css/buttons.css">
+    <link rel="stylesheet" href="../../css/fhbase.css">
+    <link rel="stylesheet" href="../../css/fhwap.css">
+</head>
+
+<body  style="position: relative;" data-spy="scroll" data-target=".navbar">
+    <div class="container layout" id="theme_list">
+        <section class="row">
+             <header class="fh-header none">
+                <span class="goback icon-angle-left"></span>
+                <h1 class="header-title">主题馆详情</h1>
+                <a class="header-edit" id="nav-show"></a>
+            </header>
+         	<!--banner轮播-->
+         	<div class="swiper-container img-list">
+         		<div class="swiper-wrapper">
+         			<div class="swiper-slide">
+							<img src="../../images/wap/default.jpg">
+					</div>
+         		</div>
+         		<div class="swiper-pagination"></div>
+         	</div>
+         	<script id="banners" type="text/html">
+				<%for(var i=0;i<activity_slides.length;i++){%>
+					<div class="swiper-slide">
+						<a href="<%=activity_slides[i].link%>">
+						   <img src="<%=activity_slides[i].pic%>!thumb">
+						</a>
+					</div>
+				<%}%>
+			</script>
+            <section id="themeList"></section>
+            <!--楼层footer-->
+            <script id="themeBars" type="text/html">
+	            <nav class="navbar navbar-fixed-top tm-nav" role="navigation">
+	            	<div id="t-tabs">
+				        <ul class="nav navbar-nav">
+				          	<%for(var i=0;i<activity_content.length;i++){%>
+				          		<li>
+				          			<a class="over-hidden" href="#<%=activity_content[i].floor_name%>"><%=activity_content[i].floor_name%></a>
+				          		</li>
+				          	<%}%>
+				        </ul>
+			        </div>
+	            </nav>
+	            <!--楼层内容-->
+	            <%for(var i=0;i<activity_content.length;i++){%>
+		            <section class="floor-header" id="<%=activity_content[i].floor_name%>">
+		            	<!--<img src="<%=activity_content[i].floor_logo%>" class="floor-img" />-->
+						<section class="f14 color7 pd-index"><%=activity_content[i].floor_name%></section>
+						<section class="empty"></section>
+		            	<ul class="floor-ul">
+		            		<%if(activity_content[i].floor_goods){%>
+			            		<%for(var j=0;j<activity_content[i].floor_goods.length;j++){%>
+			            			<li>
+			            				<a href="../shopping/goods_details.html?goods_id=<%=activity_content[i].floor_goods[j].goods_id%>!goodsdetail" class="pr dis-b">
+				            				<%if(activity_content[i].floor_goods[j].goods_source>0){%>
+												<img src="../../images/wap/global-icon.png" class="global-icon" />
+											<%}%>
+				            				<img src="../../images/wap/guanggao-1.jpg" data-original="<%=FormatImg(activity_content[i].floor_goods[j].goods_image)%>" class="tm-imgList"/>
+											<%if(activity_content[i].floor_goods[j].goods_state==0){%>
+												<img src="../../images/wap/widthdown.png" class="side-tip"/>
+											<%}else if(activity_content[i].floor_goods[j].sale_stop==1){%>
+												
+											<%}else if(activity_content[i].floor_goods[j].is_presell==1){%>
+												<img src="../../images/wap/presell.png" class="side-tip"/>
+											
+											<%}%>
+											<p >
+												<img src="<%=activity_content[i].floor_goods[j].nation_flag%>" class="flag"/>
+												<span class="focus-font">【<%=activity_content[i].floor_goods[j].goods_promise%>】</span>
+												<%=activity_content[i].floor_goods[j].goods_name%>
+											<!--	<%if(activity_content[i].floor_goods[j].goods_source>0){%>
+													<img class="origin" src="../../images/wap/direct.png"  />
+												<%}else if(activity_content[i].floor_goods[j].is_own_shop==1){%>
+													<img class="origin" src="../../images/wap/self.png"  />
+												<%}%>-->
+											</p>
+											<span class="like-price"><span class="f11">￥</span><%=activity_content[i].floor_goods[j].goods_price%></span>
+											<del>￥<%=activity_content[i].floor_goods[j].goods_marketprice%></del>
+										</a>
+									</li>
+			            		<%}%>
+			            	<%}%>
+		            		<div style="clear:both;"></div>
+		            	</ul>
+		            </section>
+		        <%}%>   
+            </script>
+            
+        </section>
+    </div>
+    <script  src="../../js/libs/jquery/jquery-1.8.3.min.js"></script>
+    <script  src="../../js/plugins/jquery.lazyload.js"></script>
+    <script  src="../../js/config.js"></script>
+    <script  src="../../js/plugins/fastclick.js"></script>
+    <script  src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script  src="../../js/common.js"></script>
+    <script  src="../../js/plugins/scrollspy.js"></script>
+    <script  src="../../js/plugins/iscroll.js"></script>
+    <script src="../../js/base64.js"></script>
+    <script src="../../js/fh.js"  charset="utf-8"></script>
+    <script  src="../../js/plugins/layer/layer.js"></script>
+    <script  src="../../js/plugins/swiper/swiper.js"></script>
+    <script  src="../../js/plugins/template.js"></script>
+    <script  src="../../js/tmpl/activity/theme_details.js"></script>    
+    <script>
+    	Goods.ThemeDetails.onLoad();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <title>购物车</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+   	<meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="../../css/animate.css"/>
+    <link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/buttons.css">
+    <link rel="stylesheet" href="../../css/fhbase.css">
+    <link rel="stylesheet" href="../../css/fhwap.css">
+    <style>
+       .allBtmFooter li{
+         width:25%;
+       }
+    </style>
+</head>
+
+<body>
+    <div class="context layout fh-bg-white" id="shopping">
+        <section class="row bg-body">
+            <header class="fh-header">
+                <!-- <span class="goback icon-angle-left" onclick="javascript:history.back();"></span> -->
+                <span id="start" class="tableChange">取消</span>
+				<h2 class="header-title"><a onclick="javascript:location.replace('shopping_cart_global.html')">海外</a></h2>
+				<h2 class="header-title active">国内</h2>
+				<span id="delete"  class="tableChange">删除</span>
+				<span id="edit" class="edit">编辑</span>
+                <!--<a class="header-edit" id="nav-show"></a>-->
+            </header>
+            <!--国内产品 -->
+            <section id="cart_cn" class="bg-body"></section>
+            <script id="goods_cn" type="text/html">
+            	<%if(result.store_cart_list.length==0){%>
+            		<section class="adr-header">
+            			<img class="adr-img" src="../../images/wap/Esearch.png" />
+						<div class="adr-tips color9">购物袋空空的!</div>
+						<div class="btns">
+							<a href="../index/index.html" class="button button-block empty-btn pull-left l200">随便逛逛</a>
+			        		<a href="../member/history_shop.html?index=0" class="button button-block empty-btn pull-right l200">查看收藏</a>
+						</div>
+            		</section>
+            	<%}else{%>
+	            <%for(var i in result.store_cart_list){%>
+	            	<section class="store_goods">
+			            <section  class="store-title">
+			            	<div class="order-transport f16">
+			                    <i class="icon-circle-blank store font-gray"></i>
+			                   	<span class="shop-title"><a href="../store/store_index.html?store_id=<%=result.store_cart_list[i][0].store_id%>"><%=result.store_cart_list[i][0].store_name%></a></span>
+			                </div>
+			            </section>
+			            <!--店铺优惠活动-->
+			           <%if((result.free_freight_list&&result.free_freight_list[i])||(result.mansong&&result.mansong[i])||(result.manselect_info&&result.manselect_info[i])){%>
+			            <section class="sec-active fh-bg-white">
+			            	<!--<img src="../../images/wap/youhui.svg" class="w35" />
+			            	<span>查看当前店铺优惠活动</span>
+			            	<i class="icon-angle-right title-i"></i>-->
+			            	<!----包邮---->
+			            	<%if(result.free_freight_list&&result.free_freight_list[i]){%>
+			            		<a class="post" total="" store_id="<%=result.store_cart_list[i][0].store_id%>" free_limit="<%=result.free_freight_list[i]%>">
+					            	<div class="div-active animated slideInDown h35 border-b">
+						            	<!--<img src="../../images/wap/post.svg" class="send-full"/>-->
+						            	<span class="shopping-active-title">包邮</span>
+						            	<span class="send-full-span">满<%=result.free_freight_list[i]%>元包邮</span>
+						            	<span>去凑单</span>
+						            	<i class="icon-angle-right content-i"></i>
+						            </div>
+					            </a>
+				            <%}%>
+				            <!--任选-->
+				            <%if(result.manselect_info&&result.manselect_info[i].manselect_rules){%>
+			            		<a class="manselect" store_id="<%=result.store_cart_list[i][0].store_id%>" href="../shopping/good_aggregate.html?store_id=<%=i%>" <%for(var k=0;k<result.manselect_info[i].manselect_rules.length;k++){%>manselect_nums<%=k%>='<%=result.manselect_info[i].manselect_rules[k].manselect_nums%>' manselect_money<%=k%>='<%=result.manselect_info[i].manselect_rules[k].manselect_money%>'<%}%>>
+					            	<div class="div-active animated slideInDown h35 border-b">
+						            	<span class="shopping-active-title">N元任选</span>
+						            	<span class="send-full-span">再购<%=result.manselect_info[i].manselect_rules[0].manselect_nums%>件立享【<%=result.manselect_info[i].manselect_rules[0].manselect_money%>元任选<%=result.manselect_info[i].manselect_rules[0].manselect_nums%>件】</span>
+						            	<i class="icon-angle-right content-i"></i>
+						            </div>
+					            </a>
+					        <%}%>
+				            <!----满送---->
+			            	<%if(result.mansong&&result.mansong[i]){%>
+			            		<%for(var k=0;k<result.mansong[i].length;k++){%>
+			            			<%if(result.mansong[i][k].minus_amount){%>
+			            			<a class="send" total="" store_id="<%=i%>" enouth="<%=result.mansong[i][k].egt_amount%>">
+					            	<div class="div-active animated slideInDown h35 border-b">
+						            	<!--<img src="../../images/wap/full.png" class="send-full"/>-->
+						            	<span class="shopping-active-title">满减</span>
+						            	<span class="send-full-span">满<%=result.mansong[i][k].egt_amount%>元减<%=result.mansong[i][k].minus_amount%>元</span>
+						            	<i class="icon-angle-right content-i"></i>
+						            </div>
+					                </a>
+					                <%}%>
+			            		<%}%>
+			            		<%for(var k=0;k<result.mansong[i].length;k++){%>
+			            			<%if(result.mansong[i][k].gift){%>
+			            			<a class="send" total="" store_id="<%=i%>" enouth="<%=result.mansong[i][k].egt_amount%>">
+					            	<div class="div-active animated slideInDown h35 border-b">
+						            	<!--<img src="../../images/wap/full.png" class="send-full"/>-->
+						            	<span class="shopping-active-title">满送</span>
+                                            <span class="send-full-span">满<%=result.mansong[i][k].egt_amount%>元,送<%=result.mansong[i][k].gift.goods_name%></span>
+                                            <i class="icon-angle-right content-i"></i>
+						            </div>
+					                </a>
+					                <%}%>
+			            		<%}%>
+			            		<!--<a class="send" total="" store_id="<%=i%>" enouth="<%=result.mansong[i][0].egt_amount%>">
+					            	<div class="div-active animated slideInDown h35 border-b">
+
+						            	<span class="shopping-active-title">满送</span>
+						            	<span class="send-full-span">满<%=result.mansong[i][0].egt_amount%>元减<%=result.mansong[i][0].minus_amount%>元
+						            		<%if(result.mansong[i][0].gift){%>
+						            			,送<%=result.mansong[i][0].gift.goods_name%>
+						            		<%}%>
+						            	</span>
+						            	<i class="icon-angle-right content-i"></i>
+						            </div>
+					            </a>-->
+				            <%}%>
+			            </section>
+			            <%}%>
+			            <!--购物车中信息-->
+			            <%for(var j=0;j<result.store_cart_list[i].length;j++){%>
+				            <%if(result.store_cart_list[i][j].state){%>
+				            	<%if(result.store_cart_list[i][j].bl_id==0){%>
+						            <section class="container valid" goods_activity_state="<%=result.store_cart_list[i][j].goods_activity_state%>" goods_id="<%=result.store_cart_list[i][j].goods_id%>" cart_id="<%=result.store_cart_list[i][j].cart_id%>" stock="<%=result.store_cart_list[i][j].goods_storage%>">
+						                <i class="icon-circle-blank single font-gray"></i>
+						                <div class="module-img ">
+						                    <a href="../shopping/goods_details.html?goods_id=<%=result.store_cart_list[i][j].goods_id%>"><img class="img-size" src="<%=FormatImg(result.store_cart_list[i][j].goods_image)%>"></a>
+						                </div>
+						                <div class="module-body">
+						                	<a href="../shopping/goods_details.html?goods_id=<%=result.store_cart_list[i][j].goods_id%>">
+							                    <div class="module-top">
+							                    	<%if(result.store_cart_list[i][j].nation_flag&&result.store_cart_list[i][j].nation_name){%>
+							                    		<img src="<%=result.store_cart_list[i][j].nation_flag%>" class="flag"/>
+													    <span class="color9"><%=result.store_cart_list[i][j].nation_name%></span>
+							                    	<%}%>
+								                    <%=result.store_cart_list[i][j].goods_name%>
+							                    </div>
+							                </a>
+							                    <!---是否是限时商品-->
+							                    <div class="mt5">
+								                    <%if(result.store_cart_list[i][j].xianshi){%>
+								                    	<span  class="goods-limit" limit="<%=result.store_cart_list[i][j].xianshi.lower_limit%>" limitPrice="<%=result.store_cart_list[i][j].xianshi.price%>" price="<%=result.store_cart_list[i][j].xianshi.origin_price%>"></span>
+								                    	<%if(result.store_cart_list[i][j].xianshi.lower_limit&&result.store_cart_list[i][j].xianshi.lower_limit>1){%>
+									                    	<span class="limit-span">(<%=result.store_cart_list[i][j].xianshi.lower_limit%>件起，￥<%=result.store_cart_list[i][j].xianshi.price%>元)</span>
+									                    <%}%>
+								                    <%}%>
+							                   		<%if(result.store_cart_list[i][j].seckilling){%>
+							                    		<span class="goods-price" killing_stock="<%=result.store_cart_list[i][j].seckilling.killing_stock%>" goods_storage="<%=result.store_cart_list[i][j].goods_storage%>" killing_price="<%=result.store_cart_list[i][j].seckilling.price%>" top_limit="<%=result.store_cart_list[i][j].seckilling.top_limit%>" goods_price="<%=result.store_cart_list[i][j].seckilling.origin_price%>">￥<%=result.store_cart_list[i][j].seckilling.price%></span>
+							                    		<img src="../../images/wap/app_miaosha.png" class="app-seckill" /><span class="sk-limit">
+							                    			<%if(result.store_cart_list[i][j].seckilling.top_limit!=0){%>
+							                    				限购<%=result.store_cart_list[i][j].seckilling.top_limit%>件
+							                    			<%}%>
+							                    		</span>
+							                    	<%}else{%>
+							                    		<span class="goods-price" goods_storage="<%=result.store_cart_list[i][j].goods_storage%>">￥<%=result.store_cart_list[i][j].goods_price%></span>
+							                    	<%}%>
+							                    	<div class="module-tailing pull-right">
+						                        <div class="num_opt pull-left" cart_id="<%=result.store_cart_list[i][j].cart_id%>">
+						                            <!--<button class="button button-square button-small sub"><i class="icon-minus"></i></button>-->
+						                            <span class="add"></span>
+						                            <input class="num shop-input" value="<%=result.store_cart_list[i][j].goods_num%>" readonly="readonly">
+						                            <!--<button class="button button-square button-small fh-bg-red add"><i class="icon-plus"></i></button>-->
+						                            <span class="sub"></span>
+						                        </div>
+						                        <!--<i class="icon-remove-sign close"></i>-->
+						                    </div>
+						                  		</div>
+
+						                  		<%if(result.store_cart_list[i][j].seckilling&&result.store_cart_list[i][j].seckilling.killing_stock>=result.store_cart_list[i][j].goods_num){%>
+
+						                  		<%}else if(!result.store_cart_list[i][j].storage_state){%>
+					                  				<span class="stockout focus-font">(库存不足,仅剩<%=result.store_cart_list[i][j].goods_storage%>件)</span>
+					                  			<%}%>
+
+
+						                </div>
+						                <%if(result.store_cart_list[i][j].seckilling){%>
+						            	    <span class="sk-no-coupon"><i class="icon-exclamation-sign"></i>此商品不可使用优惠券</span>
+						                <%}%>
+						            </section>
+					            <%}else{%>
+					            	<!--套装产品-->
+					            	<%if(result.store_cart_list[i][j].bundlings){%>
+					            	<section class="container valid" goods_activity_state="<%=result.store_cart_list[i][j].goods_activity_state%>" goods_id="<%=result.store_cart_list[i][j].goods_id%>" cart_id="<%=result.store_cart_list[i][j].cart_id%>" stock="<%=result.store_cart_list[i][j].goods_storage%>">
+					            	 	<div class="div-title" cart_id="<%=result.store_cart_list[i][j].cart_id%>">
+					            	 		<i class="icon-circle-blank single font-gray" style="line-height: 35px;"></i>
+					            	 		<img src="../../images/wap/suit.svg" class="div-img"/>
+					            	 		<span class="goods-price ml10 f14">￥<%=result.store_cart_list[i][j].goods_price%></span>
+					            	 		<div class="num_opt pull-right" cart_id="<%=result.store_cart_list[i][j].cart_id%>">
+					                            <button class="button button-square button-small sub"><i class="icon-minus"></i></button>
+					                            <input class="num" value="<%=result.store_cart_list[i][j].goods_num%>">
+					                            <button class="button button-square button-small fh-bg-red add"><i class="icon-plus"></i></button>
+					                        </div>
+					            	 	</div>
+
+					            	 	<%for(var k =0;k<result.store_cart_list[i][j].bundlings.length;k++){%>
+					            	 		<div class="some-div">
+						            	 		<div class="module-img">
+								                    <a href="../shopping/goods_details.html?goods_id=<%=result.store_cart_list[i][j].bundlings[k].goods_id%>"><img class="img-size" src="<%=FormatImg(result.store_cart_list[i][j].bundlings[k].goods_image)%>"></a>
+								                </div>
+								                <div class="module-body">
+								                	<a href="../shopping/goods_details.html?goods_id=<%=result.store_cart_list[i][j].bundlings[k].goods_id%>">
+									                    <div class="module-top">
+									                    	<%if(result.store_cart_list[i][j].bundlings[k].nation_flag&&result.store_cart_list[i][j].bundlings[k].nation_name){%>
+									                    		<img src="<%=result.store_cart_list[i][j].bundlings[k].nation_flag%>" class="flag"/>
+															    <span class="color9"><%=result.store_cart_list[i][j].bundlings[k].nation_name%></span>
+									                    	<%}%>
+										                    <%=result.store_cart_list[i][j].bundlings[k].goods_name%>
+									                    </div>
+								                  		<div class="goods-price-part mt20">￥<%=result.store_cart_list[i][j].bundlings[k].goods_price%>
+								                  		</div>
+								                    </a>
+								                </div>
+							                </div>
+					            	 	<%}%>
+					            	 	<%}%>
+					            	</section>
+					            <%}%>
+					            <!--赠送-->
+					            <%if(result.store_cart_list[i][j].gifts){%>
+					            	<ul class="send-ul">
+					            	<%for(var h=0;h<result.store_cart_list[i][j].gifts.length;h++){%>
+					            		<a href="../shopping/goods_details.html?goods_id=<%=result.store_cart_list[i][j].gifts[h].goods_id%>">
+						            		<li>
+						            			<img src="../../images/wap/gift.png"  />
+						            			<img src="<%=FormatImg(result.store_cart_list[i][j].gifts[h].goods_image)%>" />
+						            			<span class="send-span"><%=result.store_cart_list[i][j].gifts[h].goods_name%></span>
+						            			<span>X<%=result.store_cart_list[i][j].gifts[h].goods_num%></span>
+						            		</li>
+					            		</a>
+					            	<%}%>
+					            	</ul>
+					            <%}%>
+				           	<%}else{%>
+				           		<%if(result.store_cart_list[i][j].bl_id==0){%>
+				           		<!--失效商品-->
+				            	<section class="container font-gray"  goods_id="<%=result.store_cart_list[i][j].goods_id%>" cart_id="<%=result.store_cart_list[i][j].cart_id%>"  stock="<%=result.store_cart_list[i][j].goods_storage%>">
+					                <div class="module-img">
+					                    <a href="../shopping/goods_details.html?goods_id=<%=result.store_cart_list[i][j].goods_id%>"><img class="img-size" src="<%=result.store_cart_list[i][j].goods_image%>"></a>
+					                </div>
+					                <div class="module-body">
+					                	<a href="../shopping/goods_details.html?goods_id=<%=result.store_cart_list[i][j].goods_id%>">
+						                    <div class="module-top font-gray">
+						                    	<%if(result.store_cart_list[i][j].nation_flag&&result.store_cart_list[i][j].nation_name){%>
+						                    		<img src="<%=result.store_cart_list[i][j].nation_flag%>" class="flag"/>
+												    <span class="color9"><%=result.store_cart_list[i][j].nation_name%></span>
+						                    	<%}%>
+						                    	<%=result.store_cart_list[i][j].goods_name%>
+						                    </div>
+					                   		<div class="goods-price font-gray">￥<%=result.store_cart_list[i][j].goods_price%></div>
+					                    </a>
+					                    <%if(result.store_cart_list[i][j].goods_storage<=0&&result.store_cart_list[i][j].seckilling&&result.store_cart_list[i][j].seckilling.killing_stock<=0){%>
+					                    <div class="module-tailing">
+					                        <span class="under-goods">库存不足</span>
+					                        <button class="fh-btn btn w100 pull-right" type="button">移除商品</button>
+					                    </div>
+					                    <%}else if(result.store_cart_list[i][j].goods_state!=1){%>
+					                    <div class="module-tailing">
+					                        <span class="under-goods">商品已下架</span>
+					                        <button class="fh-btn btn w100 pull-right" type="button">移除商品</button>
+					                    </div>
+					                    <%}else if(result.store_cart_list[i][j].sale_stop!=0){%>
+					                    	<div class="module-tailing">
+						                        <span class="under-goods">商品已停售</span>
+						                        <button class="fh-btn btn w100 pull-right" type="button">移除商品</button>
+						                    </div>
+										<%}%>
+					                </div>
+					            </section>
+					            <%}else{%>
+					            	<!--失效套装产品-->
+					            	<%if(result.store_cart_list[i][j].bundlings){%>
+					            	<section class="container unvalid font-gray" goods_id="<%=result.store_cart_list[i][j].goods_id%>" cart_id="<%=result.store_cart_list[i][j].cart_id%>" stock="<%=result.store_cart_list[i][j].goods_storage%>">
+					            	 	<div class="div-title" cart_id="<%=result.store_cart_list[i][j].cart_id%>">
+					            	 		<i class="icon-circle-blank unuseful" style="line-height: 35px;"></i>
+					            	 		<img src="../../images/wap/unsuit.svg" class="div-img"/>
+					            	 		<span class="font-gray ml10 f14">￥<%=result.store_cart_list[i][j].goods_price%></span>
+					            	 		<div class="num_opt pull-right" cart_id="<%=result.store_cart_list[i][j].cart_id%>">
+					                            <button class="button button-square button-small " disabled><i class="icon-minus"></i></button>
+					                            <input class="num" value="<%=result.store_cart_list[i][j].goods_num%>" readonly="readonly">
+					                            <button class="button button-square button-small fh-bg-red" disabled><i class="icon-plus"></i></button>
+					                        </div>
+					            	 	</div>
+
+					            	 	<%for(var k =0;k<result.store_cart_list[i][j].bundlings.length;k++){%>
+					            	 		<div class="some-div">
+						            	 		<div class="module-img">
+								                    <a href="../shopping/goods_details.html?goods_id=<%=result.store_cart_list[i][j].bundlings[k].goods_id%>"><img class="img-size" src="<%=FormatImg(result.store_cart_list[i][j].bundlings[k].goods_image)%>"></a>
+								                </div>
+								                <div class="module-body">
+								                	<a href="../shopping/goods_details.html?goods_id=<%=result.store_cart_list[i][j].bundlings[k].goods_id%>">
+									                    <div class="module-top font-gray">
+									                    	<%if(result.store_cart_list[i][j].bundlings[k].nation_flag&&result.store_cart_list[i][j].bundlings[k].nation_name){%>
+									                    		<img src="<%=result.store_cart_list[i][j].bundlings[k].nation_flag%>" class="flag"/>
+															    <span class="color9">【<%=result.store_cart_list[i][j].bundlings[k].nation_name%>】</span>
+									                    	<%}%>
+										                    <%=result.store_cart_list[i][j].bundlings[k].goods_name%>
+									                    </div>
+								                  		<div class="font-gray mt20">￥<%=result.store_cart_list[i][j].bundlings[k].goods_price%>
+								                  		</div>
+								                    </a>
+								                </div>
+							                </div>
+					            	 	<%}%>
+					            	 	<%}%>
+					            	</section>
+					            <%}%>
+					        <%}%>
+			          	  <section class="empty"></section>
+		            	<%}%>
+		            </section>
+	            <%}%>
+	            <!--猜你喜欢-->
+                <section class="goods-recommend" id="likeGoods"></section>
+	            <%}%>
+	            </script>
+	            <script id="like_goods" type="text/html">
+					<div class="shop-like border-no"><i class="icon-circle-arrow-down f18 pr5"></i>猜你还喜欢</div>
+					<ul class="mt10 brand-ul" >
+						<%for(var i=0;i<result.length;i++){%>
+							<li class="pb10">
+								<a href="../shopping/goods_details.html?goods_id=<%=result[i].goods_id%>" class="pr dis-b">
+									<%if(result[i].goods_source>0){%>
+										<img src="../../images/wap/global-icon.png" class="global-icon" />
+									<%}%>
+									<%if(result[i].goods_pic!=null){%>
+										<img src="<%=FormatImg(result[i].goods_pic)%>" />
+									<%}else{%>
+										<img src="<%=FormatImg(result[i].goods_image)%>" />
+									<%}%>
+									<%if(result[i].goods_state==0){%>
+										<img src="../../images/wap/widthdown.png" class="half-tip"/>
+									<%}else if(result[i].sale_stop==1){%>
+									<%}else if(result[i].is_presell==1){%>
+										<img src="../../images/wap/presell.png" class="half-tip"/>
+									<%}else if(result[i].goods_storage==0){%>
+
+									<%}%>
+									<span class=" h35 pr dis-b oh mt10">
+										<%if(result[i].nation_flag&&result[i].goods_promise){%>
+											<img src="<%=result[i].nation_flag%>" class="flag"/>
+										    <span class="flag-span">【<%=result[i].goods_promise%>】</span>
+										<%}%>
+
+										<%=result[i].goods_name%>
+
+										<!--<%if(result[i].goods_source>0){%>
+											<img class="list-origin" src="../../images/wap/direct.png"  />
+										<%}else if(result[i].is_own_shop==1){%>
+											<img class="list-origin" src="../../images/wap/self.png"  />
+										<%}%>-->
+									</span>
+									<span class="like-price">
+										￥<%=result[i].goods_price%>
+									</span>
+								</a>
+							</li>
+						<%}%>
+					</ul>
+				</script>
+	           	<div class="bottom-frame p-fixed" id="bottom" style="bottom:45px;">
+	                <div id="accounts" class="bottom-right">
+	                	 <div class="bottom-left">
+	                        <i class="icon-circle-blank all"></i>
+	                        <span class="add-all">全选</span>
+	                    </div>
+	                    <p class="shopping-total pull-right">
+	                     	   合计:
+	                        <span  id="total_price"> ￥0.00</span><br /><span class="f12 color9">(不含运费)</span>
+	                        <!--<span class="marker">共 0 件</span>-->
+	                    </p>
+	                    <a class="btn-shopping" id="settle">结算</a>
+	                </div>
+	            </div>
+
+                <!--编辑状态下显示底部条-->
+                <div class="bottom-frame p-fixed" id="editBottom" style="display: none;bottom:45px;">
+	                <div id="editAccounts" class="bottom-right">
+	                	 <div class="bottom-left">
+	                        <i class="icon-circle-blank all"></i>
+	                        <span class="add-all">全选</span>
+	                    </div>
+	                    <!--<a class="btn-cancel" id="delete">删除</a>-->
+	                    <a class="btn-unshopping" id="settle">去结算</a>
+	                </div>
+	            </div>
+        </section>
+	     <div class="fh-dialog">
+        <div class="fh-dialog-wrap">
+        <div class="tc">
+        <img src="../../images/wap/login/fh-dialog-img.png" alt="" class="fh-dialog-img"/></div>
+        <div class="fh-dialog-body">
+            <p class="fh-dialog-brief">您确定从购物车中删除商品吗？</p>
+        </div>
+        <div class="fh-dialog-footer">
+        <button class="fh-dialog-button" id="leftbtn">取消</button><button class="fh-dialog-button focus-font" id="rightbtn">删除</button>
+        </div>
+        </div>
+    </div>
+    </div>
+        <!--店铺优惠套装-->
+    <section class="empty h50"></section>
+    <section class="allBtmFooter">
+      <li>
+        <a data-href="shop.html" class="homeLink">
+          <img src='../../images/index/shouye.png' />
+        </a>
+      </li>
+      <li>
+        <a data-href="goods.html">
+          <img src='../../images/index/footer3.png' />
+        </a>
+      </li>
+      <li class="pr">
+        <a data-href="../mircoshop/shopping_cart_cn.html" class="shoppingurl">
+          <img src='../../images/index/footer4click.png' />
+        </a>
+      </li>
+      <li>
+        <a data-href="person.html">
+          <img src='../../images/index/footer5.png' />
+        </a>
+      </li>
+    </section>
+    <script  src="../../js/libs/jquery/jquery-1.8.3.min.js"></script>
+    <script  src="../../js/plugins/fastclick.js"></script>
+    <script  src="../../js/config.js"></script>
+    <script  src="../../js/common.js"></script>
+    <script  src="../../js/plugins/layer/layer.js"></script>
+    <script  src="../../js/plugins/swiper/swiper.js"></script>
+    <script  src="../../js/plugins/template.js"></script>
+    <script type="text/javascript">
+      var shop_id =  localStorage.getItem('shop_id');
+      $('.homeLink').attr('data-href',$('.homeLink').attr('data-href')+"?shop_id="+shop_id);
+    </script>
+    <script  src="../../src/js/tmpl/mircoshop/shopping_cart_cn.js"></script>
+    <script>
+    	Goods.Carts.onLoad();
+    </script>
+</body>
+
+</html>

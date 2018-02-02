@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <title>团购</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+   	<meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+   	<link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../js/plugins/swiper/swiper.css">
+    <link rel="stylesheet" href="../../css/animate.css"/>
+    <link rel="stylesheet" href="../../css/buttons.css">
+    <link rel="stylesheet" href="../../css/fhbase.css">
+    <link rel="stylesheet" href="../../css/fhwap.css">
+</head>
+<body>
+    <div class="container layout" id="theme_list">
+        <div class="row bg-body">
+            <header class="fh-header">
+                <span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+                <h1 class="header-title">团购</h1>
+                <a class="header-edit" id="nav-show"></a>
+            </header>
+           
+            <div class="swiper-container">
+	            <script type="text/html" id="swiper-tpl">
+	            	<!--bannners-->
+	                <div class="swiper-wrapper">
+	                    <%for(var i=0;i<result.length;i++){%>
+	                        <div class="swiper-slide">
+	                            <a href="<%=result[i].url%>"><img src="<%=result[i].img%>!thumb"></a>
+	                        </div>
+	                    <%}%>
+	                </div>
+	            </script>
+            </div>
+            <!--tabs-->
+            <section id="tabsList"></section>
+            <script id="nav_tabs" type="text/html">
+	            <nav class="navbar navbar-default navbar-fixed-top tm-nav" role="navigation">
+	            	<div id="tabs">
+				        <ul class="nav navbar-nav">
+				          	<%for(var i=0;i<result.length;i++){%>
+				          		<li class="tab" class_id="<%=result[i].class_id%>" class_parent_id="<%=result[i].class_parent_id%>">
+				          			<a><%=result[i].class_name%></a>
+				          		</li>
+				          	<%}%>
+				        </ul>
+			        </div>
+	            </nav>
+            </script>
+            <section class="empty"></section>
+            <!--商品列表-->
+            <section id="group_list" class="bg-body"></section>
+        	<script id="groupList" type="text/html">
+	          	<%for(var i=0;i<result.length;i++){%>
+	            <div class="group-lists">
+	                <p class="f16"><%=result[i].goods_name%></p>
+	                <p class="gp-p1"><%=result[i].remark%></p>
+	                <img class="mt10 width100" src="../../images/wap/guanggao-1.jpg" data-original="<%=result[i].groupbuy_image%>!thumb">
+	                <p class="gp-p2">
+	                	<span>￥</span><span class="f20"><%=result[i].groupbuy_price%></span>
+	                	<del class="gp-del">市场价: ￥<%=result[i].goods_price%></del>
+	                	<a href="../shopping/goods_details.html?goods_id=<%=result[i].goods_id%>" class="button button-caution gp-btn">查看详情</a>
+	               	</p>
+	            </div>
+	            <section class="empty"></section>
+	            <%}%>
+        	</script>
+        </div>
+    </div>
+    <script  src="../../js/libs/jquery/jquery-1.8.3.min.js"></script>
+    <script  src="../../js/plugins/jquery.lazyload.js"></script>
+    <script  src="../../js/config.js"></script>
+	<script  src="../../js/plugins/fastclick.js"></script>
+	<script  src="../../js/common.js"></script>
+	<script  src="../../js/plugins/iscroll.js"></script>
+	<script  src="../../js/plugins/scrollspy.js"></script>
+	<script  src="../../js/plugins/layer/layer.js"></script>
+	<script  src="../../js/plugins/template.js"></script>
+    <script  src="../../js/plugins/swiper/swiper.js"></script>
+    <script  src="../../js/tmpl/activity/group_details.js"></script>
+    <script>
+    	Goods.GroupDetails.onLoad();
+    </script>
+</body>
+
+</html>
+
+

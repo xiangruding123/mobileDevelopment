@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>品牌</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+    <link rel="stylesheet" href="../../src/css/mirco.css">
+
+</head>
+
+<body>
+    <div class="page-group">
+        <!-- 单个page ,第一个.page默认被展示-->
+        <div class="page">
+            <header class="bar fh-bg-white">
+                <span class="icon icon-left pull-left" onclick="javascript:history.back();"></span>
+                <h1 class="title">品牌</h1>
+            </header>
+            <div class="content bar-header-secondary infinite-scroll infinite-scroll-bottom" data-distance="5">
+
+              <div class="bar-header-secondary" id="brand">
+    						<script type='text/html' id='brandtpl'>
+    							<%for(var i = 0;i<result.length;i++){%>
+                     <div class="inditem">
+    							<a href="../activity/brand.html?brand_id=<%=result[i].brand_id%>&val=<%=result[i].brand_id%>!group">
+    								<img src="<%=result[i].brand_page_pic%>" alt="" class="brand_page_pic">
+                  </a>
+    							<div class="shopbrand">
+    		<div class="media clearfix">
+    									<a href="../activity/brand.html?brand_id=<%=result[i].brand_id%>&val=<%=result[i].brand_id%>!group">
+
+    									<img src="<%=result[i].brand_pic%>" alt="" class="goodimg">
+    									<p class='overhide' style="width:50%;">
+    										<%=result[i].brand_name%>
+    									</p>
+    									</a>
+    									<!-- <p class="mt10">在售商品<span class="fh-red"><%=result[i].brand_goods_num%></span>件</p> -->
+    									<a href="../activity/brand.html?brand_id=<%=result[i].brand_id%>&val=<%=result[i].brand_id%>!group">
+    										<!-- <div class='inbrand'><img src="../../images/weidian/brand.png" alt="">进入品牌</div> -->
+    									</a>
+    								</div>
+    								<div class="mt15 mb20 f14"><img src="<%=result[i].country_pic%>" alt="" class="flag"> <span class="color9"><%=result[i].country_name%></span></div>
+    								<div class="mt5 f14 notice-text"><%=result[i].brand_intro%></div>
+    								<p class="f14 down text-center mt10 notice"><img src="../../images/wap/detail/notice.png" alt=""></p>
+    							</div>
+    							</div>
+    							<%}%>
+    						</script>
+
+
+</div>
+
+            </div>
+
+
+
+
+
+
+        </div>
+
+    </div>
+
+
+
+    <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+    <script>
+        $.config = {
+            router: false
+        }
+    </script>
+    <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+    <script type="text/javascript" src="../../js/config.js"></script>
+    <script src="../../js/apiLink.js" charset="utf-8"></script>
+    <script type="text/javascript" src="../../js/plugins/iscroll.js"></script>
+    <script type="text/javascript" src="../../js/layer.m.js"></script>
+    <script src="../../js/base64.js"></script>
+    <script src="../../js/fh.js"></script>
+    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script type="text/javascript" src="../../js/common.js"></script>
+    <script type="text/javascript" src="../../js/plugins/template.js"></script>
+    <script src='../../src/js/tmpl/mircoshop/morebrand.js'></script>
+</body>
+
+</html>

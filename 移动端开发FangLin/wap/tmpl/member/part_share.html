@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>我的二维码</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta http-equiv="Cache-Control" content="no-cache">
+		<meta http-equiv="Pragma" content="no-cache">
+        <link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">			
+		<link rel="stylesheet" href="../../css/fhbase.css">
+		<link rel="stylesheet" href="../../css/fhwap.css">
+	</head>
+
+	<body class="fh-bg-white">
+		<div class="container layout" id="part_friendcode">
+			<div class="row">
+				<header class="fh-header">
+					<span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+					<h1 class="header-title">我的二维码</h1>
+					<a class="header-edit" id="nav-show"></a>
+				</header>
+				<img src="../../images/wap/my_code.jpg" class="my_code_img"/>
+				<div id="code_two">
+					<img src="../../images/wap/my_bag.png"/>
+				    <h2>我是<span id="member_name"></span><br />我在招募合伙人！</h2>
+					<p>长按二维码识别或者直接扫码进入</p>
+					<img src="" class="eweicode"/>
+				</div>
+				<div class="code_btm">
+					<p>分红全球购——购全球，享分红</p>
+				</div>	
+					
+				
+			</div>
+		</div>
+		<script  src="../../js/libs/jquery/jquery-1.8.3.min.js"></script>
+		<script  src="../../js/plugins/fastclick.js"></script>	
+		<script  src="../../js/config.js"></script>
+		<script  src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+		<script  src="../../js/common.js"></script>		
+		<script  src="../../js/fh.js"></script>
+		
+		<script>
+			$(function() {
+				    
+					var mid = GetQueryString('mid');
+					
+				    var src = GetQueryString('src');
+				    
+				    var member_name = GetQueryString('member_name');   
+				    
+//				    $('#member_name').text(decodeURI (member_name));   
+				    
+                     $('#member_name').text(member_name);   
+                     
+                     $('.eweicode').prop('src',src); 
+                     
+                    if(native_flag==1){
+                    	
+                     $('.eweicode').prop('src',decodeURI(src));	
+                    
+                    }
+                    
+                    
+                    
+                    //长按图片
+                    if(!FL.isWeiXin()){
+                   
+                   $('.eweicode').mouseover(function(){
+                   	
+                   	setTimeout(function() {
+                   		location.href=WapSiteUrl+'/wap/tmpl/member/partner.html?mid='+mid; 
+                   	},1000);
+                   	
+                   })
+                  }
+                    
+                var  wx_title,wx_desc,wx_link,wx_img;
+                    //设置微信分享信息
+      			wx_title = '我是'+member_name+',成为我的合伙人，有钱一起赚！';
+      			wx_desc = '分销享分红，人人都是网购创业家！一键分销坐拥全球好货，赚钱神器！';
+      			wx_link = window.location.href;
+      			wx_img = src;
+                
+				FL.wxShare(wx_title,wx_desc,wx_link,wx_img);
+                 
+
+				if(getcookie('if_shoper')=='1'){
+
+					location.href = "../weidian/shopermoney.html";
+				}else if(getcookie('if_shoper')=='0'){
+					location.href = "../weidian/small_store.html";
+				}
+				
+			})
+		</script>
+
+	</body>
+
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>发现</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+    <link rel="stylesheet" href="../../src/css/mirco.css">
+    <style>
+	 .tab-item img{
+	 	width:40%;
+		vertical-align: middle;
+	 }
+	 </style>
+</head>
+
+<body>
+    <div class="page-group">
+        <!-- 单个page ,第一个.page默认被展示-->
+        <div class="page">
+            <div class="bar fh-bg-white">
+                <!-- <span class="icon icon-left pull-left" onclick="javascript:history.back();"></span> -->
+                <div class="searchbar fh-bg-white">
+                    <a class="searchbar-cancel">取消</a>
+                    <div class="search-input">
+                        <label class="icon icon-search"></label>
+                        <input type="search" id='search' placeholder='输入关键字...' class="fh-bg-gray" />
+                    </div>
+                </div>
+            </div>
+            <div class="content bar-header-secondary infinite-scroll infinite-scroll-bottom" data-distance="5">
+                <div class="f-nav-wrap" id="f-nav-wrap">
+                    <article class="f-nav-stickytabs">
+                        <div class="navbox js-navbox m-tbl scroll-navbox">
+                            <script type="text/html" id="head-tpl">
+                                <%for(var i= result.length-1;i>=0;i--){%>
+                                    <%for(var s=0;s<result[i].length;s++){%>
+                                        <span class="tab" gc_id="<%=result[i][s].gc_id%>" gc_area="<%=result[i][s].gc_area%>"><%=result[i][s].gc_name%></span>
+                                    <%}%>
+                                <%}%>
+                            </script>
+                        </div>
+                    </article>
+                </div>
+                <div class="h40"></div>
+
+
+                <ul id="reclassify_list" class="clearfix">
+                    <script type='text/html' id='reclassify-tpl'>
+                      <%for(var i = 0;i<result.length;i++){%>
+                        <li gc_id='<%=result[i].gc_id%>'><img src="<%=result[i].gc_img%>" alt=""></a><p class="overhideclamp overhide f12"><%=result[i].gc_name%></p></li>
+                      <%}%>
+                    </script>
+                </ul>
+
+
+                <div id="tab1" class="tab active">
+                    <script type='text/html' id='goodstpl'>
+                        <%for(var i = 0;i<result.length;i++){%>
+                            <div class="inditem mt10">
+                                <!-- <a class="link" href="../shopping/goods_details.html?goods_id=<%=result[i].goods_id%>!goodsdetail">
+                                    <div class="linkin clearfix">
+                                        <div class="img pull-left">
+                                            <img width="90" height="90" src="<%=result[i].goods_image%>">
+                                        </div>
+                                        <div class="param">
+                                            <div class="tit text-overflow">
+                                                <%=result[i].goods_name%>
+                                            </div>
+                                            <div class="price">
+                                                <span class="p1">￥<%=result[i].goods_price%> </span>
+                                                <span class="f12 ml2 fh-red">赚  <span><%=result[i].goods_reward_money%></span></span>
+                                            </div>
+                                            <div class="f12"><span class='redblock'>仅剩 <%=result[i].goods_storage%></span>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a> -->
+
+                            <div class="linkin clearfix">
+          										<a class="" href="../shopping/goods_details.html?goods_id=<%=result[i].goods_id%>!goodsdetail">
+          										<div class="img pull-left">
+          											<img width="90" height="90" src="<%=result[i].goods_image%>">
+          										</div>
+          										</a>
+          										<div class="param pb10">
+          											<a class="f14" href="../shopping/goods_details.html?goods_id=<%=result[i].goods_id%>!goodsdetail">
+          											<%if(result[i].nation_flag&&result[i].goods_promise){%>
+          												<img src="<%=result[i].nation_flag%>" class="flag"/><%=result[i].goods_promise%>
+          											<%}%>
+          											<div class="tit text-overflow overhide f14">
+          												<%=result[i].goods_name%>
+          											</div>
+          											</a>
+          											<div class="price">
+          												<span class="p1">￥<%=result[i].goods_price%> </span>
+          												<span style="margin-bottom: -10px;display: inline-block;margin-left:5px;"><del class="f12 pull-left"><%=result[i].goods_marketprice%></del></span>
+          												<span class="f12 ml2 gocart" goods_id='<%=result[i].goods_id%>' goods_source='<%=result[i].goods_source%>'>加入购物车</span>
+          											</div>
+
+          										</div>
+          									</div>
+                            </div>
+                            <%}%>
+                    </script>
+                </div>
+            </div>
+
+
+            <div id="layermbox" class="layermbox layermbox0 layermshow" index="0" style='display:none'>
+                <div class="laymshade"></div>
+                <div class="layermmain">
+                    <div class="section">
+                        <div class="layermchild  layermanim" style="background-color:#F0F0F0;">
+                            <h3 style="">添加商品到</h3><button class="layermend"></button>
+                            <div class="layermcont">
+                                <div class="gtl_list">
+                                    <div id="goodsClass">
+                                        <script type='text/html' id='goodsClassTpl'>
+                                            <%for(var i = 0;i<result.length;i++){%>
+                                                <div class="items" wclass_id='<%=result[i].wclass_id%>'><span class="type"><%=result[i].wclass_name%></span></div>
+                                                <%}%>
+                                        </script>
+                                    </div>
+                                    <div class="item"><span class="type jia" id="jia">添加分类<span class='icon icon-menu'></span></span>
+                                    </div>
+                                </div>
+                                <div class="gtl_ok">
+                                    <div class="btn_ok text-center">确定</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="bar bar-tab">
+    				  <a class="tab-item external homeLink" href="shop.html">
+    				    <img src='../../images/index/shouye.png' />
+    				  </a>
+    				  <a class="tab-item external" href="goods.html">
+                <img src='../../images/index/footer3click.png' />
+    				  </a>
+    				  <a class="tab-item external shoppingurl" href="../mircoshop/shopping_cart_cn.html">
+                <img src='../../images/index/footer4.png' />
+    				  </a>
+    				  <a class="tab-item external" href="person.html">
+    				  	<img src='../../images/index/footer5.png' />
+    				  </a>
+    				</nav>
+
+        </div>
+
+
+
+
+
+    </div>
+
+
+
+    <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+    <script>
+        $.config = {
+            router: false
+        }
+    </script>
+    <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+    <script type="text/javascript" src="../../js/config.js"></script>
+    <script src="../../js/apiLink.js" charset="utf-8"></script>
+    <script type="text/javascript" src="../../js/plugins/iscroll.js"></script>
+    <script src="../../js/plugins/layer/layer.js"></script>
+    <script src="../../js/base64.js"></script>
+    <script src="../../js/fh.js"></script>
+    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script type="text/javascript" src="../../js/common.js"></script>
+    <script type="text/javascript" src="../../js/plugins/template.js"></script>
+    <script type="text/javascript">
+      var shop_id =  localStorage.getItem('shop_id');
+       $('.homeLink').attr('href',$('.homeLink').attr('href')+"?shop_id="+shop_id);
+    </script>
+    <script src='../../src/js/tmpl/mircoshop/goods.js'></script>
+</body>
+
+</html>

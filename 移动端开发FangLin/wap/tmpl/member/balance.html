@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <title>我的余额</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+   <meta name="apple-mobile-web-app-status-bar-style" content="black">
+   	<meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+   
+    <link rel="stylesheet" href="../../css/animate.css">
+    <link rel="stylesheet" href="../../css/buttons.css" />
+    <link rel="stylesheet" href="../../css/fhbase.css">
+    <link rel="stylesheet" href="../../css/fhwap.css">
+</head>
+
+<body>
+    <div class="container layout">
+        <div class="row">
+            <header class="fh-header">
+                <span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+                <h1 class="header-title">我的余额</h1>
+            </header>
+            <section class="fill border-b f14">
+                <span class="">可提现余额</span>
+                <span class="pull-right" id="carry">￥200</span>
+            </section>
+            <section class="fill border-b f14">
+                <span class="">不可提现余额</span>
+                <span class="pull-right" id="no_carry">￥200</span>
+            </section>
+            <article class="explain">
+                这里放文字说明
+            </article>
+            <div class="bck-color plr10">
+                <a href="" class="button button-block button-rounded button-caution">去购物</a>
+                <!-- <span class="fh-btn btn">去购物</span> -->
+            </div>
+        </div>
+    </div>
+    <script  src="../../js/libs/zepto.min.js"></script>
+    <script  src="../../js/plugins/fastclick.js"></script>
+
+    <script  src="../../js/config.js"></script>
+    <script  src="../../js/common.js"></script>
+
+    <script src="../../js/plugins/fastclick.js"></script>
+</body>
+<script>
+$(function() {
+    var key = getcookie('key');
+    // $.ajax({
+    //       url: '',
+    //       type: '',
+    //       dataType: 'json',
+    //       data: {key:key},
+    //       success:function(res){            
+    //        // var res={'datas':{'money':'300','no_money':'500'}};
+    //        // $("#carry").text('￥'+res.datas.money);
+    //        // $("#no_carry").text('￥'+res.datas.no_money);
+    //       },
+    //        error: function (res) {
+    //                var res={'datas':{'money':'300','no_money':'500'}};
+    //        $("#carry").text('￥'+res.datas.money);
+    //        $("#no_carry").text('￥'+res.datas.no_money);
+    //            }
+    //   });
+    var res = {
+        'datas': {
+            'money': '300',
+            'no_money': '500',
+            'explain': '你希望在死后，人们对你的评价是什么？希望人们可以这样将我铭记，我是一个帮助他人实现梦想的人。'
+        }
+    };
+    $("#carry").text('￥' + res.datas.money);
+    $("#no_carry").text('￥' + res.datas.no_money);
+    $('.explain').text(res.datas.explain);
+})
+</script>
+
+</html>

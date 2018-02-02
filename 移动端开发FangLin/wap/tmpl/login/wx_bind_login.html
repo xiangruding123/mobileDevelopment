@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <title>手机号绑定</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+   	<meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+   	<link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/buttons.css">
+    <link rel="stylesheet" href="../../css/fhbase.css">
+    <link rel="stylesheet" href="../../css/fhwap.css">
+</head>
+<body>
+    <div class="container layout" id="register">
+        <div class="row">
+            <header class="fh-header">
+                <span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+                <h1 class="header-title">手机号绑定</h1>
+            </header>
+            <div class="f14 tc pt10 pb10 fh-white" style="background:rgba(0,0,0,0.5);"> 为保证您的帐号安全，请绑定手机号码 </div>
+            <div class="tc">
+            <img src="../../images/wap/header_phone.png" alt="" class="headimgurl"/>
+            <p class="nickname f18">分红全球购</p>
+            </div>
+        <form class="" id="registerForm">
+            <div class="pl20 pr20 disflex mb25 mt15">
+                <input type="tel" placeholder="请输入手机号" name="mobile" value="" id="mobile" class="input" style="margin:0;"/>
+            </div>
+            <div class="pl20 pr20 disflex mb25 pr" id="secodebox" style="display:none;">
+                <input type="tel" placeholder="请输入验证码"  value="" id="secode" class="input" maxlength="4"/>
+                <img src="../../src/images/wap/login/cleartext.png" class="cleartext" style="margin-right:130px;">
+                <img id="img_secode" />
+            </div>
+            <div class="pl20 pr20 disflex pr">
+                <input type="tel" placeholder="请输入手机验证码" name="code" value="" id="code" class="input" maxlength="6" />
+                <img src="../../src/images/wap/login/cleartext.png" class="cleartext" style="margin-right:95px;">
+                <button type="button" class="pull-right"  countdown='60' id="getCode" style="width:100px;">获取验证码</button>
+            </div>
+            <div class="pl20 pr20">
+                <button type="button" class="" id="nextStep" disabled="disabled">完成绑定</button>
+            </div>
+        </form>
+        </div>
+        <div class="fh-dialog" id="noinfoDialog">
+            <div class="fh-dialog-wrap">
+                <div class="tc">
+                    <img src="../../images/wap/login/fh-dialog-img.png" alt="" class="fh-dialog-img"/></div>
+                <div class="fh-dialog-body">
+                    <p class="fh-dialog-brief">该手机号已被其它账号绑定，如果继续，原帐号将自动解绑，是否继续？</p>
+                </div>
+                <div class="fh-dialog-footer">
+                    <button class="fh-dialog-button" id="leftbtn">取消</button><button class="fh-dialog-button focus-font" id="rightbtn">继续</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script  src="../../js/libs/jquery/jquery-1.8.3.min.js"></script>
+    <script  src="../../js/plugins/fastclick.js"></script>
+    <script  src="../../js/plugins/jquery.validate.js"></script>
+    <script  src="../../js/plugins/layer/layer.js"></script>
+    <script  src="../../js/config.js"></script>
+    <script  src="../../js/apiLink.js"></script>
+    <script  src="../../js/common.js"></script>
+    <script  src="../../src/js/tmpl/login/wx_bind_login.js?v=20151207"></script>
+    <script>
+    	Member.WxBind.onLoad();
+    </script>
+</body>
+</html>

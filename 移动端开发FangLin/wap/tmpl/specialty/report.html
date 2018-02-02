@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <title>举报</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../src/css/fhbase.css">
+    <link rel="stylesheet" href="../../src/css/fhwap.css">
+
+
+</head>
+<body class="fh-bg-white">
+<div class="container layout" id="report" >
+    <div class="row">
+        <header class="fh-header none border-b">
+            <span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+            <h1 class="header-title">举报</h1>
+        </header>
+        <div class="pad7">
+            <p>举报 <span class="report_name color9"></span></p>
+            <div class="reason_info">
+                <p class="border-b">垃圾营销<span><i class="icon-circle-blank" reason_id="1" reason="垃圾营销"></i></span></p>
+                <p class="border-b">有害消息<span><i class="icon-circle-blank" reason_id="2" reason="有害消息"></i></span></p>
+                <p class="border-b">违法信息<span><i class="icon-circle-blank" reason_id="3" reason="违法信息"></i></span></p>
+                <p class="border-b">淫秽信息<span><i class="icon-circle-blank" reason_id="4" reason="淫秽信息"></i></span></p>
+                <p>人身攻击我<span><i class="icon-circle-blank" reason_id="5" reason="人身攻击我"></i></span></p>
+            </div>
+            <textarea name="" id="" cols="30" rows="10" placeholder="请详细填写举报理由，以确保举报能够被受理"></textarea>
+            <button id="btn">举报</button>
+        </div>
+    </div>
+ </div>
+<!--<div id="a"></div>
+<div id="b"></div>-->
+<script  src="../../js/libs/jquery/jquery-1.8.3.min.js"></script>
+<script  src="../../js/plugins/fastclick.js"></script>
+<script  src="../../js/config.js"></script>
+<script  src="../../js/apiLink.js"></script>
+<script  src="../../js/common.js"></script>
+<script  src="../../js/plugins/layer/layer.js"></script>
+<script  src="../../js/fh.js"></script>
+<script>
+
+    if(native_flag=='-1'){
+        $('.fh-header').removeClass('none');
+    }
+
+    if(native_flag=='1'){
+        var _bridge;
+
+        function connectWebViewJavascriptBridge(callback) {
+            if (window.WebViewJavascriptBridge) {
+                callback(WebViewJavascriptBridge);
+            } else {
+                document.addEventListener('WebViewJavascriptBridgeReady', function() {
+                    callback(WebViewJavascriptBridge);
+                }, false);
+            }
+        }
+    }
+
+
+    var report_name = GetQueryString('report_name'),
+               type = GetQueryString('type'),
+          report_id = GetQueryString('report_id');
+    var reason;
+        $('.report_name').text(report_name);
+
+        $('i').click(function(){
+            var me = this;
+            reason = $(me).attr('reason');
+            reason_id = $(me).attr('reason_id');
+              if($(this).hasClass("icon-circle-blank")){
+                  $(me).parents('.reason_info').find('i').removeClass("icon-ok-sign").addClass('icon-circle-blank');
+                  $(me).removeClass("icon-circle-blank").addClass('icon-ok-sign');
+              }
+              reason_id=='5'?$('textarea').fadeIn():$('textarea').hide();
+         });
+
+         $('#btn').click(function(){
+             if(!reason){
+                 layer.msg('您还没有选择举报原因');
+             }
+             var reason_desc = $('textarea').val();
+             if(native_flag=='0'){
+                 var obj = JSON.parse(FHMall.getMemberInfo());
+                 addcookie('mid',obj.member_id);
+                 addcookie('token',obj.token);
+             }else{
+                 connectWebViewJavascriptBridge(function(bridge) {
+                     _bridge = bridge;
+                     /*JS 接收消息模块*/
+                     try{
+                         bridge.init(function(message, responseCallback) {
+
+                         });
+                     }catch(e){
+
+                     }
+                     igetMemberInfo();
+                 });
+
+             }
+
+             report(report_id,type,reason,reason_desc);
+         });
+
+
+         function report(report_id,type,reason,reason_desc){
+//             layer.msg("123");
+//             FL.ajaxDate('post',WapSiteUrl+"/api/index.php?act=buyer_report&op=add_report",{mid:getcookie('mid'),token:getcookie('token'),report_id:report_id,type:type,reason:reason,reason_desc:reason_desc},function(data){
+//                 layer.msg("456");
+//                 if(data&&data.error=='0'){
+//                     if(data.result=='1'){
+//                       layer.msg('举报成功');
+//                     }
+//                 }else{
+//                     layer.msg(data.msg||"举报失败");
+//                 }
+//             });
+             mid = getcookie('mid'),token=getcookie('token');
+//           $('#a').html(mid +"123"+token+"&"+report_id+"&"+type+"&"+reason+"&"+reason_desc);
+             $.ajax({
+                 url:WapSiteUrl+"/api/index.php?act=buyer_report&op=add_report",
+                 type: "post",
+                 data:{mid:mid,token:token,report_id:report_id,type:type,reason:reason,reason_desc:reason_desc,flag:"wap"},
+                 dataType:'json',
+                 success: function(data){
+
+                     if(data&&data.error=='0'){
+                         if(data.result=='1'){
+                             layer.msg('举报成功');
+                         }
+                     }else{
+                         layer.msg(data.msg||"举报失败");
+                     }
+
+                 }
+
+             });
+         }
+
+    function igetMemberInfo() {
+        var data = {
+            "func" : "getmember",
+            "params" : ""
+        };
+
+        _bridge.send(data, function(responseData) {
+            addcookie('mid',responseData.member_id);
+            addcookie('token',responseData.token);
+        });
+    }
+</script>
+</body>
+</html>

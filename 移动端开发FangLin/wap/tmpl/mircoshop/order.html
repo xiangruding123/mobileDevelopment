@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>红人服务</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+    <link rel="stylesheet" href="../../src/css/mirco.css">
+
+    <style>
+        .pay-header {
+            position: fixed;
+            bottom: -1000px;
+            width: 100%;
+            background: #fff;
+        }
+
+        .pay-type {
+            padding-top: 10px;
+            padding-bottom: 10px;
+            font-size: 16px;
+            border-bottom: 1px solid #eaeaea;
+        }
+
+        .pay-type img {
+            width: 40px;
+            height: 40px;
+            margin-right: 8%;
+            margin-left: 0.5rem;
+            display: inline-block;
+        }
+
+        .pay-method {
+            text-align: center;
+        }
+
+        #sure_pay {
+            height: 50px;
+            color: #fff;
+            line-height: 50px;
+            background: #fa2855;
+            border: 0;
+            border-radius: 0;
+        }
+
+        .pay-chose {
+            font-size: 24px;
+            line-height: 30px;
+            float: right;
+            color: #949494;
+        }
+
+        .icon-ok-sign {
+            color: #fa2855!important;
+        }
+
+        .pad10 {
+            padding: 10px;
+        }
+
+        .feng{
+        	width:160px;
+        	margin:20px auto;
+        	display: block;
+        }
+        .item-content img{
+        	width:1rem;
+        	vertical-align: middle;
+        	margin-top:-4px;
+        	margin-right: 5px;
+        }
+        .bar-nav~.content{
+            top:2.2rem !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page-group">
+        <!-- 单个page ,第一个.page默认被展示-->
+        <div class="page fh-bg-white">
+            <!-- 标题栏 -->
+            <header class="bar bar-nav">
+                <span class="icon icon-left pull-left" onclick="javascript:history.back();"></span>
+                <h1 class="title">红人服务</h1>
+            </header>
+            <!-- 这里是页面内容区 -->
+            <div class="content content-padded">
+            	<img src="../../images/weidian/feng.png" class="feng"/>
+            	<div class="list-block">
+    <ul>
+      <li class="item-content">
+        <div class="item-media"><i class="icon icon-f7"></i></div>
+        <div class="item-inner">
+
+          <div class="item-title"><img src="../../images/weidian/zhuangtai.png"/>参与活动</div>
+          <div class="item-after status"></div>
+        </div>
+      </li>
+      <li class="item-content">
+        <div class="item-media"><i class="icon icon-f7"></i></div>
+        <div class="item-inner">
+          <div class="item-title"><img src="../../images/weidian/feiyong.png"/>服务费用</div>
+          <div class="item-after fh-red shop_money">666元</div>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <p><span class="button button-fill button-danger makeorder f16">申请</span></p>
+
+
+
+
+
+
+
+            </div>
+            <!--支付方式-->
+            <form class="pay-header" id="pay_method" method="post" action="">
+                <div class="pad10">
+                    <div class="pay-method">选择支付方式</div>
+                    <div class="pay-type" id="zfb" payment_code="alipay">
+                        <img src="../../images/wap/zhifubao.png" class="pay-icon" />
+                        <span>支付宝支付</span>
+                        <i class="icon-circle-blank pay-chose"></i>
+                    </div>
+
+                    <div class="pay-type" id="jd" payment_code="jdpay">
+                        <img src="../../images/wap/jd.png" class="pay-icon" />
+                        <span>京东支付</span>
+                        <i class="icon-circle-blank pay-chose"></i>
+                    </div>
+
+                    <div class="pay-type" id="wx" payment_code="wxpay">
+                        <img src="../../images/wap/weixin.png" class="pay-icon" />
+                        <span>微信支付</span>
+                        <i class="icon-circle-blank pay-chose"></i>
+                    </div>
+
+                    <input type="hidden" name="payment_code" id="payment_code" />
+                    <input type="hidden" name="pay_sn" id="pay_sn" />
+                    <input type="hidden" name="mid" id="mid" />
+                    <input type="hidden" name="token" id="token" />
+                    <input type="hidden" name="flag" id="flag" value="wap" />
+                    <input type="hidden" name="pay_from" id="pay_from"  value="" />
+                </div>
+                <div class="empty"></div>
+                <a class="button button-block button-caution f16" id="sure_pay">确认支付</a>
+                </from>
+
+
+        </div>
+
+
+
+
+    </div>
+
+
+
+    <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+    <script>
+        $.config = {
+            router: false
+        }
+    </script>
+    <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+    <script src='../../js/config.js'></script>
+    <script src='../../js/apiLink.js'></script>
+    <script type="text/javascript" src='../../js/common.js'></script>
+    <script type="text/javascript" src="../../js/plugins/layer/layer.js"></script>
+    <script src="../../js/fh.js"></script>
+    <script>
+        $(function() {
+            // 页面初始化
+            $.init();
+
+            var shop_type;
+
+            $("#pay_method").attr("action",WapSiteUrl + '/api/index.php?act=buyer_microshop_order&op=pay');
+            var payment_list; //支付方式
+            var shop_money = GetQueryString('shop_money'),updata = GetQueryString('updata'),
+                mid = getcookie('mid'),
+                token = getcookie('token');
+
+          if(updata=='1'){
+            // $('.content-padded').hide();
+            // $('.shengji').removeClass('none');
+            $('.status').html('升级皇冠红人店');
+            $('.content-padded .shop_money').text("301元");
+
+          }else{
+             shop_money == 365 ? $('.status').html('申请大V红人店'):$('.status').html('申请皇冠红人店');
+             $('.content-padded .shop_money').text(shop_money+"元");
+             shop_money == 365 ? shop_type = 2 : shop_type = 3;
+          }
+
+          var memberInfo = {
+              mid: mid,
+              token: token,
+              update: updata,
+              shop_type: shop_type
+          };
+
+         FL.ajaxDate('post', get_microshop_money, memberInfo, function(data){
+             if (data && data.error == 0){
+                    shop_money = data.result.shop_money;
+                    $('.content-padded .shop_money').text(shop_money+"元");
+                }else{
+                    /*void do nothing 显示默认价格*/
+                }
+         });
+
+
+
+
+            var date = {
+                mid: mid,
+                token: token,
+                shop_type: shop_type,
+                update:updata
+            };
+
+            $('.makeorder').on('click',function() {
+                FL.ajaxDate('post', microshop_submit, date, function(data) {
+                    if (data && data.error == 0) {
+                        pay_sn = data.result.pay_sn;
+                        pay_amount = data.result.pay_amount;
+                        payment_list = data.result.payment_list.join("|");
+
+
+                        $("#pay_sn").val(pay_sn);
+                        $("#mid").val(mid);
+                        $("#token").val(token);
+
+
+                        $('form').css('bottom', '0');
+
+
+                    } else {
+                        layer.msg('请稍后重试');
+                    }
+                });
+            })
+
+
+
+            var ua = navigator.userAgent.toLowerCase();
+            if (ua.match(/MicroMessenger/i) == "micromessenger") {
+                $("#wx").find("i").attr("class", "icon-ok-sign pay-chose");
+            } else {
+                $("#zfb").find("i").attr("class", "icon-ok-sign pay-chose");
+                $('#wx').hide();
+            }
+
+
+            $(".pay-chose").on('click',function() {
+                var me = this;
+                $(".pay-chose").attr("class", "icon-circle-blank pay-chose");
+                $(me).attr("class", "icon-ok-sign pay-chose");
+            });
+
+
+            //选择好支付方式返回三方支付页面
+            $("#sure_pay").on('click',function() {
+                var me = this;
+                if (FL.mid == '' || FL.token == '') {
+
+                    FL.logLogin();
+
+                } else {
+                    var payment_code = $(".icon-ok-sign").parent().attr("payment_code");
+                    if (payment_list.indexOf(payment_code) >= 0) {
+                        $("#payment_code").val(payment_code);
+                        if(navigator.userAgent.toLowerCase().indexOf("fhmall_ios") > 0){
+                           $('#pay_from').val('ios');
+           						 }
+                        $("#pay_method").submit();
+                    } else {
+                        switch (payment_code) {
+                            case "alipay":
+                                msg = '支付宝'
+                                break;
+                            case "wxpay":
+                                msg = '微信'
+                                break;
+                            case "jdpay":
+                                msg = '京东'
+                                break;
+                            default:
+                                msg = '该方式'
+                        }
+                        layer.msg('暂不支持' + msg + '支付');
+                    }
+
+
+
+
+                }
+
+            });
+
+
+
+
+
+
+
+        });
+    </script>
+</body>
+
+</html>

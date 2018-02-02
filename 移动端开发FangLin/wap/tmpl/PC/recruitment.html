@@ -1,0 +1,412 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-cmn-Hans">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<link rel="stylesheet" href="css/buttons.css">
+		<link rel="stylesheet" href="js/layer/skin/layer.css">
+		<link rel="stylesheet" href="css/fhbase.css">
+		<title></title>
+	<style>
+	body{
+		margin: 0;
+		padding: 0;
+	}
+	.bg-body{
+		width: 1000px;
+		margin: 0 auto;
+	}
+	img{
+		width: 100%;
+		display: block;
+	}
+	form{
+		margin: 20px auto 150px auto;
+		width: 1000px;
+		text-align: center;
+		background-color: #fff;
+	}
+	table{
+		margin: 0 auto;
+	}
+	tr td:nth-child(1){
+		width: 20%;
+		text-align: right;
+	}
+	tr td:nth-child(2){
+		width: 70%;
+		text-align: left;
+		padding-left: 20px;
+	}
+	tr{
+		line-height: 40px;
+	}
+	input{
+		    padding: 10px;
+		    padding-left: 10px;
+		    border: 1px solid #ccc !important;
+	}
+	.btn{
+		width: 150px;
+		border-radius: 2px;
+	}
+	.btn-s{
+		text-align: center;
+		width: 414px;
+		background-color:#fa2855 !important;
+		border-radius: 2px;
+	}
+	.tooltip-top{
+		position: absolute;
+	    display: inline-block;
+	    margin-top: 35px !important;
+	    opacity: 1;
+	    z-index: 1070;
+	    visibility: visible;
+	    font-size: 12px;
+	    line-height: 1.4;
+	    padding: 5px 0;
+	    background-color: transparent !important;
+	}
+
+
+	.tooltip-in {
+	    max-width: 200px;
+	    padding: 3px 8px;
+	    color: #fff;
+	    text-align: center;
+	    text-decoration: none;
+	    background-color: #F30 !important;
+	    border-radius: 4px;
+	}
+	
+	.tooltip-top .tooltip-arrow {
+	    bottom: 0;
+	    left: 50%;
+	    margin-left: -5px;
+	    border-width: 5px 5px 0;
+	    border-top-color: #F30;
+	}
+	.bg{
+		position: fixed;
+	    margin: auto;
+	    left: 0;
+	    right: 0;
+	    top: 20%;
+	    width: 600px;
+	    z-index: 99999999;
+	}
+	.app_code{
+		position: absolute;
+		left: 27px;
+		top: 100px;
+		width: 141px;
+		height: 383px;
+	}
+	.bg_bottom{
+		height: 102px;
+		position: fixed;
+		bottom: 0;
+		background:#000000;
+		filter:alpha(opacity=60);
+		opacity:0.6;
+		width: 100%;
+	}
+	.bt-bg{
+		width: 940px;
+	    height: 86px;
+	    position: fixed;
+	    z-index: 998;
+	    background-color: transparent;
+	    bottom: 8px;
+	    text-align: center;
+	    left: 0px;
+	    right: 0px;
+	    margin: 0 auto;
+	}
+	.close-1{
+		position: absolute;
+	    top: -9px;
+	    width: 27px;
+	    right: -12px;
+	}
+	
+	.close-2{
+		width: 27px;
+	    top: 5px;
+	    right: 5px;
+	    position: absolute;
+	}
+	#totop {
+	    bottom: 80px !important;
+	}
+	.loading-shade {
+	    position: absolute;
+	    height: 1000%;
+	    width: 100%;
+	    background: #000000 !important;
+	    filter:alpha(opacity=60);
+	    opacity: 0.6;
+	    top: 0;
+	    left: 0;
+	    z-index: 9999999;
+	}
+	</style>
+	</head>
+	<body>
+		<div class="bg-body">
+			<img src="images/img-1.jpg" />
+			<img src="images/img-2.jpg" />
+			<img src="images/img-3.jpg" />
+			<img src="images/img-4.jpg" />
+			<img src="images/img-5.jpg" />
+			<img src="images/img-6.jpg" />
+			<img src="images/img-7.jpg" />
+			<img src="images/img-8.jpg" />
+			<img src="images/img-9.jpg" />
+			<img src="images/img-10.jpg" />
+		</div>
+		<!--下方表单-->
+		<form id="rtForm">
+			<table cellpadding="10">
+				<tr>
+					<td >手机号</td>
+					<td>
+						<input disabled="disabled" style="width: 100px;" value="+86">
+						<input type="text" placeholder="手机号" name="mobile" id="mobile" style="width: 275px;"/>
+					</td>
+				</tr>
+				<tr>
+					<td>验证码</td>
+					<td>
+						<input type="text"  id="secode" placeholder="请输入验证码"  style="width: 240px;float:left;margin-right: 10px;"/>
+						<img  id="img_secode" style="width: 140px;height: 35px;"/>
+					</td>
+				</tr>
+				<tr>
+					<td>短信验证码</td>
+					<td>
+						<input type="text" name="code" id="code" placeholder="验证码"  style="width: 240px;"/>
+						<button type="button" class="button button-caution btn" disabled="disabled" id="getCode">获取验证码</button>
+					</td>
+				</tr>
+				<tr>
+					<td>设置密码</td>
+					<td>
+						<input type="password" name="password" id="password" placeholder="输入登录密码" style="width: 400px;"/>
+					</td>
+				</tr>
+				<tr>
+					<td>确认密码</td>
+					<td>
+						<input type="password" name="com_pwd" id="confirm_pwd" placeholder="再次输入密码" style="width: 400px;"/>
+					</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td >
+						<button type="button" class="button button-caution btn-s" id="register">提交</button>
+					</td>
+				</tr>
+			</table>
+		</form>
+		<!--注册成功弹出窗口-->
+		<div style="display: none;" class="bg" id="success_img">
+			<div style="position: relative;">
+				<img src="images/code.png" />
+				<img src="images/close-2.png" class="close-2"  />
+			</div>	
+		</div>
+		<!--左侧悬浮窗口-->
+		<img src="images/app_code.gif" class="app_code" id="app_code"/>
+		<!--底部悬浮窗口-->
+		<div class="bg_bottom"></div>
+		<div class="bt-bg">
+				<img src="images/bottom.png" />	
+				<img src="images/close-1.png" class="close-1" />
+			</div>
+	</body>
+	
+	<script type='text/javascript' src='http://tb.53kf.com/kf.php?arg=10121260&style=1'></script>
+	<script  src="js/jquery-1.8.3.min.js"></script>
+	<script  src="js/config.js"></script>
+	<script  src="js/common.js"></script>
+	<script  src="js/jquery.validate.js"></script>
+	<script  src="js/layer/layer.js"></script>
+	<script>
+	var hashSecode = "";
+	//统计页面访问次数
+	$.ajax({
+		type:"get",
+		url:WapSiteUrl+"/api/index.php?act=ganji_api&op=abc",
+		dataType:"json",
+		success:function(data){
+			
+		},
+		error:function(xhr){
+			
+		}
+	});
+	//添加验证码
+	function getHash(){
+		$.ajax({
+			type:"get",
+			url:WapSiteUrl+"/api/index.php?act=common_index&op=get_secode_hash",
+			data:{"flag":"wap"},
+			global:false,
+			dataType:"json",
+			success:function(data){
+				if(data&&data.error==0){
+					hashSecode = data.result;
+					$("#img_secode").attr("src",WapSiteUrl+"/api/index.php?act=common_index&op=make_secode&flag=wap&nchash="+data.result);
+				}
+			},
+			error:function(xhr){
+			}
+		})
+	}
+	//校验验证码
+	function checkSecode(captcha){
+		$.ajax({
+			type:"get",
+			url:WapSiteUrl+"/api/index.php?act=common_index&op=check_secode",
+			data:{"flag":"wap","captcha":captcha,"nchash":hashSecode},
+			global:false,
+			dataType:"json",
+			success:function(data){
+				if(data&&data.error==0){
+					var phoneNum = $("#mobile").val();
+					if(/^1[3|4|5|7|8|9][0-9]\d{4,8}$/.test(phoneNum)&&/^1\d{10}$/.test(phoneNum)){
+						$("#getCode").removeAttr("disabled");
+					}
+				}else{
+					$("#getCode").attr("disabled","disabled");
+					if($("#secode").val().length!=0){
+						layer.msg("验证码输入错误");
+					}
+				}
+			},
+			error:function(xhr){
+			}
+		})
+	}
+	getHash();
+	$("#img_secode").click(function(){
+		getHash();
+	});
+	
+	$("#secode").keyup(function(){
+		var me = this;
+		if($(me).val().length==4){
+			checkSecode($(me).val());
+		}else{
+			$("#getCode").attr("disabled","disabled");
+		}
+	});
+	$(function(){
+			//页面字段校验
+				$("#rtForm").validate({
+			        rules: {
+			            mobile: {
+			            	required:true,
+			            	telephone:true,
+			            	isExist : true
+			            },
+			            code: "required",
+			            password:"required",
+						com_pwd:{
+							required:true,
+							equalTo:"#password"
+				        }
+			        },
+			        messages: {
+			            mobile: {
+			            	required:"手机号不能为空！",
+			            	telephone:"请填写正确的手机号",
+			            	isExist : "手机号已注册"
+			         	},
+			            code: "验证码必填",
+						password:"登录密码必填",
+						
+						com_pwd:{
+							required:"请输入您的确认密码",
+							equalTo:"两次输入密码不一致"
+						}
+			        },
+				    errorPlacement: function(error, element) {
+				        	var text = error.text();
+				        	var dom =   '<div class="tooltip-top" role="tooltip">'
+									      +'<div class="tooltip-arrow"></div>'
+									      +'<div class="tooltip-in">'+text+'</div>'
+									    +'</div>'
+							$(".tooltip-top").remove();
+							element.before(dom);
+					}
+		   		 });
+			
+			//获取验证码
+			$("#getCode").click(function(){
+				var number = $("#mobile").val();
+				if(/^1[3|4|5|7|8|9][0-9]\d{4,8}$/.test(number)&&/^1\d{10}$/.test(number)){
+					FL.countDown(60,$("#getCode"));//获取验证码倒计时
+					var captchaNum = $("#secode").val();
+					FL.getCode(number,hashSecode,captchaNum);
+				}else{
+					layer.msg('请输入正确的手机号！');
+				}
+					
+			});
+			//注册
+			$("#register").click(function(){
+				 if($("#rtForm").valid()){
+				 	register();
+				 }
+			});
+			
+			//会员注册
+			function register(){
+				var mobile = $("#mobile").val();
+				var code = $("#code").val();
+				var password = $("#password").val();
+				$.ajax({
+					type:"post",
+					url:WapSiteUrl+"/api/index.php?act=common_member&op=register",
+					data : {flag:"wap",mobile:mobile,code:code,password:password,prom:"ganji"},
+					dataType:"json",
+					success:function(data){ 
+						if(data.error==="0"){
+							setTimeout(function(){
+								$("#success_img").show();
+								FL.addShade();
+							},500);
+						}else{
+							layer.msg(data.msg);
+						}
+					}
+				});
+			}
+			var sTop = document.body.scrollTop || document.documentElement.scrollTop;
+			document.getElementById("app_code").style.top = (sTop+100)+"px";
+			
+			$(window).scroll(function() {
+				var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+				setTimeout(function(){
+					document.getElementById("app_code").style.top = (scrollTop+100)+"px";
+				},300)
+			});
+			//下方点击关闭悬浮
+			$(".close-1").click(function(){
+				$(".bg_bottom").hide();
+				$(".bt-bg").hide();
+			});
+			//弹出层关闭
+			$(".close-2").click(function(){
+				$("#success_img").hide();
+				FL.removeShade();
+				$("#rtForm")[0].reset();
+			});
+		})
+	</script>
+</html>
+ 

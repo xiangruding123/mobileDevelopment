@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<title id="title">分红全球购</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta content="telephone=no" name="format-detection" />
+		<link rel="stylesheet" href="../js/libs/font-awesome/css/font-awesome.min.css">
+		<link rel="stylesheet" href="../css/cover.css">
+	</head>
+
+	<body>
+		<div class="layout" id="c_list" ></div>
+			<script type="text/html" id="cList">
+			<%for(var i=0;i<result.length;i++){%>
+			<div class="c-box">
+				<a href="<%=result[i].article_url%>">
+					<p class="c-p-1"><%=format(result[i].article_time)%></p>
+					<p class="c-p-2"><%=result[i].article_title%></p>
+					<img src="<%=result[i].article_img%>" class="w100" />
+					<p class="c-p-1"><%=result[i].article_desc%></p>
+					<hr />
+					<p>
+						<span class="c-c-0">阅读原文</span>
+						<i class="icon-angle-right"></i>
+					</p>
+				</a>
+			</div>
+			<%}%>
+			</script>
+		<p class="c-bottom">——————————已无更多——————————</p>
+		<script type="text/javascript" src="../js/jquery-1.11.3.min.js"></script>
+		<script type="text/javascript" src="../js/template.js"></script>
+		<script type="text/javascript" src="../js/common.js"></script>	
+		<script type="text/javascript" src="../js/tmpl/cover.js"></script>
+		<script>
+			Wechat.Cover.onLoad();
+		</script>
+	</body>
+
+</html>

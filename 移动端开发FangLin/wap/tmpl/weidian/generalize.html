@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>如何推广</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../../css/fhbase.css">
+		<link rel="stylesheet" href="../../css/fhwap.css">
+		<link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.css" />
+		<script src="../../js/libs/jquery/jquery-1.8.3.min.js"></script>
+		<script src="../../js/plugins/fastclick.js"></script>
+		<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+		<script src="../../js/config.js"></script>
+		<script src="../../js/common.js"></script>
+		<script src="../../js/base64.js"></script>
+		<script src="../../js/fh.js"></script>
+		<style type="text/css">
+			img {
+				display: block;
+				width: 100%;
+			}
+			
+			.share_btn {
+				position: fixed;
+				bottom: 0;
+				width: 100%;
+				max-width: 640px;
+				border-top: 1px solid #fa2855;
+				background: #fff;
+				padding: 25px 0;
+			}
+			
+			.share_btn>div {
+				width: 50%;
+				padding: 0 20px;
+				box-sizing: border-box;
+				float: left;
+			}
+			
+			.share_btn a {
+				width: 100%;
+				height: 44px;
+				line-height: 44px;
+				border-radius: 5px;
+				font-size: 16px;
+				color: #fff;
+				background: #fa2855;
+				text-align: center;
+				display: inline-block;
+			}
+			
+			.fh-loading {
+				display: none;
+			}
+		</style>
+	</head>
+
+	<body class="fh-bg-white">
+		<div class="container layout" id="">
+			<div class="row pr">
+				<header class="fh-header none" style="border-bottom: 1px solid #ccc">
+					<span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+					<h1 class="header-title">如何推广</h1>
+				</header>
+				<img src="../../images/wap/money_01.jpg" alt="" />
+				<img src="../../images/wap/money_02.jpg" alt="" />
+				<img src="../../images/wap/money_03.jpg" alt="" />
+				<img src="../../images/wap/money_04.jpg" alt="" />
+				<img src="../../images/wap/money_05.jpg" alt="" />
+				<img src="../../images/wap/money_06.jpg" alt="" />
+				<img src="../../images/wap/money_07.jpg" alt="" />
+				<img src="../../images/wap/money_08.jpg" alt="" />
+				<img src="../../images/wap/money_09.jpg" alt="" />
+				<img src="../../images/wap/money_10.jpg" alt="" />
+				<img src="../../images/wap/money_11.jpg" alt="" />
+				<div style="height:177px"></div>
+				<div class="share_btn">
+					<div>
+						<a id='goHome'>去分享赚钱></a>
+					</div>
+					<div>
+						<a href="../mircoshop/register.html">去开店赚钱></a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script>
+			$(function() {
+
+				if(native_flag == -1) {
+					$('header').removeClass('none');
+				}
+
+				$('#goHome').bind('click', function() {
+
+					if(native_flag == '0') {
+						FHMall.gotoHome(0);
+					} else if(native_flag == '1') {
+						igotoHome(0)
+					} else {
+						location.href = '../index/index.html';
+					}
+				})
+
+				//设置微信分享信息
+				var wx_title = '越分享越精彩';
+				var wx_desc = '动动手指轻松分享，坐拥全球一线品牌货源，享丰厚佣金，分享赚钱如此简单！分红全球购有你才最红！';
+				var wx_link = WapSiteUrl + '/wap/tmpl/weidian/shopermoney.html?a=1';
+				var wx_img = WapSiteUrl + '/wap/images/wap/detail/logo.png';
+
+				FL.wxShare(wx_title, wx_desc, wx_link, wx_img, wx_desc);
+
+				var shareObj = {};
+				shareObj.title = wx_title,
+					shareObj.desc = wx_desc,
+					shareObj.img = wx_img,
+					shareObj.url = wx_link;
+
+				rightShare(shareObj);
+
+			})
+		</script>
+	</body>
+
+</html>

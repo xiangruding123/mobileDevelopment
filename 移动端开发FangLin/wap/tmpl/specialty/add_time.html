@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <title>记录时光</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/animate.css">
+    <link rel="stylesheet" href="../../css/buttons.css">
+    <link rel="stylesheet" href="../../js/plugins/layer/skin/layer.css">
+    <link rel="stylesheet" href="../../css/fhbase.css">
+    <link rel="stylesheet" href="../../src/css/fhwap.css">
+</head>
+<body id='addTimeAll'>
+<div class="container layout fh-bg-white" id='addTime'>
+    <div class="row bg-body">
+        <header class="fh-header border-b">
+            <span class="goback icon-angle-left"></span>
+            <h1 class="header-title">记录时光</h1>
+            <span class="header-right focus-font" id="submitTime">发布</span>
+        </header>
+        <textarea name="" class="" id="timeContent" cols="30" rows="10" maxlength="5000" placeholder="是什么陪伴在你的时光里."></textarea>
+        <!--<textarea name="" id="timeContent" cols="30" rows="10" maxlength="5000" placeholder="是什么陪伴在你的时光里。" value="是什么陪伴在你的时光里。"> </textarea>-->
+        <!--<div id="geolocation"><img src="../../images/wap/specialty/gps.png" alt=""><span class="city"></span><span class="address"></span></div>-->
+        <div class="empty"></div>
+        <div class="timearticle">
+            <h2 class="mb20">标签 <span class="tagTum pull-right color9">0/10</span></h2>
+            <div class="f-nav-wrap" style="height:46px;">
+                <article class="f-nav-stickytabs f-nav-stickytabs tag-warp">
+                    <div class="navbox js-navbox m-tbl scroll-navbox boxtag">
+                        <span id="addTagName">+添加标签</span>
+                    </div>
+                </article>
+            </div>
+        </div>
+        <div class="empty"></div>
+        <div class="timearticle">
+            <h2 class="mb15">时光图片<span class="tagTum pull-right color9">0/5</span></h2>
+            <div class="f-nav-wrap h60">
+                <article class="f-nav-stickytabs f-nav-stickytabs pic-warp">
+                    <div class="navbox js-navbox m-tbl scroll-navbox">
+                        <img src="../../images/wap/specialty/btn_tianjiatupian.png" alt="">
+                        <input type="file" accept="image/*" capture=camera class="fh-file" id="picwarp" name="picwarp" />
+                    </div>
+                </article>
+            </div>
+
+        </div>
+        <div class="empty"></div>
+        <div class="timearticle">
+            <h2 class="mb15">关联商品<span class="tagTum pull-right color9">0/10</span></h2>
+            <div class="f-nav-wrap h60">
+                <article class="f-nav-stickytabs f-nav-stickytabs goods-warp">
+                    <div class="navbox js-navbox m-tbl scroll-navbox">
+                        <img src="../../images/wap/specialty/btn_tianjiatupian.png" alt="" id="goodswarp">
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+</div>
+<!--标签-->
+<div class="container timeposition" id='tag'>
+    <div class="row bg-body">
+        <header class="fh-header time-header border-b">
+            <span class="goback icon-angle-left"></span>
+            <i class="icon-search"></i>
+            <input type="text" placeholder="搜索标签" id="goods_search">
+        </header>
+        <script type="text/html" id="tag-tmpl">
+            <div class="tag-article">
+                <h2><img src="../../images/wap/specialty/red_tag.png" alt="" />热门标签</h2>
+                <%if(hot_tags){%>
+                <%for(var i in hot_tags){%>
+                <span class="tagname delTagName"><%=hot_tags[i]%></span>
+                <%}%>
+                <%}%>
+            </div>
+            <div class="empty"></div>
+            <div class="tag-article tag-article-new">
+                <h2><img src="../../images/wap/specialty/gray_tag.png" alt="" />最近选择</h2>
+                <%if(history_tags){%>
+                <%for(var i in history_tags){%>
+                <span class="tagname"><%=history_tags[i]%></span>
+                <%}%>
+                <%}%>
+            </div>
+        </script>
+        <p id="clearTag">清除最近选择</p>
+    </div>
+    <ul id="search_tag">
+        <script type="text/html" id="search_tags_tmpl">
+            <%if(exists=='0'){%>
+            <li id="addSearchTag" class="f13 color9"><img src="../../images/wap/specialty/add.png" class="mr5 mt2"/>添加新标签: <span></span></li>
+            <%}%>
+            <%for(var i in tags){%>
+            <li class="activetag"><%=tags[i]%></li>
+            <%}%>
+        </script>
+    </ul>
+</div>
+<div class="location">
+    <p>不显示位置</p>
+    <p>使用【<span></span>】</p>
+    <p>重新定位当前位置</p>
+</div>
+<div class="fh-dialog" id="noinfoDialog">
+    <div class="fh-dialog-wrap">
+        <div class="tc">
+            <img src="../../images/wap/login/fh-dialog-img.png" alt="" class="fh-dialog-img"/></div>
+        <div class="fh-dialog-body">
+            <p class="fh-dialog-brief">你确定清除最新选择吗?</p>
+        </div>
+        <div class="fh-dialog-footer">
+            <button class="fh-dialog-button" id="leftbtn">取消</button><button class="fh-dialog-button focus-font" id="rightbtn">确定</button>
+        </div>
+    </div>
+</div>
+<div class="fh-dialog" id="deleteInfoDialog">
+    <div class="fh-dialog-wrap">
+        <div class="tc">
+            <img src="../../images/wap/login/fh-dialog-img.png" alt="" class="fh-dialog-img"/></div>
+        <div class="fh-dialog-body">
+            <p class="fh-dialog-brief">是否git 删除该项?</p>
+        </div>
+        <div class="fh-dialog-footer">
+            <button class="fh-dialog-button" id="leftbtn">删除</button><button class="fh-dialog-button focus-font" id="rightbtn">不删除</button>
+        </div>
+    </div>
+</div>
+<script  src="../../js/libs/jquery/jquery-1.8.3.min.js"></script>
+<script  src="../../js/plugins/fastclick.js"></script>
+<script  src="http://api.map.baidu.com/api?v=2.0&ak=40f8726220ef76bb9071cd8f9121ba3b"></script>
+<script  src="../../js/plugins/template.js"></script>
+<script  src="../../js/plugins/layer/layer.js"></script>
+<script  src="../../js/plugins/iscroll.js"></script>
+<script  src="../../js/config.js"></script>
+<script  src="../../js/apiLink.js"></script>
+<script  src="../../js/common.js"></script>
+<script  src="../../src/js/tmpl/specialty/add_time.js"></script>
+
+</body>
+
+</html>

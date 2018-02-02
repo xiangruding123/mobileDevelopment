@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>代理权益</title>
+		<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+		<link rel="shortcut icon" href="/favicon.ico">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+		<link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+		<link rel="stylesheet" href="../../src/css/mirco.css" media="screen" title="no title">
+		<style>
+			img {
+				display: block;
+				width: 100%;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="page-group">
+			<!-- 单个page ,第一个.page默认被展示-->
+			<div class="page">
+				<!-- 标题栏 -->
+				<header class="bar bar-nav">
+					<!-- <a class="button button-link button-nav pull-left" href="/demos/card" data-transition='slide-out'> -->
+					<span class="icon icon-left pull-left" onclick="home()"></span>
+					<!-- </a> -->
+
+					<h1 class="title">代理权益</h1>
+				</header>
+				<!-- 这里是页面内容区 -->
+				<div class="content">
+					<img src="../../images/weidian/dai_01.jpg" alt="" />
+					<img src="../../images/weidian/dai_02.jpg" alt="" />
+					<img src="../../images/weidian/dai_03.jpg" alt="" />
+					<img src="../../images/weidian/dai_04.jpg" alt="" />
+					<img src="../../images/weidian/dai_05.jpg" alt="" />
+					<img src="../../images/weidian/dai_06.jpg" alt="" />
+					<img src="../../images/weidian/dai_07.jpg" alt="" />
+					<img src="../../images/weidian/dai_08.jpg" alt="" />
+					<img src="../../images/weidian/dai_09.jpg" alt="" />
+
+					<div class="h50"></div>
+
+				</div>
+				<footer class="footer text-center">
+
+					<a href="agent.html"><span class="buttonsuccess active" >申请代理</span></a>
+
+				</footer>
+
+			</div>
+
+		</div>
+
+		<script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+		<script>
+			$.config = {
+				router: false
+			}
+		</script>
+		<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+		<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+		<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+		<script type="text/javascript" src="../../js/config.js"></script>
+		<script type="text/javascript" src="../../js/apiLink.js"></script>
+		<script type="text/javascript" src="../../js/base64.js"></script>
+		<script type="text/javascript" src="../../js/fh.js"></script>
+		<script src="../../js/common.js" charset="utf-8"></script>
+		<script>
+			$(function() {
+				// 页面初始化
+				$.init();
+
+
+		    var _title = "分红全球购成就你一生的事业",
+				_desc = "【机遇】一站式服务，无忧代理，市场空白，100%快速盈利，千万次等待，不如一次马上行动，分红全球购面向全国诚招代理，0风险经营！",
+				_pic = "http://www.fenhongshop.com/wap/images/wap/logo.png",
+				_url = WapSiteUrl + '/wap/tmpl/mircoshop/daili_two.html?a=1';
+
+
+
+				FL.wxShare(_title, _desc, _url, _pic, _desc);
+			var tid = GetQueryString('deductid');
+
+				 addcookie("tid",tid);
+
+				 var shareObj ={};
+						 shareObj.title = _title,
+					 shareObj.desc = _desc,
+					 shareObj.img = _pic,
+					 shareObj.url = _url;
+
+					 rightShare(shareObj);
+
+			});
+			function home(){
+
+				if(native_flag=='0'){
+					FHMall.gotoHome(0);
+				}else if(native_flag=='1'){
+					igotoHome(0);
+				}else{
+					location.href = '../index/index.html';
+				}
+			}
+		</script>
+	</body>
+
+</html>

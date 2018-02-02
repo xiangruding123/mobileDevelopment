@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <title>店铺经营信息</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="../../css/store_joinin.css">
+    <link rel="stylesheet" href="../../js/plugins/sweetalert/sweetalert.css">
+</head>
+
+<body>
+    <div class="container-fluid" id="store_info"></div>
+    <script type="text/html" id="store_info_tpl">
+        <div class="layout" id="info-form">
+            <header>
+                <span class="back" onclick="javascript:history.back();">返回</span>
+                <h2>店铺经营信息</h2>
+            </header>
+            <section class="item">
+                <label>商家帐号</label><span id="seller_name"><%=seller_name%></span>
+                <i class="triangle-arrow"></i>
+            </section>
+            <section class="item">
+                <label>店铺名称</label><span id="store_name"><%=store_name%></span>
+                <i class="triangle-arrow"></i>
+            </section>
+            <section class="item">
+                <label>店铺等级</label><span id="sg_name"><%=sg_name%></span>
+                <i class="triangle-arrow"></i>
+            </section>
+            <section class="item">
+                <label>店铺分类</label><span id="sc_name"><%=sc_name%></span>
+                <i class="triangle-arrow"></i>
+            </section>
+            <section class="item">
+                <label>经营类目</label><span id="store_class"></span>
+                <i class="triangle-arrow"></i>
+            </section>
+            <div class="typeinfo">
+                <ul>
+                    <li>一级类目</li>
+                    <li>二级类目</li>
+                    <li>三级类目</li>
+                    <li>操作</li>
+                    <% if (store_classes[0]){%>
+                        <% for (var i=0, len = store_classes.length;i<len;i++){%>
+                            <li class="scope-list"><%=store_classes[i]['name1']%></li>
+                            <li class="scope-list"><%=store_classes[i]['name2']%></li>
+                            <li class="scope-list"><%=store_classes[i]['name3']%></li>
+                            <li class="scope-list red" data-scope="<%=store_classes[i]['id1']+','+store_classes[i]['id2']+','+store_classes[i]['id3']+'|'+store_classes[i]['name1']+','+store_classes[i]['name2']+','+store_classes[i]['name3']%>">删除</li>
+                        <%}%>
+                    <%}%>
+                </ul>
+            </div>
+            <div class="typepic"></div>
+            <p class="next">提交申请</p>
+        </div>
+        <div class="page" id="page">
+            <div class="page-layout">
+                <header>
+                    <a href="javascript:void(0);"><span class="back">返回</span></a>
+                    <span class="success">完成</span>
+                </header>
+                
+                <p class="red" style="padding-left:3%">*此账号为日后登录并管理商家中心时使用, 注册后不可修改，请牢记</p>
+            
+                <p class="error"></p>
+                <section>
+                    <div class="ming">
+                        <input type="text" placeholder="">
+                    </div>
+                </section>
+            </div>
+        </div>
+        <div class="page pagesel">
+            <div class="page-layout">
+                <header>
+                    <a href="javascript:void(0);"><span class="back">返回</span></a>
+                    <span class="success">完成</span>
+                </header>
+                <p class="error"></p>
+                <section class="item">
+                    <select>
+                        <option value="">请选择店铺等级...</option>
+                        <% for (var i=0 ;i<grade_list.length;i++){%>
+                        <option value="<%=grade_list[i].sg_id%>">
+                            <%=grade_list[i].sg_desc%>
+                        </option>
+                        <%}%>
+                    </select>
+
+                </section>
+            </div>
+        </div>
+        <div class="page classify">
+            <div class="page-layout">
+                <header>
+                    <a href="javascript:void(0);"><span class="back">返回</span></a>
+                    <span class="success">完成</span>
+                </header>
+                <p class="error"></p>
+                <section class="item">
+                    <select name="sc_id" id="sc_id" class="valid">
+                        <option value="">请选择店铺分类...</option>
+                        <% for (var i=0 ;i<store_class.length;i++){%>
+                        <option value="<%=store_class[i].sc_id%>">
+                            <%=store_class[i].sc_desc%>
+                        </option>
+                        <%}%>
+                    </select>
+                </section>
+            </div>
+        </div>
+        <div class="page type" id="type">
+            <div class="page-layout">
+                <header>
+                    <a href="javascript:void(0);"><span class="back">返回</span></a>
+                    <span class="success">完成</span>
+                </header>
+                <p class="error"></p>
+                <section>
+                    <p class="hide">*请按顺序依次正确选择经营类目(一) 、(二)、(三)</p>
+                </section>
+                <section class="item">
+                    <select name="firstitem" id="itemfi">
+                        <option value="">请选择经营类目（一）</option>
+                    </select>
+                    
+                </section>
+                <section class="item">
+                    <select name="seitem" id="itemse">
+                        <option value="">请选择经营类目（二）</option>
+                    </select>
+                    
+                </section>
+                <section class="item">
+                    <select name="tritem" id="itemtr">
+                        <option value="">请选择经营类目（三）</option>
+                    </select>
+                    
+                </section>
+            </div>
+        </div>
+    </script>
+      <script src="../../js/config.js"></script>
+    <script src="../../js/libs/jquery/jquery-1.8.3.min.js"></script>
+    <script src="../../js/plugins/sweetalert/sweetalert.min.js"></script>
+    <script src="../../js/plugins/layer/layer.js"></script>
+    <script src="../../js/plugins/template.js"></script>
+    <script src="../../js/FL.js"></script>
+    <script src="../../js/common.js"></script>
+    <script src="../../js/tmpl/store_joinin/information.js"></script>
+</body>
+
+</html>

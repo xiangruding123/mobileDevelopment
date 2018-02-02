@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <title>专题活动</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+   	<meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">   
+    <link rel="stylesheet" href="../../js/plugins/swiper/swiper.css" />   
+    <link rel="stylesheet" href="../../css/wap.css" />
+    <link rel="stylesheet" href="../../css/fhbase.css">
+    <link rel="stylesheet" href="../../src/css/fhwap.css">	
+</head>
+
+<body  style="position: relative;" data-spy="scroll" data-target=".navbar" id="theme_act">
+    <div class="container layout" id="theme_list">
+        <section class="row">
+             <header class="fh-header none">
+                <span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+                <h1 class="header-title">主题馆详情</h1>
+                <a class="header-edit" id="nav-show"></a>
+            </header>
+         	
+			<div class="activity_body">
+				
+			</div>
+            <section id="themeList"></section>
+            <!--楼层footer-->
+            <script id="themeBars" type="text/html">
+            	<%if(activity_content){%>
+	            <nav class="navbar navbar-fixed-top tm-nav" role="navigation">
+	            	<div id="t-tabs">
+				        <ul class="nav navbar-nav">
+				        	
+				          	<%for(var i=0;i<activity_content.length;i++){%>
+				          		<li>
+				          			<a class="over-hidden" href="#<%=activity_content[i].floor_name%>"><%=activity_content[i].floor_name%></a>
+				          		</li>
+				          	<%}%>				          	
+				          					        	
+				        </ul>				        
+				       
+				        <i class="icon-angle-down rg-arrow"></i>
+			        </div>
+	            </nav>
+	            <div class="m-dropdown navbar">     
+	            	<span class="select-btn"><span class="ic"></span></span>
+	            	<div class="tit">切换楼层</div>
+	            	<ul class="floors"> 
+	            		 <%for(var i=0;i<activity_content.length;i++){%>
+
+				          		<li>
+				          			<a class="over-hidden" href="#<%=activity_content[i].floor_name%>"><%=activity_content[i].floor_name%></a>
+				          		</li>
+				          <%}%>
+	            	</ul> 
+	            </div>
+	            <%}%>
+	            <!--楼层内容-->
+	            
+		        <%if(goods_list){%>
+		            <section class="floor-header" style="padding-top: 42px;margin-top:-42px;">
+		            	<ul class="floor-ul mt10">
+		            		<%for(var i=0;i<goods_list.length;i++){%>
+			            		
+			            			<li>
+			            				<a href="../shopping/goods_details.html?goods_id=<%=resource(goods_list[i].goods_id)%>!goodsdetail" data-id='<%=goods_list[i].goods_id%>'>
+				            				<img src="../../images/wap/guanggao-1.jpg" data-original="<%=FormatImg(goods_list[i].goods_image)%>" class="tm-imgList"/>
+											<p class="overhide">												
+												<%=goods_list[i].goods_name%>
+											</p>
+											<div class="clearfix"><span class="pl5 pull-left mt5 mb5">原价<del class="mr10">￥<%=parseFloat(goods_list[i].goods_marketprice)%></del></span></div>
+											<span class="like-price">售价<span class="f11">￥</span><%=parseFloat(goods_list[i].goods_price)%></span>											
+										</a>
+									</li>
+			            		
+			            	<%}%>
+		            		<div style="clear:both;"></div>
+		            	</ul>
+		            </section>
+		        <%}%>   
+		        <%if(activity_content){%>
+	            <%for(var i=0;i<activity_content.length;i++){%>
+		            <section class="floor-header" id="<%=activity_content[i].floor_name%>" style="padding-top: 42px;margin-top:-42px;">
+		            	<img src="<%=activity_content[i].floor_logo%>!thumb" class="floor-img mb10" />
+						
+		            	<ul class="floor-ul">
+		            		<%if(activity_content[i].floor_goods){%>
+			            		<%for(var j=0;j<activity_content[i].floor_goods.length;j++){%>
+			            			<li>
+			            				<a href="../shopping/goods_details.html?goods_id=<%=resource(activity_content[i].floor_goods[j].goods_id)%>!goodsdetail" data-id='<%=activity_content[i].floor_goods[j].goods_id%>'>
+				            				<img src="../../images/wap/guanggao-1.jpg" data-original="<%=FormatImg(activity_content[i].floor_goods[j].goods_image)%>" class="tm-imgList"/>
+											<p class="overhide">
+												
+												<%=activity_content[i].floor_goods[j].goods_name%>
+											
+											</p>
+											<div class="clearfix"><span class="pl5 pull-left mt5 mb5">原价<del class="mr10">￥<%=parseFloat(activity_content[i].floor_goods[j].goods_marketprice)%></del></span></div>
+											<span class="like-price">售价<span class="f11">￥</span><%=parseFloat(activity_content[i].floor_goods[j].goods_price)%></span>
+										</a>
+									</li>
+			            		<%}%>
+			            	<%}%>
+		            		<div style="clear:both;"></div>
+		            	</ul>
+		            </section>
+		        <%}%> 
+		        <%}%> 
+            </script>
+            
+        </section>
+    </div>    
+    <script  src="../../js/libs/jquery/jquery-1.11.3.min.js"></script>
+    <script  src="../../js/plugins/fastclick.js"></script>
+    <script src="../../js/plugins/layer/layer.js"  charset="utf-8"></script>
+    <script  src="../../js/config.js"></script> 
+    <script  src="../../js/plugins/template.js"></script>
+    <script  src="../../js/plugins/jquery.lazyload.js"></script>		
+	<script  src="../../js/config.js"></script>	
+	<script  src="../../js/plugins/iscroll.js"></script>
+	<!--<script  src="../../js/plugins/fhScroll.js"></script>		-->
+    <script  src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script  src="../../js/common.js?v=11"></script>    
+    <script  src="../../src/js/tmpl/activity/theme_act.js"></script> 
+    <script>
+    	Goods.ThemeDetails.onLoad();
+    </script>
+</body>
+
+</html>
+
+
+

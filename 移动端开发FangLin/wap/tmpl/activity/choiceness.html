@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <title>精选推荐</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+   <meta name="apple-mobile-web-app-status-bar-style" content="black">
+   	<meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+	
+    <link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+   	<link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../js/plugins/swiper/swiper.css" />
+    <link rel="stylesheet" href="../../css/animate.css">
+    <link rel="stylesheet" href="../../css/buttons.css">
+    <link rel="stylesheet" href="../../css/fhbase.css">
+    <link rel="stylesheet" href="../../css/fhwap.css">
+</head>
+
+<body>
+    <div class="container layout" id="homepage">
+        <section class="row">
+             <header class="fh-header" style="padding: 0 !important;">
+                <span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+                <h1 class="header-title">精选推荐</h1>
+                <a class="header-edit" id="nav-show"></a>
+            </header>
+            <!--精选推荐列表-->
+           <section class="home" id="recommends"></section>
+        	<script type="text/html" id="recommends_list">
+				<ul class="clearfix recom">
+					<%for(var i=0;i<result.length;i++){%>
+						<li class="choiceness-list width100">
+							<a href="../shopping/goods_details.html?goods_id=<%=result[i].goods_id%>" class="layout jp pr dis-b">
+								<%if(result[i].goods_pic){%>
+									<img src="../../images/wap/jingxuan.jpg" data-original="<%=result[i].goods_pic%>"  class="width100" />
+								<%}else{%>
+									<img src="../../images/wap/jingxuan.jpg" data-original="<%=result[i].goods_image%>"  class="width100" />
+								<%}%>
+								<%if(result[i].goods_state==0){%>
+									<img src="../../images/wap/widthdown.png" class="big-long-tip"/>
+								<%}else if(result[i].sale_stop==1){%>
+									
+								<%}else if(result[i].is_presell==1){%>
+									<img src="../../images/wap/presell.png" class="big-long-tip"/>
+								
+								<%}%>
+								<div>
+									<img src="<%=result[i].nation_flag%>" class="flag"/>
+									<span class="focus-font">【<%=result[i].goods_promise%>】</span>
+									<span class="jp-name"><%=result[i].goods_name%></span>
+									<p><span class="f12">￥</span><%=result[i].goods_price%></p>
+									<del>￥<%=result[i].goods_marketprice%></del>
+								</div>
+							</a>
+							<div class="empty"></div>
+						</li>
+					<%}%>
+				</ul>
+			</script>
+        </section>
+    </div>
+    <script  src="../../js/libs/jquery/jquery-1.8.3.min.js"></script>
+    <script  src="../../js/plugins/jquery.lazyload.js"></script>
+    <script  src="../../js/config.js"></script>
+    <script  src="../../js/plugins/fastclick.js"></script>
+    <script  src="../../js/common.js"></script>
+    <script  src="../../js/plugins/swiper/swiper.js"></script>
+    <script  src="../../js/plugins/layer/layer.js"></script>
+    <script  src="../../js/plugins/template.js"></script>
+    <script  src="../../js/tmpl/activity/choiceness.js"></script>
+    <script>
+    	Goods.Choiceness.onLoad();
+    </script>
+</body>
+
+</html>

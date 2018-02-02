@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+	<head>
+		<meta charset="UTF-8">
+		<title>评论</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" type="text/css" href="../../css/wap.css" />
+		<link rel="stylesheet" href="../../js/plugins/layer/skin/layer.css">
+		<link rel="stylesheet" type="text/css" href="../../js/plugins/swiper/swiper.css" />
+		<link rel="stylesheet" href="../../src/css/fhbase.css">
+		<link rel="stylesheet" href="../../src/css/fhwap.css">
+		<link rel="stylesheet" href="../../css/lightbox.css">		
+	</head>
+
+	<body>
+		<div class="container layout fh-bg-white" id="goods-details">
+			<div class="row">
+				<header class="fh-header">
+					<span class="goback icon-angle-left" onclick="javascript:history.back();"></span>			
+					<h2 class="header-title">评论</h2>
+				</header>								
+				<section id="details_comment">
+					<div class="details_comment-title ml10"></div>
+					<div class="goods-assess">
+						<ul></ul>
+					</div>
+				</section>
+				<script type="text/html" id="details_comment_title_tpl">
+					<div class="separator mb15 border-half">
+						<p class="mr10 dis-in-b">综合好评</p>
+						<%for(var q=1;q<=star_average;q++){%>
+							<i class="icon-star"></i>
+						<%}%>
+
+								<%for(var w=1;w<=(5-star_average);w++){%>
+									<i class="icon-star fa-grey"></i>
+								<%}%>
+					</div>
+					<div class="details_comment_btn">
+						<button>全部(<%=all_count%>)</button>
+						<button>好评(
+							<%=good_count%>)</button>
+						<button>中评(
+							<%=normal_count%>)</button>
+						<button>差评(
+							<%=bad_count%>)</button>
+						<%if(!hasimage_count){%>
+							<button>有图(0)</button>
+							<%}else{%>
+								<button>有图(
+									<%=hasimage_count%>)</button>
+								<%}%>
+					</div>
+				</script>
+				<script type="text/html" id="details_comment_tpl">
+
+					<%for(var l=0;l<comments.length;l++){%>
+						<li>
+							<p>
+							 <img src="../../images/wap/header_phone.png" data-original="<%=comments[l].member_avatar%>" class="w30"/>
+							
+								
+								<%if(comments[l].is_anonymous=='0'){%>
+								<span><%=comments[l].member_nickname||comments[l].member_name%></span>
+								<%}else{%>
+								<span><%=comments[l].member_name.substr(0,1)%>***<%=comments[l].member_name.substr(-1)%></span>
+								<%}%>
+                                <span class="float-right"><%=comments[l].date%></span>
+							</p>
+							<p>
+								<span class="multi-row f12"><%=comments[l].content%></span>
+							</p>
+
+							<ul class="goods_comments clearfix">
+								<%if(comments[l].images){%>
+									<%for(var r=0;r<comments[l].images.split(',').length;r++){%>
+										<li><a href="<%=comments[l].images.split(',')[r]%>" data-lightbox="example-set-commtion<%=l%>"><img src="../../images/wap/pinpaiguan.jpg" data-original="<%=comments[l].images.split(',')[r]%>" alt="" /></a></li>
+										<%}%>
+											<%}%>
+							</ul>
+							<%if(comments[l].seller_explain){%>
+							  <p class="bg-body pl5 pt5 pr mt10 f12"><i class="arrow-up pa"></i>[商家回复]<%=comments[l].seller_explain%></p>
+							<%}%>
+						
+                             <%if(comments[l].append_evaluate){%>
+										<p class="focus-font" style="font-size:10px;">收货后<span><%if(comments[l].append_evaluate[0].evaluate_days==1){%>当<%}else{%><%=comments[l].append_evaluate[0].evaluate_days-1%><%}%></span>天追加</p>
+										<p class="f12">
+										<%=comments[l].append_evaluate[0].content%>
+									    </p>
+									    <ul class="goods_comments clearfix">
+										<%if(comments[l].append_evaluate[0].images){%>
+											<%for(var i=0;i<comments[l].append_evaluate[0].images.split(',').length;i++){%>
+												<li><a href="<%=comments[l].append_evaluate[0].images.split(',')[i]%>" data-lightbox="example-set-com<%=l%>"><img src="../../images/wap/pinpaiguan.jpg" data-original="<%=comments[l].append_evaluate[0].images.split(',')[i]%>" alt="" /></a></li>
+
+											<%}%>
+										<%}%>
+									</ul>
+									<%if(comments[l].append_evaluate[0].seller_explain){%>
+									  <p class="bg-body pl5 pt5 pr mt10 f12"><i class="arrow-up pa"></i>[商家回复]<%=comments[l].append_evaluate[0].seller_explain%></p>
+									<%}%>									
+									<%}%>
+						</li>
+						<%}%>
+
+				</script>
+
+			</div>
+		</div>
+		<script  src="../../js/wap.js"></script>
+		<script  src="../../js/config.js"></script>
+		<script  src="http://api.map.baidu.com/api?v=2.0&ak=40f8726220ef76bb9071cd8f9121ba3b"></script>
+		<script  src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+		<script  src="../../js/plugins/lightbox.js"></script>
+		<script  src="../../js/common.js"></script>
+		<script  src="../../js/plugins/layer/layer.js"></script>
+		<script  src="../../js/plugins/jquery.scrollTo.js"></script>
+		<script  src="../../js/plugins/iscroll.js"></script>
+		<script  src="../../src/js/tmpl/shopping/comment.js"></script>
+		<script>
+			Goods.goodsDetail.onLoad();
+		</script>
+	</body>
+
+</html>

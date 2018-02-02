@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+	<head>
+    <meta charset="UTF-8">
+    <title>分红红包大派送，快来抢吧</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+   	<meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta name = "format-detection" content = "telephone=no">
+    <link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+   	<link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/buttons.css">
+    <link rel="stylesheet" href="../../css/fhbase.css">
+    <link rel="stylesheet" href="../../css/fhwap.css?v=20151210">  
+    <link rel="stylesheet" href="../../css/animate.css" />
+	</head>
+	<body>
+		<!--抢红包页面-->
+		<div class="container layout" id="getbag" style="display: none;">
+        <section class="row">
+        	<span class="bag-money" id="bag_money"></span>
+         	 <section class="content">
+         	 	<input type="tel" placeholder="输入手机号领取红包" id="mobile" class="bagtel"/>
+         	 	<button id='grab'>立即领取红包</button>
+         	 	<p class="bagrule">
+         	 		<a id="explain" style="color: #fff;"><img src="../../images/wap/questionbag.png" alt="" />红包规则</a></p>
+         	 </section>
+        </section>
+        <div id="mask">
+        	<div class="maskbox zoomIn animated">
+        		<div class="clearfix" style="border-radius: 8px;"><img src="../../images/wap/top-x.png" alt="" id="closebag"/></div>
+        		<h2>红包规则</h2>
+        		<p>①红包新老用户同享</p>
+				<p>②红包领取后7天内有效。 </p>
+				<p>③每个订单仅限使用一张优惠券，订单总额9.9元不参与此活动。</p>
+				<p>④红包暂不支持电脑端使用，请下载分红全球购移动客户端。</p>
+				<p>⑤领取的红包将会记录在您的手机号码绑定的分红账户中。 </p>
+				<p>⑥本活动最终解释权归分红全球购所有。</p>
+        	</div>
+        </div>
+    </div>
+    
+    
+    <!--红包展示页面-->
+		<div class="container layout" id="ticket" style="display: none;">
+        <section class="row tc">
+            <div class="ticket_head" id="bag_title">
+            	<h2 class="f18 pt25 pb20" id="header_title"></h2>
+            	<p class="f13">已放入账户：<span id="phone"></span><!--<span class="ml5" id="tel_edit">修改</span>--></p>
+            </div>
+            <!--优惠券 -->
+            <script type="text/html" id="bag_content">
+            	<%for(var i=0;i<coupons.length;i++){%>
+            		<%if(coupons[i].use_limit&&coupons[i].use_limit!=0){%>
+		            	<div class="ticket clearfix mb10">
+			            	<div class="ticket_content clearfix ticket_bg_yellow">
+							     <div class="clearfix pb20">
+							    	<div class="pull-left font-yellow tl" style="width: 90px;">
+							    	<span class="f15">￥</span><span class="f40 l100"><%=coupons[i].coupon_price%></span>
+								    </div>
+								    <div class="pull-left titlebag pr">
+								    	<span class="f16 pb10 l40"><%=coupons[i].coupon_name%></span>
+								    </div>
+								    <span class="coupon-num font-yellow">X<%=coupons[i].coupon_num%></span>
+								</div>
+							 <!--   <div class="ticketbom clearfix color9">
+							    	<%if(coupons[i].is_own==1){%>
+							    		<p class="pull-left">仅限自营商品使用</p>
+							    	<%}else{%>
+							    		
+							    	<%}%>
+							    	<%if(coupons[i].end_time){%>
+							    	<p class="pull-right time-limit">有效期至：<%=format(coupons[i].end_time)%></p>
+							    	<%}else{%>
+							    		
+							    	<%}%>
+							    </div>-->
+						    </div>
+					    </div>
+				    <%}else{%>
+				    	<div class="ticket clearfix mb10">
+			            	<div class="ticket_content clearfix ticket_bg_red">
+							     <div class="clearfix pb20">
+							    	<div class="pull-left font-pink tl" style="width: 90px;">
+							    	<span class="f15">￥</span><span class="f40 l100"><%=coupons[i].coupon_price%></span>
+								    </div>
+								    <div class="pull-left titlebag pr">
+								    	<span class="f16 pb10 l40"><%=coupons[i].coupon_name%></span>
+								    </div>
+								    <span class="coupon-num font-pink">X<%=coupons[i].coupon_num%></span>
+								</div>
+						    </div>
+					    </div>
+				    <%}%>
+			    <%}%>
+            </script>
+		    <p class="f18 tc l150 mt20">新用户登录分红全球购 <br />
+                        再领<span class="font-pink">318</span>元新人现金礼包</p>
+             <a href="../login/login.html">
+            		<button class="bagbtn btn-down button fh-bg-red">立即登录领取</button>
+            	</a>          
+            <a href="../index/index.html"><button class="bagbtn btn-down button fh-bg-yellow">先去商城逛逛</button></a>
+ 
+           
+           <!--底部红包领取记录-->
+            <h3 class="bag_friend_title" id="bag_num">共20个现金礼包，已领取</h3>
+            <ul class="plr10" id="bag_history">
+            <script type="text/html" id="bagHistory">
+              	<%for(var i=0;i<result.length;i++){%>
+              	<li class="skip-link ptb10 border-b">
+              		<img data-original="<%=result[i].wechat_avatar%>" src="../../images/wap/logo.png" class="pull-left w40 mr10" />
+              		<div>
+	              		<p class="f14 oh">
+	              			<span class="wx-name"><%=result[i].wechat_name%></span>
+	              			<span class="f12 font-gray pull-right"><%=result[i].add_time%></span>
+	              		</p>
+	              		<p class="tl mt5">
+	              		<span>红包在手，嗨购全球购不用愁~</span>
+	              		<span class='wx-money'></span>
+	              		</p>
+              		</div>
+              		
+              	</li>
+              	<%}%>
+            </script>
+            </ul>  
+             
+        </section>
+    <script>
+    function addcookie(name, value, days) {
+
+	    days = days || 0;
+	
+	    var expires = "";
+	
+	    if (days != 0) {
+	
+	        var date = new Date();
+	
+	        date.setTime(date.getTime() + (days * 24 * 3600 * 1000));
+	
+	        expires = "; expires=" + date.toGMTString();
+	
+	    }
+	
+	    document.cookie = name + "=" + escape(value) + expires + "; path=/";
+	
+	}
+    	addcookie("firstShow","no");
+    </script>
+    <script  src="../../js/libs/jquery/jquery-1.8.3.min.js"></script>
+    <script  src="../../js/config.js"></script>
+    <script  src="../../js/plugins/fastclick.js"></script>
+    <script  src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script  src="../../js/plugins/jquery.lazyload.js"></script>
+    <script  src="../../js/common.js"></script>
+    <script  src="../../js/plugins/layer/layer.js"></script>
+    <script  src="../../js/plugins/template.js"></script>
+    <script src="http://s4.cnzz.com/z_stat.php?id=1000496844&web_id=1000496844" language="JavaScript"></script>
+    <script  src="../../js/tmpl/packet/bag_details.js"></script>
+    <script>
+    	$("a[title='站长统计']").hide();
+  		Packet.BagDetails.onLoad();
+    </script>
+    </div>
+		
+	</body>
+</html>

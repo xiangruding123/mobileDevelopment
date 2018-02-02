@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>分红抢红包</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">		
+		<meta name="format-detection" content="telephone=no">
+		<link href="css/css.css" rel="stylesheet" type="text/css" />
+		<link href="font/iconfont.css" rel="stylesheet" type="text/css" />
+		<style type="text/css">
+			#bonus-total {
+                text-align: center;
+                padding-top:10px;
+                font-size:14px;
+            }
+            #bonus-total span {
+                color:rgb(225,89,89);
+            }
+            .downLoad-fix{
+            	display: none;
+            }
+		</style>
+	</head>
+
+	<body class="share_body" >		
+		<article class="main layout">
+			<div class="share_warp ">
+				<div class="top">
+					<div class="txt">
+						送你<span id="allsum"> </span>个话费红包
+						<br>分享给好友一起领取吧
+					</div>
+					<div class="line">分享红包</div>
+					<div class="share_icon">
+						<i class="iconfont icon-xinlangweibo"></i>
+						<i class="iconfont icon-qq" ></i>
+						<i class="iconfont icon-weixin" ></i>
+						<i class="iconfont icon-pengyouquan"></i>
+					</div>
+				</div>
+				 <div class="line" id="bonus-total">我抢到的话费红包：<span style="color:rgb(254,75,75)"></span><b style="color:rgb(254,75,75);">元</b> <a  style="color:rgb(254,75,75)"  class='recharge_bill'> &nbsp;&nbsp;去使用 >></a></div>
+            
+                <div class="rule_txt" style="margin-bottom:0;padding-bottom:0;height:90px">
+                    <div class="tit">红包领取提示</div>
+                    <div class="cont">
+                        <span class="num">1</span>分享后点击分享链接输入手机号领取红包<br>
+                        <span class="num">2</span>每天都可以分享新的红包给好友<br>
+                        <span class="num">3</span>好友分享的红包可以点击领取<br>
+                    </div>
+                </div>
+                <div class="rule_txt">
+                    <div class="tit">活动规则</div>
+                    <div class="cont">
+                        <span class="num">1</span>抢到的红包将以积分形式充值到你的分红全球购账户中<br>
+                        <span class="num">2</span>可以在充值的时候选择积分抵扣话费<br>
+                        <span class="num">3</span>分红全球购拥有本活动最终解释权<br>
+                        <p style="padding:0.5em 0.8em; line-height:1.5; font-size:1.2em;">如有其它问题，欢迎咨询客服：<a href="tel:4006888506">4006888506</a></p><br>
+                    </div>
+                </div>
+			</div>
+		</article>
+
+		<script  src="../../js/libs/jquery/jquery-1.11.3.min.js"></script>
+		<script  src="../../js/config.js"></script>
+		<script  src="../../js/plugins/fastclick.js"></script>		
+		<script  src="../../js/common.js"></script>
+		<script  src="../../js/fhnative.js"></script>
+		
+		<script >
+			$(function() {
+            
+				// 设备检测
+				equipmentCheck();
+				
+                var bonus_id;
+                
+			function connectWebViewJavascriptBridge(callback) {
+				if (window.WebViewJavascriptBridge) {
+					callback(WebViewJavascriptBridge);
+				} else {
+					document.addEventListener('WebViewJavascriptBridgeReady', function() {
+						callback(WebViewJavascriptBridge);
+					}, false);
+				}
+			}
+              
+				
+				if (native_flag == 0) {	
+				
+					//分享
+                   
+					var height = window.screen.height-73;
+					
+					$('body').css('height',height+'px');
+
+					
+					 var timing = setInterval(function(){
+				    	
+						var objInfo = getMemberInfo();	
+						var i = 0;
+					    if(!objInfo){
+					       i++;
+					       if(i>20){
+					       	 clearInterval(timing);	
+					       	 layer.msg('系统正在紧急加载，请稍后领取红包');
+					       }
+					    }else{
+					    	mid = objInfo.member_id,token = objInfo.token;	
+					  
+							clearInterval(timing);	
+							
+					        getBonus(mid, token, 'android');	
+					        
+					        
+					    }
+					},100);
+                   
+
+                    
+				} else if (native_flag == 1) {
+			
+	        connectWebViewJavascriptBridge(function(bridge) {
+				_bridge = bridge;
+				/*JS 接收消息模块*/
+				bridge.init(function(message, responseCallback) {
+					
+				});
+				igetMemberInfo();
+			});
+
+	
+						   /* 获取会员信息 */
+                function igetMemberInfo() {
+                    var data = {
+                        "func" : "getmember",
+                        "params" : ""
+                    };
+
+                    _bridge.send(data, function(responseData) {                    
+                        
+                        if(!responseData){
+                        	layer.msg('您还没登陆');
+                        	ilogOff();
+                          
+                        }else{
+                        	
+                        	mid = responseData.member_id;
+	                        token = responseData.token;	  
+	                                         	
+                        	getBonus(mid, token, "ios");
+                        	
+                        	addcookie('mid',mid);
+	                        addcookie('token',token);
+                        }
+                        
+                    });
+                }
+                    
+                
+						/*分享 */
+					function ishareByApp(title,content,imgs,iosurl) {
+						var data = {
+							"func" : "share",
+						"params" : {
+							"title" : title,
+							"content" : content,
+							"imgs" : imgs,
+							"url" :iosurl
+						}
+					};
+					_bridge.send(data, function(responseData) {
+						output.innerText = "msg:" + JSON.stringify(responseData);
+							});
+						}
+					
+			          /* 退出登录 */
+							function ilogOff() {
+								var data = {
+									"func" : "logoff",
+									"params" : ""
+								};
+								_bridge.send(data);
+							}
+					
+				}else if(native_flag == -1){
+					
+					location.href="down.html";//wap页面  跳转下载
+				   
+				}
+               
+				function getBonus(mid, token, flag) {	
+			
+					$.ajax({
+						type: "post",
+						url: WapSiteUrl + "/api/index.php?act=common_bonus&op=create_bonus",
+						data: {
+							mid: mid,
+							token: token,
+							flag: flag
+						},
+						dataType: 'text',
+						success: function(data) {
+							try{
+							 data = JSON.parse(data);
+							}catch(e){
+								data={'error':'-1111'};
+							}
+						
+							if (data.error === '0') { //成功领取红包.
+								
+								$("#bonus-total span").html(data.result.bonus_total);
+								$('#allsum').text(data.result.bonus_num);
+								bonus_id = data.result.bonus_id;
+								if(native_flag==0){								
+								
+								 $('.share_icon i').click(function(){
+					 	
+						         shareByApp('话费红包','【发红包啦】话费红包先到先得，100%中奖！',WapSiteUrl+'/wap/tmpl/phone_bill/img/icon_cai.png',WapSiteUrl+'/wap/tmpl/phone_bill/index.html?bonus_id='+bonus_id);
+	         
+					             });
+					             }else if(native_flag==1){
+					              $('.share_icon i').click(function(){
+			          	
+			                        ishareByApp('话费红包','【发红包啦】话费红包先到先得，100%中奖！',WapSiteUrl+'/wap/tmpl/phone_bill/img/icon_cai.png',WapSiteUrl+"/wap/tmpl/phone_bill/index.html?bonus_id="+bonus_id);
+		
+			                       });
+					              }
+					             
+					            $('.recharge_bill').click(function(){
+					            	
+						         location.href="recharge.html?mid="+mid+"&token="+token;
+						         
+					            });
+					            
+							} else {
+								
+								if (native_flag == '0') {
+									
+									FHMall.logOff();
+									
+								} else if (native_flag =='1') {
+									
+									ilogOff();
+									
+								} 
+							}
+						},
+						error: function(data) {
+							
+						}
+					});
+					
+				}
+			});
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,1 @@
+$(function(){function t(t){FL.ajaxDate("get",get_store_class,{store_id:t},function(t){if(t&&"0"==t.error){var o=template("store_tpl",t);$(".separator").after(o),console.log(t)}})}var o=GetQueryString("store_id");t(o),$(".separator").bind("click",function(){location.href="class_goods.html?store_id="+o})});

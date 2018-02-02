@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <title>添加银行卡</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+   <meta name="apple-mobile-web-app-status-bar-style" content="black">
+   	<meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="../../css/animate.css">
+    <link rel="stylesheet" href="../../css/buttons.css" />
+    <link rel="stylesheet" href="../../css/fhbase.css">
+    <link rel="stylesheet" href="../../css/fhwap.css">
+</head>
+<body>
+    <div class="container layout" id="add-card">
+        <div class="row">
+             <header class="fh-header">
+                <span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+                <h1 class="header-title">添加银行卡</h1>
+                <a class="header-edit" id="saveCard">保存</a>
+            </header>
+        <form id="cardForm" >
+            <div class="fill bck-color f16"> 请选择银行</div>
+            <a href="choose_card.html" class="border-b dis-b">
+	            <div class="pd-index">
+	                <img src="../../images/wap/bank.png" class="icon-image pull-left">
+	                <span class="card-name">民生银行</span>
+	                <i class="icon-angle-right right-arrow"></i>
+	            </div>
+            </a>
+            <div class="fill">
+                <label>银行卡号</label>
+                <input type="text" placeholder="请输入银行卡号" name="credit_card" id="credit_card" value=""/>
+            </div>
+            <div class="fill bck-color">
+                         持卡人信息
+            </div>
+            <div class="fill">
+                <label for="cname">持卡人</label>
+                <input type="text" placeholder="请输入银行卡人姓名" id="cname" name="cname" value=""/>
+            </div>
+            <div class="fill">
+                <label>身份证</label>
+                <input type="text" placeholder="请输入银行卡人身份证" name="code" id="id_card" value=""/>
+            </div>
+             <div class="error-tips mt10"></div>
+        </form>
+        </div>
+    </div>
+    <script  src="../../js/libs/jquery/jquery-1.8.3.min.js"></script>
+ 
+    <script  src="../../js/plugins/fastclick.js"></script>
+
+    <script  src="../../js/plugins/jquery.validate.js"></script>
+    <script  src="../../js/config.js"></script>
+    <script  src="../../js/common.js"></script>
+
+    <script  src="../../js/tmpl/member/add_card.js"></script>
+</body>
+
+</html>

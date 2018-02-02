@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <title>粉丝列表</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../src/css/fhbase.css">
+    <link rel="stylesheet" href="../../src/css/fhwap.css">
+</head>
+<body class="fh-bg-white">
+<div class="container layout" id="fanslist">
+    <div class="row">
+        <header class="fh-header">
+            <span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+            <h1 class="header-title">粉丝列表</h1>
+        </header>
+        <div class="fanslist pad7">
+            <script type="text/html" id="fanslist-tpl">
+            <%if(result){%>
+            <%for(var i=0;i<result.length;i++){%>
+            <%if(result[i].talent_id>0){%>
+            <a class="fillmedia clearfix border-b" href="talent_index.html?talent_id=<%=result[i].talent_id%>">
+            <img src="../../images/weidian/headphone.png" data-original="<%=result[i].follower_avatar%>" alt="" class="talent-img">
+            <div class="talent-name-list justify-center ml10">
+                <p class="f14"><%=result[i].follower_name%></p>
+                <p class="color6"><%=result[i].talent_type%></p>
+            </div>
+            <span class="pull-right">看他的主页 <img src="../../images/wap/detail/goin.png" alt=""></span>
+            </a>
+            <%}else{%>
+            <a class="fillmedia clearfix border-b">
+                <img src="../../images/weidian/headphone.png" data-original="<%=result[i].follower_avatar%>" alt="" class="talent-img">
+                <div class="talent-name-list justify-center ml10">
+                    <p class="f14"><%=result[i].follower_name%></p>
+                </div>
+            </a>
+            <%}%>
+            <%}%>
+            <%}%>
+            </script>
+        </div>
+
+    </div>
+</div>
+<script  src="../../js/libs/jquery/jquery-1.8.3.min.js"></script>
+<script  src="../../js/plugins/fastclick.js"></script>
+<script  src="../../js/config.js"></script>
+<script  src="../../js/apiLink.js"></script>
+<script  src="../../js/common.js"></script>
+<script src="../../js/plugins/jquery.lazyload.js"></script>
+<script  src="../../js/plugins/layer/layer.js"></script>
+<script  src="../../js/plugins/template.js"></script>
+<script  src="../../src/js/tmpl/specialty/fans_list.js"></script>
+
+
+
+</body>
+</html>

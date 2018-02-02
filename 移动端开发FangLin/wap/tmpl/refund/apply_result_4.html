@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <title>退货中</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+   	<meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/buttons.css">
+    <link rel="stylesheet" href="../../css/fhbase.css">
+    <link rel="stylesheet" href="../../css/fhwap.css">
+    <link rel="stylesheet" href="../../css/animate.css">
+</head>
+
+<body class="bg-body">
+    <div class="container layout" id="apply-success">
+        <div class="row">
+            <header class="fh-header border-b">
+                <span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+                <h1 class="header-title">退货中</h1>
+                <a class="header-edit" id="nav-show"></a>
+            </header>
+	        <section class="f14 bg-body">
+	            <div class="apply-s-title bg-body">
+	            	<img src="../../images/wap/ok.svg" />
+	            	<span class="f16">退货中</span>
+	            </div>
+	            <p class="mb10 color7 plr10">您的申请卖家已经同意，请将货物连带附件包装寄送到</p>
+	            <div class="address-bg"></div>
+		            <div class="adr-body">
+		                <div class="adr-msg">
+		                    <div class="f14">
+		                        <img src="../../images/wap/name.png" class="adr-icon"><span class="mr40" id="consignee"></span>
+		                        <img src="../../images/wap/phone.png" class="adr-icon w10"><span id="tel"></span>
+		                    </div>
+		                    <div class="msg-details" id="address"></div>
+		                </div>
+		            </div>
+		        <div class="address-bg"></div>
+		        <section>
+	            	<div class="apply-title">物流信息</div>
+	            	<div class="apply-msg pr">
+	            		<select  placeholder="选择物流公司" id="express_msg" >
+	            		<script id="expressMsg" type="text/html">
+	            			<%for(var i=0;i<result.length;i++){%>
+	            				<option value="<%=result[i].express_id%>"><%=result[i].express_name%></option>
+	            			<%}%>
+	            		</script>
+	            		</select>
+	            		<i class="icon-angle-right apply-i"></i>
+	            	</div>
+	            	<div class="apply-msg focus-font"><input type="text" placeholder="请输入物流单号" id="invoice_no" /></div>
+	            </section>
+	            <div class="plr10 bg-body mt50 tc">
+	                <button class="button button-caution button-solid" id="modify">修改单号</button>
+		        	<button class="button button-caution button-solid ml20" id="getLogistics">查看物流</button>
+	            </div>
+	        </section> 
+        </div>
+    </div>
+    <script  src="../../js/libs/jquery/jquery-1.11.3.min.js"></script>
+    <script  src="../../js/plugins/fastclick.js"></script>
+    <script  src="../../js/plugins/layer/layer.js"></script>
+    <script  src="../../js/plugins/template.js"></script>
+    <script  src="../../js/config.js"></script>
+    <script  src="../../js/common.js"></script>
+    <script  src="../../js/tmpl/refund/apply_result.js"></script>
+    <script>
+    	Goods.refundResult.onLoad();
+    </script>
+</body>
+
+</html>

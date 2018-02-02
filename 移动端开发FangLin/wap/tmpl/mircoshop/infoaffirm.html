@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>资料确认</title>
+		<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+		<link rel="shortcut icon" href="/favicon.ico">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+		<link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+		<link rel="stylesheet" href="../../src/css/mirco.css" />
+
+	</head>
+
+	<body>
+		<div class="page-group fh-bg-white">
+			<!-- 单个page ,第一个.page默认被展示-->
+			<div class="page fh-bg-white">
+				<!-- 标题栏 -->
+				<header class="bar bar-nav">
+					<span class="icon icon-left pull-left" onclick="javascript:history.back();"></span>
+					<h1 class="title">资料确认</h1>
+				</header>
+				<!-- 这里是页面内容区 -->
+				<div class="content">
+
+					<script type='text/html' id='content-tpl'>
+						<h3 class='picker-items-col picker-items-col-center mt1'>主体信息提交后不可修改</h3>
+						<p class='data-title'><span></span>主体类型</p>
+						<div class="buttons-row member_type">
+						<%if(result.member_type=='1'){%>
+							<a class="tab-link active" member_type='1'>个人</a>
+							<%}else{%>
+							<a class="tab-link" member_type='2'>公司</a>
+							<%}%>
+					    </div>
+
+					    <div class="list-block m0">
+						<ul>
+						    <%if(result.card_name){%>
+						 	<li>
+								<div class="item-content">
+									<div class="item-media"><i class="icon icon-form-name"></i></div>
+									<div class="item-inner">
+										<div class="item-title label">身份证姓名</div>
+										<div class="item-input">
+											<input type="text" id="card_name" value='<%=result.card_name%>' >
+										</div>
+									</div>
+								</div>
+							</li>
+							<%}%>
+							<%if(result.card_number){%>
+						 	<li>
+								<div class="item-content">
+									<div class="item-media"><i class="icon icon-form-name"></i></div>
+									<div class="item-inner">
+										<div class="item-title label">身份证号码</div>
+										<div class="item-input">
+											<input type="text" value='<%=result.card_number%>' >
+										</div>
+									</div>
+								</div>
+							</li>
+							<%}%>
+
+							<%if(result.person_pic_url){%>
+								<li>
+								<div class="item-content">
+									<div class="item-media"><i class="icon icon-form-name"></i></div>
+									<div class="item-inner">
+										<div class="item-title label">个人照片</div>
+
+									</div>
+								</div>
+								<img src='<%=result.person_pic_url%>' class='ml2' style='width: 5.125rem;height: 6.675rem;'>
+							</li>
+
+						<%}%>
+						<%if(result.company_name){%>
+							<li>
+								<div class="item-content">
+									<div class="item-media"><i class="icon icon-form-name"></i></div>
+									<div class="item-inner">
+										<div class="item-title label">公司名称</div>
+										<div class="item-input">
+											<input type="text" value='<%=result.company_name%>' >
+										</div>
+									</div>
+								</div>
+							</li>
+						<%}%>
+						<%if(result.company_number){%>
+							<li>
+								<div class="item-content">
+									<div class="item-media"><i class="icon icon-form-name"></i></div>
+									<div class="item-inner">
+										<div class="item-title label">公司营业执照号码</div>
+										<div class="item-input">
+											<input type="text" value='<%=result.company_number%>' >
+										</div>
+									</div>
+								</div>
+							</li>
+						<%}%>
+						<%if(result.company_pic_url){%>
+							<li>
+								<div class="item-content">
+									<div class="item-media"><i class="icon icon-form-name"></i></div>
+									<div class="item-inner">
+										<div class="item-title label">营业执照</div>
+
+									</div>
+								</div>
+								<img src='<%=result.company_pic_url%>' class='ml2' style='width: 5.125rem;height: 6.675rem;'>
+							</li>
+						<%}%>
+
+						<%if(result.address){%>
+							<li>
+								<div class="item-content">
+									<div class="item-media"><i class="icon icon-form-name"></i></div>
+									<div class="item-inner">
+										<div class="item-title label">常驻地址</div>
+										<div class="item-input">
+											<input type="text" value='<%=result.address%>'/>
+										</div>
+									</div>
+								</div>
+							</li>
+
+						<%}%>
+						<%if(result.email){%>
+							<li>
+								<div class="item-content">
+									<div class="item-media"><i class="icon icon-form-name"></i></div>
+									<div class="item-inner">
+										<div class="item-title label">邮箱</div>
+										<div class="item-input">
+											<input type="text" value="<%=result.email%>"/>
+										</div>
+									</div>
+								</div>
+							</li>
+
+
+						<%}%>
+						<%if(result.wechat_number){%>
+							<li>
+								<div class="item-content">
+									<div class="item-media"><i class="icon icon-form-name"></i></div>
+									<div class="item-inner">
+										<div class="item-title label">微信</div>
+										<div class="item-input">
+											<input type="text" value="<%=result.wechat_number%>" />
+										</div>
+									</div>
+								</div>
+							</li>
+
+						<%}%>
+						<%if(result.qq_number){%>
+							<li>
+								<div class="item-content">
+									<div class="item-media"><i class="icon icon-form-name"></i></div>
+									<div class="item-inner">
+										<div class="item-title label">QQ</div>
+										<div class="item-input">
+											<input type="text" value="<%=result.qq_number%>" />
+										</div>
+									</div>
+								</div>
+							</li>
+						<%}%>
+						<%if(result.account_type){%>
+							<li>
+								<div class="item-content">
+									<div class="item-media"><i class="icon icon-form-name"></i></div>
+									<div class="item-inner">
+										<div class="item-title label">账户类型</div>
+										<div class="item-input">
+										<input type="text" value="<%=result.account_type%>" />
+										</div>
+									</div>
+								</div>
+							</li>
+
+						<%}%>
+						<%if(result.account_number){%>
+						<li>
+								<div class="item-content">
+									<div class="item-media"><i class="icon icon-form-name"></i></div>
+									<div class="item-inner">
+										<div class="item-title label">账户号码</div>
+										<div class="item-input">
+											<input type="text" value='<%=result.account_number%>'>
+										</div>
+									</div>
+								</div>
+							</li>
+						<%}%>
+						</ul>
+
+						<p class='content-padded'><span class="button button-fill button-danger">确定</span></p>
+
+					</script>
+
+
+
+
+				</div>
+
+			</div>
+
+		</div>
+
+		<script src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+		<script>
+			$.config = {
+				router: false
+			}
+		</script>
+		<script src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+		<script src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+		<script src="//g.alicdn.com/msui/sm/0.6.2/js/sm-city-picker.min.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../../js/plugins/layer/layer.js"></script>
+		<script src="../../js/config.js" charset="utf-8"></script>
+		<script src="../../js/apiLink.js" charset="utf-8"></script>
+		<script src='../../js/common.js'></script>
+		<script src="../../js/plugins/template.js"></script>
+		<script>
+			$(function() {
+				// 页面初始化
+				$.init();
+
+				var mid = getcookie('mid'),
+					token = getcookie('token');
+
+					function getMemberInfo(mid,token){
+						FL.ajaxDate('post', get_member_info, {
+							mid: mid,
+							token: token
+						}, function(data) {
+							// data = {"result":{"id":"23","member_id":"1394941","member_type":"1","card_name":"\u5218\u666f\u7167","card_number":"371327100991102515","person_pic_url":"http:\/\/pic.fenhongshop.com\/microshop_owner_pics\/20161003\/57f1cc2e5ba56.png","company_name":"","company_number":"","company_pic_url":"","address":"\u5e7f\u4e1c \u5e7f\u5dde \u8d8a\u79c0\u533a","account_type":"\u652f\u4ed8\u5b9d","account_number":"15646321321","email":"16495412226@qq.com","wechat_number":"12345678","qq_number":"1649541226","shop_id":"1101254","shop_name":"m15112405457\u7684\u5fae\u5e97","member_name":"m15112405457","shop_logo":null,"shop_banner":null,"shop_theme":"default","shop_scope":null,"shop_time":"1475234044","sort_order":"255","shop_commend":"0","shop_type":"2","store_id":null,"store_name":null,"prom_num":"0","trash":"0","sc_id":"0","sc_id_1":"0","sc_id_2":"0","mobile_banner":null,"collect_count":"0","visit_count":"0","share_count":"0","click_count":"0","goods_count":"1","brand_count":"0","apply_source":null,"shop_gotten_reason":"0","shop_public_msg":null},"error":"0","msg":"","total":0,"hasmore":false};
+							if(data && data.error == '0') {
+								console.log(data);
+								var html = template.render('content-tpl', data);
+								$('.content').html(html);
+
+								if(data.result.member_type == '1') {
+									$('.company').hide();
+								} else {
+									$('.card').hide();
+								}
+
+								//资料确定
+								$('.button').click(function() {
+									verifyMember();
+								})
+							}
+						})
+					}
+
+
+
+				function verifyMember() {
+					FL.ajaxDate('post', verify_member_info, {
+						mid: mid,
+						token: token
+					}, function(data) {
+						if(data && data.error == '0') {
+							$.toast('资料提交成功！');
+
+							setTimeout(function(){
+								location.href = 'home.html?time='+ Math.random(); //跳转链接
+							},500);
+
+						}
+					})
+				}
+
+
+
+					// $.toast(mid);
+					getMemberInfo(mid,token);
+
+
+			});
+		</script>
+	</body>
+
+</html>

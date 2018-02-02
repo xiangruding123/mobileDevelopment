@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <title>发现</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+   	<meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+   	<link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../js/plugins/swiper/swiper.css" />
+    <link rel="stylesheet" href="../../css/animate.css">
+    <link rel="stylesheet" href="../../css/buttons.css">
+    <link rel="stylesheet" href="../../css/fhbase.css">
+    <link rel="stylesheet" href="../../css/fhwap.css">
+</head>
+
+<body>
+    <div class="container layout none" id="discover">
+        <section class="row">
+             <header class="fh-header">
+                <span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+                <h1 class="header-title">发现</h1>
+            </header>
+         	<!--bg-->
+         	<!--<div class="gps">
+         		<p id='gps1' class="f20"></p>
+         		<p id='gps2' class="f16 mt10">获取位置信息中……</p>
+         	</div>-->
+         	
+            <img src="../../images/wap/faxianbg.png" class="img-list" style="z-index:1;"/>
+			<!--content-->
+			<section id="discover_list"></section>
+			<script id="discoverList" type="text/html">
+				<%for(var i=0;i<result.length;i++){%>
+					<p class="dis-title"><%=result[i].sc_name%></p>
+			        <ul class="discover">
+			        	<%for(var j=0;j<result[i].subclass.length;j++){%>
+			                <li>
+			                    <a href="discover_list.html?cid=<%=result[i].subclass[j].sc_id%>&sc_name=<%=result[i].subclass[j].sc_name%>">
+			                    	<img src="../../images/wap/guanggao-1.jpg" data-original="<%=result[i].subclass[j].sc_pic%>">
+			                        <h4 class="f14"><%=result[i].subclass[j].sc_name%></h4>
+			                        <p class="over-hidden mt5"></p>
+			                    </a>
+			                </li>
+		                <%}%>
+		            </ul>
+	            <%}%>
+            </script>
+	        </script>
+        </section>
+    </div>
+
+		<div id='discover_index' class="container layout fh-bg-white none">
+				<section class="row" id="timeList">
+				<header class="fh-header">
+				<span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+				<h1 class="header-title">发现</h1>
+				<span class="header-right"><a href="../specialty/add_time.html"><img src="../../images/wap/specialty/btn_fabu.png" alt=""></a></span>
+				</header>
+				<div id="discoverCentent"></div>
+				<script type="text/html" id="discover-tmpl">
+				<%for(var i=0;i<result.length;i++){%>
+
+
+		<div class="time-head clearfix">
+					<a href="../specialty/talent_index.html?talent_id=<%=result[i].talent.talent_id%>">
+					<img src="<%=result[i].talent.talent_avatar%>" alt="" class="timeheadlogo">
+					<p class="f14"><%=result[i].talent.talent_name%></p>
+					<p class="color9"><%=result[i].talent.talent_type%></p>
+					</a>
+					</div>
+
+					<div class="timeListMedia timeListMedia<%=i%>">
+					<div class="swiper-container">
+					<div class="swiper-wrapper">
+					<%if(result[i].images){%>
+			<%for(var m=0;m<result[i].images.length;m++){%>
+				<div class="swiper-slide">
+
+							<img src="<%=result[i].images[m].time_image%>" alt="" />
+							<%if(result[i].images[m].goods){%>
+					         <canvas id="myCanvas_<%=i%>_<%=m%>" style="position:absolute;top:0;">
+								<%}%>
+							</div>
+							<%}%>
+			<%}%>
+		</div>
+			<div class="swiper-pagination"></div>
+					</div>
+					<div class="timeListCentent">
+					<p class="timecontent" style="-webkit-line-clamp:initial"><%=result[i].content%></p>
+					<p class="color9 mb20"><%=result[i].add_time_fmt%></p>
+					<%if(result[i].tags){%>
+			<div class="f-nav-wrap">
+						<article class="f-nav-stickytabs<%=i%> f-nav-stickytabs">
+						<div class="navbox js-navbox m-tbl scroll-navbox">
+
+						<%for(var k in result[i].tags){%>
+				<span class="tagname"><%=result[i].tags[k]%></span>
+							<%}%>
+
+			</div>
+				</article>
+				</div>
+				<%}%>
+		</div>
+			<ul class="media_bottom clearfix border-t">
+					<li class="-mob-share-open shareBtn" time_id="<%=result[i].time_id%>" goods_desc="<%=result[i].share.content%>" goods_name="<%=result[i].share.title%>" goods_image="<%=result[i].share.image%>" goods_url="<%=result[i].share.url%>" ><img src="../../images/wap/specialty/share.png" alt=""><%if(result[i].share_count=='0'){%>分享<%}else{%><%=result[i].share_count%><%}%></li>
+			<li class="comment_count" time_id="<%=result[i].images[0].time_id%>"><img src="../../images/wap/specialty/comment.png" alt=""><span><%if(result[i].comment_count=='0'){%>评论<%}else{%><%=result[i].comment_count%><%}%></span></li>
+			<%if(result[i].is_collected=='1'){%>
+			<li class="collect_count collected" time_id="<%=result[i].time_id%>" collect_count="<%=result[i].collect_count%>"><img src="../../images/wap/specialty/collected.png" alt=""><span><%if(result[i].collect_count=='0'){%>收藏<%}else{%><%=result[i].collect_count%><%}%></span></li>
+				<%}else{%>
+			<li class="collect_count" time_id="<%=result[i].time_id%>" collect_count="<%=result[i].collect_count%>"><img src="../../images/wap/specialty/collect.png" alt=""><span><%if(result[i].collect_count=='0'){%>收藏<%}else{%><%=result[i].collect_count%><%}%></span></li>
+				<%}%>
+		</ul>
+			<div class="empty"></div>
+					</div>
+					<%}%>
+			</script>
+		</section>
+		<div class="-mob-share-ui -mob-share-ui-theme -mob-share-ui-theme-slide-bottom" style="display: none">
+			<ul class="-mob-share-list">
+				<li class="-mob-share-weixin"><p>微信</p></li>
+				<li class="-mob-share-qq"><p>QQ好友</p></li>
+				<li class="-mob-share-qzone"><p>QQ空间</p></li>
+				<li class="-mob-share-weibo"><p>新浪微博</p></li>
+			</ul>
+			<div class="-mob-share-close">取消</div>
+		</div>
+		<div class="-mob-share-ui-bg"></div>
+	</div>
+
+
+    <section class="empty h50"></section>
+			<section class="allBtmFooter">
+				<li>
+					<a data-href="../index/index.html">
+						<img src='../../images/index/footer1.png' />						
+					</a>
+				</li>
+				<li>
+					<a data-href="../index/classifying.html">
+						<img src='../../images/index/footer2.png' />						
+					</a>
+				</li>
+				<li>
+					<a data-href="../activity/discover.html">
+						<img src='../../images/index/footer3click.png' />						
+					</a>
+				</li>
+				<li class="pr">
+					<a data-href="../shopping/shopping_cart_cn.html" class='shoppingurl'>
+						<img src='../../images/index/footer4.png' />						
+					</a>
+				</li>
+				<li>
+					<a data-href="../member/person.html">
+						<img src='../../images/index/footer5.png' />						
+					</a>
+				</li>
+	</section>
+
+    <script  src="../../js/libs/jquery/jquery-1.8.3.min.js"></script>
+    <script  src="../../js/plugins/jquery.lazyload.js"></script>
+    <script  src="../../js/plugins/layer/layer.js"></script>
+    <script  src="../../js/plugins/fastclick.js"></script>
+	<script  src="../../js/plugins/template.js"></script>
+	<script  src="../../js/plugins/swiper/swiper.js"></script>
+	<script  src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+	<script id="-mob-share" src="http://f1.webshare.mob.com/code/mob-share.js?appkey=13a3931a47072"></script>
+	<script  src="../../js/plugins/iscroll.js"></script>
+	<script  src="../../js/config.js"></script>
+	<script  src="../../js/apiLink.js"></script>
+	<script  src="../../js/common.js"></script>
+    <script  src="../../src/js/tmpl/activity/discover.js"></script>
+
+    <script>
+   		 Activity.Discover.onLoad();
+    </script>
+</body>
+
+</html>

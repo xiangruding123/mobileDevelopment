@@ -1,0 +1,1 @@
+!function(t,e,o){"use strict";t(function(){t("#coupon section").click(function(){t(this).next().show()});var e;e=localStorage.getItem("key"),t.ajax({url:ApiUrl+"/index.php?act=member_voucher&op=voucher_list",type:"post",dataType:"json",data:{key:e,voucher_state:1},success:function(e){var o=template.render("conpon_tpl",e);t("#my_conpon").html(o)}})})}($,window,document);

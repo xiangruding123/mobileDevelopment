@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/animate.css">
+    <link rel="stylesheet" href="../../css/buttons.css">
+    <link rel="stylesheet" href="../../js/plugins/layer/skin/layer.css">
+    <link rel="stylesheet" href="../../css/fhbase.css">
+    <link rel="stylesheet" href="../../src/css/fhwap.css">
+
+</head>
+<body>
+<div class="container layout" id='recommend_goods'>
+    <div class="row bg-body" id="search_goods_list">
+        <header class="fh-header">
+            <span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+            <h1 class="header-title"></h1>
+        </header>
+        <!--<ul class="nav_li">-->
+            <!--<script type="text/html" id='goods_nav_tpl'>-->
+                <!--<li class="active" data-="bought">全部商品</li>-->
+                <!--<%if(result){%>-->
+                <!--<%for(var i=0;i<result.goods_classes.length;i++){%>-->
+                <!--<li gc-id="<%=result.goods_classes[i].gc_id%>"><%=result.goods_classes[i].gc_name%></li>-->
+                <!--<%}%>-->
+                <!--<%}%>-->
+            <!--</script>-->
+        <!--</ul>-->
+
+        <div class="f-nav-wrap" id="f-nav-wrap">
+            <article class="f-nav-stickytabs">
+                <div class="navbox js-navbox m-tbl scroll-navbox">
+                   <script type="text/html" id='goods_nav_tpl'>
+                        <span class="active tab">全部商品</span>
+                        <%if(result){%>
+                        <%for(var i=0;i<result.goods_classes.length;i++){%>
+                        <span class="tab" gc-id="<%=result.goods_classes[i].gc_id%>"><%=result.goods_classes[i].gc_name%></span>
+                        <%}%>
+                        <%}%>
+                    </script>
+                </div>
+            </article>
+        </div>
+        <div class="empty"></div>
+        <div id="goods_list" class="min-scroller fh-bg-white">
+
+            <script type="text/html" id='goods_list_tpl'>
+                <%if(result){%>
+                <%for(var i=0;i<result.goods.length;i++){%>
+                <div class="media fh-goods">
+                    <a href="../shopping/goods_details.html?goods_id=<%=result.goods[i].goods_id%>&talent_deductid=<%=result.goods[i].talent_deductid%>" good_id="<%=result.goods[i].goods_id%>">
+                        <div class="media-left pr">
+                            <img class="media-img" src="../../images/wap/pinpaiguan.jpg" data-url="<%=FormatImg(result.goods[i].goods_image)%>" alt="...">
+                        </div>
+                        <div class="media-body">
+                            <%if(result.goods[i].nation_flag&&result.goods[i].goods_promise){%>
+                            <img src="<%=result.goods[i].nation_flag%>" class="w20 mr5"/><%=result.goods[i].goods_promise%>
+                            <%}%>
+                            <h4 class="media-heading overhide mb15 line-clamp3"><%=result.goods[i].goods_name%></h4>
+                            <div class="pull-left">
+                                <div class="media-tailing clearfix">
+                                    <span class="fh-price f20 pr10">￥<%=result.goods[i].goods_price%></span>
+                                    <del>￥<%=result.goods[i].goods_marketprice%></del>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
+                </div>
+                <%}%>
+                <%}%>
+            </script>
+        </div>
+    </div>
+
+    <script  src="../../js/libs/jquery/jquery-1.8.3.min.js"></script>
+    <script  src="../../js/plugins/fastclick.js"></script>
+    <script  src="../../js/plugins/template.js"></script>
+    <script  src="../../js/plugins/layer/layer.js"></script>
+    <script  src="../../js/plugins/jquery.scrollLoading.js"></script>
+    <script  src="../../js/plugins/iscroll.js"></script>
+    <script  src="../../js/config.js"></script>
+    <script  src="../../js/apiLink.js"></script>
+    <script  src="../../js/common.js"></script>
+    <script  src="../../src/js/tmpl/specialty/recommend.js"></script>
+
+</body>
+
+</html>
+

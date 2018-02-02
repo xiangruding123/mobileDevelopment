@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <title>缩放和裁剪</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../src/css/fhbase.css">
+    <link rel="stylesheet" href="../../src/css/fhwap.css">
+    <link rel="stylesheet" type="text/css" href="../../js/plugins/crop/cropper.min.css">
+</head>
+<body>
+<div class="container layout" id='talent_pic'>
+        <div class="row">
+            <header class="fh-header">
+                <span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+                <h1 class="header-title">缩放和裁剪</h1>
+                <span class="header-right focus-font">继续</span>
+            </header>
+            <div class="tc">
+                <img id="image" src="" alt="Picture">
+            </div>
+            <div id="result"></div>
+        </div>
+
+</div>
+<script  src="../../js/libs/jquery/jquery-1.8.3.min.js"></script>
+<script  src="../../js/plugins/fastclick.js"></script>
+<script  src="../../js/plugins/layer/layer.js"></script>
+<script  src="../../js/plugins/crop/cropper.min.js"></script>
+<script  src="../../js/config.js"></script>
+<script  src="../../js/apiLink.js"></script>
+<script  src="../../js/common.js"></script>
+<script>
+    $(function(){
+        var img = GetQueryString('img');
+        $('#image').attr('src',img);
+        var storage=JSON.parse(sessionStorage.getItem("images"))||[];
+
+        function getRoundedCanvas(sourceCanvas) {
+            var canvas = document.createElement('canvas');
+            var context = canvas.getContext('2d');
+            var width = sourceCanvas.width;
+            var height = sourceCanvas.height;
+            canvas.width = width;
+            canvas.height = height;
+            context.beginPath();
+            context.rect(0,0,width,width);
+            context.strokeStyle = 'rgba(0,0,0,0)';
+            context.stroke();
+            context.clip();
+            context.drawImage(sourceCanvas, 0, 0, width, height);
+            return canvas;
+        }
+        $(function () {
+            var $image = $('#image');
+            var $button = $('.header-right');
+            var $result = $('#result');
+            var croppable = false;
+            $image.cropper({
+                aspectRatio: 1,
+                viewMode: 1,
+                built: function () {
+                    croppable = true;
+                }
+            });
+            $button.on('click', function () {
+                var croppedCanvas;
+                var roundedCanvas;
+                if (!croppable) {
+                    return;
+                }
+                // Crop
+                croppedCanvas = $image.cropper('getCroppedCanvas');
+
+                // Round;
+                roundedCanvas = getRoundedCanvas(croppedCanvas);
+
+                // Show
+//                $result.html('<img src="' + roundedCanvas.toDataURL() + '">');
+
+//                roundedCanvas.toBlob(function (blob) {
+//
+//                    upLoadImage();
+//
+//                });
+                preview = roundedCanvas.toDataURL()
+                var binaryString = atob(preview.split(',')[1]),
+                        mimeType = preview.split(',')[0].match(/:(.*?);/)[1],
+                        length = binaryString.length,
+                        u8arr = new Uint8Array(length),
+                        blob;
+                while(length--) {
+                    u8arr[length] = binaryString.charCodeAt(length);
+                }
+                blob = new Blob([u8arr.buffer], {type: mimeType});
+
+
+                upLoadImage(blob)
+                function upLoadImage(){
+
+                    var fd = new FormData();
+                    fd.append("mid", FL.mid);
+                    fd.append("token",FL.token);
+                    fd.append("flag","wap");
+                    fd.append("img", blob);
+                    fd.append("type","goods_evaluation");
+
+                    $.ajax({
+
+                        type:'post',
+
+                        url:image_upload,
+
+                        processData:false,
+
+                        contentType:false,
+
+                        dataType: "json",
+
+                        data:fd,
+
+                        success:function(data){
+                            if(data&&data.error=="0"){
+//                                if(sessionStorage.getItem('images')){
+                                //                                    sessionStorage.setItem('images',sessionStorage.getItem('images')+","+data.result);
+                                //                                }else{
+                                //                                    sessionStorage.setItem('images',data.result);
+                                //                                }
+
+                                storage[storage.length]={"image":data.result};
+                                sessionStorage.setItem('images',JSON.stringify(storage));
+                                location.href = "concatpic.html";
+
+                            }
+                        },
+                        error:function(xhr) {
+
+                        }
+
+                    });
+
+
+                }
+
+
+
+
+            });
+        });
+    })
+
+
+</script>
+</body>
+</html>

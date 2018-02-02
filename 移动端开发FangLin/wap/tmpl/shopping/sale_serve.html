@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <title>申请售后服务</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+   <meta name="apple-mobile-web-app-status-bar-style" content="black">
+   	<meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/buttons.css">
+    <link rel="stylesheet" href="../../css/fhbase.css">
+    <link rel="stylesheet" href="../../css/fhwap.css">
+</head>
+
+<body>
+    <div class="container layout">
+        <div class="row">
+            <header class="fh-header">
+                <span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+                <h1 class="header-title">申请售后服务</h1>
+            </header>
+            <section class="poker clearfix bck-color">
+                <p>您的申请已经通过审核，请将商品快递到下面地址</p>
+            </section>
+            <section class="address-title">
+                <p>收货地址</p>
+            </section>
+            <section id="address_info"></section>
+            <script type="text/html" id="address_tpl">
+                <section class="address-info">
+                    <p>收货人：<span><%contact_name%></span> <span><%=contact_phone%></span></p>
+                    <p>地址：<span><%=address%></span></p>
+                    <p>邮编：<span><%=postcode%></span></p>
+                </section>
+            </script>
+            <section class="poker clearfix bck-color">
+                <p class="pull-left">快递公司</p>
+            </section>
+            <section class="input-box">
+                <input type="text" placeholder="输入快递公司名称" class="input-cont">
+            </section>
+            <section class="poker clearfix bck-color">
+                <p class="pull-left">快递单号</p>
+            </section>
+            <section class="input-box">
+                <input type="text" placeholder="输入快递单号" class="input-cont">
+            </section>
+            <div class="bck-color">
+                <button class="fh-btn btn">完成</button>
+            </div>
+        </div>
+    </div>
+    <script  src="../../js/libs/zepto.min.js"></script>
+    <script  src="../../js/config.js"></script>
+    <script  src="../../js/plugins/fastclick.js"></script>
+    <script  src="../../js/common.js"></script>
+    <script  src="../../js/plugins/template.js"></script>
+
+    <script>
+    // 模版填充收货地址
+    var res = {
+        'contact_name': 'wangyiyi',
+        'contact_phone': '18399962900',
+        'address': '山东省市南区',
+        'postcode': '276626'
+    };
+    var html = template.render('address_tpl', res);
+    $("#address_info").html(html);
+    // 点击完成提交数据
+    $('.btn').click()
+    </script>
+</body>
+
+</html>

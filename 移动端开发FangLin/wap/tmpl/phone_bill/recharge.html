@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>话费充值</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta name="format-detection" content="telephone=no">
+    <link href="css/css.css" rel="stylesheet" type="text/css"/>
+    <link href="font/iconfont.css" rel="stylesheet" type="text/css"/>
+    <script  src="../../js/libs/jquery/jquery-1.11.3.min.js"></script>
+    <script  src="../../js/config.js"></script>
+    <script  src="../../js/common.js"></script>
+    <script src="js/layer.m.js" ></script>
+    <script  src="../../js/fhnative.js"></script>
+
+</head>
+
+<body class="charge_body">
+
+<article class="main layout">
+    <div class="charge_top">
+        <p class="tit">你共有<span id="allscore">0</span>个积分 <a class="rule_jifen">积分使用规则说明>></a></p>
+
+        <div class="rule_text hid item">
+            <h3>积分使用规则说明：</h3>
+            <ul>
+                <li>1.每1个积分与人民币1分钱等值。</li>
+                <li>2. 用户每天可以使用积分抵扣一次话费，一次使用200积分抵扣，不足200积分不能抵扣。</li>
+                <li>3. 用户一个自然月最多抵扣四次话费。</li>
+                <li>4. 点击“立即充值”后积分即刻扣除，若点击“立即充值”后未付款，1小时后积分自动返还到原帐号中。</li>
+                <li>5. 如果充值失败或其他原因需要退款，再退还话费的同时积分一并返还到您的帐号中。</li>
+                <li>6. 如果当天已经使用积分充值过，再次充值提示<a href="#">《该手机号已使用过积分抵扣充值》</a>，然后可选择<a href="#">《返回》</a><a href="#">《以原票价继续充值》</a>。
+                </li>
+                <li>备注：分红全球购享有此规则的最终解释权。</li>
+            </ul>
+        </div>
+        <p>
+            <input maxlength="11" type="text" class="phone item" id="phone"/>
+        </p>
+
+        <div class="parvalue">
+            <a class="curr">20</a>
+            <a>50</a>
+            <a>100</a>
+            <a>300</a>
+        </div>
+    </div>
+    <div class="cktype">
+        <div canusescore="200" class="item bord-t-e5 curr" id="score">最高使用积分抵扣元</div>
+        <div canusescore="0" class="item ">不使用积分抵扣</div>
+    </div>
+    <div class="charge_sum clearfix">
+        <div class="fl txt_phone">
+            <span id="tel"></span>
+            <br><span class="address"></span>
+        </div>
+        <div class="fr total">￥<span id="total"></span></div>
+    </div>
+    <div class="btn_charge" id="btn_charge">立即充值</div>
+    <div class="btn-history">查看充值历史</div>
+    <ul id="charge-history" style="display:none">
+        <li>
+            <span class="lbox"></span><span class="rbox"></span>
+            <span class="lbox"></span><span class="rbox"></span>
+        </li>
+    </ul>
+</article>
+<form id="dorecharge" action="" method="post">
+    <input type="hidden" name="token"/>
+    <input type="hidden" name="flag"/>
+    <input type="hidden" name="mid"/>
+    <input type="hidden" name="mobile"/>
+    <input type="hidden" name="amount"/>
+    <input type="hidden" name="denomination"/>
+    <input type="hidden" name="points"/>
+</form>
+<div style="padding:0.5em 0.8em; line-height:1.5; font-size:1.2em;">如果您在充值过程中遇到问题，欢迎咨询客服：<a href="tel:4006888506">4006888506</a>
+</div>
+
+
+<script>
+    $(function () {
+        $(".rule_jifen").click(function () {
+            $("div.rule_text").toggle();
+        });
+       
+        equipmentCheck();
+         
+        var mid = GetQueryString('mid'), token = GetQueryString('token'), flag, device;
+
+        var scorehtml = "最高使用{0}积分抵扣{1}元";
+        var currPhone = ""; //要充值的手机号
+        var currCorse = ""; //充值要用的积分
+        var currParvalue = getParvalue(); //当前选中的面值
+        var canusescore = 0; //可用的积分选项
+
+        //初始化分数
+        function initScore() {
+            $.ajax({
+                type: "post",
+                url: WapSiteUrl + "/api/index.php?act=common_bonus&op=mobile_bill_charge",
+                data: {
+                    mid: mid,
+                    token: token,
+                    flag: flag,
+                    device: device
+                },
+                dataType: 'json',
+                success: function (data) {
+                    if (data.error === "0") { //成功获取信息
+                        $("#allscore").html(data.result.member_points);
+                        $("#phone").val(data.result.mobile);
+                        $("#tel").html(data.result.mobile);
+                        canusescore = data.result.points_usable;
+                        $("#score").attr("canusescore", canusescore);
+                        mobile_query(data.result.mobile, currParvalue, canusescore);
+                    }
+
+                }
+            });
+        }
+
+        if (native_flag == 0) {
+
+            flag = "android";
+            
+            //获取设备号
+            var appinfo;
+
+            var t_app = setInterval(function () {
+
+                appinfo = getAppInfo();
+
+                if (appinfo) {
+
+                    clearInterval(t_app);
+                    device = appinfo.deviceid;
+
+                    initScore();
+                  
+                    addcookie('device', device);
+                    
+                }
+
+
+            }, 100);
+//         var appinfo = getAppInfo();
+//         
+//         device = appinfo.deviceid;
+//         
+//         initScore();
+//          addcookie('device', device);
+            
+            
+        } else if (native_flag == 1) {
+            flag = 'ios';
+            function igetAppinfo() {
+                var data = {
+                    "func": "appinfo",
+                    "params": ""
+                };
+                _bridge.send(data, function (responseData) {
+
+
+                    device = responseData.deviceid;
+
+                    if (!responseData) {
+
+                    } else {
+                        clearInterval(timing);
+
+                        initScore();
+                        addcookie('device', device);
+                    }
+
+
+                });
+            }
+
+            var timing = setInterval(function () {
+                igetAppinfo();
+            }, 100);
+
+
+        }
+
+
+        //点击不同的面值
+        $(".parvalue a").click(function () {
+            $(this).addClass("curr").siblings().removeClass("curr");
+            currParvalue = getParvalue();
+            mobile_query($("#phone").val(), currParvalue, canusescore);
+        });
+        //点击充值按钮
+        $("#btn_charge").click(function () {
+            var html = "即将使用积分抵扣话费,手机号:{0},充值金额:{1},使用积分:{2}.如果未完成付款,积分会暂时扣除,1小时后自动返还.";
+            html = FL.formatStr(html, currPhone, currParvalue, currCorse);
+            layer.open({
+                title: '确认充值信息',
+                content: html,
+                btn: ['确定', '取消'],
+                yes: function (index) {
+                    
+                    if (native_flag == 0) {
+                        var amount = $("#total").html();
+
+                        device = getcookie('device');
+                       
+                        $.ajax({
+                            type: "post",
+                            url: WapSiteUrl + "/api/index.php?act=common_bonus&op=create_bill",
+                            data: {
+                                mid: mid,
+                                token: token,
+                                mobile: currPhone,
+                                denomination: currParvalue,
+                                points: currCorse,
+                                amount: amount,
+                                device: device,
+                                flag: flag
+                            },
+                            dataType: 'json',
+                            success: function (data) {
+                                 
+                                if (data.error == '0') { //成功获取信息
+                                	
+                                    payamount = parseFloat(data.result.pay_amount);
+                                     
+                                    layer.close(index);
+
+                                    FHMall.pay(data.result.pay_sn,payamount,0,function (data) {
+                                            location.reload();
+                                    });
+
+                                } else { //失败
+                                    var errtip = data.msg;
+                                    layer.open({
+                                        time: 2,
+                                        content: errtip
+                                    });
+
+
+                                }
+
+                            }, error: function () {
+                                layer.open({
+                                    time: 2,
+                                    content: '支付失败'
+                                });
+                            }
+                        });
+                    } else if (native_flag == 1) {
+                        var amount = $("#total").html();
+
+                        device = getcookie('device');
+                        pay_ios();
+                        function pay_ios() {
+
+                            $.ajax({
+                                type: "post",
+                                url: WapSiteUrl + "/api/index.php?act=common_bonus&op=create_bill",
+                                data: {
+                                    mid: mid,
+                                    token: token,
+                                    mobile: currPhone,
+                                    denomination: currParvalue,
+                                    points: currCorse,
+                                    amount: amount,
+                                    device: device,
+                                    flag: 'ios'
+                                },
+                                dataType: 'json',
+                                success: function (data) {
+
+                                    if (data.error === '0') { //成功获取信息
+
+                                        pay_amount = data.result.pay_amount;
+
+                                        layer.close(index);
+
+                                        /* 支付 */
+                                        function itoPay(pay_sn, pay_amount) {
+                                            var data = {
+                                                "func": "topay",
+                                                "params": {
+                                                    "pay_sn": pay_sn,
+                                                    "pay_amount": pay_amount,
+                                                    "country_source": 0,
+                                                }
+                                            };
+                                            _bridge.send(data, function (responseData) {
+                                                location.reload();
+                                            });
+                                        }
+
+                                        setTimeout(function () {
+
+                                            itoPay(data.result.pay_sn, pay_amount);
+
+                                        }, 10);
+
+                                    } else { //失败
+                                        var errtip = data.msg;
+                                        layer.open({
+                                            time: 2,
+                                            content: errtip
+                                        });
+
+
+                                    }
+
+                                }, error: function () {
+                                    layer.open({
+                                        time: 2,
+                                        content: '支付失败'
+                                    });
+                                }
+                            });
+                        }
+
+                    }
+                }
+            });
+        });
+
+
+
+        //点击不同的积分选项
+        $(".cktype .item").click(function () {
+            $(this).addClass('curr').siblings().removeClass("curr");
+            canusescore = $(this).attr("canusescore");
+//            currCorse = canusescore;
+            mobile_query($("#phone").val(), currParvalue, canusescore);
+        });
+
+
+        //充值手机查询 手机号/选择的面值/花费的积分
+        function mobile_query(phone, parvalue, usescore) {
+            $.ajax({
+                type: "post",
+                url: WapSiteUrl + "/api/index.php?act=common_bonus&op=mobile_query",
+                data: {
+                    token: token,
+                    mid: mid,
+                    mobile: phone,
+                    denomination: parvalue,
+                    use_points: canusescore,
+                    device: device,
+                    flag: flag
+                },
+                dataType: 'json',
+                success: function (data) {
+                    if (data.error === "0") { //成功获取信息
+                        $(".address").html(data.result.mobile_area);
+
+                        deducted = !(data.result.if_deduct); //相同的手机号每天只能抵扣一次
+
+                        if (!deducted) {
+                            //只有满200积分才能抵扣
+                            if (usescore < 200) {
+                                $('#score').removeClass('curr').addClass('disable').html('积分满200才能抵扣2元<span style="color:red;">（去签到赚更多积分）</span>').next().addClass('curr');
+                                $('#score span').click(function () {
+                                    document.location.href = 'checkins.html';
+                                });
+                                currCorse = 0;
+                            } else {
+                                currCorse = 200; //充值要用的积分
+                                $("#score").html(FL.formatStr(scorehtml, currCorse, parseFloat(currCorse) / 100));
+                            }
+                        } else {
+                            $('#score').removeClass('curr').addClass('disable').html('不能抵扣，请参考积分使用规则').next().addClass('curr');
+                            currCorse = 0; //充值要用的积分
+                        }
+                        currPhone = phone; //要充值的手机号
+                        //currCorse = usescore; //充值要用的积分
+                        currParvalue = parvalue; //当前选中的面值
+                        $("#total").html(parseFloat(data.result.bill_amount).toFixed(2));
+                    } else { //失败
+                        var errtip = data.msg;
+                        layer.open({
+                            time: 2,
+                            content: errtip
+                        });
+                    }
+                }
+            });
+        }
+
+
+        //电话文本框绑定keyup事件,如果是电话号码,则激活打开红包按钮.
+        document.getElementById("phone").onkeyup = getChargeInfo;
+
+        //获取面值值
+        function getParvalue() {
+            return parseFloat($("div.parvalue .curr").html());
+        }
+        //判断是否是电话
+        function istel(phone) {
+            if ((/^1[1-9][0-9]\d{4,8}$/.test(phone)) && phone.length == 11) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        //获取充值信息 电话号码/面值
+        function getChargeInfo() {
+            var phone = $("#phone").val(); //电话
+            var parvalue = getParvalue(); //面值
+            if (!istel(phone)) { //判断是否是电话号码
+                return false;
+            }
+            mobile_query(phone, parvalue, canusescore);
+        }
+
+
+
+
+
+
+
+
+        //充值历史
+        var num = 15, curpage = 1;
+        $('.btn-history').click(function () {
+            $.ajax({
+                type: "post",
+                url: WapSiteUrl + "/api/index.php?act=common_bonus&op=get_bill_list",
+                data: {
+                    mid: mid,
+                    token: token,
+                    curpage: curpage,
+                    num: num,
+                    flag: flag
+                },
+                dataType: 'json',
+                success: function (data) {
+                    if (data.error === '0') {
+                        //充值历史
+                        var history = data.result;
+                        var len = history.length;
+                        var $history = $('#charge-history');
+                        var item = $history.find('li').clone(true);
+                        var history_html = '';
+                        if (len == 0) {
+                            $history.html('<li style="height:50px;line-height:50px;text-align:center;color:#333;font-size:12px">暂无充值历史</li>');
+                        } else {
+                            $.each(history, function (i, n) {
+                                var items = item.find('span');
+                                $(items[0]).html(n['mobile']);
+                                $(items[1]).html(n['denomination'] + '元');
+                                $(items[2]).html(n['add_time']);
+                                $(items[3]).html('<i>' + n['charge_state'] + '</i>');
+                                history_html += '<li>' + item.html() + '</li>';
+                            });
+                            $history.html(history_html);
+                        }
+                    }
+                }
+            });
+            $('#charge-history').slideToggle('fast');
+        });
+    });
+</script>
+</body>
+
+</html>

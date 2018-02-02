@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <title>订单确认</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+   <meta name="apple-mobile-web-app-status-bar-style" content="black">
+   	<meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+   <link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/buttons.css">
+    <link rel="stylesheet" href="../../css/fhbase.css">
+    <link rel="stylesheet" href="../../css/fhwap.css">
+</head>
+
+<body>
+    <div class="container layout" id="confirmation">
+        <div class="row">
+            <header class="fh-header">
+                <span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+                <h1 class="header-title">订单确认</h1>
+            </header>
+            <div class="order-address border-b" id="contact_address"></div>
+            <script type="text/html" id="order_tpl">
+                <div class="message-left">
+                    <div>
+                        <span>收货人：</span>
+                        <span class="mr10"><%=address_list[0].true_name%></span>
+                        <span><%=address_list[0].mob_phone%></span>
+                    </div>
+                    <div class="f12 mt10"><span>收货地址：</span><span><%=address_list[0].area_info+address_list[0].address%></span></div>
+                </div>
+                <i class="icon-angle-right fright"></i>
+            </script>
+            <section class="empty bck-color"></section>
+            <section class="media fh-goods border-half pd-index" id='product_info'></section>
+            <script type="text/html" id="product-tpl">
+                <div class="media-left">
+                    <img class="media-object border-full" src="<%=spec_image[2665]%>" alt="...">
+                </div>
+                <div class="media-body shopping-body">
+                    <div class="media-top pr">
+                        <h4 class="media-heading overhide"><%=goods_info.goods_name%></h4>
+                        <span class="icon-right discount abs-right">折扣</span>
+                    </div>
+                    <div>
+                        规格：<%=goods_info.goods_spec[2666]%> &nbsp; <%=goods_info.goods_spec[2649]%> &nbsp; 1件
+                    </div>
+                </div>
+                <div class="media-right tr">
+                    <p class="fh-price">￥
+                        <%=goods_info.goods_price%>
+                    </p>
+                    <p class="mt10" id="num">×1</p>
+                </div>
+            </script>
+            <section class="fill border-b f14">
+                <span class="">配送</span><span class="pull-right">快递:<span id="express_price">10元</span></span>
+            </section>
+            <section class="pay-border clearfix border-b">
+                <section class="fill">
+                    <a href="" class="skip-link"><span class="f14">支付方式</span>
+                    <i class="icon-angle-right angle-right"></i></a>
+                </section>
+                <section class="fill">
+                    <input type="text" placeholder="给卖家留言" class="leave-info input">
+                </section>
+                <p class="fill pull-right border-b0">共<span>1</span>件商品，<span class='f14 fb'>合计：</span><span class="fh-price" id="all_price">￥689.00</span></p>
+            </section>
+            <section class="empty bck-color"></section>
+          <!--   <section class="fill border-b">
+                <span class="f14">使用代金卷</span>
+                <i class="icon-circle-blank circle-right"></i>
+            </section> -->
+            <section class="fill border-b">
+                <span class="f14">使用代金卷</span><span class="fh-price ml10 f12 tableChange">抵消<span id="privilege">10</span>元</span>
+                <i class="icon-circle-blank choose-icon circle-right"></i>
+            </section>
+            <section class="empty bck-color"></section>
+            <section id="go-pay">
+                <a href="" class="button a-link">去付款</a>
+                <!-- <button class="button button-caution button-small">去付款</button> -->
+                <p class="pull-right">
+                    共<span class="fh-price">1</span>件&nbsp;&nbsp;总金额&nbsp;&nbsp;<span class="fh-price" id="total">￥679.00</span></p>
+            </section>
+        </div>
+    </div>
+    <script  src="../../js/libs/zepto.min.js"></script>
+    <script  src="../../js/config.js"></script>
+    <script  src="../../js/plugins/fastclick.js"></script>
+    <script  src="../../js/common.js"></script>
+    <script  src="../../js/plugins/template.js"></script>
+    <script  src="../../js/tmpl/order/order_confirm.js"></script>
+</body>
+
+</html>

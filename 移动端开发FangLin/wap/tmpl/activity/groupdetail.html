@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <title>拼团详情</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+   	<meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+   	<link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../js/plugins/swiper/swiper.css">
+    <link rel="stylesheet" href="../../css/animate.css"/>
+    <link rel="stylesheet" href="../../css/buttons.css">
+    <link rel="stylesheet" href="../../css/fhbase.css">
+    <link rel="stylesheet" href="../../src/css/fhwap.css">
+</head>
+<body>
+    <div class="container layout" id="groupdetail">
+        <div class="row bg-body">
+            <header class="fh-header none">
+                <span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+                <h1 class="header-title">拼团详情</h1>
+                <a class="header-edit" id="nav-show"></a>
+            </header>
+            <div id="my">
+            	
+            </div>
+            <div id="goods_list">
+            	<script type="text/html" id="goods-tpl">            	
+	            <div class="media fh-goods pad10">                        	
+	            	<a href="group_goods_detail.html?goods_id=<%=result.goods_id%>&pintuan_id=<%=result.pintuan_id%>" >
+	                    <div class="media-left pr">
+	                		<img class="media-img" src="../../images/wap/pinpaiguan.jpg" data-original="<%=result.goods_image%>!thumb" alt="..." style="display: inline-block;width:80px;">
+						</div>
+	                    <div class="media-body">
+	                        <h4 class="media-heading overhide mb25 line-clamp3"><%=result.goods_name%></h4>
+	                        <div class="pull-left">
+	                            <div class="media-tailing clearfix fh-price"><%=result.player_limit%>人团购价￥<%=result.pintuan_price%>
+	                                <del class="ml10">￥<%=result.goods_price%></del>                            
+	                            </div>                            
+	                        </div>                       
+	                    </div>
+	                </a>
+	            </div>
+	            <section class="empty"></section>
+            <div class="tc pad10">            	
+            	<%if(result.state=='0'){%>
+            	  <p id="validity_pay_time">剩余时间：<span id="countdown"></span></p>	
+            	<%}%> 
+            	
+            	<div class="border-b mt20 pb20">
+            		
+            		<%for(var k=0;k<result.player_limit;k++){%>
+            			
+            			<%if(result.players[k]){%>
+            				
+            				<img src="../../images/wap/header_phone.png" alt="" style="width:40px;height:40px;border-radius: 50%;margin-left:10px" data-original="<%=result.players[k].member_avatar%>"/>
+
+            			<%}else{%>
+            				
+            				<img src="../../images/wap/header_phone.png" alt="" style="width:40px;height:40px;border-radius: 50%;margin-left:10px">
+            					
+            			<%}%>
+            	        
+            		<%}%>
+            		
+            	</div>
+            	
+            	        <%if(result.state=='0'){%>
+            	        	<p class="mt15 mb20 f13">还差<%=result.player_limit-result.player_num%>人参与，就能拼团成功</p>            	        	
+            	        	<%if(result.is_my=='0'){%>
+            	        		<button class="gotoapp button">立即参团</button>
+            	        	<%}else{%>
+            	        		<button class="sharebutton button">邀请好友参团</button> 
+            	        	<%}%>         	        	 
+            	        	
+            	        <%}else if(result.state=='1'){%>
+            	        	<p class="mt15 mb20 f13">恭喜您，您该团已经拼团成功了<br />我们已经为您打包商品您也可以继续开团吆</p>
+            	        	<button class="again button">重新开团</button>
+            	       <%}else if(result.state=='2'){%>
+            	        	<p class="mt15 mb20 f13">sorry，拼团失败<br />该拼团在有效时间内，未达到拼团人数</p>		            	
+		            	    <button class="again button">立即开团</button>
+            	       <%}%>
+		            			            	
+		            </div>
+		            <section class="empty"></section>
+			            <div>
+			            <p class="pad10"><span class="pull-left f14">参团流程</span><a href="<%=result.agreeurl%>/wap/tmpl/andriod/group_agree.html" class="pull-right color7">拼团规则</a></p> 
+			             <%if(result.state=='0'){%>
+			             <img src="../../images/wap/group_02.jpg" style="width:100%;padding:18px 0 15px;"/>
+			              <%}else{%>
+			             <img src="../../images/wap/group_03.jpg" style="width:100%;padding:18px 0 15px;" />
+			             <%}%>
+			        </div>
+	            </script>
+            </div>
+            
+            
+            <section class="empty"></section>
+             <div>
+             	<h2 class="tc f16 border-b" style="height:42px;line-height: 42px;"><a href="group.html">更多拼团活动<i class="icon-angle-right pull-right mr10 mt5 f30"></i></a></h2>
+             	<div id="groupgoodslist">
+             		<script type="text/html" id="list-tpl">
+             		<%for(var i=0;i<result.length;i++){%>            		
+             			<div class="media fh-goods pad10 border-b">                        	
+			            	<a href="group_goods_detail.html?goods_id=<%=result[i].goods_id%>&pintuan_id=<%=result[i].pintuan_id%>">
+			                    <div class="media-left pr">
+			                		
+			                		<img class="media-img" src="http://img.fenhongshop.com/goods/325776/20151112/56442976aeef2.jpg!thumb" data-original="<%=result[i].goods_image%>!thumb" alt="..." style="display: inline-block;width:80px;">
+									
+			                    </div>
+			                    <div class="media-body">
+			                    	
+			                        <h4 class="media-heading overhide mb25 line-clamp3"><%=result[i].goods_name%>			                        	
+			                        </h4>
+			                        <div class="pull-left">
+			                            <div class="media-tailing clearfix fh-price"><%=result[i].player_num%>人团价格￥56.00
+			                                                         
+			                            </div>
+			                             <del class="ml10">￥90.00</del>  
+			                        </div> 
+			                        <div class="pull-right"><button class="groupbtn fh-bg-red">去开团</button></div>
+			                    </div>
+			                </a>
+			            </div>
+             		<%}%>
+	             	</script>
+                
+                </div>
+             </div>
+            
+    </div>
+    <img src="../../images/red-packet/tip.png" alt="" class="masksharetip" style="display: none;">
+    <script  src="../../js/libs/jquery/jquery-1.8.3.min.js"></script>
+    <script  src="../../js/plugins/jquery.lazyload.js"></script>
+    <script  src="../../js/config.js"></script>
+	<script  src="../../js/plugins/fastclick.js"></script>
+	<script  src="../../js/common.js"></script>
+	<script  src="../../js/fh.js"></script>
+	<script  src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+	<script  src="../../js/plugins/iscroll.js"></script>
+	<script  src="../../js/plugins/scrollspy.js"></script>
+	<script  src="../../js/plugins/layer/layer.js"></script>
+	<script  src="../../js/plugins/template.js"></script>
+    <script  src="../../js/plugins/swiper/swiper.js"></script>
+    <script  src="../../src/js/tmpl/activity/groupdetails.js"></script>    
+</body>
+
+</html>
+
+

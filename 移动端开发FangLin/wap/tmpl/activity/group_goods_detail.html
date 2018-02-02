@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <title>商品详情</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" type="text/css" href="../../css/wap.css" />
+    <link rel="stylesheet" href="../../js/plugins/layer/skin/layer.css">
+    <link rel="stylesheet" type="text/css" href="../../js/plugins/swiper/swiper.css" />
+    <link rel="stylesheet" href="../../css/fhbase.css">
+    <link rel="stylesheet" href="../../src/css/fhwap.css">
+
+</head>
+
+<body>
+<div class="container layout" id="goods-details">
+<div class="row">
+<header class="fh-header none">
+    <span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+    <h2 class="header-title active">商品</h2>
+    <h2 class="header-title">详情</h2>
+    <h2 class="header-title">评价</h2>
+    <a class="header-edit" id="nav-show"></a>
+</header>
+<section id="details"></section>
+<section id="details_info" class="layout"></section>
+<section id="details_comment">
+    <div class="details_comment-title"></div>
+    <div class="goods-assess">
+        <ul></ul>
+    </div>
+</section>
+<script type="text/html" id="details_comment_title_tpl">
+    <div class="separator mt15 mb15 border-half">
+        <p class="mr10 dis-in-b">综合好评</p>
+        <%for(var q=1;q<=star_average;q++){%>
+        <i class="icon-star"></i>
+        <%}%>
+
+        <%for(var w=1;w<=(5-star_average);w++){%>
+        <i class="icon-star fa-grey"></i>
+        <%}%>
+    </div>
+    <div class="details_comment_btn">
+        <button>全部(
+            <%=all_count%>)</button>
+        <button>好评(
+            <%=good_count%>)</button>
+        <button>中评(
+            <%=normal_count%>)</button>
+        <button>差评(
+            <%=bad_count%>)</button>
+        <%if(!hasimage_count){%>
+        <button>有图(0)</button>
+        <%}else{%>
+        <button>有图(
+            <%=hasimage_count%>)</button>
+        <%}%>
+    </div>
+</script>
+<script type="text/html" id="details_comment_tpl">
+
+    <%for(var l=0;l<comments.length;l++){%>
+    <li>
+        <p>
+            <%for(var h=1;h<=comments[l].stars;h++){%>
+            <i class="icon-star"></i>
+            <%}%>
+            <%for(var j=1;j<=(5-comments[l].stars);j++){%>
+            <i class="icon-star fa-grey"></i>
+            <%}%>
+            <%if(comments[l].is_anonymous=='0'){%>
+            <span class="float-right"><%=comments[l].member_nickname||comments[l].member_name%>&nbsp&nbsp<%=comments[l].date%></span>
+            <%}else{%>
+            <span class="float-right"><%=comments[l].member_name.substr(0,1)%>***<%=comments[l].member_name.substr(-1)%>&nbsp&nbsp<%=comments[l].date%></span>
+            <%}%>
+
+        </p>
+        <p>
+            <span class="multi-row f12"><%=comments[l].content%></span>
+        </p>
+
+        <ul class="goods_comments clearfix">
+            <%if(comments[l].images){%>
+            <%for(var r=0;r<comments[l].images.split(',').length;r++){%>
+            <li><a href="<%=comments[l].images.split(',')[r]%>" data-lightbox="example-set-commtion<%=l%>"><img src="../../images/wap/pinpaiguan.jpg" data-original="<%=comments[l].images.split(',')[r]%>" alt="" /></a></li>
+            <%}%>
+            <%}%>
+        </ul>
+        <%if(comments[l].seller_explain){%>
+        <p class="bg-body pl5 pt5 pr mt10 f12"><i class="arrow-up pa"></i>[商家回复]<%=comments[l].seller_explain%></p>
+        <%}%>
+
+        <%if(comments[l].append_evaluate){%>
+        <p class="focus-font" style="font-size:10px;">收货后<span><%if(comments[l].append_evaluate[0].evaluate_days==1){%>当<%}else{%><%=comments[l].append_evaluate[0].evaluate_days-1%><%}%></span>天追加</p>
+        <p class="f12">
+            <%=comments[l].append_evaluate[0].content%>
+        </p>
+        <ul class="goods_comments clearfix">
+            <%if(comments[l].append_evaluate[0].images){%>
+            <%for(var i=0;i<comments[l].append_evaluate[0].images.split(',').length;i++){%>
+            <li><a href="<%=comments[l].append_evaluate[0].images.split(',')[i]%>" data-lightbox="example-set-com<%=l%>"><img src="../../images/wap/pinpaiguan.jpg" data-original="<%=comments[l].append_evaluate[0].images.split(',')[i]%>" alt="" /></a></li>
+
+            <%}%>
+            <%}%>
+        </ul>
+        <%if(comments[l].append_evaluate[0].seller_explain){%>
+        <p class="bg-body pl5 pt5 pr mt10 f12"><i class="arrow-up pa"></i>[商家回复]<%=comments[l].append_evaluate[0].seller_explain%></p>
+        <%}%>
+        <%}%>
+    </li>
+    <%}%>
+
+</script>
+
+<script type="text/html" id="details-tpl">
+<div class="swiper-container pr">
+    <div class="swiper-wrapper">
+        <%if(goods_images){%>
+        <%for(var i=0;i<goods_images.length;i++){%>
+        <div class="swiper-slide">
+           <img src="<%=goods_images[i]%>">
+        </div>
+        <%}%>
+        <%}%>
+    </div>
+    <%if(goods_state==0){%>
+    <img src="../../images/wap/widthdown.png" class="goods-details-tip" />
+    <%}else if(sale_stop==1){%>
+    <!--<img src="../../images/wap/stop.png" class="goods-details-tip" />-->
+    <%}else if(is_presell==1){%>
+    <img src="../../images/wap/presell.png" class="goods-details-tip" />
+    <%}else if((goods_storage==0&&!seckilling)||(goods_storage==0&&seckilling&&seckilling.killing_stock==0)){%>
+    <img src="../../images/wap/soldout.png" class="goods-details-tip" />
+    <%}%>
+    <div class="swiper-pagination"></div>
+    <div id="imageText" goods_commonid='<%=goods_commonid%>'>图文<br />详情</div>
+</div>
+<div class="goods-price">
+    <div class="pb5">
+        <span class=""><%=player_limit%>人团:<span class="f18 focus-color mr15">￥<%=pintuan_price%></span></span>
+
+
+                原价:<del class="del-fh-price ml5">￥<%=goods_price%></del>
+
+
+    </div>
+
+</div>
+<section class="empty"></section>
+<div class="pad10">
+    <p class="overhide pr line-clamp3 mt5 mb5" style="color: #1a1a1a;font-weight: 600;">
+
+        <%=goods_name%>
+        <%if(is_own_shop==1){%>
+
+        <img src="../../images/wap/self.png" alt="" class="origin mt2"/>
+        <%}%>
+        <%if(goods_source>0){%>
+        <img src="../../images/wap/direct.png" class="origin mt2" />
+
+        <%}%>
+    </p>
+    <%if(goods_desc){%>
+    <p class="f12">
+        <%=goods_desc%>
+    </p>
+    <%}%>
+
+    <%if(nation_flag&&goods_promise){%>
+    <span class="dis-in-b color7"><img src="<%=nation_flag%>" class="w20 mr5"/><%=goods_promise%></span>
+    <%}%>
+     <%if(goods_source!=0){%>
+     <span class="dis-in-b pull-right tax_click font-gray">税费<img class='ml5 w15 mt2' src="../../images/wap/question_mark.svg"/></span>
+     <%}%>  </div>
+<%if(store_notice){%>
+
+<div class="address-bg"></div>
+<h3 class="f14 pt10 pb5 tc" style="color:#la1a1a;">店铺公告</h3>
+<p class="f12 pl10 pr10 pb10" style="color:#333;">
+    <%=#store_notice%>
+</p>
+<%}%>
+
+
+<section class="empty"></section>
+
+<div class="tax_rate">
+    <h2>税费<img src="../../images/wap/close.svg" alt="" class="mt5 tax_close"/></h2>
+    <div class="skip-link pad5 border-b">
+
+        <span class="tax_money"></span>
+        <%if(!no_rate_tip){%>
+        <p><span class="angle"></span>关税≤50元免征哟！</p>
+        <%}%>
+    </div>
+
+    <%if(no_rate_tip){%>
+    <p class="pt10 pl10">
+        <%=no_rate_tip%>
+    </p>
+    <%}else{%>
+    <p class="pt10 pl10">本商品适用税率为<span class='tax_num'></span>，若订单总税额≤50元则免征</p>
+    <%}%>
+</div>
+<div>
+<p class="pad10"><span class="pull-left f14">参团流程</span><a href="http://dev.fenhongshop.com/wap/tmpl/andriod/group_agree.html" class="pull-right color7">拼团规则</a></p>
+
+ <img src="../../images/wap/group_01.jpg" style="width:100%;padding:18px 0 15px;">
+
+</div>
+<%if(goods_source==0){%>
+<section class="empty"></section>
+<div id="tip" class="skip-link">
+    <span><img src="../../images/wap/detail/zheng.png" alt="" />正品保障</span>
+    <span><img src="../../images/wap/detail/time.png" alt="" />按时发货</span>
+    <span><img src="../../images/wap/detail/shi.png" alt="" />如实描述</span>
+    <span><img src="../../images/wap/detail/cheng.png" alt="" />诚信担保</span>
+</div>
+<%}else{%>
+<section class="empty"></section>
+<div id="tip" class="skip-link">
+    <span><img src="../../images/wap/detail/zheng.png" alt="" />正品保障</span>
+    <span><img src="../../images/wap/detail/cai.png" alt="" />海外直采</span>
+    <span><img src="../../images/wap/detail/gong.png" alt="" />品牌直供</span>
+    <span><img src="../../images/wap/detail/bao.png" alt="" />质量保险</span>
+</div>
+<%}%>
+<section class="empty"></section>
+
+<div class="goods-assess">
+    <ul>
+
+        <li class="skip-link estimate">
+            <span>晒单评价</span>
+            <i class="icon-angle-right right-arrow color7"></i>
+        </li>
+        <li class="skip-link border-b0">
+            <p>
+                <span>综合好评</span>
+                <span class="focus-color pl15">
+                	<%for(var k=1;k<=comments_average;k++){%>
+                                        <img src="../../images/wap/star.png" alt="" class="star">
+                                    <%}%>
+                                    <%if(comments_average.toString().indexOf( '.')>-1){%>
+                                        <img src="../../images/wap/Bstar.png" alt="" class="star">
+                                    <%}%>
+                                    <%for(var j=1;j<=(5-comments_average);j++){%>
+                                        <img src="../../images/wap/Estar.png" alt="" class="star">
+                                    <%}%>
+                	</span>
+                <span class="span-right pull-right"><%=comments_num%>人评价</span>
+            </p>
+        </li>
+        <%if(goods_comments){%>
+
+
+        <%for(var l=0;l<goods_comments.length;l++){%>
+        <li class="com_list">
+
+            <p>
+                <%for(var h=1;h<=goods_comments[l].stars;h++){%>
+                <i class="icon-star"></i>
+                <%}%>
+                <%for(var j=1;j<=(5-goods_comments[l].stars);j++){%>
+                <i class="icon-star fa-grey"></i>
+                <%}%>
+                <%if(goods_comments[l].is_anonymous==='0'){%>
+                <span class="float-right"><%=goods_comments[l].member_nickname || goods_comments[l].member_name%>&nbsp&nbsp<%=goods_comments[l].date%></span>
+                <%}else{%>
+                <span class="float-right"><%=goods_comments[l].member_name.substr(0,1)%>***<%=goods_comments[l].member_name.substr(-1)%>&nbsp&nbsp<%=goods_comments[l].date%></span>
+                <%}%>
+
+            </p>
+            <p class="">
+                <span class="multi-row overhide h35 f12"><%=goods_comments[l].content%></span>
+            </p>
+            <ul class="goods_comments clearfix">
+                <%if(goods_comments[l].images){%>
+                <%for(var i=0;i<goods_comments[l].images.split(',').length;i++){%>
+                <li><img src="../../images/wap/pinpaiguan.jpg" data-original="<%=goods_comments[l].images.split(',')[i]%>" alt="" /></li>
+
+                <%}%>
+                <%}%>
+            </ul>
+            <%if(goods_comments[l].seller_explain){%>
+            <p class="bg-body pl5 pt5 pr mt10 f12"><i class="arrow-up pa"></i>[商家回复]<%=goods_comments[l].seller_explain%></p>
+            <%}%>
+            <%if(goods_comments[l].append_evaluate){%>
+            <p class="focus-font" style="font-size:10px;">收货<%if(goods_comments[l].append_evaluate[0].evaluate_days==1){%>当<%}else{%><%=goods_comments[l].append_evaluate[0].evaluate_days-1%><%}%>天后追加</p>
+            <p class="f12">
+                <%=goods_comments[l].append_evaluate[0].content%>
+            </p>
+            <ul class="goods_comments clearfix">
+                <%if(goods_comments[l].append_evaluate[0].images){%>
+                <%for(var i=0;i<goods_comments[l].append_evaluate[0].images.split(',').length;i++){%>
+                <li><img src="../../images/wap/pinpaiguan.jpg" data-original="<%=goods_comments[l].append_evaluate[0].images.split(',')[i]%>" alt="" /></li>
+
+                <%}%>
+
+                <%}%>
+            </ul>
+            <%if(goods_comments[l].append_evaluate[0].seller_explain){%>
+            <p class="bg-body pl5 pt5 pr mt10 f12"><i class="arrow-up pa"></i>[商家回复]<%=goods_comments[l].append_evaluate[0].seller_explain%></p>
+            <%}%>
+            <%}%>
+        </li>
+        <%}%>
+         <%}%>
+    </ul>
+</div>
+<section class="empty h100"></section>
+
+
+<footer id="goods_footer" class="f12" style="bottom:-1px !important">
+    <button class="button goappbuy groupgoodsbuy">原价购买￥<%=goods_price%></button>
+    <button class="button goappdata groupgoodsbuy">立即开团￥<%=pintuan_price%> (<%=player_limit%>人)</button>
+</footer>
+</script>
+
+</div>
+</div>
+<script  src="../../js/wap.js"></script>
+<script  src="../../js/config.js"></script>
+<script  src="http://api.map.baidu.com/api?v=2.0&ak=40f8726220ef76bb9071cd8f9121ba3b"></script>
+<script  src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script  src="../../js/common.js"></script>
+<script  src="../../js/plugins/layer/layer.js"></script>
+<script  src="../../js/plugins/jquery.scrollTo.js"></script>
+<script  src="../../js/plugins/iscroll.js"></script>
+<script  src="../../js/fh.js"></script>
+<script  src="../../src/js/tmpl/activity/group_goods_detail.js"></script>
+<script>
+			Goods.goodsDetail.onLoad();
+		</script>
+</body>
+
+</html>

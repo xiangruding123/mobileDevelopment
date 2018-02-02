@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>分红全球购</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta http-equiv="Cache-Control" content="no-cache">
+		<meta http-equiv="Pragma" content="no-cache">
+		<link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+		<link rel="stylesheet" href="../../css/animate.css">
+		<link rel="stylesheet" href="../../css/fhbase.css">
+		<link rel="stylesheet" href="../../css/fhwap.css">
+		<style>
+			.w17 {
+				width: 17px !important;
+				height: 17px !important;
+			}
+		</style>
+
+	</head>
+
+	<body>
+		<div class="container layout" id="bag_activity">
+			<div class="row bg-body" id="order-success">
+				<header class="fh-header none">
+					<span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+					<h1 class="header-title">分红全球购</h1>
+				</header>
+				<img src="../../images/wap/default.jpg" class="banner">
+				<div>
+					<img src="../../images/wap/activity/oldy.jpg" class="oldy" />
+					<img src="../../images/wap/activity/checked.jpg" alt="" class="checked none" />
+					<a href="http://www.fenhongshop.com/activity/app_activity/yangguang_wap/index.html"><img src="../../images/wap/activity/yang_old.jpg" alt="" class="old" /></a>
+				</div>
+				<div id="activity_slides">
+					<script type="text/html" id="activity_slides_tpl">
+						<%for(var i=0;i<result.activity_slides.length;i++){%>
+							<%if(result.activity_slides[i].link){%>
+								<a href="<%=result.activity_slides[i].link%>">
+									<%}%>
+										<img src="../../images/wap/default.jpg" data-original="<%=FormatImg(result.activity_slides[i].pic)%>" alt="" />
+										<%if(result.activity_slides[i].link){%>
+								</a>
+								<%}%>
+
+									<%}%>
+					</script>
+				</div>
+
+				<div class="empty"></div>
+				<ul class="floor-ul" id="floor">
+					<script type="text/html" id="floor_tpl">
+						<%for(var i=0;i<result.goods_list.length;i++){%>
+							<a href="../shopping/goods_details.html?goods_id=<%=result.goods_list[i].goods_id%>!goodsdetail">
+							<li>
+
+        				<img src="../../images/wap/pinpaiguan.jpg" data-original="<%=FormatImg(result.goods_list[i].goods_image)%>"  class="tm-imgList">
+						<p class="overhide pl10 pr10 h40">
+							<%if(result.goods_list[i].nation_flag&&result.goods_list[i].nation_name){%>
+	                        <img src="<%=result.goods_list[i].nation_flag%>" class="w17 mr5"/><span class="font-pink">[<%=result.goods_list[i].nation_name%>]</span>
+	                        <%}%>
+							<%=result.goods_list[i].goods_name%></p>
+						<div class="pl10 pr10"><span class="like-price f15"><span class="f11">￥</span><%=parseFloat(result.goods_list[i].goods_price)%></span>
+						</div>
+
+							</li>
+							</a>
+							<%}%>
+
+					</script>
+				</ul>
+			</div>
+
+		</div>
+
+		<script  src="../../js/libs/jquery/jquery-1.8.3.min.js"></script>
+		<script  src="../../js/plugins/fastclick.js"></script>
+		<script  src="../../js/plugins/jquery.lazyload.js"></script>
+		<script  src="../../js/plugins/layer/layer.js"></script>
+		<script  src="../../js/plugins/template.js"></script>
+		<script  src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+		<script  src="../../js/config.js"></script>
+		<script  src="../../js/common.js"></script>
+		<script src="../../js/base64.js"></script>
+		<script src="../../js/fh.js"></script>
+		<script  src="../../src/js/tmpl/activity/bag_activity.js">
+		</script>
+	</body>
+
+</html>

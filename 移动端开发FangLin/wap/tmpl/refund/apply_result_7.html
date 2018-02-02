@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <title>退款</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+   	<meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/buttons.css">
+    <link rel="stylesheet" href="../../css/fhbase.css">
+    <link rel="stylesheet" href="../../css/fhwap.css">
+    <link rel="stylesheet" href="../../css/animate.css">
+    <link rel="stylesheet" href="../../css/lightbox.css">	
+</head>
+
+<body class="bg-body">
+    <div class="container layout" id="refund-money">
+        <div class="row">
+            <header class="fh-header border-b">
+                <span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+                <h1 class="header-title">退款</h1>
+                <a class="header-edit" id="nav-show"></a>
+            </header>
+            <script type="text/html" id="refund">
+	            <section class="refund-header">
+	            	<p>
+	            		<img src="../../images/wap/refund-3-ok.svg" class="ok-img" />
+	            		<span class="f16 color3">退款成功</span>
+	            	</p>
+	            	<p class="refund-money">退款金额:<span class="font-gray"><%=result.refund_amount%></span></p>
+	            	<p class="f14 ml30"><%=format(result.admin_time)%></p>
+	            	<!--<button class="button button-caution button-rounded button-solid refund-btn" >查看退款</button>-->
+	            </section>
+	            <section class="empty"></section>
+	            <div class="refund-div">
+	            	协商详情<i class="icon-angle-right refund-i"></i>
+	            </div>
+	            <section class="empty"></section>
+	            <div class="refund-div">
+	            	<span class="color9 mr10">店铺名称:</span><%=result.store_name%>
+	            </div>
+	            <section class="empty"></section>
+	            <section class="refund-body">
+	            	<div class="refund-div border-b">
+	            		<span>退款类型:</span><%if(result.refund_type==1){%>退款<%}else if(result.refund_type==2){%>退货退款<%}%>
+	            	</div>
+	            	<div class="refund-div border-b">
+	            		<span>退款金额:</span><%=result.refund_amount%>
+	            	</div>
+	            	<div class="refund-div border-b">
+	            		<span>退款原因:</span><%=result.reason_info%>
+	            	</div>
+	            	<div class="refund-div2">
+	            		<span>退款说明:</span><%=result.buyer_message%>
+	            	</div>
+	            	<div class="refund-div border-b">
+	            		<span>退款编号:</span><%=result.refund_sn%>
+	            	</div>
+	            	<div class="refund-div border-b">
+	            		<span>申请时间:</span><%=format(result.add_time)%>
+	            	</div>
+	            </section>
+	            <ul class="pd-index">
+	            	<%for(var i in result.pic_info_format){%>
+	            		<li style="width: 30%;padding-right:10px;float: left;">
+	            			<a data-lightbox="example-set-commtion" href="<%=result.pic_info_format[i]%>">
+	            				<img src="<%=result.pic_info_format[i]%>"  class="width100" />
+	            			</a>
+	            		</li>
+	            	<%}%>
+	            </ul>
+	            
+            </script>
+        </div>
+    </div>
+    <script  src="../../js/libs/jquery/jquery-1.11.3.min.js"></script>
+    <script  src="../../js/plugins/fastclick.js"></script>
+    <script  src="../../js/plugins/layer/layer.js"></script>
+    <script  src="../../js/plugins/template.js"></script>
+    <script  src="../../js/plugins/lightbox.js"></script>
+    <script  src="../../js/config.js"></script>
+    <script  src="../../js/common.js"></script>
+    <script  src="../../js/tmpl/refund/apply_result.js"></script>
+    <script>
+    	Goods.refundResult.onLoad();
+    </script>
+</body>
+
+</html>

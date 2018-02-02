@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <title>退货/售后</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+   	<meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/buttons.css">
+    <link rel="stylesheet" href="../../css/fhbase.css">
+    <link rel="stylesheet" href="../../css/fhwap.css">
+    <link rel="stylesheet" href="../../js/plugins/layer/skin/layer.css">
+    <link rel="stylesheet" href="../../css/animate.css">
+</head>
+
+<body class="bg-body">
+    <div class="container layout" id="refund">
+        <div class="row">
+            <header class="fh-header">
+                <span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+                <h1 class="header-title">退货/售后</h1>
+                <a class="header-edit" id="nav-show"></a>
+            </header>
+           	<section  id="goods_lists"></section>
+				<script type="text/html" id="goodsLists">
+				<section class="empty"></section>
+				    <%for(var i=0;i<result.length;i++){%>
+					<div class="fh-order oh">						
+						<div class="border-b pd-index">
+							<a href="../store/store_index.html?store_id=<%=result[i].store_id%>">
+								<img src="../../images/wap/shop.svg"  style="width: 18px;"/>
+								<span class="mr10 f14" store_id='<%=result[i].store_id%>'><%=result[i].store_name%></span>
+								<i class="icon-angle-right f20"></i>
+								<p class="pull-right fh-red order_state"><%= result[i].state_desc%></p>
+							</a>
+							<%if(result[i].progress==1){%>
+								<span class="refund-status-loading">卖家审核中</span>
+							<%}else if(result[i].progress==2){%>
+								<span class="refund-status-error">卖家拒绝</span>
+							<%}else if(result[i].progress==3){%>
+								<span class="refund-status-ok">卖家同意</span>
+							<%}else if(result[i].progress==4){%>
+								<span class="refund-status-loading">卖家收货中</span>
+							<%}else if(result[i].progress==5){%>
+								<span class="refund-status-error">收货期己到</span>
+							<%}else if(result[i].progress==6){%>
+								<span class="refund-status-loading">平台审核中</span>
+							<%}else if(result[i].progress==7){%>
+								<span class="refund-status-ok">退款/退货成功</span>
+							<%}%>
+						</div>
+						<a href="../order/ord_details.html?order_id=<%=result[i].order_id%>&progress=<%=result[i].progress%>">
+						<div class="pd-index border-b oh pr">
+						<%if(result[i].is_all==0){%>
+						 <div class="width25 pull-left">
+								<img class="media-object border-full" src="<%=result[i].goods_image%>" alt="...">
+						 </div>
+						<%}%>
+						 <div class="media-body ">
+							<div class="width60">
+								<%=#result[i].goods_name%>
+								<span class="overhide f12 fh-gray"><%=result[i].goods_spec%></span>
+							</div>
+							<div class="refund-num">×<%=result[i].goods_num%></div>
+						 </div>
+						</div>
+						</a>
+						<div class="f14 tr border-b pad10 pull-left">
+							<p >退款编号:<span class="f14 color9"><%=result[i].refund_sn%></span></p>
+							<p class="pull-left">退款金额:￥<span class="f16 focus-font"><%=result[i].refund_amount%></span></p>
+						</div>
+						<div class="pull-right pt10">							
+							<a class="check" state_id="<%=result[i].state_id%>" refund_id="<%=result[i].refund_id%>" order_id="<%=result[i].order_id%>">
+								<button class="button button-rounded button-caution btn-check ">查看进度</button>
+							</a>
+						</div>
+					</div>
+					<section class="empty"></section>
+                    <%}%>
+					</script>
+        </div>
+    </div>
+    <script  src="../../js/libs/jquery/jquery-1.11.3.min.js"></script>
+    <script  src="../../js/plugins/fastclick.js"></script>
+    <script  src="../../js/plugins/layer/layer.js"></script>
+    <script  src="../../js/plugins/template.js"></script>
+    <script  src="../../js/config.js"></script>
+    <script  src="../../js/common.js"></script>
+    <script  src="../../js/tmpl/refund/refund_lists.js"></script>
+    <script>
+    	Goods.Refunds.onLoad();
+    </script>
+</body>
+
+</html>

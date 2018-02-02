@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p>要使用的图像：</p>
+
+<img id="tu" src="http://demo.jackyang.me/image-editor/public/images/background-1.png
+" alt="The Tulip" />
+<img id="tup" src="http://pic.fenhongshop.com/wx_public_qrcodePics/20160922/57e39126c185f.jpg
+" alt="The Tulip" />
+
+
+<p>画布：</p>
+<canvas id="myCanvas" width="500" height="300" style="border:1px solid #d3d3d3;background:#ffffff;">
+Your browser does not support the HTML5 canvas tag.
+</canvas>
+
+<script>
+
+var c=document.getElementById("myCanvas");
+var ctx=c.getContext("2d");
+
+var img1=document.getElementById("tu");
+var img2=document.getElementById("tup");
+
+ctx.drawImage(img1,20,10);
+ctx.drawImage(img2,60,10,20,30);
+console.log(c.toDataURL())
+
+</script>
+
+</body>
+</html>

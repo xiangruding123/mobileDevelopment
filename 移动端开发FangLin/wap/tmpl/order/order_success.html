@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta http-equiv="Cache-Control" content="no-cache">
+	<meta http-equiv="Pragma" content="no-cache">
+	<link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="../../js/plugins/swiper/swiper.css" />
+	<link rel="stylesheet" href="../../css/animate.css">
+	<link rel="stylesheet" href="../../css/buttons.css" />
+	<link rel="stylesheet" href="../../css/fhbase.css">
+	<link rel="stylesheet" href="../../css/fhwap.css">
+
+</head>
+
+<body class="orderbag">
+	<div class="container layout" id="order-success">
+		<div class="row bg-body">
+			<header class="fh-header none">
+				<a href="../order/order_all.html?index=2&"><span class="goback icon-angle-left"></span></a>
+				<h1 class="header-title"></h1>
+				<a class="header-edit" id="nav-show"></a>
+			</header>
+			<section class="order_btn bg-body">
+				<img src="../../images/wap/ok.svg" />
+				<p class="pt10 err—msg"></p>
+				<p class="pb20">支付金额<span class="pay_amount font-pink"></span>元</p>
+				<span id="order"><button class="btn1 btn">查看订单</button></span>
+				<span id="link_go"><button class="btn2 btn">继续逛逛</button></span>
+			</section>
+			<p class='tc order_tit'>猜你还想买</p>
+
+			<ul class="floor-ul clearfix mb50" id="floor">
+				<script type="text/html" id="floor_tpl">
+					<%for(var i=0;i<result.length;i++){%>
+						<li>
+							<a href="../shopping/goods_details.html?goods_id=<%=result[i].goods_id%>!goodsdetail">
+								<img src="<%=result[i].goods_image%>" class="tm-imgList">
+								<p class="overhide pl10 pr10 h40">
+									<%=result[i].goods_name%>
+								</p>
+								<div class="pl10 pr10 pb10"><span class="like-price"><span class="f11">￥</span>
+									<%=parseFloat(result[i].goods_price)%>
+									</span>
+									<del>￥<%=parseFloat(result[i].goods_marketprice)%></del></div>
+							</a>
+						</li>
+						<%}%>
+
+				</script>
+			</ul>
+
+		</div>
+	</div>
+
+	<div style="position:fixed;max-width:640px;top:0;background:rgba(0,0,0,.5);height:100%;display:none;" class="shopbag">
+	<div style="position:relative;">
+	<img src="../../images/weidian/hongbaotanchuang.png" style="width:80%;margin-top:100px;margin-left:10%;" />
+	<p style="bottom:130px;margin-left: -13px;" class="bagsuccessname"><span class="upper"></span><br><span class="lower"></span></p>
+	</div>
+	</div>
+	<!--红包领取分享-->
+	<div id='maskbag' class="maskbag" style="display: none;">
+		<div class="bags zoomIn animated">
+			<img class="new-packet-x" src="../../images/red-packet/x.png" />
+			<p class="bagsuccessname">送您<span id="num"></span>个红包<br />赶紧分享领取吧</p>
+			<a id="cover"></a>
+		</div>
+	</div>
+	<div class="maskbag" id="covershare">
+		<img src="../../images/wap/cover.png" class="zoomIn animated" />
+	</div>
+	<div class="native_tip layout zoomIn animated">
+		<p>请登录分红全球购APP</p>
+		<p>我的订单——订单详情——领红包</p>
+		<p class="h100">进行分享领取哟！</p>
+		<p>查看更多精彩内容 请登录分红全球购APP</p>
+		<a href="http://a.app.qq.com/o/simple.jsp?pkgname=com.fanglin.fenhong.microbuyer"><button>下载分红全球购APP</button></a>
+	</div>
+
+	<div class="fh-dialog" id="noinfoDialog">
+		<script type="text/html" id='noinfotmpl'>
+			<div class="fh-dialog-wrap">
+				<div class="tc">
+					<h3><%result.title%></h3>
+					<div class="fh-dialog-body">
+						<p class="fh-dialog-brief">
+							<%result.description%>
+						</p>
+						<div><input type="checkbox" name="name" value="" checked="checked">
+							<a href="<%=result.link_url%>">
+								<%=result.link_title%>
+							</a>
+						</div>
+					</div>
+					<div class="fh-dialog-footer">
+						<button class="fh-dialog-button" id="leftbtn"><%result.button[0].button_name%></button><button class="fh-dialog-button focus-font" id="rightbtn"><%result.button[1].button_name%></button>
+					</div>
+				</div>
+		</script>
+		</div>
+
+
+
+		<script type="text/javascript" src="../../js/libs/jquery/jquery-1.8.3.min.js"></script>
+		<script type="text/javascript" src="../../js/plugins/fastclick.js"></script>
+		<script type="text/javascript" src="../../js/config.js"></script>
+    <script src="../../js/apiLink.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../../js/common.js"></script>
+		<script type="text/javascript" src="../../js/base64.js"></script>
+		<script src="../../js/fh.js" type="text/javascript"></script>
+		<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+		<script type="text/javascript" src="../../js/plugins/layer/layer.js"></script>
+		<script type="text/javascript" src="../../js/plugins/swiper/swiper.js"></script>
+		<script type="text/javascript" src="../../js/plugins/template.js"></script>
+    <script src='../../src/js/tmpl/order/order_success.js'></script>
+
+</body>
+
+</html>

@@ -1,0 +1,112 @@
+
+
+.ml170{
+	margin-left:30%;
+}
+
+.fr{
+	position: absolute;
+	right: 0.5rem;
+}
+
+.button3{
+	border-radius:3px;
+}
+
+.fontw{
+	font-weight:bold;
+}
+.button-danger.button-fill {
+	background: #fa2855;
+}
+.mt22{
+	margin-top: 2.2rem;
+}
+
+.fh-dialog {
+	position: fixed;
+	-webkit-box-sizing: border-box;
+	margin: 100px auto;
+	width: 100%;
+	top: 45%;
+	left: 0;
+	padding: 0 20px;
+	margin-top: -80px;
+	background: none;
+	z-index: 10003;
+	display: none;
+}
+
+.fh-dialog .fh-dialog-wrap {
+	padding-top: 16px;
+	max-width: 320px;
+	margin: 0 auto;
+	-webkit-background-clip: padding-box;
+	background-color: #fff;
+}
+
+.fh-dialog .fh-dialog-img {
+	margin-top: 22px;
+	margin-bottom: 13px;
+}
+
+.fh-dialog .fh-dialog-header {
+	-webkit-box-sizing: border-box;
+	padding: 6px 10px 0;
+}
+
+.fh-dialog .fh-dialog-header h3 {
+	font-size: 16px;
+	text-align: center;
+	color: #000;
+}
+
+.fh-dialog .fh-dialog-body {
+	-webkit-box-sizing: border-box;
+	padding: 10px 10px 0;
+}
+
+.fh-dialog .fh-dialog-brief {
+	display: block;
+	font-size: 15px;
+	line-height: 21px;
+	text-align: center;
+	color: #666;
+}
+
+.fh-dialog-footer {
+	margin-top: 26px;
+	border-top: 1px solid #e3e3e3;
+	display: -webkit-box;
+	display: -webkit-flex;
+}
+
+.fh-dialog .fh-dialog-footer .fh-dialog-button {
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	display: block;
+	width: 100%;
+	height: 44px!important;
+	line-height: 44px !important;
+	font-size: 17px !important;
+	background: none;
+	border: 0 none;
+	outline: 0 none;
+	border-left: 1px solid #e3e3e3;
+	-webkit-appearance: none;
+	padding: 0;
+	color: #333;
+	text-align: center;
+}
+
+.fh-dialog-footer .fh-dialog-button:first-child {
+	border-left: 0 none;
+}
+
+.fh-dialog .fh-dialog-footer .fh-dialog-button:hover {
+	background: #bbb;
+}
+
+.tc {
+	text-align: center;
+}

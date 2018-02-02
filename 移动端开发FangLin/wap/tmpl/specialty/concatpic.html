@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <title>添加标签</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../src/css/fhbase.css">
+    <link rel="stylesheet" href="../../src/css/fhwap.css">
+
+</head>
+<body>
+<div class="container layout" id='talent_pic'>
+    <div class="row">
+        <header class="fh-header">
+            <span class="goback icon-angle-left"></span>
+            <h1 class="header-title">添加标签</h1>
+            <span class="header-right focus-font">继续</span>
+        </header>
+        <div class="tc mt40 pr">
+            <img id="image" src="" alt="Picture" style="width:100%">
+            <div class="bg-tag">
+                点击图片任意位置添加标签
+                <div class="tagradius"></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script  src="../../js/libs/jquery/jquery-1.8.3.min.js"></script>
+<script  src="../../js/plugins/fastclick.js"></script>
+<script src="http://touch.code.baidu.com/touch-0.2.14.min.js"></script>
+<script  src="../../js/plugins/layer/layer.js"></script>
+<script  src="../../js/config.js"></script>
+<script  src="../../js/apiLink.js"></script>
+<script  src="../../js/common.js"></script>
+<script>
+    $(function(){
+        var storage=JSON.parse(sessionStorage.getItem("images"))||[];
+        var w = $(window).width();
+        var img =storage[storage.length-1].image;
+        $('#image').attr('src',img);
+
+        $('#image').click(function(){
+            if(!storage[storage.length-1].goods||(storage[storage.length-1].goods.length<3)){
+                location.href = 'goods.html?type=concatpic';
+            }else{
+                layer.msg('这张图只能关联三张商品哦~');
+            }
+
+        });
+
+        $('.header-right').click(function(){
+            location.href = "add_time.html";
+        })
+
+        var goods_origin=GetQueryString('goods_origin');
+        var short_name = GetQueryString('jianchen');
+        if(goods_origin){
+           $('.bg-tag').remove();
+            var goodsStorage=JSON.parse(sessionStorage.getItem("goods"));
+            var goodsObject=goodsStorage[goodsStorage.length-1];
+            var goods_id = goodsObject.goods_id;
+            var imgGood = storage[storage.length-1].goods;
+            if(JSON.stringify(storage).indexOf(goods_id)<0){
+            
+            $('#image').after('<canvas id="myCanvas" style="position:absolute;top:0;left:0;">');
+            var canvas = document.getElementById("myCanvas");
+
+            canvas.width = 130;
+            canvas.height = 120;
+
+            var valueO=short_name,
+                valueT=goodsObject.goods_price,
+                valueTh=goods_origin;
+                direction="R";
+                x=10,y=90;
+                loca=(x/w).toFixed(3)+","+(y/w).toFixed(3);
+
+                    drawLine(canvas, x, y, valueO, valueT, valueTh, direction);
+                if(storage[storage.length-1].goods){
+                    touchLoad('myCanvas',storage[storage.length-1].goods.length,x,y);
+                }else{
+                    touchLoad('myCanvas',0,x,y);
+                }
+
+                var dataGoods =
+                {
+                    "goods_id": goods_id,
+                    "short_name": short_name,
+                    "sort":"0",
+                    "location": loca,
+                    "line1": {
+                        "value": short_name,
+                        "x": "83",
+                        "y": "0",
+                        "direction": direction,
+                    },
+                    "line2": {
+                        "value": valueT,
+                        "x": "0",
+                        "y": "0",
+                        "direction": direction
+                    },
+                    "line3": {
+                        "value": valueTh,
+                        "x": "-83",
+                        "y": "0",
+                        "direction": direction
+                    }
+                }
+
+                if(!imgGood){
+                    imgGood =[];
+                    imgGood[0]=dataGoods;
+
+                }else{
+                    imgGood[imgGood.length]=dataGoods;
+                }
+                storage[storage.length-1].goods=imgGood;
+            }
+            var storageImg=JSON.parse(sessionStorage.getItem("images"));
+            if(storageImg[storageImg.length-1].goods){
+                
+               for(var j=0;j<storageImg[storageImg.length-1].goods.length;j++){
+                   (function(j){
+                       var value = storageImg[storageImg.length-1].goods[j].location.split(',');
+                       x = parseFloat(value[0])*w;
+                       y = parseFloat(value[1])*w;
+                       
+                       $('#image').after('<canvas id="myCanvas'+j+'" style="position:absolute;top:'+(y-60)+'px;left:'+x+'px;">');
+                       var canvas = document.getElementById("myCanvas"+j);
+                       canvas.width = 130;
+                       canvas.height = 120;
+                       var valueO=storageImg[storageImg.length-1].goods[j].line1.value,
+                               valueT=storageImg[storageImg.length-1].goods[j].line2.value,
+                               valueTh=storageImg[storageImg.length-1].goods[j].line3.value;
+                       var direction =storageImg[storageImg.length-1].goods[j].line1.direction;
+                       drawLine(canvas,10,90,valueO,valueT,valueTh,direction);
+                       touchLoad("myCanvas"+j,j,x,y);
+                   })(j);
+
+                }
+            }
+            if(sessionStorage.getItem("images").indexOf(goods_id)<0){
+                debugger;
+                sessionStorage.setItem('images',JSON.stringify(storage));
+
+            }
+
+
+        }
+
+        function drawLine(canvas,x,y,valueO,valueT,valueTh,direction){
+            if(canvas.getContext){
+                var ctx = canvas.getContext("2d");
+                ctx.beginPath();
+                ctx.strokeStyle = "white";
+                if(direction=='R'){
+                    ctx.moveTo(x, y);
+                    ctx.lineTo(x+100, y);
+
+                    ctx.moveTo(x, y-30);
+                    ctx.lineTo(x+130, y-30);
+
+                    ctx.moveTo(x, y+30);
+                    ctx.lineTo(x+130, y+30);
+                    ctx.fillStyle='#fff';//文字颜色
+                    ctx.fillText(valueO, x+10, y-40);
+                    ctx.fillText(valueT, x+10, y-10);
+                    ctx.fillText(valueTh, x+10, y+20);
+
+                }else if(direction=='L'){
+                    ctx.moveTo(x, y);
+                    ctx.lineTo(x-100, y);
+
+                    ctx.moveTo(x, y-30);
+                    ctx.lineTo(x-130, y-30);
+
+                    ctx.moveTo(x, y+30);
+                    ctx.lineTo(x-130, y+30);
+
+                    ctx.fillStyle='#fff';//文字颜色
+                    ctx.fillText(valueO, x-80, y-40);
+                    ctx.fillText(valueT, x-80, y-10);
+                    ctx.fillText(valueTh, x-80, y+20);
+
+                }
+
+                ctx.moveTo(x, y-30);
+                ctx.lineTo(x, y+30);
+                ctx.stroke();
+                ctx.closePath();
+
+                ctx.beginPath();
+                ctx.arc(x, y, 10, 0, Math.PI * 2, false);
+                ctx.closePath();
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
+                ctx.fill();
+
+                ctx.beginPath();
+                ctx.arc(x, y, 5, 0, Math.PI * 2, false);
+                ctx.closePath();
+                ctx.fillStyle = '#fff';
+                ctx.fill();
+
+            }
+        }
+
+
+        function touchLoad(id,index,x,y){
+            touch.on('#'+id, 'touchstart', function(ev){
+                ev.preventDefault();
+            });
+
+            var target = document.getElementById(id);
+            var dx, dy;
+            var w = $(window).width();
+            touch.on('#'+id, 'drag', function(ev){
+                dx = dx || 0;
+                dy = dy || 0;
+                console.log("当前x值为:" + dx + ", 当前y值为:" + dy +".");
+
+                var offx = dx + ev.x;
+                var offy = dy + ev.y;
+                if(offx<0){
+                	   offx=0;
+                }
+                if(offx>(w-130)){
+                	  offx=w-130;
+                }
+                if(offy<-65){
+                	  offy=-65;
+                }
+                if(offy>(w-150)){
+                	  offy=w-150;
+                }
+
+                this.style.webkitTransform = "translate3d(" + offx + "px," + offy + "px,0)";
+            });
+
+            touch.on('#'+id, 'dragend', function(ev){
+//              dx += ev.x;
+//              dy += ev.y;
+//              console.log(dx);
+//              console.log(dy);
+                var offx = dx + ev.x;
+                var offy = dy + ev.y;
+                if(offx<0){
+                	   offx=0;
+                }
+                if(offx>(w-130)){
+                	  offx=w-130;
+                }
+                if(offy<-65){
+                	  offy=-65;
+                }
+                if(offy>(w-150)){
+                	  offy=w-150;
+                }
+                offy=offy+75;
+                var loca=(offx/w).toFixed(3)+","+(offy/w).toFixed(3);
+                storage[storage.length-1].goods[index].location=loca;
+                sessionStorage.setItem('images',JSON.stringify(storage));
+
+            });
+        }
+
+
+
+    });
+
+
+
+</script>
+</body>
+</html>

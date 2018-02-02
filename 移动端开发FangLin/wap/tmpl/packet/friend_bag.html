@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>邀请好友 立得红包</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta name = "format-detection" content = "telephone=no">
+    <link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/buttons.css">
+    <link rel="stylesheet" href="../../css/fhbase.css">
+    <link rel="stylesheet" href="../../css/fhwap.css">
+    <link rel="stylesheet" href="../../css/animate.css" />
+    <style type="text/css">
+    	.fh-loading{
+    		display: none;
+    	}
+    </style>
+</head>
+<body class="bg_y">
+<div class="container layout" id="invitebag">
+    <div class="row">
+	    <header class="fh-header none">
+	        <span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+	        <h1 class="header-title">邀请好友 立得红包 </h1>
+	    </header>
+        <div class="pr">
+            <a class="header-right" href="code.html">扫码邀请</a>
+        <img src="../../src/images/red-packet/friendbag.jpg" alt="" style="width:100%"/>
+        </div>
+        <p class="tr mt10 mb10" style="margin-right:10%" id="explain">活动规则</p>
+        <button class="bagbtn button friendBtn">邀请好友，立即赚钱</button>
+        <section class="articlebag tc">
+            <h3>我获得的奖励</h3>
+            <p class="mt25 mb20 f14 sharehide">您当前还未获得任何奖励</p>
+            <a class="sharebtn dis-in-b mb20 friendBtn sharehide">邀请好友，拿现金红包</a>
+            <section id="articlebox"></section>
+            <script type="text/html" id="bagHistory">
+            <p class="clearfix articlecontent"><span class="pull-left">共邀请好友</span><span class="pull-right"><%=result.invited_num%>人</span></p>
+            <p class="clearfix articlecontent"><span class="pull-left">红包奖励</span><span class="pull-right"><%=result.bonus_total%>元</span></p>
+	            <ul id="bag_history">
+	            	<%if(result.invited_friends.length>10){%>
+	            		<%for(var i=0;i<10;i++){%>
+	            			<li class="skip-link ptb10">
+	                        <img data-original="<%=result.invited_friends[i].member_avatar%>" src="../../images/wap/logo.png" class="pull-left w40 mr10" />
+	                        <div>
+	                            <p class="f14 oh">
+	                                <span class="wx-name pull-left"><%=result.invited_friends[i].member_name%></span>
+	                                <span class='wx-money pull-right'><%=result.invited_friends[i].parent_bonus%>元</span>
+	                            </p>
+	                            <p class="tl mt5">
+	                                <span>注册成功</span>
+	                                <span class="f12 font-gray pull-right"><%=dateFormat(result.invited_friends[i].member_time)%></span>
+	                            </p>
+	                        </div>
+	
+	                        </li>
+	                    <%}%>
+	            	<%}else{%>
+	            		<%for(var i=0;i<result.invited_friends.length;i++){%>
+	            			<li class="skip-link ptb10">
+	                        <img data-original="<%=result.invited_friends[i].member_avatar%>" src="../../images/wap/logo.png" class="pull-left w40 mr10" />
+	                        <div>
+	                            <p class="f14 oh">
+	                                <span class="wx-name pull-left"><%=result.invited_friends[i].member_name%></span>
+	                                <span class='wx-money pull-right'><%=result.invited_friends[i].parent_bonus%>元</span>
+	                            </p>
+	                            <p class="tl mt5">
+	                                <span>注册成功</span>
+	                                <span class="f12 font-gray pull-right"><%=dateFormat(result.invited_friends[i].member_time)%></span>
+	                            </p>
+	                        </div>
+	
+	                        </li>
+	                    <%}%>
+	            	<%}%> 
+	                    
+	            </ul>
+	            <%if(result.invited_friends.length>10){%>
+	            	<a class="pull-right" style="color:#3CC3FB">查看更多</a>
+	            <%}%>
+	            
+             </script>
+        </section>
+
+        <a class="sharebtn dis-b mb20 tc mt20 friendBtn sharehide">邀请好友，拿现金红包</a>
+
+        <section class="articlebag">
+            <h3 class="top">本周分享达人TOP10</h3>
+            <section class="clearfix content-top">
+           
+            <div class="clearfix mb20 f14"><span class="pull-left">排名</span><span class="pull-right">获得奖励</span></div>
+            <div id="topListTitle"></div>
+            <script type="text/html" id='topList-tpl'>
+            <%for(var i=0;i<result.length;i++){%>
+                <div class="list-top"><span class="focus-font mr5"><%=i+1%></span><span><%=result[i].member_name%></span><span class="pull-right focus-font"><span class="f13 mr5"><%=result[i].reward%>元</span>现金券</span></div>
+	        <%}%>
+            </script>
+
+            </section>
+        </section>
+         <button class="bagbtn button mt40 mb40 friendBtn">邀请好友，立即赚钱</button>
+         <img src="../../images/red-packet/tip.png" alt="" class="masksharetip"/>
+         
+         <div id="mask">
+		   <div class="maskbox zoomIn animated" style="background:#fff;">
+		        <div class="clearfix" style="border-radius: 8px;"><img src="../../images/wap/top-x.png" alt="" id="closebag"></div>
+		        <h2>红包规则</h2>
+		        <p>①给好友分享的168元新人红包仅限从未在分红全球购注册 的好友领取，每位新用户只能领取1次。</p>
+		        <p>②每成功邀请1位好友注册，将获得15元邀请奖励红包，满199元可用。 </p>
+		        <p>③同一用户可以同时邀请多个好友，每成功邀请1位好友注册即能获得一个邀请奖励红包。</p>
+		        <p>④好友成功注册后，邀请奖励红包实时发放，请到用户中心我的优惠券中查看。</p>
+		        <p>⑤新人红包及邀请奖励红包的使用方法详见券面具体描述。 </p>
+		        <p>⑥同一登录账号、同一手机号、同一设备、同一IP或其它合理显示为同一用户的情形，均视为同一用户。</p>
+		        <p>⑦通过不正当手段（包括但不限于侵犯第三人合法权益、作弊、扰乱系统、实施网络攻击、批量注册、用机器注册账户、用机器模拟客户端等）获得奖励，分红全球购有权撤销奖励及相关交易订单。</p>
+		    </div>
+		</div>
+     </div>
+</div>
+ 
+
+
+
+    <script  src="../../js/libs/jquery/jquery-1.8.3.min.js"></script>
+    <script  src="../../js/config.js"></script> 
+    <script  src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>   
+    <script  src="../../js/common.js"></script>
+    <script  src="../../js/plugins/layer/layer.js"></script>
+    <script  src="../../js/plugins/template.js"></script>
+    <script  src="../../js/base64.js"></script>
+    <script  src="../../js/fh.js"></script>
+    <script  src="../../src/js/tmpl/packet/friend.js"></script>
+    <script>
+        Packet.Friend.onLoad();
+    </script>
+</div>
+
+</body>
+</html>

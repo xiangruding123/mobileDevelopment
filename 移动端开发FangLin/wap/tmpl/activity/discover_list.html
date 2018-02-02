@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <title>发现-分类微店</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+   	<meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+   	<link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../js/plugins/swiper/swiper.css" />
+    <link rel="stylesheet" href="../../css/animate.css">
+    <link rel="stylesheet" href="../../css/buttons.css">
+    <link rel="stylesheet" href="../../css/fhbase.css">
+    <link rel="stylesheet" href="../../css/fhwap.css">
+</head>
+
+<body>
+    <div class="container layout" id="discover_list">
+        <section class="row">
+            <header class="fh-header">
+                <span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+                <h1 class="header-title"></h1>
+                <a class="header-edit" id="nav-show"></a>
+            </header>
+            <script id="storeList" type="text/html">            	
+            	<%for(var i=0;i<result.length;i++){%>
+		            <section class="plr10">
+		            	<div class="oh pr">
+			            	<img src="../../images/wap/guanggao-1.jpg" data-original="<%=result[i].shop_logo%>" class="dcr-img1"/>
+			                <h4 class="f16"><%=result[i].shop_name%><img src="../../images/wap/v.svg" class="dcr-img2"/>
+			                	<a href="discover_details.html?shop_id=<%=result[i].shop_id%>">
+				            		<span class="dcr-span"><img src="../../images/wap/open-store.svg"/>进入微店</span>
+				            	</a>
+			                </h4>
+			                <p class="over-hidden mt5 color9"><%=result[i].shop_scope%></p>
+			                
+			            </div>
+			            <ul class="dcr-ul">
+			            	<%if(result[i].goods){%>
+			            	<%for(var j=0;j<result[i].goods.length;j++){%>
+			            		<li>
+			            			<a href="../shopping/goods_details.html?goods_id=<%=result[i].goods[j].goods_id%>">
+			            				<img src="../../images/wap/guanggao-1.jpg" data-original="<%=FormatImg(result[i].goods[j].goods_image)%>"/>
+			            			</a>
+			            		</li>
+			            	<%}%>
+			            	<%}%>
+			            </ul>
+		            </section>
+		            <section class="empty"></section>
+		        <%}%>		      
+            </script>
+       </section>
+    </div>
+    <script  src="../../js/plugins/convertor.js"></script>
+    <script  src="../../js/libs/jquery/jquery-1.8.3.min.js"></script>
+    <script  src="../../js/plugins/jquery.lazyload.js"></script>
+    <script  src="../../js/config.js"></script>
+    <script  src="../../js/plugins/fastclick.js"></script>
+    <script  src="../../js/common.js"></script>
+    <script  src="../../js/plugins/swiper/swiper.js"></script>
+    <script  src="../../js/plugins/template.js"></script>
+    <script  src="../../js/tmpl/activity/discover_list.js"></script>
+    <script>
+   		 Activity.DiscoverList.onLoad();
+    </script>
+</body>
+
+</html>

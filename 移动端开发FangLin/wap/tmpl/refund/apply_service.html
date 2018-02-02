@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <title>申请售后服务</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+   	<meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/buttons.css">
+    <link rel="stylesheet" href="../../css/fhbase.css">
+    <link rel="stylesheet" href="../../css/fhwap.css">
+    <link rel="stylesheet" href="../../css/animate.css">
+</head>
+
+<body class="bg-body">
+    <div class="container layout" id="apply-service">
+        <div class="row">
+            <header class="fh-header">
+                <span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+                <h1 class="header-title">申请售后服务</h1>
+                <a class="header-edit" id="nav-show"></a>
+            </header>
+            <form class="" id="applyForm">
+	            <section>
+	            	<div class="apply-title">退款类型<i class="icon-asterisk"></i></div>
+	            	<div type="1" class="tab apply-msg border-b active">我要退款(无需退货)<i class="icon-ok"></i></div>
+	            	<div type="2" class="tab apply-msg ">我要退货</div>
+	            </section>
+	            
+	            <section>
+	            	<div class="apply-title">退款原因<i class="icon-asterisk"></i></div>
+	            	<div class="apply-msg pr">
+	            		<select  placeholder="退款原因" id="reasons" >
+	            		<script id="refundReason" type="text/html">
+	            			<%for(var i=0;i<reason.length;i++){%>
+	            				<option value="<%=reason[i].reason_id%>"><%=reason[i].reason_info%></option>
+	            			<%}%>
+	            		</script>
+	            			<option value="0" id="refund_reason">其他</option>
+	            		</select>
+	            		<i class="icon-angle-right apply-i"></i>
+	            	</div>
+	            </section>
+	            
+	            <section>
+	            	<div class="apply-title">退款金额<i class="icon-asterisk"></i>  <span class="fh-gray" id="max_money"></span></div>
+	            	<div class="apply-msg"><input type="text" id="refund_amount" placeholder="请输入退款金额" /></div>
+	            </section>
+	            
+	            <section style="display: none;" id="goods_num">
+	            	<div class="apply-title">退货数量<i class="icon-asterisk"></i>  <span class="fh-gray" id="max_num"></span></div>
+	            	<div class="apply-msg"><input type="text" id="refund_num" placeholder="请输入退货数量" /></div>
+	            </section>
+	            
+	            <section>
+	            	<div class="apply-title">退款说明(可不填)</div>
+	            	<div class="apply-msg"><input type="text" id="buyer_message" placeholder="请输入退款说明" /></div>
+	            </section>
+	            
+	            <section class="oh mb20">
+	                <div class="apply-title">上传图片</div>
+	                <ul class="oh pd-index" id="refund_imgs">
+	                    <li class="refund-li">
+	                    	<input type="file" accept="image/*" capture=camera class="fh-file" id="avatar" name="avatar" />
+	                        <img class="width100" />
+	                    </li>
+	                </ul>
+	                <p class="mt10 font-gray pl10">最多上传3张图片,每张不超过2M,支持png、jpg</p>
+	            </section>
+            </form>
+            <div class="plr10 bg-body">
+                <a class="button button-block button-rounded button-caution" id="submitForm" >提交申请</a>
+            </div>
+        </div>
+    </div>
+    <script  src="../../js/libs/jquery/jquery-1.11.3.min.js"></script>
+    <script  src="../../js/plugins/fastclick.js"></script>
+    <script  src="../../js/plugins/layer/layer.js"></script>
+     <script  src="../../js/plugins/template.js"></script>
+    <script  src="../../js/config.js"></script>
+    <script  src="../../js/common.js"></script>
+    <script  src="../../js/tmpl/refund/apply_service.js"></script>
+    <script>
+    	Goods.ApplyService.onLoad();
+    </script>
+</body>
+
+</html>

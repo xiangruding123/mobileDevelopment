@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta http-equiv="Cache-Control" content="no-cache">
+	<meta http-equiv="Pragma" content="no-cache">
+	<link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="../../css/animate.css">
+	<link rel="stylesheet" href="../../css/buttons.css">
+	<link rel="stylesheet" href="../../js/plugins/layer/skin/layer.css">
+	<link rel="stylesheet" href="../../css/fhbase.css">
+	<link rel="stylesheet" href="../../src/css/fhwap.css">
+
+</head>
+<body>
+<div class="container layout" id='time_goods'>
+	<div class="row bg-body" id="search_goods_list">
+		<header class="fh-header time-header">
+			<span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+			<i class="icon-search"></i>
+			<input type="text" placeholder="商品不够？输入关键字找一找" id="goods_search">
+		</header>
+		<ul class="nav_li">
+			<li class="active" data-type="bought">已购买</li><li data-type="cart">购物车</li><li data-type='collected'>已关注</li><li data-type='browsed'>浏览过</li>
+		</ul>
+		<div class="empty"></div>
+		<div id="goods_list" class="min-scroller">
+
+			<script type="text/html" id='goods_list_tpl'>
+				<%if(result){%>
+				<%for(var i=0;i<result.length;i++){%>
+				<div class="media fh-goods">
+					<a href="../shopping/goods_details.html?goods_id=<%=result[i].goods_id%>" good_id="<%=result[i].goods_id%>">
+						<div class="media-left pr">
+							<img class="media-img" src="../../images/wap/pinpaiguan.jpg" data-url="<%=FormatImg(result[i].goods_image)%>" alt="...">
+						</div>
+						<div class="media-body">
+							<h4 class="media-heading overhide mb25 line-clamp3"><%=result[i].goods_name%></h4>
+							<div class="pull-left">
+								<div class="media-tailing clearfix">
+									<span class="fh-price f20">￥<%=result[i].goods_price%></span>
+									<br />
+									<span>佣金：￥<%=result[i].goods_commission%></span>
+								</div>
+							</div>
+						</div>
+					</a>
+					<%if(result[i].bound=='1'){%>
+					<div class="concat_goods time_concat_goods" goods_id='<%=result[i].goods_id%>'>已关联</div>
+					<%}else{%>
+					<div class="no_concat_goods time_concat_goods" goods_origin='<%=result[i].goods_origin%>' goods_commission='<%=result[i].goods_commission%>' goods_name='<%=result[i].goods_name%>' goods_price='<%=result[i].goods_price%>' goods_id='<%=result[i].goods_id%>' data-img='<%=FormatImg(result[i].goods_image)%>'>关联</div>
+					<%}%>
+				</div>
+
+				<%}%>
+				<%}else{%>
+				<%}%>
+			</script>
+
+			<div class="pullUp"></div>
+
+		</div>
+	</div>
+	<div class="empty h50"></div>
+	<div class="concat_goods_bottom">
+		<p class="pull-left"><img src="../../images/wap/specialty/guanlian.png" alt="">查看已关联商品 <span></span>/10</p> <button>完成关联</button>
+	</div>
+</div>
+<div class="container layout" id='time_concat_goods' style="display:none">
+	<div class="row bg-body" id="search_goods_list">
+		<header class="fh-header time-header">
+			<span class="goback icon-angle-left"></span>
+			<h1 class="header-title"></h1>
+		</header>
+		<div id="goods_list" class="min-scroller fh-bg-white">
+			<script type="text/html" id='goods_tpl'>
+				<%if(result){%>
+				<%for(var i=0;i<result.length;i++){%>
+				<div class="media fh-goods">
+					<div class="media-left pr">
+						<img class="media-img" src="../../images/wap/pinpaiguan.jpg" data-url="<%=FormatImg(result[i].goods_images)%>" alt="...">
+					</div>
+					<div class="media-body">
+						<h4 class="media-heading overhide mb25 line-clamp3"><%=result[i].goods_name%></h4>
+						<div class="pull-left">
+							<div class="media-tailing clearfix">
+								<span class="fh-price f20">￥<%=result[i].goods_price%></span>
+								<br />
+								<span>佣金：￥<%=result[i].goods_commission%></span>
+							</div>
+						</div>
+					</div>
+
+					<div class="concat_goods time_concat_goods" goods_id="<%=result[i].goods_id%>" goods_commission='<%=result[i].goods_commission%>' goods_name='<%=result[i].goods_name%>' goods_price='<%=result[i].goods_price%>' data-img='<%=FormatImg(result[i].goods_images)%>'>解除关联</div>
+
+				</div>
+				<%}%>
+				<%}%>
+			</script>
+
+
+		</div>
+	</div>
+</div>
+<div class="jianchen">
+	<p>请输入该商品简称</p>
+	<input type="test" placeholder="例如：DIE酵素" maxlength="30"/>
+	<button class="mr40" ind="0">取消</button><button class="fh-bg-red" ind="1">确认</button>
+</div>
+<script  src="../../js/libs/jquery/jquery-1.8.3.min.js"></script>
+<script  src="../../js/plugins/fastclick.js"></script>
+<script  src="../../js/plugins/template.js"></script>
+<script  src="../../js/plugins/layer/layer.js"></script>
+<script  src="../../js/plugins/jquery.scrollLoading.js"></script>
+<script  src="../../js/config.js"></script>
+<script  src="../../js/apiLink.js"></script>
+<script  src="../../js/common.js"></script>
+<script  src="../../src/js/tmpl/specialty/goods.js"></script>
+
+</body>
+
+</html>
+

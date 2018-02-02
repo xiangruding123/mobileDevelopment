@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <title>品牌馆商品</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+   <meta name="apple-mobile-web-app-status-bar-style" content="black">
+   	<meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/animate.css">
+    <link rel="stylesheet" href="../../css/buttons.css">
+    <!--<link rel="stylesheet" href="../../js/plugins/layer/skin/layer.css">-->
+    <link rel="stylesheet" href="../../css/fhbase.css">
+    <link rel="stylesheet" href="../../css/fhwap.css">
+</head>
+<body>
+    <div class="container layout" id='search_goods_list'>
+        <div class="row">
+            <header class="fh-header pd-none">
+                <span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+                <h1 class="header-title"></h1>
+                <a class="header-edit" id="nav-show"></a>
+            </header>
+			<img src="" id="brand_img" class="img-list">
+            <ul class="nav nav-pills fh-nav">
+                <li num="3"><a  class="focus-font">综合</a></li>
+                <li num="1"><a >销量</a></li>
+                <li num="2"><a >价格<i class='icon-sort-up'></i></a></li>
+                <li num="4"><a >人气</a></li>
+            </ul>
+            <div class="empty"></div>
+            <div id='brand_details' class="min-scroller" >
+            	<div class="pullUp"></div>
+            </div>
+            <script type="text/html" id='brandDetails'>
+                <%if(result){%>
+                    <%for(var i=0;i<result.length;i++){%>
+                        <div class="media fh-goods">
+                        	<%if(result[i].goods_source>0){%>
+								<img src="../../images/wap/global-icon.png" class="global-icon" />
+							<%}%>
+                        	<a href="../shopping/goods_details.html?goods_id=<%=result[i].goods_id%>&resource_tags=<%=result[i].resource_tags%>" good_id='<%=result[i].goods_id%>' class="pr dis-b">
+	                            <div class="media-left pr">
+	                            	<%if(result[i].goods_pic){%>
+										<img class="media-img" src="../../images/wap/guanggao-1.jpg" data-original="<%=FormatImg(result[i].goods_pic)%>" />
+									<%}else{%>
+										<img class="media-img" src="../../images/wap/guanggao-1.jpg" data-original="<%=FormatImg(result[i].goods_image)%>" />
+									<%}%>
+									<%if(result[i].goods_state==0){%>
+										<img src="../../images/wap/widthdown.png" class="half-tip"/>
+									<%}else if(result[i].sale_stop==1){%>
+										
+									<%}else if(result[i].is_presell==1){%>
+										<img src="../../images/wap/presell.png" class="half-tip"/>
+									
+									<%}%>
+	                            </div>
+	                            <div class="media-body">
+	                            	<img class="flag mr5 pull-left" src="<%=result[i].nation_flag%>" />
+									<p class="pb5 color9 f12"><%=result[i].goods_promise%></p>
+	                                <h4 class="media-heading overhide  pr l150">
+	                                	<%=result[i].goods_name%>
+									<!--	<%if(result[i].goods_source>0){%>
+											<img class="origin" src="../../images/wap/direct.png"  />
+										<%}else if(result[i].is_own_shop==1){%>
+											<img class="origin" src="../../images/wap/self.png"  />
+										<%}%>-->
+	                                </h4>
+	                                <div class="pull-left">
+	                                    <div class="media-tailing clearfix fh-price">￥
+	                                        <%=result[i].goods_price%>
+	                                    </div>
+	                                    <del>￥
+	                                        <%=result[i].goods_marketprice%>
+	                                    </del>
+	                                </div>
+	                            </div>
+	                        </a>
+                        </div>
+                    <%}%>
+                <%}else{%>
+                <%}%>
+            </script>            
+        </div>
+    </div>
+    <script  src="../../js/libs/jquery/jquery-1.8.3.min.js"></script>
+     <script  src="../../js/plugins/jquery.lazyload.js"></script>
+    <script  src="../../js/plugins/fastclick.js"></script>
+    <script  src="../../src/js/plugins/jquery.validate.js"></script>
+    <script  src="../../js/plugins/layer/layer.js"></script>
+    <script  src="../../js/plugins/template.js"></script>
+    <script  src="../../js/plugins/iscroll.js"></script>
+    <script  src="../../js/plugins/fhScroll.js"></script>
+    <script  src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script  src="../../js/config.js"></script>
+    <script  src="../../js/common.js"></script>
+    <script  src="../../js/tmpl/activity/brand_details.js"></script>
+    <script>
+    	Goods.BrandDetails.onLoad();
+    </script>
+</body>
+
+</html>

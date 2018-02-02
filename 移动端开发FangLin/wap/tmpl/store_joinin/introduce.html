@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+	<head>
+		<meta charset="utf-8">
+		<title>商家入驻</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<link rel="stylesheet" href="../../css/fhbase.css" />
+		<link rel="stylesheet" href="../../css/store_joinin.css">
+		<link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+		<link rel="stylesheet" href="../../css/fhwap.css">
+	</head>
+
+	<body>
+		<div class="layout" style="padding-bottom:70px" id="stop_in">
+			<header class="fh-header none">
+				<span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+				<h1 class="header-title">商家入驻</h1>
+			</header>
+			<img class="width100" src="../../images/wap/into_01.jpg" alt="">
+			<h4 class="title clearfix"><img src="../../images/store_join/01.png" alt="" /></h4>
+			<h3 class="headline clearfix">全球好货，尽在分红全球购</h3>
+			<article class="article">
+				<p>分红全球购采用“移动电商+微店分销+跨境直购”的创新模式，打通移动端销售闭环，为商家提供一站式国内电商营销服务和低成本布局移动电商的平台，为消费者提供零成本创业开微店的平台。</p>
+				<p>我们致力于寻找全世界超好口碑的尖货大牌、爆款商品，与品牌工厂直接签约，100%正品保障-国内外货源地直邮，海关监管，正品保障，全球商品无忧购！为中国消费者带来更丰富更优惠的产品选择。同时，我们也拥有便捷的物流配送与完善的售后服务，助力品牌商降低渠道成本，最终达到让惠于民的目的。一站式购物体验，一键下单，微信支付、支付宝、银联等多渠道付款，全球好货极速到达！海量超低折扣商品，话费红包天天领，签到送积分，更能分享商品赚钱。全球好货一键分享至微信、QQ、微博等社交平台，动动手指就能轻松兼职赚钱！推荐好友加入分销，享受订单分佣，轻松手机赚钱，他赚你也赚。</p>
+			</article>
+			<h4 class="title clearfix"><img src="../../images/store_join/02.png" alt="" /></h4>
+			<h3 class="headline clearfix">移动电商+微店分销+跨境直购第一平台</h3>
+			<img src="../../images/store_join/advantage.jpg" alt="" class="width100" />
+			<h4 class="title clearfix"><img src="../../images/store_join/03.png" alt="" /></h4>
+			<img class="width100" src="../../images/wap/into_02.jpg" alt="">
+			
+			<h4 class="title clearfix"><img src="../../images/store_join/05.png" alt="" /></h4>
+
+			<section class="clearfix">
+				<!-- <img class="width100" src="../../images/store_join/enter15.jpg" alt=""> -->
+				<img class="width100" src="../../images/store_join/enter_06.jpg" alt="">
+				<img class="width100" src="../../images/store_join/enter_07.jpg" alt="">
+				<img class="width100" src="../../images/store_join/enter_08.jpg" alt="">
+
+				<p class="p_tip">因版面展示受限仅显示部分品牌</p>
+			</section>
+			<h4 class="title clearfix"><img src="../../images/store_join/04.png" alt="" /></h4>
+			<section class="clearfix">
+				<img class="width100" src="../../images/store_join/enter1.jpg" alt="">
+				<p class="p_tip">因版面展示受限仅显示部分品牌</p>
+			</section>
+
+			<h4 class="title clearfix"><img src="../../images/store_join/06.png" alt="" /></h4>
+			<img src="../../images/store_join/enter4.jpg" alt="" class="width100" />
+			<img src="../../images/store_join/enter5.jpg" alt="" class="width100" />
+			<!--<footer class="layout store_btn none">
+            <a href="aptitude.html" class="joinin-btn">
+            	<p class="inland">国内商家入驻</p></a>
+            	<p class="foreign">国外商家入驻</p>
+            </footer>-->
+			<a href="aptitude.html" class="joinin-btn none">企业申请入驻</a>
+		</div>
+		<script src="../../js/libs/jquery/jquery-1.8.3.min.js"></script>
+		<script  src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+		<script src="../../js/common.js"></script>
+		<script  src="../../js/fh.js"></script>		
+
+		<script>
+			$(function() {
+				equipmentCheck();
+				var _title, _content, _imgs, _url;
+				_title = "商家入驻";
+				_content = '移动电商+微店分销打造多方共赢的生态圈，彻底改变电子商务！';
+				_imgs = '';
+				_url = "http://www.fenhongshop.com/wap/tmpl/store_joinin/introduce.html?a=1";
+				if (native_flag == -1) {
+					$('header').removeClass('none');
+					$('.joinin-btn').removeClass('none');
+					FL.wxShare(_title, _content, _url, _imgs);
+				} else if (native_flag == 0) {
+					enableShareButton(_title, _content, _imgs, _url);
+				} else if (native_flag == 1) {
+					var _bridge;
+						
+					  function connectWebViewJavascriptBridge(callback) {
+							if (window.WebViewJavascriptBridge) {
+								callback(WebViewJavascriptBridge);
+							} else {
+								document.addEventListener('WebViewJavascriptBridgeReady', function() {
+									callback(WebViewJavascriptBridge);
+								}, false);
+							}
+						}
+					
+					$(".header-title").text("py");
+					
+						connectWebViewJavascriptBridge(function(bridge) {
+							_bridge = bridge;
+							/*JS 接收消息模块,初始化*/
+							try{
+								bridge.init(function(message, responseCallback) {								
+								
+							   });
+							}catch(e){
+								alert(e.message);
+							}
+							
+							ienableShare(_title, _content, _imgs, _url);
+							
+						});
+				}
+				/* 设置浏览器右上角分享按钮 */
+					function ienableShare(_title,_content,_imgs,_url) {
+						var data = {
+							"func" : "enableshare",
+						"params" : {
+							 "title" : _title,
+				           "content" : _content,
+				           "imgs" : _imgs,
+				           "url" : _url
+						}
+					};
+					_bridge.send(data);
+					}
+			})
+		</script>
+	</body>
+
+</html>

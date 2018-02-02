@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+   	<meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/animate.css">
+    <link rel="stylesheet" href="../../css/buttons.css">
+    <link rel="stylesheet" href="../../js/plugins/layer/skin/layer.css">
+    <link rel="stylesheet" href="../../css/fhbase.css">
+    <link rel="stylesheet" href="../../src/css/fhwap.css">
+</head>
+<body>
+    <div class="container" id='tag'>
+        <div class="row bg-body">
+            <header class="fh-header time-header">
+					<span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+					<i class="icon-search"></i>
+					<input type="text" placeholder="搜索标签" id="goods_search">                   
+			</header>
+			<script type="text/html" id="tag-tmpl">			
+			<div class="tag-article">
+			<h2><img src="../../images/wap/specialty/red_tag.png" alt="" />热门标签</h2>
+			<%if(hot_tags){%>				
+				<%for(var i in hot_tags){%>
+			    <span class="tagname"><%=hot_tags[i]%></span>
+			    <%}%>
+			<%}%>			
+			</div>			
+			<div class="empty"></div>
+			<div class="tag-article">
+			<h2><img src="../../images/wap/specialty/gray_tag.png" alt="" />最近选择</h2>
+			<%if(history_tags){%>
+				<%for(var i in history_tags){%>
+			    <span class="tagname"><%=history_tags[i]%></span>
+			    <%}%>
+			<%}%>	
+			</div>
+			</script>
+			<p id="clearTag">清除最近选择</p>
+        </div>
+		<ul id="search_tag">
+
+			<script type="text/html" id="search_tags_tmpl">
+
+				<%if(exists=='0'){%>
+				<li id="addSearchTag" class="f13 color9"><img src="../../images/wap/specialty/add.png" class="mr5 mt2"/>添加新标签: <span></span></li>
+				<%}%>
+				<%for(var i in tags){%>
+				<li class="activetag"><%=tags[i]%></li>
+				<%}%>
+
+			</script>
+		</ul>
+    </div>
+
+    <script  src="../../js/libs/jquery/jquery-1.8.3.min.js"></script> 
+    <script  src="../../js/plugins/fastclick.js"></script>  
+    <script  src="../../js/plugins/template.js"></script>  
+    <script  src="../../js/plugins/layer/layer.js"></script>
+    <script  src="../../js/config.js"></script>
+    <script  src="../../js/apiLink.js"></script>
+    <script  src="../../js/common.js"></script>
+    <script  src="../../src/js/tmpl/specialty/tag.js"></script>
+   
+</body>
+
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <title>收货地址</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+   <meta name="apple-mobile-web-app-status-bar-style" content="black">
+   	<meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/animate.css">
+    <link rel="stylesheet" href="../../css/buttons.css" />
+    <link rel="stylesheet" href="../../css/fhbase.css">
+    <link rel="stylesheet" href="../../css/fhwap.css">
+</head>
+
+<body>
+    <div class="container layout" id="address">
+        <div class="row">
+            <header class="fh-header">
+                <span class="goback icon-angle-left"></span>
+                <h1 class="header-title">收货地址</h1>
+                <a class="header-edit" id="nav-show"></a>
+            </header>
+            <section class="oh" id="address_list"></section>
+            <script type="text/html" id="addressList">
+            	<%if(result.length==0){%>
+					<div class="adr-header">
+						<img class="adr-img" src="../../images/wap/address.png" />
+						<div class="adr-tips">您还没有收货地址哦!</div>
+			        	<a onclick="javascript:location.replace('add_address.html')" class="button button-block button-rounded button-caution adr-btn"><i class="icon-plus pr5"></i>新建地址</a>
+					</div>
+				<%}else{%>
+	            	<% for(var i=0;i<result.length;i++){%>
+		         	<div class="adr-body pad10" address_id="<%=result[i].address_id%>">
+		         			<div class="choose-adr">
+			                    <div class="f14">
+			                        <span class="mr40"><%=result[i].name%></span>
+			                        <span><%=result[i].mob_phone%></span>
+			                    </div>
+			                    <div class="adr-area"><%=result[i].area_info%> <%=result[i].address%></div>
+		                    </div>
+		                    <div class="adr-bottom">
+		                    	<span class="choose-adr2"><i class="icon-circle-blank left-icon"></i><span class="ml15">选择地址</span></span>
+		                    	<span  class="pull-right adr-cancel"><i class="icon-trash adr-icon"></i>删除</span>
+		                    	<span  class="pull-right mr15 adr-edit"><i class="icon-edit adr-icon"></i>编辑</span>
+		                    </div>
+		            </div>
+		            <section class="empty"></section>
+					<%}%>
+					<div class="fillDiv"></div>
+					<div class="bottom-add">
+						<a onclick="javascript:location.replace('add_address.html?type=buy')" class="button button-block button-rounded button-caution"><i class="icon-plus pr5"></i>新建收货地址</a>
+		       		</div>
+		       <%}%>
+            </script>
+        </div>
+    </div>
+    <script  src="../../js/libs/jquery/jquery-1.8.3.min.js"></script>
+    <script  src="../../js/plugins/layer/layer.js"></script>
+    <script  src="../../js/plugins/fastclick.js"></script>
+    <script  src="../../js/config.js"></script>
+    <script  src="../../js/common.js"></script>
+    <script  src="../../js/plugins/template.js"></script>
+    <script  src="../../src/js/tmpl/member/address.js"></script>
+    <script>
+    	Member.Address.onLoad();
+    </script>
+</body>
+
+</html>

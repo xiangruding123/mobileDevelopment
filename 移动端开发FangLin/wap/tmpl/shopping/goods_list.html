@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <title>商品列表</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+   	<meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../src/css/fhbase.css">
+    <link rel="stylesheet" href="../../src/css/fhwap.css">
+</head>
+<body>
+    <div class="container layout" id='search_goods_list'>
+        <div class="row">
+            <header class="fh-header">
+                <span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+                <i class="icon-search"></i>
+                <input type="text" placeholder="分红全球购 精彩无限" id="goods_search">
+                <a class="header-edit" id="nav-show"></a>
+            </header>
+            <section></section>
+            <ul class="nav nav-pills nav-pills-five fh-nav">
+                <li num="3"><a href="#" class="focus-font">综合</a></li>
+                <li num="1"><a href="#">销量</a></li>
+                <li num="2"><a href="#">价格<i class='icon-sort-up'></i></a></li>
+                <li num="4"><a href="#">人气</a></li>
+                <li num="2"><a href="#">佣金<i class='icon-sort-up'></i></a></li>
+            </ul>
+
+            <section id="emptysearch">
+              <img src="../../images/wap/Esearch.png" alt="">
+              <p>啊哦！没有找到你搜索的商品</p>
+            </section>
+
+            <div id='goods_list' class="min-scroller" >
+            	<div class="pullUp"></div>
+
+            </div>
+
+            <script type="text/html" id='goods_list_tpl'>
+                <%if(result){%>
+                    <%for(var i=0;i<result.length;i++){%>
+                        <div class="media fh-goods">
+                        	<%if(result[i].goods_source>0){%>
+								<img src="../../images/wap/global-icon.png" class="global-icon" />
+							<%}%>
+
+	                            <div class="media-left pr">
+                                <a href="goods_details.html?goods_id=<%=result[i].goods_id%>" good_id='<%=result[i].goods_id%>'>
+	                        		<img class="media-img" src="../../images/wap/pinpaiguan.jpg" data-original="<%=FormatImg(result[i].goods_image)%>" alt="...">
+									<%if(result[i].goods_state==0){%>
+										<img src="../../images/wap/widthdown.png" class="long-tip" style="margin-left:-35px;margin-top:-45px;"/>
+									<%}else if(result[i].sale_stop==1){%>
+
+									<%}else if(result[i].is_presell==1){%>
+										<img src="../../images/wap/presell.png" class="long-tip" style="margin-left:-35px;margin-top:-45px;"/>
+
+									<%}else if((result[i].goods_storage==0&&!result[i].seckilling)||(result[i].goods_storage==0&&result[i].seckilling&&result[i].seckilling.killing_stock==0)){%>
+										<img src="../../images/wap/soldout.png" class="long-tip" />
+									<%}%>        </a>
+	                            </div>
+	                            <div class="media-body">
+                                <a href="goods_details.html?goods_id=<%=result[i].goods_id%>" good_id='<%=result[i].goods_id%>'>
+	                            	<%if(result[i].nation_flag&&result[i].goods_promise){%>
+	                            		<img src="<%=result[i].nation_flag%>" class="flag mr5"/><%=result[i].goods_promise%>
+	                            	<%}%>
+	                                <h4 class="media-heading overhide line-clamp3"><%=result[i].goods_name%>
+	                                	<!--<%if(result[i].is_own_shop=="1"){%>
+	                                	<img src="../../images/wap/self.png" class="origin"/>
+	                            	    <%}else if(result[i].goods_source>0){%>
+	                            		<img src="../../images/wap/direct.png" class="origin"/>
+	                            		<%}%>-->
+	                                </h4>
+                                </a>
+	                                <div class="pull-left width100">
+	                                    <div class="media-tailing clearfix fh-price">￥<%=result[i].goods_price%>
+                                          <del class="pl10"><%=result[i].goods_marketprice%></del>
+                                       <%if(result[i].seckilling_flag==1){%>
+	                                    	<img src="../../images/wap/app_miaosha.png" class="app-seckill"  />
+	                                     <%}%>
+	                                    </div>
+
+                                      <div><span class="fh-price f13">赚 ￥<%=result[i].goods_reward_money%><span class="ml10 goods_reward_ratio">返<%=result[i].goods_reward_ratio%> </span></span>
+
+                                      <!-- <span class="goods_share_intro -mob-share-open"> <%=result[i].goods_share_intro%></span> -->
+                                      </div>
+
+	                                </div>
+	                                <!--<div class="pull-right tr" id="star">
+	                                    <%=result[i].evaluation_count%> 人评价
+	                                    <br>
+	                                    <%for(var k=1;k<=result[i].evaluation_stars;k++){%>
+	                                        <img src="../../images/wap/star.png" alt="">
+	                                    <%}%>
+	                                    <%if(result[i].evaluation_stars.indexOf( '.')>-1){%>
+	                                        <img src="../../images/wap/Bstar.png" alt="">
+	                                    <%}%>
+	                                    <%for(var j=1;j<=(5-result[i].evaluation_stars);j++){%>
+	                                        <img src="../../images/wap/Estar.png" alt="">
+	                                    <%}%>
+	                                </div>-->
+	                            </div>
+
+                        </div>
+
+                    <%}%>
+                <%}else{%>
+                <%}%>
+            </script>
+        </div>
+    </div>
+
+
+  <script type="text/javascript" src="../../js/libs/jquery/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="../../js/plugins/fastclick.js"></script>
+	<script type="text/javascript" src="../../js/config.js"></script>
+	<script type="text/javascript" src="../../js/plugins/template.js"></script>
+	<script type="text/javascript" src="../../js/common.js"></script>
+	<script src="../../js/plugins/jquery.lazyload.js"></script>
+	<script type="text/javascript" src="../../js/plugins/layer/layer.js"></script>
+	<script type="text/javascript" src="../../js/plugins/jquery.scrollTo.js"></script>
+	<script type="text/javascript" src="../../js/plugins/iscroll.js"></script>
+	<script type="text/javascript" src="../../js/plugins/swiper/swiper.js"></script>
+  <script src="../../src/js/tmpl/shopping/goods_list.js"></script>
+
+
+</body>
+
+</html>

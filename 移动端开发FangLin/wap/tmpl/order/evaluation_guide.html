@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <title>评价晒单</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+   	<meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/buttons.css">
+    <link rel="stylesheet" href="../../css/fhbase.css">
+    <link rel="stylesheet" href="../../css/fhwap.css">
+    
+</head>
+
+<body>
+    <div class="container layout">
+        <div class="row bg-body">
+            <header class="fh-header">
+                <span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+                <h1 class="header-title">评价晒单</h1>
+                <span class="header-right f14">说明</span>
+            </header>
+            <article id="gift_package">
+            	<img src="../../images/wap/gift_package.png" alt="" style="width:50%;margin-left:-10px;"/>
+	            <p class="f16 pt10 pb10">你敢写，我敢送！</p>
+	            <p class="f20">发表使用心得，<span class="focus-font">赢20积分</span>~</p>
+            </article>
+            
+            <button class="mb50 fh-btn btn" id="commentbtn" type="button">发表评价</button>
+            
+        </div>
+    </div>
+    <script  src="../../js/wap.js"></script>
+    <script  src="../../js/config.js"></script>
+    <script  src="../../js/common.js"></script>
+    <script>
+    	$(function(){
+    		var order_id=GetQueryString("order_id"),
+    		    if_append_evaluate=GetQueryString("if_append_evaluate");
+    		
+    		$(".header-right").click(function(){
+    			location.href = WapSiteUrl+'/wap/tmpl/andriod/evaluate_explain.html';
+    		})
+    		
+    		
+    		$("#commentbtn").click(function(){
+    			location.href="../shopping/evaluation.html?order_id="+order_id+"&if_append_evaluate="+if_append_evaluate;
+    		});
+    		
+    		
+ 		
+    	})
+    	
+    	
+    	
+    </script>
+</body>
+
+</html>

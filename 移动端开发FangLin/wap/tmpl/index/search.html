@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>搜索</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta http-equiv="Cache-Control" content="no-cache">
+        <meta http-equiv="Pragma" content="no-cache">
+		<link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+   		<link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+		<link rel="stylesheet" href="../../css/animate.css">
+	    <link rel="stylesheet" href="../../css/fhbase.css">
+	    <link rel="stylesheet" href="../../css/fhwap.css">
+	</head>
+
+	<body>
+		<div class="container layout" id="search_goods_list">
+			<div class="row">
+				<header class="fh-header">
+					<span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+					<i class="icon-search"></i>
+					<input type="text" placeholder="分红全球购 精彩无限" id="goods_search">
+                    <a class="header-right f14" id="">搜索</a>
+				</header>
+                
+                
+                
+                
+				<section id="search_hot" class="clearfix  mt 10 border-b fh-bg-white">
+					
+					<p class="pull-left pb10 pl10">
+						
+						<span class="dis-b mt10 f14">热门搜索:</span>
+					    <span class="hot"></span>
+			            <script type="text/html" id="search-hot-tpl">
+				            <%for(var i=0;i<result.length;i++){%>
+				           		<a href="../shopping/goods_list.html?key=<%=result[i]%>" class=""><%=result[i]%></a>
+				            <%}%>
+			            </script>           
+		            </p>
+				</section>
+	            <div class="empty"></div>
+            <h3 class="title f14 fh-bg-white">历史搜索:</h3>
+
+            <ul class="fh-bg-white" id="search_history">
+            <script type="text/html" id="search-history-tpl">
+            <%for(var k=0;k<result.length;k++){%>
+             <li search_id='<%=result[k].search_id%>'><a href="../shopping/goods_list.html?key=<%=result[k].search_keywords%>"><i class="icon-time "></i><%=result[k].search_keywords%></a><i class='icon-remove'></i></li>
+            <%}%>
+            </script> 
+            </ul>
+            <h4 class="tc font-pink" id="delAll">清空历史记录</h4>
+        </div>
+    </div>
+		<div class="fh-dialog" id="search_dialog_success">
+			<div class="fh-dialog-wrap">
+				<div class="tc">
+					<img src="../../images/wap/login/fh-dialog-img.png" alt="" class="fh-dialog-img"/></div>
+				<div class="fh-dialog-body">
+					<p class="fh-dialog-brief">你确定清空记录吗？</p>
+				</div>
+				<div class="fh-dialog-footer">
+					<button class="fh-dialog-button" id="leftbtn">取消</button><button class="fh-dialog-button focus-font" id="rightbtn">确认</button>
+				</div>
+			</div>
+		</div>
+    <script  src="../../js/libs/jquery/jquery-1.8.3.min.js"></script>
+	<script  src="../../js/config.js"></script>
+    <script  src="../../js/plugins/fastclick.js"></script>
+    <script  src="../../js/common.js"></script>
+    <script  src="../../js/plugins/layer/layer.js"></script>
+    <script  src="../../js/plugins/template.js"></script>
+    <script  src="../../js/plugins/iscroll.js"></script>
+    <script  src="../../js/tmpl/index/search.js"></script>
+      
+
+   
+</body> 
+
+</html>

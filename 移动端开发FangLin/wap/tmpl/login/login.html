@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+   <meta name="apple-mobile-web-app-status-bar-style" content="black">
+   	<meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+   	<link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/buttons.css">
+    <link rel="stylesheet" href="../../css/fhbase.css">
+    <link rel="stylesheet" href="../../css/fhwap.css">
+</head>
+<body class="fh-bg-white">
+    <div class="layout fh-bg-white" id="login">
+            <header class="fh-header">
+                <span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+                <h1 class="header-title">登录</h1>
+           </header>
+            <p id="member_login">登陆账号：<span class="focus-font"></span></p>
+            <div class="pl20 pr20 pr">
+           	     <input type="password" name="password" id="password" value="" maxlength="20" placeholder="请输入密码" />
+           	     <img src="../../src/images/wap/login/cleartext.png" class="cleartext"/>
+           </div>
+            <div class="pl20 pr20">
+           	<a class="forget_pwd">忘记密码？</a>
+           </div>
+           <div class="pl20 pr20">
+           <button id="loginClick" disabled="disabled">登录</button>
+           </div>
+    </div>
+    <div class="fh-dialog" id="noinfoDialog">
+        <div class="fh-dialog-wrap">
+        <div class="tc">
+        <img src="../../images/wap/login/fh-dialog-img.png" alt="" class="fh-dialog-img"/></div>
+        <div class="fh-dialog-body">
+            <p class="fh-dialog-brief">账号或密码输入错误</p>
+        </div>
+        <div class="fh-dialog-footer">
+        <button class="fh-dialog-button" id="leftbtn">重新输入密码</button><button class="fh-dialog-button focus-font" id="rightbtn">忘记密码</button>
+        </div>
+        </div>
+    </div>
+    <div class="fh-dialog" id="nosiupDialog">
+        <div class="fh-dialog-wrap">
+            <div class="tc">
+                <img src="../../images/wap/login/fh-dialog-img.png" alt="" class="fh-dialog-img"/></div>
+            <div class="fh-dialog-body">
+                <p class="fh-dialog-brief">用户名登录账号无法在手机端找回密码，请登录至分红全球购官方网站（fenhongshop.com）找回密码。</p>
+            </div>
+            <div class="fh-dialog-footer">
+                <button class="fh-dialog-button focus-font" id="siupleftbtn">确认</button>
+            </div>
+        </div>
+    </div>
+    <script  src="../../js/libs/jquery/jquery-1.8.3.min.js"></script>    
+    <script  src="../../js/plugins/fastclick.js"></script>
+    <script  src="../../js/plugins/jquery.validate.js"></script>
+    <script  src="../../js/plugins/layer/layer.js"></script>
+    <script  src="../../js/plugins/md5.js"></script>
+    <script  src="../../js/config.js"></script>
+    <script  src="../../js/apiLink.js"></script>
+    <script  src="../../js/common.js"></script>
+    <script  src="../../js/tmpl/login/login.js"></script>
+    <script>
+    	
+    </script>
+</body>
+
+</html>

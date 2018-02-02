@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>评价</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta http-equiv="Cache-Control" content="no-cache">
+		<meta http-equiv="Pragma" content="no-cache">
+		<link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+		<link rel="stylesheet" href="../../css/buttons.css">
+		<link rel="stylesheet" href="../../css/fhbase.css">
+		<link rel="stylesheet" href="../../css/fhwap.css">
+		<link rel="stylesheet" href="../../js/plugins/sweetalert/sweetalert.css">
+		<link rel="stylesheet" href="../../css/lightbox.css">	
+		<style type="text/css">
+			.sweet-alert .sa-icon.sa-success .sa-line{
+				z-index: 3;
+			}
+		</style>
+	</head>
+
+	<body class="nav bg-body">
+		<div class="container layout bg-body" id="evaluation">
+			<div class="row bg-body">
+				<header class="fh-header">
+					<span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+					<h1 class="header-title">评价</h1>
+				</header>
+				<section id="evaluation_detail">
+					
+				</section>
+				<script type="text/html" id="evaluation-tpl">
+					<%for(var i = 0;i<result.order_goods.length;i++){%>
+						<section class="evaluation_detail_list">
+						<section class="pd-index f16 pb0 evaluation_state" goods_id="<%=result.order_goods[i].goods_id%>" evaluation_state="<%=result.order_goods[i].evaluation_state%>">
+
+						<div class="ptb10">
+							<div class="media-left">
+
+								<img class="media-object image-case eva_img" src="<%=result.order_goods[i].goods_image%>" alt="">
+
+							</div>
+							<div class="media-body f14">
+								<p class="mt5 overhide"><%=result.order_goods[i].goods_name%></p>
+								<%if(result.evaluation_state==0){%>
+									<p class="mt5">评分<span class="pt10 starnum">
+										 <%if(result.order_goods[i].evaluation_state!=0){%>
+											<%for(var k=1;k<=result.order_goods[i].geval_scores;k++){%>
+		                                        <i class="icon-star"></i>
+		                                    <%}%>
+		                                   
+		                                    <%for(var j=1;j<=(5-result.order_goods[i].geval_scores);j++){%>
+		                                       <i class="icon-star-empty"></i>
+		                                    <%}%>
+										 <%}else{%>
+										 <i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i>
+
+										 <%}%>
+	                                </span></p>							
+									
+								<%}%>
+								
+							</div>
+
+						</div>
+						
+						<%if(result.evaluation_state!=0&&result.order_goods[i].geval_content){%>
+							<div id="again_comment_txt"><p class="starnum">
+								    <%for(var k=1;k<=result.order_goods[i].geval_scores;k++){%>
+                                        <i class="icon-star"></i>
+                                    <%}%>
+                                   
+                                    <%for(var j=1;j<=(5-result.order_goods[i].geval_scores);j++){%>
+                                       <i class="icon-star-empty"></i>
+                                    <%}%></p>
+		                                
+		                                </p>
+		                          <p class="f14"><%=result.order_goods[i].geval_content%></p>
+	                        </div>	
+						<%}%>
+                        
+						<textarea class="pd-index f14 content" placeholder="长度在1~200个字之间，写下购物体会或者使用过程中带来的帮助，可以为其他小伙伴们提供参考" name="content"><%if(result.evaluation_state==0){%><%=result.order_goods[i].geval_content%><%}%></textarea>
+						<div class="mt15 mb15 tr">
+							<span class='eva_num'>0</span>/200
+						</div>
+
+						
+
+					</section>
+					<ul class="add_pic clearfix">
+
+						<li class="other"><img class="w40" src="../../images/wap/addpic.png" />
+							<br />添加图片
+							<form action="">
+								<input type="file" accept="image/*" capture=camera class="file" name="img" />
+							</form>
+						</li>
+
+					</ul>
+					</section>
+					<%}%>
+					
+				</script>
+				<div id="store_credit">					
+				<p class="pt10 pl10">店铺评价</p>
+				<p class="pt10 pl10 media-body dis-b fh-bg-white" id="store_desccredit">描述相符<span class="pl15 starnum">
+            	<i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i>
+                        </span></p>
+				<p class="pt10 pl10 media-body dis-b fh-bg-white" id="store_servicecredit">服务态度<span class="pl15 starnum">
+            	<i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i>
+                        </span></p>
+				<p class="pt10 pl10 pb10 media-body dis-b fh-bg-white" id="store_deliverycredit">发货速度<span class="pl15 starnum">
+                 <i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></span></p>
+				<div class="mb50 pl10 pb10"><i class="icon-ok-sign mr5 anonymity"></i>匿名评价</div>
+				</div>
+				
+
+			</div>
+               <a class="button button-block button-rounded button-caution" id="submit">提交评论</a>
+			<div class="empty h80"></div>
+		</div>
+		</div>
+		<script  src="../../js/wap.js"></script>
+		<script src="../../js/plugins/sweetalert/sweetalert.min.js"></script>
+		<script  src="../../js/config.js"></script>
+		<script  src="../../js/plugins/lightbox.js"></script>
+		<script  src="../../js/common.js"></script>
+		<script  src="../../js/plugins/layer/layer.js"></script>
+		<script  src="../../js/tmpl/shopping/evaluation.js"></script>
+	</body>
+
+</html>

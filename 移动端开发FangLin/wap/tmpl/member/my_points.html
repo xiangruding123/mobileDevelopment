@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <title>我的积分</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+   	<meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+   	<link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../js/plugins/swiper/swiper.css" />
+    <link rel="stylesheet" href="../../css/animate.css">
+    <link rel="stylesheet" href="../../css/buttons.css">
+    <link rel="stylesheet" href="../../css/fhbase.css">
+    <link rel="stylesheet" href="../../css/fhwap.css">
+</head>
+
+<body class="fh-bg-white">
+    <div class="container layout" id="point">
+        <section class="row">
+            <header class="fh-header">
+                <span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+                <h1 class="header-title">我的积分</h1>
+                <a class="header-edit" id="nav-show"></a>
+            </header>
+            <section class="pt-header">
+            	<span>我的积分</span>
+            	<span class="pt-header-span" id="allPoints">0</span>
+            </section>
+            <section class="empty"></section>
+            <section >
+            	<div class="pt-details">积分明细</div>
+            	<ul class="mlr10" id="my_points"></ul>
+            </section>
+            <script type="text/html" id="myPoints">
+            	<%if(points_list){%>
+            		<%for(var i =0;i<points_list.length;i++){%>
+	            		<li class="pt-li">
+	            			<p class="f14 pt10">
+	            				<span><%=points_list[i].pl_desc%></span>
+	            				<span class="pull-right"><%if(points_list[i].pl_points>0){%>
+	            					+<%=points_list[i].pl_points%>
+	            				<%}else{%>
+	            					<%=points_list[i].pl_points%>
+	            				<%}%>
+	            				</span>
+	            			</p>
+	            			<p class="pt5 color9"><%=points_list[i].pl_addtime%></p>
+	            		</li>
+            		<%}%>
+            		<%}%>
+           	</script>
+       </section>
+    </div>
+    <script  src="../../js/libs/zepto.min.js"></script>
+    <script  src="../../js/config.js"></script>
+    <script  src="../../js/plugins/fastclick.js"></script>
+    <script  src="../../js/plugins/layer/layer.js"></script>
+    <script  src="../../js/common.js"></script>
+    <script  src="../../js/plugins/template.js"></script>
+    <script  src="../../js/tmpl/member/my_points.js"></script>
+    <script>
+   		 Member.myPoints.onLoad();
+    </script>
+</body>
+
+</html>

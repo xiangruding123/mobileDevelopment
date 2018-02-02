@@ -1,0 +1,32 @@
+{
+  "name": "fenhongshop_wap",
+  "version": "1.0.0",
+  "description": "a shopping wap",
+  "author": "wfc",
+  "license": "ISC",
+  "devDependencies": {
+    "del": "^2.2.1",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-cache": "^0.4.5",
+    "gulp-clean": "^0.3.2",
+    "gulp-clean-css": "^2.0.11",
+    "gulp-concat": "^2.6.0",
+    "gulp-html-minifier": "^0.1.8",
+    "gulp-imagemin": "^3.0.1",
+    "gulp-jasmine": "^2.4.0",
+    "gulp-jshint": "^2.0.1",
+    "gulp-livereload": "^3.8.1",
+    "gulp-minify-css": "^1.2.4",
+    "gulp-notify": "^2.2.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-rev": "^7.1.0",
+    "gulp-rev-collector": "^1.0.5",
+    "gulp-rimraf": "^0.2.0",
+    "gulp-ruby-sass": "^2.0.6",
+    "gulp-uglify": "^1.5.4",
+    "gulp-util": "^3.0.7",
+    "imagemin-pngcrush": "^5.0.0",
+    "jshint": "^2.9.2"
+  }
+}

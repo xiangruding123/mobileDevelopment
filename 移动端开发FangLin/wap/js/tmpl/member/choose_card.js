@@ -1,0 +1,1 @@
+$(function(){function c(c){$(".choose-icon").attr("class","icon-circle-blank default-icon"),$(c).find("i").attr("class","icon-ok-sign choose-icon")}localStorage.getItem("key");$(".fill").click(function(){var i=this;c(i)})});

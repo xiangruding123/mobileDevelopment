@@ -1,0 +1,96 @@
+<html style="height:100%">
+
+	<head>
+		<meta charset="UTF-8">
+	    <title>签到积分抽大奖</title>
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	    <meta name="apple-mobile-web-app-capable" content="yes">
+	    <meta name="apple-mobile-web-app-status-bar-style" content="black">	   			
+		<meta name="format-detection" content="telephone=no">
+		<link href="css/css.css" rel="stylesheet" type="text/css" />		
+		<link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+		<script  src="../../js/libs/jquery/jquery-1.8.3.min.js"></script>
+		<script  src="../../js/config.js"></script>
+		<script  src="../../js/fhnative.js"></script>
+        <script  src="../../js/plugins/layer/layer.js"></script>
+		<script  src="../../js/common.js"></script>
+		<script  src="../../js/plugins/fastclick.js"></script>       		
+		<script src="js/layer.m.js" ></script>
+		<style type="text/css">
+    	.fh-loading{
+    		display: none;
+    	}
+        </style>
+	</head>
+
+	<body>
+		
+		<header class="fh-header none layout" style="margin-bottom:2px;">
+                <span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+                <h1 class="header-title">签到积分抽大奖</h1>                
+        </header>
+		<article class="main layout">
+			<div class="ckin_warp">
+				<div class="top clearfix">
+					<div class="fl">
+						亲爱的<span class="col-ff4b4b" id="tel"></span>
+						<br> 有
+						<span id="hassign"></span>人签到
+					</div>
+					<div class="fr">
+						<span class="rmb">￥</span><span class="col-ff4b4b"><span id="score"></span>积分</span>
+						<br>
+						<!-- <a class="col-ff4b4b recharge" href="">马上充话费</a> -->
+					</div>
+				</div>
+				<div class="ck_main">
+					<div class="ck_main_in">
+						<div class="btn_checkin" id="btn_checkin">签到</div>
+						<div class="day7" id="day7">
+							<div class="line"></div>
+							<div class="line linered"></div>
+							<div class="item i1">1</div>
+							<div class="item i2">2</div>
+							<div class="item i3">3</div>
+							<div class="item i4">4</div>
+							<div class="item i5">5</div>
+							<div class="item i6">6</div>
+							<div class="item i7"><img src="img/baoxiang.png" alt="" /></div>
+							<div class="quanl curr">&nbsp;</div>
+							<div class="quanr">&nbsp;</div>
+						</div>
+					</div>
+				</div>
+				<div class="ckin_tit rele_shuo" style="border-left:none;border-top:2px solid rgb(255,75,75);text-align:center">
+					签到积分规则
+				</div>
+				<div class="ckin_cont">					
+					<!-- <a class="item recharge" href=""><img src="img/icon_phone.png" alt="" />
+						<br>充话费</a> -->
+					<a class="item"><img src="img/icon_gift.png" alt="" />
+						<br>更多精彩</a>
+				</div>
+			</div>
+			
+		</article>
+		<div class="mask_rule">
+
+			<div class="content">
+				<p class="close_rule">签到规则说明：<span>x</span></p>
+				<ul>
+					<li>1、签到手机号须登录分红全球购帐号，一部手机（设备）每天只能给一个手机号签到。</li>
+					<li>2、签到1天得10个积分；连续签到2天得15个积分；连续签到3天及以上，每天可得20个积分！若连续签到中断，则重新按照第1天计算。连续签到第7天得50个积分，7天后按此规则重新开始计算。</li>
+					<li>3、请使用本人同一个手机号进行帐号登录、签到及兑奖，此手机号码将作为获奖（兑奖）的唯一凭证；若号码不一致，则所获积分及兑奖均无效。</li>
+					<li>4、如发现利用非法途径谋取利益将取消活动资格，所获取利益自始无效，分红全球购将予以追回。</li>
+					<li>5、本活动最终解释权归分红全球购所有。</li>
+					<li>6、苹果公司不是本应用中任何活动的赞助商，也不以任何形式参与。</li>
+				</ul>
+			</div>
+		</div>
+        
+		
+		<script src="js/checkins.js"></script>
+		
+	</body>
+
+</html>

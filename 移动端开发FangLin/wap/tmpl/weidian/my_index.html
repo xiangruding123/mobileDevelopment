@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>我的微店</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta http-equiv="Cache-Control" content="no-cache">
+		<meta http-equiv="Pragma" content="no-cache">
+		<link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+		<link rel="stylesheet" href="../../css/fhbase.css">
+		<link rel="stylesheet" href="../../css/fhwap.css">
+		<link rel="stylesheet" href="../../css/animate.css">
+	</head>
+
+	<body class="">
+		<div id="my_index">
+			<div class="container layout" id="weidianIndex">
+				<section class="row">
+					<header class="fh-header">
+						<span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+						<h1 class="header-title">我的微店</h1>
+						<img src="../../images/weidian/share.png" class="share -mob-share-open" />
+					</header>
+					<div id="weidianTop">
+						<a href="weidian_data.html">
+						<img src="../../images/weidian/bg_weidian.png" />
+						<div id="weidianHeadContent">
+							<img src="" alt="" class="weidianPhoto" />
+							<h2 class="f15" id="shop_name"></h2>
+							<p id="shop_scope"></p>
+							<img src="../../images/weidian/right.png" alt="" class="weidianInfo" />
+						</div>
+						</a>
+					</div>
+
+					<div id="generalize_goodslist">
+						<h3 class="title">我分享过的商品</h3>
+						<div id="generalize_list">	
+						<script type="text/html" id="generalize_goodslist_tmpl">						
+							<%for(var i=0;i<result.length;i++){%>
+							<div class="skip_link">
+								<img src="<%=result[i].goods_image%>" class="pull-left goodspic mr">
+								<div class="gl-div">
+									<p class="f14 overhide"><a href="../shopping/goods_details.html?goods_id=<%=result[i].goods_id%>"><img src="<%=result[i].nation_flag%>" alt="" class="flag mt2"/><span class="pl5 color9 pr5"><%=result[i].nation_name%></span><%=result[i].goods_name%></a></p>
+									<p class="mt10 mb20"><span>￥<%=result[i].goods_price%></span><span class="focus-font ml10">佣金：￥<%=result[i].goods_commission%></span></p>
+									<p class="shareStyle">
+										<i class="weixin <%=clickIcon(result[i].goods_shares,5)%>"></i>
+										<i class="friend <%=clickIcon(result[i].goods_shares,4)%>"></i>
+										<i class="zque <%=clickIcon(result[i].goods_shares,6)%>"></i>
+										<i class="qq <%=clickIcon(result[i].goods_shares,2)%>"></i>
+										<i class="weibo <%=clickIcon(result[i].goods_shares,3)%>"></i>
+										<span class="shareBtn -mob-share-open" goods_desc="<%=result[i].goods_desc%>" goods_name="<%=result[i].goods_name%>" goods_image="<%=result[i].goods_image%>" goods_id="<%=result[i].goods_id%>">再次分享</span></p>
+									<ul class="clearfix">
+										<li>库存<%=result[i].goods_storage%></li>
+										<li>浏览 <%=result[i].goods_click%></li>
+										<li>收藏 <%=result[i].goods_collect%></li>
+										<li>销量 <%=result[i].goods_salenum%></li>
+									</ul>
+								</div>
+							   </div>
+							<%}%>							
+							
+						
+                    </script>
+			</div>
+					
+			</div>
+			</div>
+			<div class="container layout tableChange" id="commission">
+				<section class="row">
+					<header class="fh-header">
+						<span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+						<h1 class="header-title">我的佣金</h1>
+					</header>
+					<!--头部-->
+					<section class="cos-bg1" style="height: 100px;background-color: #56bff8;">
+						<p class="cos-p1">
+							<span>账户余额(元)</span>
+							<span class="cashBtn">立即提现</span>
+						</p>
+						<p class="cos-p2" id="acount">0.00</p>
+					</section>
+
+					<!--中间-->
+					<section class="cos-body">
+						<div class="cos-div1">
+							<p class="cos-p3">入账中(元)</p>
+							<p class="f20" id="freeze">0.00</p>
+						</div>
+						<div class="cos-div2">
+							<p class="cos-p3">可提现的收入(元)</p>
+							<p class="f20 focus-font" id="available">0.00</p>
+						</div>
+						<!--<button class="button fh-btn btn" type="button" disabled="disabled">立即提现</button>-->
+					</section>
+					<section class="empty"></section>
+
+					<!--下方明细-->
+					<section id="lists">
+						<!--<p class="cos-header">交易明细</p>-->
+						<ul class="cos-ul1">
+							<li tab="" class="focus-btn">全部</li>
+							<li tab="60">即将到帐</li>
+							<li tab="50">已结算</li>
+							<li tab="70">已失效</li>
+						</ul>
+						<ul class="cos-ul2">
+							<script id="commission_list" type="text/html">
+								<%for(var i=0;i<deduct_list.length;i++){%>
+								<li class="com-history">
+									<p class="cos-p5">
+										<span class="goodname"><%=deduct_list[i].goods_name%></span>
+										<span class="pull-right"><%=deduct_list[i].goods_price%></span>
+									</p>
+									<p class="cos-p5 tl">佣金：<span class="focus-font"><%=deduct_list[i].deduct_price%></span>
+										<span class="focus-font">× <%=deduct_list[i].goods_num%></span>
+										<span class="<%if(deduct_list[i].order_state_code==0){%>
+				            			commission-gray
+				            			<%}else if(deduct_list[i].order_state_code==50){%>
+				            		     commission-green
+				            		<%}else{%>
+				            			commission-blue
+				            		<%}%>"><%=deduct_list[i].order_state%></span>
+
+									</p>
+									<p class="cos-p6">
+										<span>创建:<%=deduct_list[i].order_date%></span>
+										<span class="pull-right"><%if(deduct_list[i].change_date){%>结算:<%}%><%=deduct_list[i].change_date%></span>
+
+									</p>
+								</li>
+								<%}%>
+							</script>
+						</ul>
+					</section>
+				</section>
+			</div>
+			<div class="container layout tableChange" id="team">
+				<div class="row">
+					<header class="fh-header">
+						<span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+						<h1 class="header-title">我的团队</h1>
+						<a href='../member/friend.html' class="header-right">邀请</a>
+					</header>
+					<ul class="nav nav-pills fh-nav border-b border-t">
+						<li tabId="0" class="selected">全部队员(<span id="all"></span>)</a></li>
+						<li tabId="1">B级队员(<span id="b"></span>)</li>
+						<li tabId="2">C级队员(<span id="c"></span>)</li>
+					</ul>
+					<div class="tableChange dis-b tc" id="team_all"></div>
+					<script type="text/html" id="teamAll">
+						<div class="teamtitle">
+							<div class="pull-left">团队成员人数<br />
+								<%=result.all%>人</div>
+							<%var allMoney = result.first_money+result.second_money%>
+							<div class="pull-right">团队佣金收入<br />
+								<%=allMoney%>元</div>
+						</div>
+						<div class="container layout">
+							<%for(var i=0;i<result.team_list.length;i++){%>
+							<section class="fill">
+								<img src="../../images/weidian/headphone.png" data-original="<%=result.team_list[i].member_avatar%>" alt="" class="pull-left">
+								<span class="pull-left"><%if(result.team_list[i].member_nickname){%><span class="f14"><%=result.team_list[i].member_nickname%></span><%}%><span> <%=result.team_list[i].member_mobile%></span></span>
+                                <span><%=result.team_list[i].deep%></span>
+								<span class="pull-right">佣金：<span class="fh-price">￥<%=result.team_list[i].deduct_money%></span></span>
+							</section>
+							<%}%>
+						</div>
+					</script>
+					<div class="tableChange tc" id="team_b"></div>
+					<script type="text/html" id="teamB">
+						<div class="teamtitle">
+							<div class="pull-left">团队成员人数<br />
+								<%=result.first_count%>人</div>
+							<div class="pull-right">团队佣金收入<br />
+								<%=result.first_money%>元</div>
+						</div>
+						<div class="container layout">
+							<%for(var i=0;i<result.team_list.length;i++){%>
+							<section class="fill">
+								<img src="../../images/weidian/headphone.png" data-original="<%=result.team_list[i].member_avatar%>" alt="" class="pull-left">
+								<span class="pull-left"><%if(result.team_list[i].member_nickname){%><span class="f14"><%=result.team_list[i].member_nickname%></span><%}%><span> <%=result.team_list[i].member_mobile%></span></span>
+								<span><%=result.team_list[i].deep%></span>
+								<span class="pull-right">佣金：<span class="fh-price">￥<%=result.team_list[i].deduct_money%></span></span>
+							</section>
+							<%}%>
+						</div>
+					</script>
+
+					<div class="tableChange tc" id="team_c"></div>
+					<script type="text/html" id="teamC">
+						<div class="teamtitle">
+							<div class="pull-left">团队成员人数<br />
+								<%=result.second_count%>人</div>
+							<div class="pull-right">团队佣金收入<br />
+								<%=result.second_money%>元</div>
+						</div>
+						<div class="container layout">
+							<%for(var i=0;i<result.team_list.length;i++){%>
+							<section class="fill">
+								<img src="../../images/weidian/headphone.png" data-original="<%=result.team_list[i].member_avatar%>" alt="" class="pull-left">
+								<span class="pull-left"><%if(result.team_list[i].member_nickname){%><span class="f14"><%=result.team_list[i].member_nickname%></span><%}%><span> <%=result.team_list[i].member_mobile%></span></span>
+                                <span><%=result.team_list[i].deep%></span>
+								<span class="pull-right">佣金：<span class="fh-price">￥<%=result.team_list[i].deduct_money%></span></span>
+							</section>
+							<%}%>
+						</div>
+					</script>
+
+				</div>
+			</div>
+			<p class="empty h100"></p>
+			<ul class="bottomnav">
+				<li class="store active">我的微店</li>
+				<li class="money">我的佣金</li>
+				<li class="team">我的团队</li>
+			</ul>
+		</div>
+		<div class="-mob-share-ui -mob-share-ui-theme -mob-share-ui-theme-slide-bottom" style="display: none">
+			<ul class="-mob-share-list">
+				<li class="-mob-share-weixin"><p>微信</p></li>
+				<li class="-mob-share-qq"><p>QQ好友</p></li>
+				<li class="-mob-share-qzone"><p>QQ空间</p></li>
+				<li class="-mob-share-weibo"><p>新浪微博</p></li>
+			</ul>
+			<div class="-mob-share-close">取消</div>
+		</div>
+		<div class="-mob-share-ui-bg"></div>
+        <div class="fh-dialog" id="noinfoDialog">
+	        <div class="fh-dialog-wrap">
+	        <div class="tc">
+	        <img src="../../images/wap/login/fh-dialog-img.png" alt="" class="fh-dialog-img"/></div>
+	        <div class="fh-dialog-body">
+	            <p class="fh-dialog-brief">请登录分红全球购APP进行提现</p>
+	        </div>
+	        <div class="fh-dialog-footer">
+	        <button class="fh-dialog-button" id="leftbtn">取消</button><button class="fh-dialog-button focus-font" id="rightbtn">下载APP</button>
+	        </div>
+	        </div>
+	    </div>
+		<script  src="../../js/libs/jquery/jquery-1.8.3.min.js"></script>
+		<script  src="../../js/config.js"></script>
+		<script id="-mob-share" src="http://f1.webshare.mob.com/code/mob-share.js?appkey=13a3931a47072"></script>
+		<script  src="../../js/plugins/fastclick.js"></script>
+		<script  src="../../js/apiLink.js"></script>
+		<script  src="../../js/common.js"></script>
+		<script src="../../js/plugins/jquery.lazyload.js"></script>
+		<script  src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+		<script  src="../../js/plugins/template.js"></script>				
+		<script  src="../../src/js/tmpl/weidian/my_index.js"></script>
+	</body>
+
+</html>

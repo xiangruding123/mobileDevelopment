@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <title>分类列表</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+   	<meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+   	<link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+   	<link rel="stylesheet" href="../../css/animate.css" />
+    <link rel="stylesheet" href="../../css/fhbase.css">
+    <link rel="stylesheet" href="../../css/fhwap.css">
+</head>
+<body>
+    <div class="layout" id="classifying">
+        <header class="fh-header">
+            <span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+            <i class="icon-search"></i>
+            <input type="text" placeholder="分红全球购 精彩无限" id="gotoSearch">
+
+        </header>
+        <h3>海外商品分类</h3>
+        <ul class="container classify layout" id="foreignClass"></ul>
+        <script type="text/html" id="foreignClass-tpl">
+            <%for(var i=0;i<result[1].length;i++){%>
+                <li>
+                    <a href="reclassify.html?pid=<%=result[1][i].gc_id%>&gc_area=<%=result[1][i].gc_area%>&gc_name=<%=result[1][i].gc_name%>&">
+                    <img src="<%=result[1][i].gc_img%>" alt="">
+                    <h4><%=result[1][i].gc_name%></h4>
+                    <!--<p class="over-hidden"><%=result[1][i].gc_keywords%></p>-->
+                    </a>
+                </li>
+                <%}%>
+        </script>
+        <h3>国内商品分类</h3>
+        <ul class="container classify layout" id="inlandClass"></ul>
+        <script type="text/html" id="inlandClass-tpl">
+            <%for(var i=0;i<result[0].length;i++){%>
+                <li>
+                    <a href="reclassify.html?pid=<%=result[0][i].gc_id%>&gc_name=<%=result[0][i].gc_name%>&gc_area=<%=result[0][i].gc_area%>&">
+                    	<img src="<%=result[0][i].gc_img%>" alt="">
+                                <h4><%=result[0][i].gc_name%></h4>
+                                <!--<p class="over-hidden"><%=result[0][i].gc_keywords%></p>-->
+                    </a>
+                </li>
+                <%}%>
+        </script>
+         <section class="empty h50"></section>
+			<section class="allBtmFooter">
+				<li>
+					<a data-href="../index/index.html">
+						<img src='../../images/index/footer1.png' />
+					</a>
+				</li>
+				<li>
+					<a data-href="../index/classifying.html">
+						<img src='../../images/index/footer2click.png' />
+					</a>
+				</li>
+				<li>
+					<a data-href="../activity/discover.html">
+						<img src='../../images/index/footer3.png' />
+					</a>
+				</li>
+				<li class="pr">
+					<a data-href="../shopping/shopping_cart_cn.html" class="shoppingurl">
+						<img src='../../images/index/footer4.png' />
+					</a>
+				</li>
+				<li>
+					<a data-href="../member/person.html">
+						<img src='../../images/index/footer5.png' />
+					</a>
+				</li>
+			</section>
+    </div>
+    <script  src="../../js/libs/jquery/jquery-1.8.3.min.js"></script>
+    <script  src="../../js/config.js"></script>
+    <script  src="../../js/plugins/fastclick.js"></script>
+    <script  src="../../js/common.js"></script>
+    <script  src="../../js/plugins/jquery.validate.js"></script>
+    <script  src="../../js/plugins/layer/layer.js"></script>
+    <script  src="../../js/plugins/template.js"></script>
+    <script  src="../../js/tmpl/index/classifying.js"></script>
+</body>
+
+
+</html>

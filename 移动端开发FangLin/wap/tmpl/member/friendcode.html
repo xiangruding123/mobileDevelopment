@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+	<meta charset="UTF-8">
+	<title>我的二维码</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta http-equiv="Cache-Control" content="no-cache">
+	<meta http-equiv="Pragma" content="no-cache">
+	<link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="../../css/fhbase.css">
+	<link rel="stylesheet" href="../../css/fhwap.css">
+</head>
+
+<body class="fh-bg-white">
+<div class="container layout" id="friendcode">
+	<div class="row">
+		<header class="fh-header none">
+			<span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+			<h1 class="header-title">我的二维码</h1>
+			<a class="header-edit" id="nav-show"></a>
+		</header>
+		<div id="code">
+
+			<h2 class="l150">我是<span class='meb_name font-pink'></span> <br />我在招募合伙人！</h2>
+
+			<p class="tl" style="text-indent:2em;">合伙人为您的一级代理人，邀请的合伙人每销售一件商品您可获得30%佣金.</p>
+			<img src="" class="eweicode"/>
+			<!--<ul class="clearfix">
+                <li class="openpic"><img src="../../images/wap/share5.png"/><br />保存到手机</li>
+                <li class="share"><img src="../../images/wap/share3.png"/><br />分享微信好友</li>
+                <li class="share"><img src="../../images/wap/share4.png"/><br />分享朋友圈</li>
+            </ul>-->
+			<p class="focus-font f14 share"><img src="../../images/weidian/shareicon.png" alt="" />分享我的二维码</p>
+		</div>
+	</div>
+	<div id="mask">
+		<img src="../../images/wap/cover.png" alt="" class="coverimg"/>
+	</div>
+</div>
+
+<script  src="../../js/libs/jquery/jquery-1.8.3.min.js"></script>
+<script  src="../../js/plugins/fastclick.js"></script>
+<script  src="../../js/config.js"></script>
+<script  src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script  src="../../js/common.js"></script>
+<script  src="../../js/fh.js"></script>
+<script>
+	$(function() {
+
+		equipmentCheck();
+
+		var call_url,mid,token,member_name;
+		if (native_flag == -1) {
+
+
+			if(unescape(getcookie('nickname'))=='null'||unescape(getcookie('nickname'))==''){
+				member_name = unescape(getcookie('member_name'));
+			}else{
+				member_name = unescape(getcookie('nickname'));
+			}
+			$('.meb_name').text(member_name);
+			$('.fh-header').removeClass('none');
+			call_url = WapSiteUrl+'/wap/tmpl/member/partner.html?mid='+FL.mid;
+			qrcode(FL.mid,call_url,FL.token,'wap');
+
+			$('.share').click(function(){
+				$('#mask').show();
+				setTimeout(function(){
+					$('#mask').click();
+				},5000)
+
+				var imgsrc=$('.eweicode').prop('src');
+
+				var mathNum = Math.floor(Math.random()*3);
+				if(mathNum==0){
+					wx_title='我是'+member_name+',成为我的合伙人，有钱一起赚！';
+					wx_desc = '【免费】分销享分红，人人都是网购创业家！一键分销坐拥全球好货，赚钱神器！';
+				}else if(mathNum==1){
+					wx_title='【钱，一起赚】既然遇见了，何不干一场！';
+					wx_desc = '我是'+member_name+'我不是招募你，我是在给你机会！0成本0风险，佣金厚，动动手指向钱看~';
+				}else{
+					wx_title='成为我的合伙人，有钱一起赚！';
+					wx_desc = '我是'+member_name+',我在招募合伙人！0成本0风险0门槛，一起分销全球尖货，动动手指就能赚钱啦~';
+				}
+				wx_link = WapSiteUrl+'/wap/tmpl/member/part_share.html?src='+imgsrc+'&mid='+FL.mid+'&member_name='+member_name;
+				wx_img = WapSiteUrl+"/wap/images/wap/code.jpg";
+
+				FL.wxShare(wx_title,wx_desc,wx_link,wx_img);
+
+
+			});
+
+			$('#mask').click(function(){
+				$(this).hide();
+			})
+
+
+
+
+
+		}else if(native_flag ==0){
+
+			mid = getcookie('mid');
+
+			token = getcookie('token');
+
+
+			if(unescape(getcookie('nickname'))=='undefined'){
+				member_name = unescape(getcookie('member_name'));
+			}else{
+				member_name = unescape(getcookie('nickname'));
+			}
+
+
+
+			$('.meb_name').text(member_name);
+
+			call_url = WapSiteUrl+'/wap/tmpl/member/partner.html?mid='+mid;
+			qrcode(mid,call_url,token,'wap');
+			$('.openpic').click(function(){
+				var url = $('.eweicode').prop('src');
+				FHMall.OpenPicture(url);
+			});
+
+
+			$('.share').click(function(){
+				var src=$('.eweicode').prop('src');
+
+				var mathNum = Math.floor(Math.random()*3);
+				if(mathNum==0){
+					wx_title='我是'+member_name+',成为我的合伙人，有钱一起赚！';
+					wx_desc = '【免费】分销享分红，人人都是网购创业家！一键分销坐拥全球好货，赚钱神器！';
+				}else if(mathNum==1){
+					wx_title='【钱，一起赚】既然遇见了，何不干一场！';
+					wx_desc = '我是'+member_name+'我不是招募你，我是在给你机会！0成本0风险，佣金厚，动动手指向钱看~';
+				}else{
+					wx_title='成为我的合伙人，有钱一起赚！';
+					wx_desc = '我是'+member_name+',我在招募合伙人！0成本0风险0门槛，一起分销全球尖货，动动手指就能赚钱啦~';
+				}
+
+				shareByApp(wx_title,wx_desc,WapSiteUrl+"/wap/images/wap/code.jpg",WapSiteUrl+'/wap/tmpl/member/part_share.html?src='+src+'&mid='+mid+'&member_name='+member_name);
+				function shareByApp(title,content,imgs,url) {
+					var sharejson = {
+						"title": title,
+						"content": content,
+						"imgs": imgs,
+						"url": url
+					};
+					FHMall.shareByApp(JSON.stringify(sharejson), function(data) {
+						output.innerText = "msg:" + data;
+
+					});
+				}
+
+			});
+		}else if(native_flag ==1){
+
+			mid = getcookie('mid');
+
+			token = getcookie('token');
+
+			if(unescape(getcookie('nickname'))=='null'||unescape(getcookie('nickname'))=='undefined'){
+				member_name = getcookie('member_name');
+			}else{
+				member_name = unescape(getcookie('nickname'));
+			}
+
+			$('.meb_name').text(unescape(member_name));
+
+			call_url = WapSiteUrl+'/wap/tmpl/member/partner.html?mid='+mid;
+
+			qrcode(mid,call_url,token,'wap');
+
+			function openPicture (url) {
+				var data = {
+					"func" : "openpicture",
+					"params" : {
+
+						"savepic" :url
+					}
+				};
+				_bridge.send(data);
+
+			}
+			$('.openpic').click(function(){
+
+				var src=$('.eweicode').prop('src');
+
+				openPicture (src);
+
+			});
+			$('.share').click(function(){
+
+				var src=$('.eweicode').prop('src');
+				member_name =unescape(member_name);
+				var mn = encodeURI(member_name);
+				src = encodeURI(src);
+				var mathNum = Math.floor(Math.random()*3);
+				if(mathNum==0){
+					wx_title='我是'+member_name+',成为我的合伙人，有钱一起赚！';
+					wx_desc = '【免费】分销享分红，人人都是网购创业家！一键分销坐拥全球好货，赚钱神器！';
+				}else if(mathNum==1){
+					wx_title='【钱，一起赚】既然遇见了，何不干一场！';
+					wx_desc = '我是'+member_name+'我不是招募你，我是在给你机会！0成本0风险，佣金厚，动动手指向钱看~';
+				}else{
+					wx_title='成为我的合伙人，有钱一起赚！';
+					wx_desc = '我是'+member_name+',我在招募合伙人！0成本0风险0门槛，一起分销全球尖货，动动手指就能赚钱啦~';
+				}
+				ishareByApp(wx_title,wx_desc,WapSiteUrl+"/wap/images/wap/code.jpg",WapSiteUrl+"/wap/tmpl/member/part_share.html?member_name="+mn+"&src="+src);
+
+			});
+
+			/* 分享 */
+			function ishareByApp(title,content,imgs,iosurl) {
+				var data = {
+					"func" : "share",
+					"params" : {
+						"title" : title,
+						"content" : content,
+						"imgs" : imgs,
+						"url" : iosurl
+					}
+				};
+				_bridge.send(data, function(responseData) {
+					output.innerText = "msg:" + JSON.stringify(responseData);
+				});
+			}
+
+		}
+
+
+		function qrcode(mid,call_url,token,flag){
+			$.ajax({
+				type: "get",
+				url: WapSiteUrl + "/api/index.php?act=common_index&op=get_qrcode",
+				data: {
+					call_url:call_url,
+					token: token,
+					member_id:mid,
+					flag: flag
+				},
+				dataType: 'json',
+				success: function(data) {
+					if(data.error==='0'){
+						var imgcode = data.result+"?"+Math.random();
+						$('.eweicode').prop('src',imgcode);
+					}
+				},error:function(e){
+
+				}
+			});
+		}
+
+
+	})
+</script>
+
+</body>
+
+</html>

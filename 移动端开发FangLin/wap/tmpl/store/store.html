@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>店铺首页</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta http-equiv="Cache-Control" content="no-cache">
+        <meta http-equiv="Pragma" content="no-cache">
+		<link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" href="../../css/animate.css">
+		<link rel="stylesheet" href="../../css/fhbase.css">
+		<link rel="stylesheet" href="../../css/fhwap.css">
+		<link rel="stylesheet" href="../../js/plugins/swiper/swiper.css">
+	</head>
+
+	<body>
+		<!--原店铺首页-->
+		<div class="container layout" id="shop_index">
+			<div class="row" id="search_goods_list">
+				 <header class="fh-header">
+					<span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+					<i class="icon-search"></i>
+					<input type="text" placeholder="分红全球购 精彩无限" id="goods_search" />
+					<a class="header-edit" id="nav-show"></a>
+				 </header>
+				<!--首页店铺头部-->
+                <section class='head' id="store_head">
+                     <!--<img src="" id="store_logo" class="pull-left">
+                     <h2 id="store_name"></h2>-->
+                     <button class="collect" id="col_shop">+收藏</button>
+                </section>
+                <!--上方tab-->
+				<ul class="shop_list clearfix fh-bg-white">
+                    <li type="index" class='active'><img src="../../images/wap/shouye_red.png" class="tab-icon"/><br>首页</li>
+                    <li type="all"><p id="goods_num" class="f12">0</p><p>全部商品</p></li>
+                    <li type="new"><p id="new_goods_num" class="f12">0</p><p>上新</p></li>
+                </ul>
+                <!--全部商品tab-->
+                <ul class="st-nav" id="store_tab" style="display: none;">
+	                <li num="3"><a href="#" class="focus-font">综合</a></li>
+	                <li num="1"><a href="#">销量</a></li>
+	                <li num="2"><a href="#">价格<i class='icon-sort-up'></i></a></li>
+	                <li num="4"><a href="#">人气</a></li>
+	            </ul>
+                <div class="empty"></div>
+                <!--首页中间banner-->
+                <div class="swiper-container">
+                	<div class="swiper-wrapper" id="store_banner" >
+                		
+                	</div>
+                	<div class="swiper-pagination"></div>
+                </div>
+				 <script id="storeBanner" type="text/html">
+					<%for(var i=0;i<store_slide_all.length;i++){%>
+						<div class="swiper-slide">
+							<a href="<%=store_slide_all[i].url%>">
+								<img src="<%=store_slide_all[i].img%>" />
+							</a>
+						</div>
+					<%}%>
+				</script>
+				<!--下方商品列表-->
+				<div id="store_goods" class="min-scroller">
+					<ul class="store-list clearfix bg-body" id="goods_list">
+					</ul>
+					<div class="pullUp"></div>
+					<div class="empty h50" style="z-index:0 !important;"></div>
+				</div>
+				<script id="storeGoods" type="text/html">
+						<%for(var i=0;i<result.length;i++){%>
+							<li class="store-goods">
+		                        <a href="../shopping/goods_details.html?goods_id=<%=result[i].goods_id%>" class="pr dis-b">
+		                        	<%if(result[i].goods_source>0){%>
+										<img src="../../images/wap/global-icon.png" class="global-icon" />
+									<%}%>
+		                        	<img src="../../images/wap/guanggao-1.jpg" data-original="<%=FormatImg(result[i].goods_image)%>" class=""/>
+									<%if(result[i].goods_state==0){%>
+										<img src="../../images/wap/widthdown.png" class="side-tip"/>
+									<%}else if(result[i].sale_stop==1){%>
+										<!--<img src="../../images/wap/stop.png" class="side-tip" />-->
+									<%}else if(result[i].is_presell==1){%>
+										<img src="../../images/wap/presell.png" class="side-tip"/>
+									<%}else if(result[i].goods_storage==0){%>
+										<img src="../../images/wap/soldout.png" class="side-tip"/>
+									<%}%>
+									<p class="pl10"><img src="<%=result[i].nation_flag%>" class="flag"/><span class="focus-font">【<%=result[i].goods_promise%>】</span></p>
+
+		                            <span class="st-goods">
+		                            	<p><%=result[i].goods_name%></p>
+		                           	
+									<!--	<%if(result[i].goods_source>0){%>
+											<img class="origin" src="../../images/wap/direct.png"  />
+										<%}else if(result[i].is_own_shop==1){%>
+											<img class="origin" src="../../images/wap/self.png"  />
+										<%}%>-->
+		                            </span>
+		                        </a>
+		                        <p class="pl10 pb10" >
+		                        	<span class="fh-price f12">￥</span><span class="fh-price"><%=parseFloat(result[i].goods_price)%>
+		                        	</span>
+		                        	<del class="ml10">￥<%=parseFloat(result[i].goods_marketprice)%></del>
+		                        	
+		                        </p>
+		                    </li> 
+						<%}%>
+				</script>
+				
+				<script id="newGoods" type="text/html">
+						<%for(var i=0;i<result.length;i++){%>
+							<div class="st-module">
+								<%if(result[i].goods_list){%>
+								<div class="st-time"><%=result[i].time%></div>								
+								<%for(var j=0;j<result[i].goods_list.length;j++){%>
+									<li class="store-goods">
+				                        <a href="../shopping/goods_details.html?goods_id=<%=result[i].goods_list[j].goods_id%>" class="pr dis-b">
+					                        <%if(result[i].goods_list[j].goods_source>0){%>
+												<img src="../../images/wap/global-icon.png" class="global-icon" />
+											<%}%>
+					                        <img src="../../images/wap/guanggao-1.jpg" data-original="<%=FormatImg(result[i].goods_list[j].goods_image)%>" class=""/>
+				                           <%if(result[i].goods_list[j].goods_state==0){%>
+												<img src="../../images/wap/widthdown.png" class="side-tip"/>
+											<%}else if(result[i].goods_list[j].sale_stop==1){%>
+												<img src="../../images/wap/stop.png" class="side-tip" />
+											<%}else if(result[i].goods_list[j].is_presell==1){%>
+												<img src="../../images/wap/presell.png" class="side-tip"/>
+											<%}else if(result[i].goods_list[j].goods_storage==0){%>
+												<img src="../../images/wap/soldout.png" class="side-tip"/>
+											<%}%>
+				                           <span class="st-goods">
+				                            	<img src="<%=result[i].goods_list[j].nation_flag%>" class="flag"/>
+												<span class="focus-font">【<%=result[i].goods_list[j].goods_promise%>】</span>
+				                            	<%=result[i].goods_list[j].goods_name%>
+				                            	
+											<!--	<%if(result[i].goods_list[j].goods_source>0){%>
+													<img class="origin" src="../../images/wap/direct.png"  />
+												<%}else if(result[i].goods_list[j].is_own_shop==1){%>
+													<img class="origin" src="../../images/wap/self.png"  />
+												<%}%>-->
+				                            </span>
+				                        </a>
+				                        <p class="pl10">
+				                        	<span class="fh-price f12">￥</span><span class="fh-price"><%=parseFloat(result[i].goods_list[j].goods_promotion_price)%>
+				                        	</span>
+				                        	<del class="ml10">￥<%=parseFloat(result[i].goods_list[j].goods_marketprice)%></del>
+				                        </p>
+				                    </li> 
+			                    <%}%>
+			                 <%}%>
+		                    </div>
+						<%}%>
+				</script>
+		        <!--商品分类-->
+		        <!--商品分类列表-->
+        		<ul class="drc-dialog animated fadeInUp" id="store_class" style="display: none;">
+        			<script id="storeClass" type="text/html">
+	        			<%for(var i in result){%>
+	    					<li class="tab" stc_id="<%=result[i].stc_id%>"><%=result[i].stc_name%></li>
+	    				<%}%>
+    				</script>
+    			</ul>
+                <!--footer-->
+	        	<section class="drc-footer">
+	        		<span class="drc-tab pull-left" id="goods_class"><img src="../../images/wap/fenlei.png">商品分类</span>
+	        		<a href="../shopping/shopping_cart_cn.html" class="pr" id="cart"><span class="drc-tab pull-left" id="shopping_cart"><img src="../../images/wap/gouwuche-black.png">购物车</span></a>
+	        		<!--<a href="../order/order_all.html"><span class="drc-tab pull-right"><img src="../../images/wap/my-order-black.svg" class="p-img1"/>我的订单</span></a>-->
+	        	    <a class='store_baidusales'><span class="drc-tab pull-right"><img src="../../images/wap/service.png" alt=""/>联系卖家</span></a>
+
+	        	</section>
+           
+            </div>
+        </div>
+    <script  src="../../js/libs/jquery/jquery-1.8.3.min.js"></script>
+    <script  src="../../js/plugins/jquery.lazyload.js"></script>
+    <script  src="../../js/plugins/fastclick.js"></script>
+    <script  src="../../js/plugins/layer/layer.js"></script>
+    <script  src="../../js/plugins/template.js"></script>
+    <script  src="../../js/plugins/swiper/swiper.js"></script>
+    <script  src="../../js/plugins/iscroll.js"></script>
+    <script  src="../../js/plugins/fhScroll.js"></script>
+    <script  src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script  src="../../js/config.js"></script>
+    <script  src="../../js/common.js"></script>
+    <script  src="../../src/js/tmpl/store/store_index.js"></script>
+    <script>
+    	Goods.Store.onLoad();
+    </script>
+
+   
+</body> 
+
+</html>

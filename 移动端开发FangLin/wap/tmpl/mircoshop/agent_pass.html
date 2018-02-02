@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <title>资料填写</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+   <meta name="apple-mobile-web-app-status-bar-style" content="black">
+   	<meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/buttons.css">
+    <link rel="stylesheet" href="../../src/css/fhbase.css">
+    <link rel="stylesheet" href="../../css/fhwap.css">
+    <link rel="stylesheet" href="../../css/animate.css">
+	<link rel="stylesheet" href="../../src/css/agent.css">
+</head>
+
+<body class="fh-bg-white">
+    <div class="container layout" id="apply-success">
+        <div class="row">
+            <header class="fh-header border-b">
+                <span class="goback icon-angle-left" onclick="javascript:location.href='daili.html';"></span>
+                <h1 class="header-title ml30">资料填写<!--<span class=" fr mr10"><a  id="shopindex">取消</a></span>--></h1>
+            </header>
+	        <section class="f14 bg-body">
+
+	            <div class=" tc pt40">
+	            	<img src="../../images/wap/duihao.png" height='50px' width='50px'/>
+					<p class='mt20'>资料提交成功，客服将在48小时内联系您！</p>
+
+	            </div>
+				<p class="ml170 mt20 fontw">真实姓名：<span id="realname"></span></p>
+				<p class="ml170 mt10 fontw">联系方式：<span id="tel"></span></p>
+	            <div class="plr10 bg-body mt40">
+	                <a class="button button-block button3 button-caution" id="sendGoods" >随便逛逛</a>
+	            </div>
+	        </section>
+        </div>
+    </div>
+    <script  src="../../js/libs/jquery/jquery-1.11.3.min.js"></script>
+    <script  src="../../js/plugins/fastclick.js"></script>
+    <script  src="../../js/plugins/layer/layer.js"></script>
+    <script  src="../../js/plugins/template.js"></script>
+    <script  src="../../js/config.js"></script>
+    <script  src="../../js/fh.js"></script>
+    <script  src="../../js/common.js"></script>
+    <script>
+	 $(function() {
+            // 页面初始化
+         var repetition ='repetition';
+        addcookie("repetition",repetition);
+		var realname = GetQueryString('realname');
+		var tel      = GetQueryString('tel');
+		$("#realname").html(realname);
+		$("#tel").html(tel);
+
+
+
+
+         $('#sendGoods').bind('click',function(){
+
+             if(native_flag=='0'){
+                 FHMall.gotoHome(0);
+             }else if(native_flag=='1'){
+                 gotoAppHome(0);
+             }else{
+                 location.href = '../index/index.html';
+             }
+         })
+
+
+
+         $('#shopindex').bind('click',function(){
+
+             if(native_flag=='0'){
+                 FHMall.gotoHome(0);
+             }else if(native_flag=='1'){
+                 gotoAppHome(0);
+             }else{
+                 location.href = '../index/index.html';
+             }
+         })
+
+
+     });
+
+
+
+
+	</script>
+</body>
+
+</html>

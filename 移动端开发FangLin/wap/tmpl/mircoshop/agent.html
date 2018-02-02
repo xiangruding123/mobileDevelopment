@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>资料填写</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+    <link rel="stylesheet" href="../../src/css/mirco.css" />
+    <link rel="stylesheet" href="../../src/css/agent.css">
+    <style>
+        .toast{
+            top:150px;
+        }
+    </style>
+</head>
+
+<body class="fh-bg-white">
+<div class="page-group fh-bg-white">
+    <!-- 单个page ,第一个.page默认被展示-->
+    <div class="page fh-bg-white">
+        <!-- 标题栏 -->
+        <header class="bar fh-bg-white">
+            <span class="icon icon-left pull-left" onclick="javascript:history.back();"></span>
+            <h1 class="title">资料填写<!--<span class=" fr mr10"><a href='http://www.fenhongshop.com/wap/tmpl/index/index.html'>取消</a></span>--></h1>
+        </header>
+        <!-- 这里是页面内容区 -->
+
+        <div class="content">
+
+
+                <div id="tab1" class="tab active mt22">
+
+                    <form id="test_form" class="form">
+                        <div class="list-block m0">
+                            <ul>
+                                <li>
+                                    <div class="item-content">
+                                        <div class="item-media"><i class="icon icon-form-name"></i></div>
+                                        <div class="item-inner">
+                                            <div class="item-title label"><span class="fh-red">*</span>真实姓名</div>
+                                            <div class="item-input">
+                                                <input type="text" data-validation="required"  placeholder="请输入您的姓名" id="realname" maxlength="32"/>
+                                            </div>
+                                            <span id='namespan' onclick="namespan()" class="fr"></span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="item-content">
+                                        <div class="item-media"><i class="icon icon-form-name"></i></div>
+                                        <div class="item-inner">
+                                            <div class="item-title label"><span class="fh-red">*</span>联系方式</div>
+                                            <div class="item-input">
+                                                <input type="text" placeholder="请输入您的联系方式" id="tel"/>
+                                            </div>
+                                            <span id='telspan' onclick="telspan()" class="fr"></span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="item-content">
+                                        <div class="item-media"><i class="icon icon-form-name"></i></div>
+                                        <div class="item-inner">
+                                            <div class="item-title label"><span class="fh-red">*</span>申请地址</div>
+                                            <div class="item-input">
+                                                <input type="text" class='city-picker' data-validation="required"  placeholder="未设置" id="area_info"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+
+                            </ul>
+                        </div>
+                        <!--<p class="content-block">
+                            <span class="button button-fill button-danger button-big button3">提交</span>
+
+                        </p>-->
+                        <div class="content-padded">
+                            <p><span href="#" class="button button-fill button-danger button-big button3" id="button" >提交</span></p>
+                        </div>
+                    </form>
+                    <!--<div class="fh-dialog" id="nosiupRealname">
+                        <div class="fh-dialog-wrap">
+                            <div class="tc" >
+                                <img src="../../images/wap/login/fh-dialog-img.png" alt="" class="fh-dialog-img"/></div>
+                            <div class="fh-dialog-body">
+                                <p class="fh-dialog-brief">真实姓名输入有误，请重新输入</p>
+                            </div>
+                            <div class="fh-dialog-footer">
+                                <button class="fh-dialog-button focus-font" id="siupleftname" onclick="close_one()">确认</button>
+                            </div>
+                        </div>
+                    </div>-->
+                    <!--<div class="fh-dialog" id="nosiupDialog">
+                        <div class="fh-dialog-wrap">
+                            <div class="tc" >
+                                <img src="../../images/wap/login/fh-dialog-img.png" alt="" class="fh-dialog-img"/></div>
+                            <div class="fh-dialog-body">
+                                <p class="fh-dialog-brief">手机号码格式不正确，请重新输入</p>
+                            </div>
+                            <div class="fh-dialog-footer">
+                                <button class="fh-dialog-button focus-font" id="siupleftbtn" onclick="close_div()">确认</button>
+                            </div>
+                        </div>
+                    </div>-->
+                </div>
+
+            </div>
+
+
+    </div>
+
+</div>
+
+<script src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+<script>
+    $.config = {
+        router: false
+    }
+</script>
+<script src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+<script src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+<script src="//g.alicdn.com/msui/sm/0.6.2/js/sm-city-picker.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="../../js/plugins/layer/layer.js"></script>
+<script src="../../js/fh.js" charset="utf-8"></script>
+<script src="../../js/config.js" charset="utf-8"></script>
+<script src="../../js/apiLink.js" charset="utf-8"></script>
+<script type="text/javascript" src='../../js/common.js'></script>
+<script type="text/javascript" src='../../src/js/tmpl/mircoshop/agent.js'></script>
+
+</body>
+
+</html>

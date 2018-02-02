@@ -1,0 +1,1 @@
+$(function(){function e(e){var t=template.render("reclassify-tpl",e);$("#reclassify_list").html(t)}var t=GetQueryString("pid"),r=GetQueryString("gc_name"),i=GetQueryString("gc_area");$(".header-title").text(r),document.title=r,FL.goodsClass(t,i,{success:e})});

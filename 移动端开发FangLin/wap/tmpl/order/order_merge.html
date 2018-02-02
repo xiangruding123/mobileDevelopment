@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <title>合并订单</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+   	<meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../js/plugins/swiper/swiper.css" />
+    <link rel="stylesheet" href="../../css/animate.css">
+   	<link rel="stylesheet" href="../../js/plugins/layer/skin/layer.css">
+    <link rel="stylesheet" href="../../css/buttons.css" />
+    <link rel="stylesheet" href="../../css/fhbase.css">
+    <link rel="stylesheet" href="../../css/fhwap.css">
+</head>
+
+<body>
+    <div class="container layout" id="order-details">
+        <div class="row">
+            <header class="fh-header">
+                <span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+                <h1 class="header-title">合并订单</h1>
+                <a class="header-edit" id="nav-show"></a>
+            </header>
+            <!--取消订单start-->
+				<div id="mask"></div>
+				<div id="maskbox" style='background:#fff;'>
+					<h2>取消订单</h2>
+					<p>我不想买了</p>
+					<p>信息填写错误，重新拍</p>
+					<p>付款遇到困难</p>
+					<p>重复下单</p>
+					<p>其他原因</p>
+				</div>
+				<!--取消订单end-->
+            <section class="order-adr">
+            	<!--没有收货地址-->
+            	<div class="address-bg"></div>
+            	<section id="myAddress"></section>
+            	<script type="text/html" id="my_address">
+
+		                	<div class="adr-body">
+				                <div class="adr-msg">
+				                    <div class="f14">
+				                        <img src="../../images/wap/name.png" class="adr-icon"><span class="mr40"><%=reciver_name%></span>
+				                        <img src="../../images/wap/phone.png" class="adr-icon w10"><span><%=mob_phone%></span>
+				                    </div>
+				                    <div class="msg-details"><%=area%> <%=street%></div>
+				                </div>
+
+				            </div>
+
+            	</script>
+                <div class="address-bg"></div>
+                <!-- 选择收货地址-->
+            </section>
+            <section class="empty"></section>
+            <section id="goods-list"></section>
+            <!--购买的商品信息-->
+             <script id="goods_details" type="text/html">
+	            <%for(var i in result){%>
+	            	<section class="store_goods">
+			            <section class="store-title">
+
+				            	<div class="order-transport f16">
+				            		<img src="../../images/wap/dianpu.png" class="store-img"/>
+					                <a href="../store/store_index.html?store_id=<%=result[i].store_id%>"><span class="shop-title"><%=result[i].store_name%></span></a>
+					                <span class='pull-right font-pink cancleOrder' order_id = '<%=result[i].order_id%>'>取消订单</span>
+				                </div>
+
+			            </section>
+			            <%for(var j=0;j<result[i].extend_order_goods.length;j++){%>
+			            	<%if(result[i].extend_order_goods[j].bundling){%>
+			            	<section class="container">
+			            		<a href="../shopping/goods_details.html?goods_id=<%=result[i].extend_order_goods[j].goods_id%>">
+			                <div class="pull-left" id="imglist_tao">
+			                	 <%for(var w=0;w<result[i].extend_order_goods[j].bundling.bl_list.length;w++){%>
+			                     <img class="img-size" src="<%=result[i].extend_order_goods[j].bundling.bl_list[w].goods_image%>">
+			                     <%}%>
+			                     <i class="icon-angle-right icontao"></i>
+			                </div>
+				                    <div class="module-top">
+				                       <%=result[i].extend_order_goods[j].bundling.bl_name%>
+				                    </div>
+			                    <div class="font-pink">
+			                    	<%if(result[i].extend_order_goods[j].bundling.bl_list[0].bl_state=="1"){%>
+			                    	<img src="../../images/wap/suit.svg" class="mb5 w40">
+			                    	<%}else{%>
+			                    		<%if(result[i].order_state=="10"){%>
+			                    			<img src="../../images/wap/unsuit.svg" class="mb5 w40">
+									    <%}%>
+									<%}%>
+
+			                    	<span class="goods-price">￥<%=result[i].extend_order_goods[j].bundling.bl_price%></span>
+
+
+			                    	 <span class="module-num">X<%=result[i].extend_order_goods[j].bundling.bl_num%></span>
+			                    </div>
+			                    </a>
+			            </section>
+
+
+			            	<%}else{%>
+			            <section class="container" hs_rate="<%=result[i].extend_order_goods[j].hs_rate%>">
+			            	<a href="../shopping/goods_details.html?goods_id=<%=result[i].extend_order_goods[j].goods_id%>">
+			                <div class="pull-left">
+			                    <img class="img-size" src="<%=result[i].extend_order_goods[j].goods_image%>">
+			                </div>
+			                <div class="module-body">
+				                    <div class="module-top">
+				                       <%=result[i].extend_order_goods[j].goods_name%>
+				                    </div>
+			                    <div class="mt20">
+			                    	<%if(result[i].extend_order_goods[j].goods_type==4){%>
+			                    		<img src="../../images/wap/suit.svg" class="mb5 w40">
+			                    	<%}else if(result[i].extend_order_goods[j].goods_type==5){%>
+			                    		 <img src="../../images/wap/gift.png" class="mb5 w20">
+			                    	<%}else if(result[i].extend_order_goods[j].goods_type==2){%>
+			                    		团购商品
+			                    	<%}else if(result[i].extend_order_goods[j].goods_type==3){%>
+			                    	        <img src="../../images/wap/detail/xian.png" class="mb5 w20">
+			                    	 <%}%>
+			                    	 	<%if(result[i].xianshi){%>
+			                    	 		<span class="ml10 font-pink">
+			                    	 		<%=result[i].xianshi.lower_limit%>件起
+			                    	 		</span>
+			                    	 	<%}%>
+			                    	<span class="goods-price">￥<%=result[i].extend_order_goods[j].goods_price%></span>
+			                    	<span class="module-num">X<%=result[i].extend_order_goods[j].goods_num%></span>
+			                    </div>
+			                </div>
+			                </a>
+			            </section>
+
+			            <%}%>
+			            <%}%>
+			            <section class='pt5 pb5 pl10 pr10'>订单号  ：<%=result[i].order_sn%><span class="pull-right">运费：<span class="express_price"><%=result[i].shipping_fee%></span></span></section>
+			            <section class='pt5 pb5 pl10 pr10'>实付  ：￥<span class="real_amount_price"><%=result[i].real_amount%></span><span class="pull-right timestamp"><%=result[i].add_time%></span></section>
+			            <section class="empty"></section>
+			             <div class="line-lump">
+
+                         <span class="pull-left" style="color:#949494;">优惠券抵扣:</span>
+
+                         <span>-￥<span class="fh-black"><%if(result[i].coupon_amount){%><%=result[i].coupon_amount%><%}else{%>0.00<%}%></span></span>
+
+	                     </div>
+			             <div class="line-lump">
+
+                         <span class="pull-left" style="color:#949494;">余额抵扣:</span>
+
+                         <span>-￥<span class="fh-black"><%if(result[i].pd_amount){%><%=result[i].pd_amount%><%}else{%>0.00<%}%></span></span>
+
+	                     </div>
+			             <div class="line-lump">
+
+                         <span class="pull-left" style="color:#949494;">店铺优惠:</span>
+
+                         <span>-￥<span class="fh-black">
+                         	  <%if(result[i].mansong){%>
+                         		<%=(result[i].mansong.minus_amount).toFixed(2)%>
+                         	  <%}else{%>
+                         	  	0.00
+                         		 <%}%>
+                        </span></span>
+
+	                     </div>
+	                     <div class="kefu"><a href="http://wpa.b.qq.com/cgi/wpa.php?ln=1&key=XzkzODAwNDY0MV8zMzI5NDJfNDAwNjg4ODUwNl8yXw"><img src="../../images/wap/kefu.svg" alt="" class="w20"/>平台客服</a><span>|</span><%if(result[i].store_baidusales){%><a href="../shopping/store_baidusales.html?store_baidusales=<%=result[i].store_baidusales%>">
+							<%}else{%><a class="baidustore"><%}%><img src="../../images/wap/lianxi.svg" class="w20"/>联系卖家</a></div>
+
+	                     <section class="empty"></section>
+
+		            </section>
+
+
+	            <%}%>
+
+            <div>
+            	<div style="background: #fa2855;color: #fff;padding:5px 10px;">结算 <span  id="total_num" class="order-num pull-right fh-white"><%=result[0].all_goods_num%> 件</span></div>
+                <div class="line-lump">
+                    <span>商品总额:</span>
+                    <span id="real_price" class="fh-black">￥<%=result[0].all_goods_amount%></span>
+                </div>
+                <div class="line-lump">
+                    <span>快递运费:</span>
+                    <p class="hint">亲，包邮哦<i class="triangle"></i></p>
+                    <span id="express_price" class="fh-black">￥<%=result[0].all_goods_shipping_fee.toFixed(2)%></span>
+                </div>
+                <%if(result[0].micro_shoper_save_desc&&result[0].micro_shoper_save_money>0){%>
+                  <div class="line-lump">
+                      <span><%=result[0].micro_shoper_save_desc%>:</span>
+                      <span id="shoper_save" class="fh-black">-￥<%=result[0].micro_shoper_save_money%></span>
+                  </div>
+                <%}%>
+
+
+            </div>
+            </script>
+            <div id="goods_suit" class="animated slideInRight"></div>
+	        <!--优惠套装弹出层-->
+	        <script id="goods_suit_tmpl" type="text/html">
+	        <header class="fh-header">
+                <span class="goback taogoback icon-angle-left"></span>
+                <h1 class="header-title">套装详情</h1>
+            </header>
+             <%for(var i in result){%>
+                    <%for(var j=0;j<result[i].extend_order_goods.length;j++){%>
+			            	<%if(result[i].extend_order_goods[j].bundling){%>
+			            		<%for(var k=0;k<result[i].extend_order_goods[j].bundling.bl_list.length;k++){%>
+					<div class="media fh-goods pad10">
+
+						<a href="../shopping/goods_details.html?goods_id=<%=result[i].extend_order_goods[j].bundling.bl_list[k].goods_id%>">
+						<div class="media-left pr">
+							<img class="media-img" src="<%=result[i].extend_order_goods[j].bundling.bl_list[k].goods_image%>" alt="..." style="width:80px;display: inline-block;">
+                        </div>
+						<div class="media-body">
+							<h4 class="media-heading overhide mb25 line-clamp3">
+								  <%=result[i].extend_order_goods[j].bundling.bl_list[k].goods_name%>
+	                                </h4>
+							<div class="pull-left">
+
+								<span class="fh-price">￥<%=result[i].extend_order_goods[j].bundling.bl_list[k].bl_goods_price%></span>
+
+							</div>
+							<span class="module-num pull-right">X<%=result[i].extend_order_goods[j].bundling.bl_num%></span>
+
+						</div>
+				        </a>
+				     </div>
+				  <%}%>
+				  <%}%>
+				  <%}%>
+				  <%}%>
+            </script>
+            <div class="fillDiv"></div>
+
+        </div>
+
+    	<div class="bottom-module">
+            <div id="accounts" class="bottom-right">
+                <p class="order-msg">
+
+                    <span>应付</span><span id="total_price" class="fh-price ml5">￥0.00</span>
+                </p>
+                <a class="btn-shopping" id="pay_money">立即付款</a>
+            </div>
+        </div>
+    </div>
+    <script  src="../../js/libs/jquery/jquery-1.11.3.min.js"></script>
+    <script  src="../../js/plugins/fastclick.js"></script>
+    <script  src="../../js/config.js"></script>
+    <script  src="../../js/common.js"></script>
+    <script  src="../../js/plugins/layer/layer.js"></script>
+    <script  src="../../js/plugins/swiper/swiper.js"></script>
+    <script  src="../../js/plugins/template.js"></script>
+    <script  src="../../js/tmpl/order/order_merge.js"></script>
+    <script>
+    	Goods.Confirmation.onLoad();
+    </script>
+</body>
+
+</html>

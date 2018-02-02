@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <title>过期的代金券</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+   <meta name="apple-mobile-web-app-status-bar-style" content="black">
+   	<meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+	
+    <link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+   	<link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/buttons.css">
+    <link rel="stylesheet" href="../../css/fhbase.css">
+    <link rel="stylesheet" href="../../css/fhwap.css">
+</head>
+
+<body class="fh-bg-white">
+    <div class="container layout" id="coupon">
+        <div class="row">
+            <header class="fh-header">
+                <span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+                <h1 class="header-title">过期的代金券</h1>
+            </header>
+            <section class="coupon-red">
+                <div class="mode mode-left">分红优惠券</div>
+                <h2>满100元减10元</h2>
+                <div class="mode mode-right">已经过期</div>
+                <h3>限领一张，限店铺使用</h3>
+                <p>2015.8.15-2015.8.30</p>
+            </section>
+            <section class="coupon-blue">
+                <div class="mode mode-left">分红优惠券</div>
+                <h2>满100元减10元</h2>
+                <div class="mode mode-right">已经过期</div>
+                <h3>限领一张，限店铺使用</h3>
+                <p>2015.8.15-2015.8.30</p>
+            </section>
+            <section id="my_conpon"></section>
+            <script type="text/html" id="conpon_tpl">
+                <section class="coupon-red">
+                    <div class="mode mode-left">分红优惠券</div>
+                    <h2>满100元减10元</h2>
+                    <div class="mode mode-right">已经过期</div>
+                    <h3>限领一张，限店铺使用</h3>
+                    <p>
+                        <%=voucher_start_date%>-
+                            <%=voucher_end_date%>
+                    </p>
+                </section>
+            </script>
+        </div>
+    </div>
+    <script  src="../../js/libs/zepto.min.js"></script>
+    <script  src="../../js/config.js"></script>
+    <script  src="../../js/plugins/fastclick.js"></script>
+    <script  src="../../js/common.js"></script>
+    <script  src="../../js/plugins/template.js"></script>
+    <script src="../../js/tmpl/member/my_coupon.js"></script>
+</body>
+
+</html>

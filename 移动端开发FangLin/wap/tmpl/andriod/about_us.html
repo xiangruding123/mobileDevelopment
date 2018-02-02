@@ -1,0 +1,161 @@
+<html lang="zh-cmn-Hans">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>关于我们</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta http-equiv="Cache-Control" content="no-cache">
+		<meta http-equiv="Pragma" content="no-cache">
+		<link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+		<link rel="stylesheet" href="../../css/fhbase.css">
+		<link rel="stylesheet" href="../../css/fhwap.css">
+	</head>
+
+	<body>
+		<div class="bg-body">
+			<div id="about_us">
+				<img src="../../images/wap/logo.png">
+				<h2 id="appname"></h2>
+				<p>版本号：<span id="vername"></span></p>
+			</div>
+			<div class="empty"></div>
+			<!--<div class="fh-link-bar">
+				<a href="" class="skip-link copyright">版权信息
+				<i class="icon-angle-right"></i></a>
+			</div>-->
+			<div class="fh-link-bar">
+				<a href="software_license.html" class="skip-link">软件使用许可协议
+					<i class="icon-angle-right"></i></a>
+			</div>
+			<div class="fh-link-bar">
+				<a href="declare.html" class="skip-link">说明
+					<i class="icon-angle-right"></i></a>
+			</div>
+			<div class="fh-link-bar" onclick="iosenableShareButton();">
+				<a class="skip-link">genghxi
+					<i class="icon-angle-right"></i></a>
+			</div>
+			
+			<div class="fh-link-bar ioshide appdown">
+				检查更新
+				<i class="icon-angle-right"></i>
+			</div>
+
+
+
+		</div>
+		<script src="../../js/libs/jquery/jquery-1.8.3.min.js"></script>
+		<script src="../../js/config.js"></script>
+		<script src="../../js/common.js"></script>
+		<script src="../../js/base64.js"></script>
+		<script src="../../js/fh.js"></script>
+		<script>
+			$(function() {
+				
+				function iosenableShareButton() {
+					var aJson = {
+						
+				
+					};
+					var shareJson = JSON.stringify(aJson);
+					shareJson = BASE64.encoder(shareJson);
+				
+					EECross.executeNative("enableShareButton", {
+						"shareJson": shareJson
+					}, null);
+				}
+
+				
+
+				if(native_flag == 0) {
+
+					$('.copyright').attr('href', 'copyright.html');
+					var appinfo;
+					var timing = setInterval(function() {
+						appinfo = JSON.parse(FHMall.getAppInfo());
+
+						$('#appname').text(appinfo.appname);
+						$('#vername').text(appinfo.vername);
+						if(appinfo) {
+							clearInterval(timing);
+						}
+						$('.appdown').click(function() {
+
+							appdown(appinfo.appname);
+						})
+
+					}, 100);
+
+					function appdown(app) {
+						$.ajax({
+							type: "get",
+							url: WapSiteUrl + "/api/index.php?act=common_app&op=get_newest_version",
+							dataType: 'json',
+							data: {
+								app: app,
+								flag: 'android'
+							},
+							success: function(data) {
+								if(data.error === '0') {
+
+									var res = data.result;
+
+									if(res.version_code > appinfo.vercode) {
+
+										var update_log = res.update_log,
+											version_name = res.version_name,
+											version_code = res.version_code,
+											app_url = res.app_url,
+											if_compulsory = res.if_compulsory;
+										setTimeout(function() {
+											showUpdate(update_log, version_name, version_code, app_url, if_compulsory);
+										}, 500);
+
+										function showUpdate(update_log, version_name, version_code, app_url, if_compulsory) {
+											var updatejson = {
+												"update_log": update_log,
+												"version_name": version_name,
+												"version_code": version_code,
+												"app_url": app_url,
+												"if_compulsory": if_compulsory
+											};
+											FHMall.showUpdate(JSON.stringify(updatejson));
+										}
+
+									} else {
+
+										FHMall.toast("当前已是最新版本");
+									}
+
+								} else {
+									FHMall.toast('当前已是最新版本');
+								}
+							},
+							error: function(data) {
+								FHMall.toast('系统错误,请稍后再试');
+							}
+						});
+					}
+
+				} else if(native_flag == 1) {
+					$('.copyright').attr('href', 'ioscopy.html');
+					$('.ioshide').hide();
+
+					/* 获取APP信息 */
+					EECross.executeNative("getAppInfo", null, function(data) {
+						$('#appname').text(JSON.parse(data).appname);
+						$('#vername').text(JSON.parse(data).vername);
+					});
+
+				}
+
+			});
+
+		</script>
+
+	</body>
+
+</html>

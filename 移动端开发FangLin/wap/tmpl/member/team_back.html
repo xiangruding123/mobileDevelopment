@@ -1,0 +1,170 @@
+<html lang="zh-cmn-Hans">
+
+<head>
+	<meta charset="UTF-8">
+	<title>我的粉丝</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta http-equiv="Cache-Control" content="no-cache">
+	<meta http-equiv="Pragma" content="no-cache">
+	<link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="../../src/css/fhbase.css">
+	<link rel="stylesheet" href="../../src/css/fhwap.css">
+	<!-- <link rel="stylesheet" href="../../js/plugins/layer/skin/layer.css"> -->
+	<link rel="stylesheet" href="../../css/animate.css">
+</head>
+
+<body>
+	<div class="container layout" id="team">
+		<div class="row">
+			<header class="fh-header">
+				<span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+				<h1 class="header-title">我的粉丝</h1>
+				<a class="header-edit" id="nav-show"></a>
+			</header>
+			<!-- <ul class="nav nav-pills fh-nav">
+				<li tabId="0" class="selected">全部粉丝</li>
+				<li tabId="1" class="one">一级粉丝</li>
+				<li tabId="2" class="two">二级粉丝</li>
+				<li tabId="3" class="th">三级粉丝</li>
+			</ul> -->
+			<div class="tableChange dis-b tc" id="team_all"></div>
+			<script type="text/html" id="teamAll">
+				<div class="teamtitle clearfix">
+					<div class="pull-left">全部粉丝人数：<br /><span class="number"><%=result.all%>人</span></div>
+					<%var allMoney = result.first_money+result.second_money%>
+						<div class="pull-right"><span class='verify mr40 f10 pull-right'>已认证:<%=result.verify_count%>人</span><br>奖金总收入：<span class="focus-font"><%=allMoney%></span> 元</div>
+				</div>
+				<!-- <section class="personNum">
+					<p>一级粉丝：<span style='color:#F59600'><%=result.first_count%> </span>人</p>
+					<p>二级粉丝：<span style="color:#0000FF">	<%=result.second_count%> </span>人</p>
+					<p>三级粉丝：<span style="color:#009900">	<%=result.third_count%> </span>人</p>
+				</section> -->
+				<div class="container layout">
+					<section class="fill f16">
+						<span class="pull-left">名称</span>
+						<span class="pull-left">注册时间</span>
+						<span class="pull-left">状态</span>
+						<span class="pull-left">奖金</span>
+					</section>
+					<%for(var i=0;i<result.team_list.length;i++){%>
+						<section class="fill">
+							<span class="pull-left"><%=result.team_list[i].member_name%></span>
+										<span class="pull-left pt0"><%=result.team_list[i].member_time%></span>
+											<%if(result.team_list[i].verify_status=='1'){%>
+												<span class="pull-left"><b class="verify">已认证</b></span>
+												<%}else{%>
+													<span class="pull-left">未认证</span>
+													<%}%>
+														<span class="pull-left"><span class="fh-price">￥<%=result.team_list[i].deduct_money%></span></span>
+						</section>
+						<%}%>
+				</div>
+			</script>
+			<div class="tableChange tc" id="team_b"></div>
+			<script type="text/html" id="teamB">
+				<div class="teamtitle">
+					<div class="pull-left">一级粉丝人数：<br /><span class="number"><%=result.first_count%>人</span></div>
+					<div class="pull-right"><span class='verify mr40 f10 pull-right'>已认证<%=result.verify_count%>人</span><br>奖金总收入：<span class="focus-font"><%=result.first_money%></span> 元</div>
+				</div>
+				<div class="container layout">
+					<section class="fill">
+						<span class="pull-left">名称</span>
+						<span class="pull-left">级别</span>
+						<span class="pull-left">状态</span>
+						<span class="pull-right">奖金</span>
+					</section>
+					<%for(var i=0;i<result.team_list.length;i++){%>
+						<section class="fill">
+							<span class="pull-left"><%=result.team_list[i].member_name%></span>
+
+							<span class="pull-left" style='color:#F59600'><%=result.team_list[i].deep%></span>
+
+											<%if(result.team_list[i].verify_status=='1'){%>
+												<span class="pull-left"><b class="verify">已认证</b></span>
+												<%}else{%>
+													<span class="pull-left">未认证</span>
+													<%}%>
+														<span class="pull-right"><span class="fh-price">￥<%=result.team_list[i].deduct_money%></span></span>
+						</section>
+						<%}%>
+				</div>
+			</script>
+
+			<div class="tableChange tc" id="team_c"></div>
+			<script type="text/html" id="teamC">
+				<div class="teamtitle">
+					<div class="pull-left">二级粉丝人数：<br /><span class="number"><%=result.second_count%>人</span></div>
+					<div class="pull-right"><span class='verify mr40 f10 pull-right'>已认证<%=result.verify_count%>人</span><br>奖金总收入：<span class="focus-font"><%=result.second_money%></span> 元</div>
+				</div>
+				<div class="container layout">
+					<section class="fill">
+						<span class="pull-left">名称</span>
+						<span class="pull-left">级别</span>
+						<span class="pull-left">状态</span>
+						<span class="pull-right">奖金</span>
+					</section>
+					<%for(var i=0;i<result.team_list.length;i++){%>
+						<section class="fill">
+							<span class="pull-left"><%=result.team_list[i].member_name%></span>
+
+									<span class="pull-left" style="color:#0000FF"><%=result.team_list[i].deep%></span>
+
+											<%if(result.team_list[i].verify_status=='1'){%>
+												<span class="pull-left"><b class="verify">已认证</b></span>
+												<%}else{%>
+													<span class="pull-left">未认证</span>
+													<%}%>
+														<span class="pull-right"><span class="fh-price">￥<%=result.team_list[i].deduct_money%></span></span>
+						</section>
+						<%}%>
+				</div>
+			</script>
+			<div class="tableChange tc" id="team_d"></div>
+			<script type="text/html" id="teamD">
+				<div class="teamtitle">
+					<div class="pull-left">三级粉丝人数：<br /><span class="number"><%=result.third_count%>人</span></div>
+					<div class="pull-right"><span class='verify mr40 f10 pull-right'>已认证<%=result.verify_count%>人</span><br>奖金总收入：<span class="focus-font"><%=result.third_money%></span> 元</div>
+				</div>
+				<div class="container layout">
+					<section class="fill">
+						<span class="pull-left">名称</span>
+						<span class="pull-left">级别</span>
+						<span class="pull-left">状态</span>
+						<span class="pull-right">奖金</span>
+					</section>
+					<%for(var i=0;i<result.team_list.length;i++){%>
+						<section class="fill">
+							<span class="pull-left"><%=result.team_list[i].member_name%></span>
+
+							<span class="pull-left" style="color:#009900"><%=result.team_list[i].deep%></span>
+
+							<%if(result.team_list[i].verify_status=='1'){%>
+								<span class="pull-left"><b class="verify">已认证</b></span>
+								<%}else{%>
+									<span class="pull-left ">未认证</span>
+									<%}%>
+										<span class="pull-right"><span class="fh-price">￥<%=result.team_list[i].deduct_money%></span></span>
+						</section>
+						<%}%>
+				</div>
+			</script>
+
+		</div>
+	</div>
+  <script type="text/javascript" src="../../js/libs/jquery/jquery-1.8.3.min.js"></script>
+	<script src="../../js/plugins/fastclick.js"></script>
+	<script src="../../js/plugins/layer/layer.js"></script>
+	<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+	<script src="../../js/config.js"></script>
+	<script src="../../js/common.js"></script>
+	<script src="../../js/plugins/template.js"></script>
+	<script src="../../src/js/tmpl/member/team.js"></script>
+	<script>
+		Member.Team.onLoad();
+	</script>
+</body>
+
+</html>

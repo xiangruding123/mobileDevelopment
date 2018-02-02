@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <title>我的收益</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+   	<meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+   	<link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../js/plugins/swiper/swiper.css" />
+    <link rel="stylesheet" href="../../css/animate.css">
+    <link rel="stylesheet" href="../../css/buttons.css">
+    <link rel="stylesheet" href="../../css/fhbase.css">
+    <link rel="stylesheet" href="../../src/css/fhwap.css">
+</head>
+
+<body>
+    <div class="container layout" id="commission">
+        <section class="row">
+            <header class="fh-header">
+                <span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+                <h1 class="header-title">我的收益</h1>
+                <a class="header-edit" id="nav-show"></a>
+            </header>
+            <!--头部-->
+            <section class="cos-bg1" style="height: 100px;background-color: #56bff8;">
+            	<p class="cos-p1">
+            		<span>可提现收入(元)</span>
+					<span class="cashBtn">立即提现</span>
+            	</p>
+            	<p class="cos-p2" id="acount">0.00</p>
+            </section>
+
+            <!--中间-->
+            <section class="cos-body">
+            	<div class="cos-div1">
+            		<p class="cos-p3">即将到帐(元)</p>
+            		<p class="f20" id="freeze">0.00</p>
+            	</div>
+            	<div class="cos-div2">
+            		<p class="cos-p3">累计收入(元)</p>
+            		<p class="f20 focus-font" id="available">0.00</p>
+            	</div>
+            	<!--<button class="button fh-btn btn" type="button" disabled="disabled">立即提现</button>-->
+            </section>
+            <section class="empty"></section>
+
+            <!--下方明细-->
+            <section id="lists">
+            	<!--<p class="cos-header">交易明细</p>-->
+            	<ul class="cos-ul1">
+            		<li tab="" class="focus-btn">全部</li>
+            		<li tab="60">即将到帐</li>
+            		<li tab="50">已结算</li>
+            		<li tab="70">已失效</li>
+            	</ul>
+            	<ul class="cos-ul2">
+            	<script id="commission_list" type="text/html">
+	            		<%for(var i=0;i<deduct_list.length;i++){%>
+		            		<li class="com-history">
+		            			<p class="cos-p5">
+				            		<span class="goodname"><%=deduct_list[i].goods_name%></span>
+				            		<span class="pull-right">￥<%=deduct_list[i].goods_price%></span>
+				            	</p>
+				            	<p class="cos-p5 tl">奖金：<span class="focus-font"><%=deduct_list[i].deduct_price%></span>
+				            		<span class="focus-font">× <%=deduct_list[i].goods_num%></span>
+				            		<span class="<%if(deduct_list[i].order_state_code==0){%>
+				            			commission-gray
+				            			<%}else if(deduct_list[i].order_state_code==50){%>
+				            		     commission-green
+				            		<%}else{%>
+				            			commission-blue
+				            		<%}%>"><%=deduct_list[i].order_state%></span>
+
+				            	</p>
+				            	<p class="cos-p6">
+				            		<span>创建:<%=deduct_list[i].order_date%></span>
+				            		<span class="pull-right"><%if(deduct_list[i].change_date){%>结算:<%}%><%=deduct_list[i].change_date%></span>
+
+				            	</p>
+		            		</li>
+	            		<%}%>
+            	</script>
+            	</ul>
+            </section>
+         <div class="empty h80"></div>
+         <footer><button class="active">我的收益</button><button>店铺收益</button></footer>
+       </section>
+    </div>
+	<div class="fh-dialog" id="noinfoDialog">
+		<div class="fh-dialog-wrap">
+			<div class="tc">
+				<img src="../../images/wap/login/fh-dialog-img.png" alt="" class="fh-dialog-img"/></div>
+			<div class="fh-dialog-body">
+				<p class="fh-dialog-brief">请登录分红全球购APP进行提现</p>
+			</div>
+			<div class="fh-dialog-footer">
+				<button class="fh-dialog-button" id="leftbtn">取消</button><button class="fh-dialog-button focus-font" id="rightbtn">下载APP</button>
+			</div>
+		</div>
+	</div>
+    <script type="text/javascript" src="../../js/libs/jquery/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="../../js/config.js"></script>
+    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script type="text/javascript" src="../../js/plugins/fastclick.js"></script>
+    <script type="text/javascript" src="../../js/common.js"></script>
+    <script type="text/javascript" src="../../js/plugins/swiper/swiper.js"></script>
+    <script type="text/javascript" src="../../js/plugins/template.js"></script>
+    <script type="text/javascript" src="../../src/js/tmpl/member/my_commission.js"></script>
+    <script>
+	    Member.Commission.onLoad();
+    </script>
+</body>
+
+</html>

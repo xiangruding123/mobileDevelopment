@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>分红红包大派送，快来抢吧</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta name = "format-detection" content = "telephone=no">
+    <link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/buttons.css">
+    <link rel="stylesheet" href="../../css/fhbase.css">
+    <link rel="stylesheet" href="../../src/css/fhwap.css">
+    <link rel="stylesheet" href="../../css/animate.css" />
+</head>
+<body class="bg_y">
+<div class="container layout" id="bag_success" style="display:none">
+    <section class="row bg_y">
+    	<header class="fh-header">
+	        <span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+	        <h1 class="header-title">邀请好友 立得红包 </h1>	       
+	    </header>
+    	<div class="tc f14 l200">
+	        <img src="../../images/wap/header_phone.png" alt="" class="phone"/>
+	        <p>接受“<span id="person">分红全球购</span>”的邀请，领取<span class="focus-font" id="bagMoney">168元</span>现金券
+	        	<br />到分红全球购买买买！</p>
+        </div>
+        <div class="tc">
+        <img src="../../images/red-packet/bagnew.png" alt="" class="bagnew"/>
+        </div>
+        <section class="content">
+            <input type="tel" placeholder="输入手机号" id="mobile" class="bagtel"/>
+            <button id='grab' class="mb30">马上领取</button>
+        </section>
+    </section>  
+</div>
+
+
+<!--红包展示页面-->
+<div class="container layout" id="ticketbag">
+    <section class="row tc">
+        <div class="tc pb30" id="bag_title">
+            <img src="../../images/red-packet/bagnew.png" alt="" class="bagnew"/>
+            <p>恭喜你领取<span class="f14 focus-font">168元</span>新人现金券</p>
+
+            <p class="mt5"> 已放入账户：<span id="phone"></span><span id="phonetxtchange">修改手机号</span></p>
+
+            <p class="mt5"> 请到“分红全球购app-我的-优惠券”查看</p>
+        </div>
+        <!--优惠券 -->
+        <div id="bag_content_box">
+
+        </div>
+        <script type="text/html" id="bag_content">
+            <%for(var i=0;i<coupons.length;i++){%>
+            <%if(coupons[i].use_limit&&coupons[i].use_limit!=0){%>
+            <div class="ticket clearfix mb10">
+                <div class="ticket_content clearfix ticket_bg_yellow">
+                    <div class="clearfix pb20">
+                        <div class="pull-left font-yellow tl" style="width: 90px;">
+                            <span class="f15">￥</span><span class="f40 l100"><%=coupons[i].coupon_price%></span>
+                        </div>
+                        <div class="pull-left titlebag pr">
+                            <span class="f16 pb10 l40"><%=coupons[i].coupon_name%></span>
+                        </div>
+                        <span class="coupon-num font-yellow">X<%=coupons[i].coupon_num%></span>
+                    </div>
+
+                </div>
+            </div>
+            <%}else{%>
+            <div class="ticket clearfix mb10">
+                <div class="ticket_content clearfix ticket_bg_red">
+                    <div class="clearfix pb20">
+                        <div class="pull-left font-pink tl" style="width: 90px;">
+                            <span class="f15">￥</span><span class="f40 l100"><%=coupons[i].coupon_price%></span>
+                        </div>
+                        <div class="pull-left titlebag pr">
+                            <span class="f16 pb10 l40"><%=coupons[i].coupon_name%></span>
+                        </div>
+                        <span class="coupon-num font-pink">X<%=coupons[i].coupon_num%></span>
+                    </div>
+                </div>
+            </div>
+            <%}%>
+            <%}%>
+        </script>
+
+        <a href="../store/store_index.html?store_id=325778" class="gotoindex"><button>立即使用</button></a>
+        <button id="sharebtn" class="mb50">继续邀请</button>
+        <img src="../../images/red-packet/tip.png" alt="" class="masksharetip"/>
+</div>
+    </section>
+    <script>
+        function addcookie(name, value, days) {
+
+            days = days || 0;
+
+            var expires = "";
+
+            if (days != 0) {
+
+                var date = new Date();
+
+                date.setTime(date.getTime() + (days * 24 * 3600 * 1000));
+
+                expires = "; expires=" + date.toGMTString();
+
+            }
+
+            document.cookie = name + "=" + escape(value) + expires + "; path=/";
+
+        }
+        addcookie("firstShow","no");
+    </script>
+    <script  src="../../js/libs/jquery/jquery-1.8.3.min.js"></script>
+    <script  src="../../js/config.js"></script>
+    <script  src="../../js/plugins/fastclick.js"></script>
+    <script  src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script  src="../../js/plugins/jquery.lazyload.js"></script>
+    <script  src="../../js/common.js"></script>
+    <script  src="../../js/plugins/layer/layer.js"></script>
+    <script  src="../../js/plugins/template.js"></script>
+    <script  src="../../src/js/tmpl/packet/bag_success.js"></script>
+    <script>
+        Packet.BagSuccess.onLoad();
+    </script>
+
+
+</body>
+</html>

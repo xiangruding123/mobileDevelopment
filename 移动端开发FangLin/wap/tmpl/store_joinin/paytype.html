@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <title>上传付款凭证</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="../../css/store_joinin.css">
+    <link rel="stylesheet" href="../../js/plugins/sweetalert/sweetalert.css">
+</head>
+<body>
+    <div class="container-fluid" id="paytype"></div>
+    <script type="text/html" id="paytype_tpl">
+    <div class="layout">
+        <header>
+            <span class="back" onclick="javascript:history.back();">返回</span>
+            <h2>上传付款凭证</h2>
+        </header>
+        <p class="tit">付款账号</p>
+        <section class="strip">
+            <i class="pay-icon wechat"></i>
+            <div class="pay-box">
+                <p>公司户名：青岛芳林信息技术有限公司</p>
+                <p>开户银行：中国民生银行青岛分行营业部</p>
+                <p>银行帐号：626307898</p>
+            </div>
+        </section>
+        <section class="strip">
+            <i class="pay-icon alipay"></i>
+            <div class="pay-box">
+                <p>支付宝账号：zhifu@heihuai.com</p>
+                <p>支付宝户名：青岛芳林信息技术有限公司</p>
+            </div>
+        </section>
+        <p class="tit">请上传网银或支付宝转账成功的截图</p>
+        <section class="strip upload-pic">
+            <form action="">
+            <p>请上传电子版付款凭证</p>
+            <span class="down"></span>
+            <input type="file" class="file filepay" id="pay_certificate" value="选择图片" />
+            <img src="" alt="" width="100" height="50" class="border-plus hide">
+            <p class="red">* 请确保图片清晰，文字可辨并有清晰的红色公章 请上传jpg\png\gif格式文件，大小控制在1M之内</p> 
+            <textarea cols="20" rows="5" class="textarea" placeholder="请填写付款凭证说明..."></textarea>
+            </form>
+        </section>
+        <p class="tip red"><%=tip%></p>
+        <p class="next submit">提交</p>
+    </div>
+    </script>
+    <script src="../../js/config.js"></script>
+    <script src="../../js/libs/jquery/jquery-1.8.3.min.js"></script>
+    <script src="../../js/plugins/sweetalert/sweetalert.min.js"></script>
+    <script src="../../js/plugins/layer/layer.js"></script>
+    <script src="../../js/plugins/template.js"></script>
+    <script src="../../js/FL.js"></script>
+    <script src="../../js/common.js"></script>
+    <script src="../../js/tmpl/store_joinin/paytype.js"></script>
+</body>
+
+</html>

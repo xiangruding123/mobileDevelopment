@@ -1,0 +1,69 @@
+<html lang="zh-cmn-Hans">
+
+<head>
+	<meta charset="UTF-8">
+	<title>我的粉丝</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta http-equiv="Cache-Control" content="no-cache">
+	<meta http-equiv="Pragma" content="no-cache">
+	<link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="../../src/css/fhbase.css">
+	<link rel="stylesheet" href="../../src/css/fhwap.css">
+	<link rel="stylesheet" href="../../css/animate.css">
+</head>
+
+<body>
+	<div class="container layout" id="team">
+		<div class="row">
+			<header class="fh-header">
+				<span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+				<h1 class="header-title">我的粉丝</h1>
+				<a class="header-edit" id="nav-show"></a>
+			</header>
+			<div class="teamtitle clearfix">
+				<div class="pull-left">全部粉丝人数：<br /><span class="number">0人</span></div>
+
+					<div class="pull-right"><span class='verify mr40 f10 pull-right'>已认证:0人</span><br>奖金总收入：<span class="focus-font">0.00</span> 元</div>
+			</div>
+			<section class="fill f16">
+				<span class="pull-left">名称</span>
+				<span class="pull-left">注册时间</span>
+				<span class="pull-left">状态</span>
+				<span class="pull-left">奖金</span>
+			</section>
+			<div class="tc plr10" id="team_all"></div>
+			<script type="text/html" id="teamAll">
+					<%for(var i=0;i<result.team_list.length;i++){%>
+						<section class="fill">
+							<span class="pull-left"><%=result.team_list[i].member_name%></span>
+										<span class="pull-left pt0"><%=result.team_list[i].member_time%></span>
+											<%if(result.team_list[i].verify_status=='1'){%>
+												<span class="pull-left"><b class="verify">已认证</b></span>
+												<%}else{%>
+													<span class="pull-left">未认证</span>
+													<%}%>
+														<span class="pull-left"><span class="fh-price">￥<%=result.team_list[i].deduct_money%></span></span>
+						</section>
+						<%}%>
+
+			</script>
+
+		</div>
+	</div>
+  <script type="text/javascript" src="../../js/libs/jquery/jquery-1.8.3.min.js"></script>
+	<script src="../../js/plugins/fastclick.js"></script>
+	<script src="../../js/plugins/layer/layer.js"></script>
+	<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+	<script src="../../js/config.js"></script>
+	<script src="../../js/common.js"></script>
+	<script src="../../js/plugins/template.js"></script>
+	<script src="../../src/js/tmpl/member/team.js"></script>
+	<script>
+		Member.Team.onLoad();
+	</script>
+</body>
+
+</html>

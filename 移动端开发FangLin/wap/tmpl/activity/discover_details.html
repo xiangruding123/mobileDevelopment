@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <title>微店</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+   <meta name="apple-mobile-web-app-status-bar-style" content="black">
+   	<meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+   	<link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../js/plugins/swiper/swiper.css" />
+    <link rel="stylesheet" href="../../css/animate.css">
+    <link rel="stylesheet" href="../../css/buttons.css">
+    <link rel="stylesheet" href="../../css/fhbase.css">
+    <link rel="stylesheet" href="../../css/fhwap.css">
+</head>
+
+<body>
+    <div class="container layout" id="discover_details">
+        <section class="row">
+            <header class="fh-header">
+                <span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+                <h1 class="header-title"></h1>
+                <a class="header-edit" id="nav-show"></a>
+            </header>
+            <div class="dcr-bg"></div>
+            <section class="empty"></section>
+            	<script id="wdDetails" type="text/html">
+	            		<div class="circle-out">
+	            			<%if(result.shop_logo){%>
+		            			<img src="<%=result.shop_logo%>" class="dcr-img"/>
+		            		<%}else{%>
+		            			<img src="../../images/wap/logo.png" class="dcr-img"/>
+		            		<%}%>
+		            	</div>
+		        		<p class="dcr-name"><%=result.shop_name%><img src="../../images/wap/v.svg" class="dcr-img2"/></p>
+		        		<!--商品分类列表-->
+		        		<ul class="drc-dialog animated fadeInUp" style="display: none;">
+		        			<%for(var j=0;j<result.goods_classes.length;j++){%>
+	        					<li class="tab" wclass_id="<%=result.goods_classes[j].wclass_id%>"><%=result.goods_classes[j].wclass_name%></li>
+	        				<%}%>
+	        			</ul>
+            	</script>
+        	<!--微店商品列表-->
+        	<section class="drc-list" id="wd_goods"></section>
+        	<script id="wdGoods" type="text/html">
+        		<ul>
+        			<%for(var i=0;i<result.length;i++){%>
+	        			<li class="li-goods">
+		        			<a href="../shopping/goods_details.html?goods_id=<%=result[i].goods_id%>" class="pr dis-b">
+			    				<%if(result[i].goods_source>0){%>
+									<img src="../../images/wap/global-icon.png" class="global-icon" />
+								<%}%>
+			    				<img src="../../images/wap/guanggao-1.jpg" data-original="<%=result[i].goods_image%>!medium" class="tm-imgList"/>
+								<%if(result[i].goods_state==0){%>
+									<img src="../../images/wap/widthdown.png" class="side-tip"/>
+								<%}else if(result[i].sale_stop==1){%>
+									
+								<%}else if(result[i].is_presell==1){%>
+									<img src="../../images/wap/presell.png" class="side-tip"/>
+								
+								<%}%>
+								<div class='ml5 mt5'><%if(result[i].nation_flag&&result[i].goods_promise){%><img src="<%=result[i].nation_flag%>" class="flag"/><span class="focus-font">【<%=result[i].goods_promise%>】</span><%}%></div>
+								<p class="overhide pr">									
+									<%=result[i].goods_name%>
+									
+									<!--<%if(result[i].goods_source>0){%>
+										<img class="origin" src="../../images/wap/direct.png"  />
+									<%}else if(result[i].is_own_shop==1){%>
+										<img class="origin" src="../../images/wap/self.png"  />
+									<%}%>-->
+								</p>
+								<span class="like-price"><span class="f11">￥</span><%=result[i].goods_price%></span>
+							</a>
+						</li>
+					<%}%>
+        		</ul>
+        	</script>
+        	<!--footer-->
+        	<section class="drc-footer">
+        		<span class="drc-tab pull-left" id="goods_class"><img src="../../images/wap/fenlei.png">商品分类</span>
+        		<a href="../shopping/shopping_cart_cn.html" class="pr shoppingurl" id="cart" ><span class="drc-tab pull-left" id="shopping_cart"><img src="../../images/wap/gouwuche-black.png">购物车</span></a>
+        		<span class="drc-tab pull-right" id="add_favorite"><i class="icon-heart-empty mr5"></i>收藏微店</span>
+        	</section>
+        </section>
+    </div>
+    <script  src="../../js/libs/jquery/jquery-1.11.3.min.js"></script>
+    <script  src="../../js/plugins/jquery.lazyload.js"></script>
+    <script  src="../../js/config.js"></script>
+    <script  src="../../js/plugins/fastclick.js"></script>
+    <script  src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script  src="../../js/common.js"></script>
+    <script  src="../../js/plugins/layer/layer.js"></script>
+    <script  src="../../js/plugins/swiper/swiper.js"></script>
+    <script  src="../../js/plugins/template.js"></script>
+    <script  src="../../js/tmpl/activity/discover_details.js"></script>
+    <script>
+   		 Activity.DiscoverDetails.onLoad();
+    </script>
+</body>
+
+</html>

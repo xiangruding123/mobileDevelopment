@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>全球购</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta property="wb:webmaster" content="583adb75f6362de2" />
+		<meta property="qc:admins" content="13206332772013631611006375" />
+		<link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+		<link rel="stylesheet" href="../../js/plugins/swiper/swiper.css">
+		<link rel="stylesheet" href="../../css/fhbase.css">
+		<link rel="stylesheet" href="../../css/fhwap.css">
+		<link rel="stylesheet" href="../../css/animate.css">
+	</head>
+
+	<body>
+		<div class="layout" id="homepage">
+
+			<header class="layout tc fh-header" style="z-index: 1000;background: #fff;">
+				<span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+				<img src="../../images/index/global-title.svg" class="h30" style="width:18%;margin-top:-5px;"/>
+				<!--<a href="classifying.html"><img src="../../images/wap/iconfont-sousuo.svg" class="iconfont_search"/></a>-->
+                <span class="header-edit" id="nav-show"></span>
+			</header>
+			<!--顶部分类搜索-->
+			<div class="global-search">
+				<img src="../../images/wap/fenlei.png" class="classify-icon" id="classify" />
+				<i class="icon-search"></i>
+				<input type="text" placeholder="分红全球购 精彩无限" class="input-search" id="goods_search">
+			</div>
+			<!--全球购分类-->
+			<!--一级分类-->
+			<ul class="classify-left animated fadeInDown" id="classify_one" style="display: none;">
+				<script type="text/html" id="classifyOne">
+				<%for(var i=0;i<result.length;i++){%>
+					<li class="one-li" gc_id="<%=result[i].gc_id%>"><%=result[i].gc_name%></li>
+				<%}%>
+				</script>
+			</ul>
+			<!--二级分类-->
+			<ul class="classify-right animated fadeInDown" id="classify_two" style="display: none;">
+				<script type="text/html" id="classifyTwo">
+					<%for(var i=0;i<result.length;i++){%>
+						<li class="two-li">
+							<a href="../shopping/goods_list.html?gc_id=<%=result[i].gc_id%>&gc_area=1">
+							<%=result[i].gc_name%>
+							</a>
+						</li>
+					<%}%>
+				</script>
+			</ul>
+			<div class="swiper-container ">
+				<div class="swiper-wrapper bg-banner" id="swiper-wrapper"></div>
+				<script type="text/html" id="swiper-tpl">
+					<%for(var i=0;i<result.length;i++){%>
+						<div class="swiper-slide">
+							<a href="<%=result[i].link_url%>">
+								<img src="<%=result[i].image_url%>!thumb" alt="">
+							</a>
+						</div>
+					<%}%>
+				</script>
+				<div class="swiper-pagination"></div>
+			</div>
+			<section class="home" id="group"></section>
+			<script type="text/html" id="group_list">
+				<!--团购-->
+				<a class="skip-link pad10 " href="../activity/group_list.html">
+					<span class="title-icon"></span>
+					<h2 class="title">全球嗨团</h2>
+					<i class="icon-angle-right"></i>
+				</a>
+				<%for(var i=0;i<result.length;i++){%>
+					<a href="../activity/group_details.html?class_id=<%=result[i].class_id%>&class_parent_id=<%=result[i].class_parent_id%>&class_name=<%=result[i].class_name%>" class="layout">
+						<img src="../../images/wap/tuangou.jpg" data-original="<%=result[i].class_image%>!thumb"  class="width100">
+					</a>
+					<div class="empty"></div>
+					<%}%>
+			</script>
+			<!--国家馆-->
+			<section class="home" id="nation"></section>
+			<div class="empty"></div>
+			<script type="text/html" id="nation_list">
+				<a class="skip-link pad10 ">
+					<span class="title-icon"></span>
+					<h2 class="title">国家馆</h2>					
+				</a>
+				<ul class="clearfix nation-ul">
+					<%for(var i=0;i<result.length;i++){%>
+						<li>
+							<a href="../activity/pavilion.html?activity_id=<%=result[i].activity_id%>&activity_title=<%=result[i].activity_title%>">
+								<img src="../../images/wap/pinpaiguan.jpg" data-original="<%=result[i].activity_pic%>!thumb" alt="" />
+							</a>
+						</li>
+					<%}%>
+				</ul>
+			</script>
+			<!--主题馆-->
+			<section class="home" id="theme"></section>
+			<script type="text/html" id="theme_list">
+				<a class="skip-link pad10 ">
+					<span class="title-icon"></span>
+					<h2 class="title">主题馆</h2>
+					<i class="icon-angle-right"></i>
+				</a>
+				<%for(var i=0;i<result.length;i++){%>
+					<%if(result[i].activity_url){%>
+						<a href="<%=result[i].activity_url%>" class="layout">
+					<%}else{%>
+						<a href="../activity/theme_details.html?title=<%=result[i].activity_title%>&activity_id=<%=result[i].activity_id%>" class="layout">
+					<%}%>	
+						<img src="../../images/wap/default.jpg" data-original="<%=result[i].activity_banner%>!thumb"  class="width100">
+					</a>
+					<div class="empty"></div>
+					<%}%>
+			</script>
+			<!--品牌馆-->
+			<section class="home" id="brand"></section>
+			<div class="empty"></div>
+			<script type="text/html" id="brand_list">
+				<a class="skip-link pad10 " href="../activity/brand_list.html?area=1">
+					<span class="title-icon"></span>
+					<h2 class="title">品牌馆</h2>
+					<i class="icon-angle-right"></i>
+				</a>
+				<ul class="clearfix brand-ul">
+					<%for(var i=0;i<result.length;i++){%>
+						<li>
+							<a href="../activity/brand_details.html?brand_id=<%=result[i].brand_id%>&brand_banner=<%=result[i].brand_banner%>&brand_name=<%=result[i].brand_name%>&share_desc=<%=result[i].share_desc%>&share_img=<%=result[i].share_img%>&share_title=<%=result[i].share_title%>">
+								<img src="../../images/wap/pinpaiguan.jpg" data-original="<%=result[i].brand_pic%>!thumb" alt="" />
+							</a>
+						</li>
+					<%}%>
+				</ul>
+			</script>
+			<!--广告位1-->
+			<a  id="adv1">
+				<img src="../../images/wap/guanggao-2.jpg" class="width100" />
+			</a>
+			<div class="empty"></div>
+			<!--精选推荐-->
+			<section class="home" id="recommends"></section>
+			<script type="text/html" id="recommends_list">
+				<a class="skip-link pad10 "href="../activity/choiceness.html?area=1">
+					<span class="title-icon"></span>
+					<h2 class="title">精选推荐</h2>
+					<i class="icon-angle-right"></i>
+				</a>
+				
+				<ul class="clearfix recom">
+					<%for(var i=0;i<result.length;i++){%>
+						<a href="../shopping/goods_details.html?goods_id=<%=result[i].goods_id%>" class="layout jp">
+								<%if(result[i].goods_source>0){%>
+									<img src="../../images/wap/global-icon.png" class="global-icon" />
+								<%}%>
+								<img src="../../images/wap/jingxuan.jpg" data-original="<%=result[i].goods_pic%>!thumb"  class="width100">
+								<%if(result[i].goods_state==0){%>
+									<img src="../../images/wap/widthdown.png" class="big-long-tip"/>
+								<%}else if(result[i].sale_stop==1){%>
+									
+								<%}else if(result[i].is_presell==1){%>
+									<img src="../../images/wap/presell.png" class="big-long-tip"/>
+								
+								<%}%>
+							<div>
+								<img class="goods-japan" src="<%=result[i].nation_flag%>" />
+								<p class="pb5 color9 f12"><%=result[i].goods_promise%></p>
+								<span class="jp-name"><%=result[i].goods_name%>
+								<!--	<%if(result[i].goods_source>0){%>
+										<img class="origin" src="../../images/wap/direct.png"  />
+									<%}else if(result[i].is_own_shop==1){%>
+										<img class="origin" src="../../images/wap/self.png"  />
+									<%}%>-->
+								</span>
+								<p><span class="f12">￥</span><%=result[i].goods_price%></p>
+								<!--<del>￥<%=result[i].goods_marketprice%></del>-->
+							</div>
+						</a>
+						<div class="empty"></div>
+					<%}%>
+				</ul>
+			</script>
+			
+			<!--广告位2-->
+			<a  id="adv2">
+				<img src="../../images/wap/guanggao-2.jpg" class="width100" />
+			</a>
+			<div class="empty"></div>
+			
+			<section class="home">
+				<div class="skip-link pad10 ">
+					<span class="title-icon"></span>
+					<h2 class="title">猜你喜欢</h2>
+				</div>
+				<section id='group-goods'></section>
+				<script type="text/html" id='group-goods-tpl'>
+					<%for(var l=0;l<result.length;l++){%>
+						<div class="group-goods">
+							<%if(result[l].goods_source>0){%>
+								<img src="../../images/wap/global-icon.png" class="global-icon" />
+							<%}%>
+							<a href="../shopping/goods_details.html?goods_id=<%=result[l].goods_id%>" class="pull-left pr">
+								<%if(result[l].goods_pic){%>
+									<img src="../../images/wap/pinpaiguan.jpg" data-original="<%=FormatImg(result[l].goods_pic)%>" alt="">
+								<%}else{%>
+									<img src="../../images/wap/pinpaiguan.jpg" data-original="<%=FormatImg(result[l].goods_image)%>" alt="">
+								<%}%>
+								<%if(result[l].goods_state==0){%>
+									<img src="../../images/wap/widthdown.png" class="long-tip"/>
+								<%}else if(result[l].sale_stop==1){%>
+									<img src="../../images/wap/stop.png" class="long-tip" />
+								<%}else if(result[l].is_presell==1){%>
+									<img src="../../images/wap/presell.png" class="long-tip"/>
+								<%}else if(result[l].goods_storage==0){%>
+									<img src="../../images/wap/soldout.png" class="long-tip"/>
+								<%}%>
+							</a>
+							<div class="pull-left mt15">
+								<img class="goods-japan" style="margin-top: 0px !important;" src="<%=result[l].nation_flag%>" />
+								<p class="pb5 color9"><%=result[l].goods_promise%></p>
+								<a href="../shopping/goods_details.html?goods_id=<%=result[l].goods_id%>">
+									<h3 class="goods-txt border-b0 pb5 l150 overhide pr" style="-webkit-line-clamp:3 !important;"><%=result[l].goods_name%>
+										<%if(result[l].goods_source>0){%>
+											<img class="origin" src="../../images/wap/direct.png" style="bottom: 5px !important;"  />
+										<%}else if(result[l].is_own_shop==1){%>
+											<img class="origin" src="../../images/wap/self.png" style="bottom: 5px !important;" />
+										<%}%>
+									</h3>
+								</a>
+								<div class="group-price">
+									<p class="price pt20">￥<span class="goods_price"><%=result[l].goods_price%></span><del class="ml10">￥<span class='goods_marketprice'><%=result[l].goods_marketprice%></span></del></p>
+									<!--<p class="pr">国内参考价：
+										<del>￥<span class='goods_marketprice'><%=result[l].goods_marketprice%></span></del>
+										<%if(result[l].goods_price!=result[l].goods_marketprice){%>
+											<i class="redbtn dis"></i>
+										<%}%>
+									</p>-->
+								</div>
+							</div>
+						</div>
+						<%}%>
+				</script>
+
+			</section>
+
+		</div>
+		<script  src="../../js/libs/jquery/jquery-1.8.3.min.js"></script>
+		<script  src="../../js/plugins/jquery.lazyload.js"></script>
+		<script  src="../../js/config.js"></script>
+		<script  src="../../js/plugins/fastclick.js"></script>
+		<script  src="../../js/plugins/iscroll.js"></script>
+		<script  src="../../js/plugins/fhScroll.js"></script>
+		<script  src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+		<script  src="../../js/plugins/template.js"></script>
+		<script  src="../../js/common.js"></script>
+		<script  src="../../js/plugins/layer/layer.js"></script>		
+		<script  src="../../js/plugins/swiper/swiper.js"></script>
+		<script  src="../../js/tmpl/index/index_global.js"></script>
+	</body>
+
+</html>

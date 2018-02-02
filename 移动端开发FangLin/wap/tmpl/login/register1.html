@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <title>会员注册</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+   	<meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+   	<link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/buttons.css">
+    <link rel="stylesheet" href="../../src/css/fhbase.css">
+    <link rel="stylesheet" href="../../src/css/fhwap.css">
+</head>
+<body class="fh-bg-white">
+    <div class="container layout" id="register">
+        <div class="row">
+             <header class="fh-header">
+                <span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+                <h1 class="header-title">会员注册</h1>
+            </header>
+        <form id="registerForm">
+            <p id="member_login">注册手机号：<span class="focus-font merber"></span></p>
+            <div class="pl20 pr20 disflex mb25 pr" id="secodebox">
+                <input type="tel" placeholder="请输入验证码"  value="" id="secode" class="input" maxlength="4"/>
+                <img src="../../src/images/wap/login/cleartext.png" class="cleartext" style="margin-right:130px;">
+                <img id="img_secode" />
+            </div>
+            <div class="pl20 pr20 disflex pr">
+                <input type="tel" placeholder="请输入手机验证码" name="code" value="" id="code" class="input" maxlength="6"/>
+                <img src="../../src/images/wap/login/cleartext.png" class="cleartext" style="margin-right:95px;">
+                <button type="button" class="pull-right"  countdown='' id="getCode">获取验证码</button>
+            </div>
+            <div class="pl20 pr20 mt25 pr">
+                <input type="password" placeholder="请设置6~20位登录密码" name="password" value="" id="password" maxlength="20" class="input" />
+                <img src="../../src/images/wap/login/eye.png" class="cleareye"/>
+            </div>
+            <div class="pl20 pr20 mt20">
+                <img src="../../images/wap/login/agree.png" alt="" class="agree yes" style="width:19px;height:19px;"/><span class="color9 pl10">我已阅读并接受 <a class="focus-font" id="agreement"> 分红全球购注册协议</a></span>
+            </div>
+            <div class="pl20 pr20">
+                <button type="button" class="" id="nextStep" disabled="disabled">注册</button>
+            </div>
+        </form>
+        <header class="fh-header iframehead" style="top: 0;position: fixed;width: 100%;display:none">
+                <span class="goback icon-angle-left"></span>
+                <h1 class="header-title">会员注册</h1>
+        </header>
+        <iframe src="http://test.fenhongshop.com/wap/tmpl/andriod/agreement.html"  style='display:none;width: 100%;height:100%;position: fixed;top: 42px;background: #fff;'>
+
+        </iframe>
+        </div>
+    </div>
+    
+    <script  src="../../js/libs/jquery/jquery-1.8.3.min.js"></script>
+    <script  src="../../js/plugins/fastclick.js"></script>
+    <script  src="../../js/plugins/jquery.validate.js"></script>
+    <script  src="../../js/plugins/layer/layer.js"></script>
+    <script  src="../../js/plugins/md5.js"></script>
+    <script  src="../../js/config.js"></script>
+    <script  src="../../js/apiLink.js"></script>
+    <script  src="../../js/common.js"></script>
+    <script  src="../../src/js/tmpl/login/register1.js"></script>
+    <script> 
+    	Member.Register1.onLoad();
+    </script>
+</body>
+</html>

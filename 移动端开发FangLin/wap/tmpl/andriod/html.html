@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <title>授权页面</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+   	<meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    	<style type="text/css">
+    		.downLoad-fix{
+    			display: none;
+    		}
+    	</style>
+</head>
+<body>
+    <div class="container layout" id='search_goods_list'>
+        <div class="row">
+            <p>分红全球购授权页面</p>
+            <p id="key"></p>
+            <p id="name"></p>
+            <button id="btn">授权</button>
+	        <script  src="../../js/libs/jquery/jquery-1.8.3.min.js"></script>		
+			<script  src="../../js/config.js"></script>
+			<script>
+			
+				
+				var referurl = document.referrer; //上级网址
+				
+				
+				$("#btn").click(function(){
+										
+						
+						var personObj=JSON.parse(FHSDK.getFHUserJson());
+
+                        var APIKey = FHSDK.getAPIKey();
+					   
+					    var APISecret = FHSDK.getAPISecret();				    
+					   
+					    
+					    personObj={username:"18366626195",pwd:"123456"};
+					    
+					    loginSDKDate(personObj);
+
+				})
+				
+				//sdk登录
+		    function loginSDKDate(d){
+				 $.ajax({
+		            url: WapSiteUrl + "/api/index.php?act=common_member&op=login",
+		            type: 'post',
+		            dataType: 'json',
+		            data: {
+		                    account: d.username,
+		                    password: d.pwd,
+		                    flag: "wap"
+		            },
+		            success: function(data) {
+		            	
+		            	FHSDK.toast("授权成功");
+		            	
+		            	$("#name").text(referurl);
+		            	
+		                addcookie('member_name', data.result.member_name);
+		
+		                addcookie('mid', data.result.member_id ,365);                          
+		
+		                addcookie('token', data.result.token ,365);
+		
+		                addcookie('member_mobile', data.result.member_mobile);
+		                
+		                addcookie('nickname',data.result.member_nickname);
+		
+		                addcookie('store_id', data.result.store_id ,365);
+						
+						addcookie('if_shoper', data.result.if_shoper ,365);
+		              
+		                setTimeout(function(){
+		                	location.href = referurl;
+		                },2000);
+		                
+		                
+		                
+		                FHSDK.toast(getcookie('mid')+"授权成功"+getcookie('token'));
+		                
+		                
+		            },
+		            error:function(){
+		            	FHSDK.toast("授权失败");
+		            }
+		        });
+			}
+			
+			function addcookie(name, value, days) {
+
+			    days = days || 0;
+			
+			    var expires = "";
+			
+			    if (days != 0) {
+			
+			        var date = new Date();
+			
+			        date.setTime(date.getTime() + (days * 24 * 3600 * 1000));
+			
+			        expires = "; expires=" + date.toGMTString();
+			
+			    }
+			
+			    document.cookie = name + "=" + escape(value) + expires + "; path=/";
+			
+			}
+
+            function getcookie(name) {
+
+			    var strcookie = document.cookie;
+			
+			    var arrcookie = strcookie.split("; ");
+			
+			    for (var i = 0; i < arrcookie.length; i++) {
+			
+			        var arr = arrcookie[i].split("=");
+			
+			        if (arr[0] == name)
+			
+			            return arr[1];
+			
+			    }
+			
+			    return "";
+			
+			}
+
+			</script>
+        </div>
+    </div>
+   
+</body>
+
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>套装详情</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta http-equiv="Cache-Control" content="no-cache">
+		<meta http-equiv="Pragma" content="no-cache">
+		<link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+		<link rel="stylesheet" href="../../css/buttons.css">
+		<link rel="stylesheet" href="../../css/fhbase.css">
+		<link rel="stylesheet" href="../../css/fhwap.css">
+		<link rel="stylesheet" href="../../js/plugins/sweetalert/sweetalert.css">
+		<style>
+		#goods_coupon_detail .media-img{
+			width:90px;
+			height:90px;
+		}
+		#goods_coupon_detail .media{
+			border-bottom:1px solid #eaeaea;
+			padding:10px;
+		}
+		</style>
+	</head>
+
+	<body class="nav bg-body">
+		<div class="container layout" id="goods_coupon_detail">
+			<div class="row bg-body">
+				<header class="fh-header">
+					<span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+					<h1 class="header-title">优惠套装</h1>
+				</header>
+				<div class="pt15 pb10 pl10 typenum">套装1</div>
+				<div id="coupon_list">
+					
+				</div>
+				<script type="text/html" id="goods_coupon_detail_tpl"> 
+					
+				    <%for(var i=0;i<goods_list.length;i++){%>
+					<div class="media fh-goods">
+						<a href="goods_details.html?goods_id=<%=goods_list[i].id%>">
+						<div class="media-left pr">	
+							<img class="media-img" src="" data-original="<%=goods_list[i].image%>" alt="..." style="display: inline-block;">
+
+						</div>
+						<div class="media-body">
+							<h4 class="media-heading overhide mb25 line-clamp3">
+								  <%=goods_list[i].name%>       		
+	                                </h4>
+							<div class="pull-left">
+								单买价
+								<span class="fh-price">￥<%=goods_list[i].shop_price%></span>
+								
+							</div>
+							
+						</div>
+				        </a>
+				     </div>
+				  <%}%>
+				
+				
+				<!--<div class="media fh-goods">					
+						<div class="media-left pr">
+							
+							<img class="media-img" src="http://img.fenhongshop.com/goods/325762/20151216/567121d8465fb.png!medium" data-original="http://img.fenhongshop.com/goods/325762/20151216/567121d8465fb.png!medium" alt="..." style="display: inline-block;">
+
+						</div>
+						<div class="media-body">
+							<h4 class="media-heading overhide mb25 line-clamp3">
+								直接杀到李开复舰队司令开发              		
+	                                </h4>
+							<div class="pull-left">
+								单买价
+								<span class="fh-price">￥ 9.90</span>
+								
+							</div>
+							
+						</div>
+				
+				</div>-->
+				<div class="pad10">
+					<p>套装价：<span class="fh-price">￥ <%=current_price%></span></p>
+					<p>原价：<del>￥<%=cost_price%></del><span class="fh-price pull-right">立省￥<%=(cost_price-current_price).toFixed(2)%></span></p>
+				</div>
+				</script>
+                <button id="addcart" class="mt50 fh-btn btn mb50" type="button">加入购物车</button>
+			</div>
+		</div>
+		<script src="../../js/wap.js"></script>	
+		<script  src="../../js/config.js"></script>
+		<script  src="../../js/common.js"></script>
+		<script  src="../../js/plugins/layer/layer.js"></script>	
+		<script src="../../js/tmpl/shopping/coupon_detail.js"  charset="utf-8"></script>
+		<script>
+			Goods.goodsCouponDetail.onLoad();
+		</script>
+	</body>
+
+</html>

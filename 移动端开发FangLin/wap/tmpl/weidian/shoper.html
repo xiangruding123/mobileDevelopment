@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <title>成为微店主</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">   	
+    <link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/fhbase.css">
+    <link rel="stylesheet" href="../../css/fhwap.css">
+    <style type="text/css">
+    	p.goin{
+    		float:left;
+    		border:1px solid #fa2855;
+    		border-radius: 5px;
+    		width:36.93%;
+    		color:#fa2855;
+    		height:40px;
+    		line-height: 40px;
+    	
+    		
+    	}
+    	.join_shoper{
+    		color:#fff;
+    		float:right;
+    		background-color:#FA2855;
+    		border-radius: 5px;
+    		width:60.5%;
+    		height:40px;
+    		line-height: 40px;
+    	}
+    	footer{
+    		width:100%;
+    		text-align:center;
+    		font-size:18px;
+    		padding:5px 5px !important;
+    		background-color:rgba(255,255,255,.7) !important;
+    		
+    	}
+    </style>
+</head>
+
+<body>
+    <div class="container layout" id="owner">
+        <div class="row">
+        	<header class="fh-header none">
+                <span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+                <h1 class="header-title">成为微店主</h1>
+            </header>
+            <img src='../../images/wap/tuangou.jpg' data-original="../../images/wap/weidian1.jpg" alt="">
+            <img src='../../images/wap/tuangou.jpg' data-original="../../images/wap/weidian2.jpg" alt="">
+            <img src='../../images/wap/tuangou.jpg' data-original="../../images/wap/weidian3.jpg" alt="">
+            <img src='../../images/wap/tuangou.jpg' data-original="../../images/wap/weidian4.jpg" alt="">
+            <!--<img src='../../images/wap/tuangou.jpg' data-original="../../images/wap/weidian5.jpg" alt="">
+            <img src='../../images/wap/tuangou.jpg' data-original="../../images/wap/weidian6.jpg" alt="">
+            <img src='../../images/wap/tuangou.jpg' data-original="../../images/wap/weidian7.jpg" alt="">
+            <img src='../../images/wap/tuangou.jpg' data-original="../../images/wap/weidian8.jpg" alt="">-->
+            <div class="h100 fh-bg-white"></div>
+            <footer>
+               <p class='goin'>去逛逛</p><p class="join_shoper">立即成为微店主</p>
+            </footer>
+             
+	        </div>
+    </div>
+    <script  src="../../js/libs/jquery/jquery-1.8.3.min.js"></script>    
+    <script  src="../../js/common.js"></script>
+    <script src='../../js/plugins/jquery.lazyload.js'></script>   
+    <script src="../../js/plugins/layer/layer.js" ></script>
+    <script >
+    		$(function(){
+    			$('.row img').lazyload();
+    			$('.goin').click(function(){
+    				location.href = '../index/index.html';
+    			});
+    			$('.join_shoper').click(function(){
+    				mid = GetQueryString('mid'),token = GetQueryString("token");
+    				location.href='goinshop.html?mid='+mid+"&token="+token;
+    			})
+			});
+    </script>
+    
+</body>
+
+</html>

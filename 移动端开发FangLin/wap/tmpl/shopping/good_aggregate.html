@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <title>优惠活动</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+   	<meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/fhbase.css">
+    <link rel="stylesheet" href="../../src/css/fhwap.css">
+</head>
+<body>
+    <div class="container layout" id='search_goods_list'>
+        <div class="row">
+            <header class="fh-header pd-none none">
+                <span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+                <h1 class="header-title">优惠活动</h1>
+                <img src="../../images/weidian/share.png" class="share -mob-share-open">
+            </header>
+       
+      <div class="tc fh-bg-white pt25 pb10">
+      	<p class="mb5" id="rule_name"></p>
+      	<span class="focus-font" id="goods_nums"></span> 
+      </div>
+      
+      <div id='brand_details' class="min-scroller">            	
+            	<div class="pullUp"></div>
+            </div>
+            <script type="text/html" id='brandDetails'>
+            	<ul class="brand_details_list clearfix">
+                <%if(result.goods_list){%>
+                    <%for(var i=0;i<result.goods_list.length;i++){%>
+                    <li>
+                        <a href="../shopping/goods_details.html?goods_id=<%=result.goods_list[i].goods_id%>!goodsdetail">
+                            <%if(result.goods_list[i].goods_pic){%>
+                            <img src="../../images/wap/guanggao-1.jpg" data-original="<%=FormatImg(result.goods_list[i].goods_pic)%>" />
+                            <%}else{%>
+                            <img src="../../images/wap/guanggao-1.jpg" data-original="<%=FormatImg(result.goods_list[i].goods_image)%>" />
+                            <%}%>
+                            <p class="overhide f13"><%if(result.goods_list[i].nation_flag&&result.goods_list[i].nation_name){%>
+                                <span class="dis-in-b font-pink"><img src="<%=result.goods_list[i].nation_flag%>" class="flag mt2 mr5" style="display: inline-block;"/><span class="color9"><%=result.goods_list[i].nation_name%></span></span>
+                                <%}%><%=result.goods_list[i].goods_name%></p>
+                            <div class="pad5"><span class="like-price"><span class="f11">￥</span><%=result.goods_list[i].goods_price%></span>
+                                <del>￥<%=result.goods_list[i].goods_marketprice%></del>
+                                <%if(result.goods_list[i].goods_source>0){%>
+                                <img class="origin pull-right" src="../../images/wap/direct.png" />
+                                <%}else if(result.goods_list[i].is_own_shop==1){%>
+                                <img class="origin pull-right" src="../../images/wap/self.png" />
+                                <%}%>
+                            </div>
+                        </a>
+                        <div class="add-cart" goods_id='<%=result.goods_list[i].goods_id%>' goods_source='<%=result.goods_list[i].goods_source%>'>加入购物车</div>
+                    </li>
+                        
+                    <%}%>
+                <%}else{%>
+                <%}%>
+                </ul>
+            </script>     
+            </div>
+            </div>
+         <div class="-mob-share-ui -mob-share-ui-theme -mob-share-ui-theme-slide-bottom" style="display: none">
+			<ul class="-mob-share-list">
+				<li class="-mob-share-weixin"><p>微信</p></li>
+				<li class="-mob-share-qq"><p>QQ好友</p></li>
+				<li class="-mob-share-qzone"><p>QQ空间</p></li>
+				<li class="-mob-share-weibo"><p>新浪微博</p></li>
+			</ul>
+			<div class="-mob-share-close">取消</div>
+		</div>
+		<div class="-mob-share-ui-bg"></div>
+		
+    <script  src="../../js/libs/jquery/jquery-1.8.3.min.js"></script>
+    <script  src="../../js/plugins/jquery.lazyload.js"></script>
+    <script  src="../../js/plugins/fastclick.js"></script>
+    <script  src="../../js/plugins/layer/layer.js"></script>
+    <script  src="../../js/plugins/template.js"></script>
+    <script id="-mob-share"></script>
+    <script  src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script  src="../../js/config.js"></script>
+    <script  src="../../js/apiLink.js"></script>
+    <script  src="../../js/common.js"></script>
+    <script src="../../js/base64.js"  charset="utf-8"></script>
+    <script src="../../js/fh.js"  charset="utf-8"></script>
+    <script  src="../../src/js/tmpl/shopping/goods_aggregate.js"></script>
+
+</body>
+
+</html>
+

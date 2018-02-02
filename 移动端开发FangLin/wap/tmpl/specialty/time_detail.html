@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <title>时光详情</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../js/plugins/swiper/swiper.css">
+    <link rel="stylesheet" href="../../css/buttons.css">
+    <link rel="stylesheet" href="../../src/css/fhbase.css">
+    <link rel="stylesheet" href="../../src/css/fhwap.css">
+    <link rel="stylesheet" href="../../js/plugins/emoji/emoji.css">
+
+</head>
+<body>
+<div class="container layout fh-bg-white" id="timeList" >
+    <div class="row">
+        <header class="fh-header" style="z-index:3;">
+            <span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+            <h1 class="header-title">时光详情</h1>
+            <img src="http://test.fenhongshop.com/wap/images/weidian/share.png" class="share -mob-share-open" style="position:absolute;top: 12px;right:50px;width: 20px;">
+            <span class="pull-right pa" style=" top: 8px;right: 7px;">
+                <img src="../../images/wap/specialty/more.png" alt="" class="timemore ptb10">
+                <span class="updownlog">
+                <a href="../index/index.html" class="updownloglist"><span class="color9 shareTime"><img src="../../images/wap/specialty/index.png" alt="">首页</span></a><span class="updownloglist color9 timereport"><img src="../../images/wap/specialty/report.png" alt=""> 举报</span></span></span>
+        </header>
+        <div id="timeListCentent"></div>
+        <script type="text/html" id="timeList-tmpl">
+            <%if(talent.is_own!="1"){%>
+            <div class="time-head clearfix">
+                <a href="talent_index.html?talent_id=<%=talent.talent_id%>"><img src="<%=talent.talent_avatar%>" alt="" class="timeheadlogo">
+                <p class="f14"><%=talent.talent_name%></p>
+                <p class="color9"><%=talent.talent_type%></p></a>
+                <%if(talent.is_followed=='1'){%>
+                <span id="attention" class="is_collected" talent_id="<%=talent.talent_id%>">已关注</span>
+                <%}else{%>
+                <span id="attention" class="" talent_id="<%=talent.talent_id%>">+关注</span>
+                <%}%>
+            </div>
+            <%}%>
+            <div class="timeListMedia">
+                <div class="swiper-container">
+                    <div class="swiper-wrapper">
+                        <%if(images){%>
+                        <%for(var m=0;m<images.length;m++){%>
+                        <div class="swiper-slide">
+                            <!--<a href="<%=images[m].time_id%>">-->
+                                <img src="<%=images[m].time_image%>" alt="" />
+                                <%if(images[m].goods){%>
+                                 <canvas id="myCanvas<%=m%>" width="375px" height="375px" style="position:absolute;top:0;">
+                                <%}%>
+                            <!--</a>-->
+                        </div>
+                        <%}%>
+                        <%}%>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+                <div class="timeListCentent">
+
+                    <p class="timecontent" style="word-break: break-all;-webkit-line-clamp:initial"><%=content%></p>
+                    <p class="color9 mb20"><%=add_time_fmt%></p>
+                    <%if(tags){%>
+                    <div class="f-nav-wrap">
+                        <article class="f-nav-stickytabs<%=i%> f-nav-stickytabs">
+                            <div class="navbox js-navbox m-tbl scroll-navbox">
+
+                                <%for(var k in tags){%>
+                                <span class="tagname"><%=tags[k]%></span>
+                                <%}%>
+
+                            </div>
+                        </article>
+                    </div>
+                    <%}%>
+                </div>
+            </div>
+            <div class="empty"></div>
+            <%if(goods){%>
+            <div id="search_goods_list" class="min-scroller">
+                <%for(var i=0;i<goods.length;i++){%>
+                    <div class="media fh-goods">
+                        <a href="../shopping/goods_details.html?goods_id=<%=goods[i].goods_id%>&talent_deductid=<%=goods[i].talent_deductid%>" good_id="<%=goods[i].goods_id%>">
+                            <div class="media-left pr">
+                                <img class="media-img" src="../../images/wap/pinpaiguan.jpg" data-url="<%=FormatImg(goods[i].goods_image)%>" alt="...">
+                            </div>
+                            <div class="media-body">
+                                <h4 class="media-heading overhide mb25 line-clamp3"><%=goods[i].goods_name%></h4>
+                                <div class="pull-left">
+                                    <div class="media-tailing clearfix">
+                                        <span class="fh-price f20"><%=goods[i].goods_price%></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                <%}%>
+            </div>
+            <%}%>
+            <div class="empty"></div>
+            <%if(comment){%>
+            <div class="time-comment">
+            <%for(var i=0;i<comment.length;i++){%>
+
+            <div class="time-head clearfix border-b" comment_id="<%=comment[i].comment_id%>" member_name="<%=comment[i].comment_member_name%>">
+                <img src="<%=comment[i].comment_member_avatar%>" alt="" class="timeheadlogo">
+                <p class="f14"><%=comment[i].comment_member_name%>
+                    <%if(comment[i].is_owner=='1'){%>
+                    <img src="../../images/wap/specialty/owner.png" alt="">
+                    <%}%>
+                </p>
+                <p class="color9"><%=comment[i].comment_time_fmt%></p>
+                <!--<span id="attention">+关注</span>-->
+                <span class="up_count" is_upped="<%=comment[i].is_upped%>">
+                    <%if(comment[i].up_count!="0"){%>
+                    <span class="redupcount upcount"></span>
+                    <%}else{%>
+                    <span class="grayupcount upcount"></span>
+                    <%}%>
+                    <span class="comment_up_count"><%=comment[i].up_count%></span>
+                </span>
+                <div class="pl50 mt10 f14">
+                    <%if(comment[i].parent){%>
+                      回复 <span class="focus-font"><%=comment[i].parent.comment_member_name%></span> :
+                    <%}%>
+                    <%=#comment[i].comment_message%></div>
+            </div>
+            <%}%>
+            </div>
+            <%}%>
+        </script>
+
+         <div id="commentText">
+             <input type="text" placeholder="发表评论"/><button>发送</button>
+         </div>
+        <div class="commentdialog">
+            <div>
+                <p class="commentback">回复</p>
+                <p class="reportLink">举报</p>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="-mob-share-ui -mob-share-ui-theme -mob-share-ui-theme-slide-bottom" style="display: none">
+        <ul class="-mob-share-list">
+            <li class="-mob-share-weixin"><p>微信</p></li>
+            <li class="-mob-share-qq"><p>QQ好友</p></li>
+            <li class="-mob-share-qzone"><p>QQ空间</p></li>
+            <li class="-mob-share-weibo"><p>新浪微博</p></li>
+        </ul>
+        <div class="-mob-share-close">取消</div>
+    </div>
+    <div class="-mob-share-ui-bg"></div>
+</div>
+
+<div class="empty h80"></div>
+
+
+
+<script  src="../../js/libs/jquery/jquery-1.8.3.min.js"></script>
+<script  src="../../js/plugins/fastclick.js"></script>
+<script  src="../../js/plugins/template.js"></script>
+<script  src="../../js/plugins/layer/layer.js"></script>
+<script  src="../../js/plugins/iscroll.js"></script>
+<script  src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script id="-mob-share" src="http://f1.webshare.mob.com/code/mob-share.js?appkey=13a3931a47072"></script>
+<script  src="../../js/plugins/swiper/swiper.js"></script>
+<script  src="../../js/plugins/jquery.scrollLoading.js"></script>
+<script  src="../../js/config.js"></script>
+<script  src="../../js/apiLink.js"></script>
+<script  src="../../js/common.js"></script>
+<script  src="../../src/js/tmpl/specialty/time_detail.js"></script>
+
+</body>
+</html>

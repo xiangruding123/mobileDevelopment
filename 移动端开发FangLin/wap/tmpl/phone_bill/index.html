@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>分红抢红包</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta http-equiv="Cache-Control" content="no-cache">
+		<meta http-equiv="Pragma" content="no-cache">
+		<meta name="format-detection" content="telephone=no">
+		<link href="css/css.css" rel="stylesheet" type="text/css" />
+		<link href="font/iconfont.css" rel="stylesheet" type="text/css" />
+		<style type="text/css">
+			body {
+				background: linear-gradient(180deg, rgb(255, 187, 0) 0%, rgb(255, 185, 0) 100%) !important;
+			}
+			
+			.main {
+				background: transparent;
+			}
+			
+			.bill_close .in,
+			.bill_open .in {
+				background-image: none;
+				width: 80%;
+				margin-top: 30px;
+				padding: 0;
+			}
+			
+			.bonus_box {
+				height: 250px;
+				width: 100%;
+				border-radius: 20px;
+				background: #fff;
+				box-shadow: 0 0 2px #ddd;
+			}
+			
+			.tit {
+				font-size: 20px;
+				color: rgb(255, 82, 83) !important;
+				margin-top: 0 !important;
+			}
+			
+			.bill_open .txt {
+				font-size: 16px;
+			}
+			
+			.cont {
+				margin-top: 20px !important;
+			}
+			
+			.bill_close .in .cont .ipt,
+			.bill_open .in .ipt {
+				height: 40px !important;
+				line-height: 40px !important;
+				width: 70%;
+			}
+			
+			.bill_open .in .ipt {
+				color: #fff;
+				background: rgb(255, 82, 83) !important;
+				border: 1px solid rgb(255, 82, 83) !important;
+				font-size: 16px !important;
+				font-weight: bold;
+			}
+			
+			#txt_phone {
+				color: rgb(255, 82, 83) !important;
+				font-size: 16px !important;
+			}
+			
+			.bill_close .in .cont .curr {
+				border-color: rgb(255, 82, 83) !important;
+			}
+			
+			.bonus_tip {
+				width: 100%;
+				height: 60px;
+				margin-bottom: 30px;
+			}
+			
+			.fenhong_logo {
+				display: inline-block;
+				width: 50px;
+				height: 50px;
+				float: left;
+				background: url('./img/fh_logo.png') 0 0 no-repeat;
+				background-size: 100%;
+				margin-left: -30px;
+			}
+			
+			.fenhong_tip {
+				display: inline-block;
+				float: right;
+				width: 90%;
+				height: 50px;
+				line-height: 50px;
+				background: #fff;
+				border-radius: 10px;
+				border: 1px solid #fafafa;
+				box-shadow: 0 2px 2px #aaa;
+				position: relative;
+				color: #333;
+				font-size: 16px;
+			}
+			
+			#corner {
+				background: url('img/corner.png') 0 0 no-repeat;
+				height: 15px;
+				width: 15px;
+				position: absolute;
+				bottom: -15px;
+				left: 0;
+			}
+			
+			.bill_close .in .cont span.curr {
+				background: #FF5253 !important;
+				color: #fff !important;
+			}
+			
+			.downLoad-fix {
+				position: relative;
+				width: 100%;
+				margin: 0 auto;
+				z-index: 10;
+			}
+			
+			.downLoad-x {
+				position: absolute;
+				top: 3px;
+				right: 7px;
+				z-index: 100;
+			}
+			/*遮罩*/
+			
+			#mask {
+				width: 100%;
+				height: 100%;
+				background: rgba(0, 0, 0, .6);
+				position: fixed;
+				left: 0;
+				top: 0;
+				z-index: 11;
+				display: none;
+			}
+			
+			#mask img {
+				position: absolute;
+				right: 30px;
+				top: 20px;
+				width: 170px;
+			}
+		</style>
+	</head>
+
+	<body class="act_body">
+
+		<article class="main layout">
+			<div class="light"></div>
+			<div class="bill">
+
+				<div class="bill_close">
+					<div class="in">
+						<div class="bonus_tip">
+							<span class="fenhong_logo"></span><span class="fenhong_tip" style="font-size:1.2em; text-align:left; padding:5px 0 5px 6px; line-height:1.6 !important; height:auto !important; width:89% !important; margin-right:-5px;">分红全球购福利大派发，话费红包冲击浪来袭，天天领话费！赶快拆红包~<i id="corner"></i></span>
+						</div>
+						<div class="bonus_box">
+							<div class="tit" style="padding-top:30px">
+								请输入手机号
+								<br> 领取话费
+							</div>
+							<div class="cont">
+								<input type="tel" maxlength="11" class="ipt curr" id="phone" style="font-size:16px; padding:0;">
+								<span id="expose" class="ipt" style="margin-top:20px;padding:0px 0px; display:inline-block !important; font-size:1.2em; font-weight:bold; ">打开红包</span>
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<div class="rule_txt" style="margin-bottom:0;margin-top:60px;padding-bottom:0;text-align:left;height:100px">
+					<div class="tit" style="height:10px">红包领取提示</div>
+					<div class="cont" style="font-size:14px;">
+						<span class="num">1</span>分享后点击分享链接输入手机号领取红包
+						<br>
+						<span class="num">2</span>每天都可以分享新的红包给好友
+						<br>
+						<span class="num">3</span>好友分享的红包可以点击领取
+						<br>
+					</div>
+				</div>
+				<div class="rule_txt" style="text-align:left;margin-top:10px">
+					<div class="tit" style="height:10px">活动规则</div>
+					<div class="cont" style="font-size:14px;">
+						<span class="num">1</span>抢到的红包将以积分形式充值到你的分红全球购账户中；
+						<br>
+						<span class="num">2</span>可以在充值的时候选择积分抵扣话费；
+						<br>
+						<span class="num">3</span>分红全球购拥有本活动最终解释权。
+						<br>
+					</div>
+				</div>
+				<div class="bill_open hide">
+					<div class="in">
+						<div class="bonus_tip">
+							<span class="fenhong_logo"></span><span class="fenhong_tip" style="font-size:1.3em; text-align:left; padding:5px 0 5px 6px; height:38px !important; line-height:38px !important; width:89% !important; margin-right:-5px;">恭喜您获得分红全球购话费红包！<i id="corner"></i></span>
+						</div>
+						<div class="bonus_box" style="height:300px !important;">
+							<div class="tit" id="currmoney" style="padding-top:20px">
+								4.14元
+							</div>
+							<p class="txt">已放入分红全球购账户：</p>
+							<p class="txt_phone" id="txt_phone">15896968448</p>
+							<p class="txt">10分钟到账，请到分红全球购中</p>
+							<p class="txt">“领红包”查看使用</p>
+
+							<div class="ipt curr" id="give" style="padding:2px 0px; font-size:1.2em;margin-top:20px">送红包给好友</div>
+
+							<a href="down.html">
+								<div class="ipt curr" style="margin-top:20px;padding:2px 0px; font-size:1.2em;">使用红包</div>
+							</a>
+
+						</div>
+					</div>
+					<div class="bill_list">
+						<div class="item" id="myallwarp">
+							<i class="iconfont icon-gerenzhongxin"></i> 我抢到的话费总额
+							<span class="all" id="myall">5.01</span>
+						</div>
+						<div class="line">好友的战绩</div>
+						<div class="hide" id="tplitem">
+							<div class="item item2">
+								<i class="iconfont icon-gerenzhongxin"></i> {0}
+								<br><span class="fh">分红送钱啦</span>
+								<span class="all">{1}</span>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</article>
+		<div id="mask"><img src="img/cover.png" alt=""></div>
+		<script  src="../../js/libs/jquery/jquery-1.11.3.min.js"></script>
+		<script  src="../../js/config.js"></script>
+		<script  src="../../js/config.js"></script>
+		<script  src="../../js/plugins/fastclick.js"></script>
+		<script  src="../../js/fhnative.js"></script>
+		<script  src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+        <script  src="../../js/common.js"></script>
+		<script src="js/layer.m.js" ></script>
+		<script>
+			var $close = $(".bill_close");
+			var $open = $(".bill_open");
+			//获取当前红包组id
+			var bonus_id = GetQueryString("bonus_id");
+			//			var bonus_id = "77923";
+			var bonus_id_cookie = typeof(getcookie("bonus_id")) == "undefined" ? "" : getcookie("bonus_id");
+			//当前时间
+			var nowdate = new Date();
+			//最后抢红包时间
+			var exposedate = typeof(getcookie("exposedate")) == "undefined" ? new Date() : getLocalTime(getcookie("exposedate"));
+			//今天抢过的红包组ID集合.
+			var billids = typeof(getcookie("billids")) == "undefined" ? "0" : getcookie("billids");
+			//电话文本框绑定keyup事件,如果是电话号码,则激活打开红包按钮.
+			document.getElementById("phone").onkeyup = istel;
+			//判断是否是电话
+			function istel() {
+				var val = document.getElementById("phone").value;
+				if ((/^1[1-9][0-9]\d{4,8}$/.test(val)) && val.length == 11) {
+					$("#expose").addClass("curr");
+				} else {
+					$("#expose").removeClass("curr");
+				}
+			}
+			//显示金币
+			function initGolden() {
+				$(".bill").append('<img class="bill_golden" id="bill_golden" src="img/golden.gif?v=' + Math.random() + '"/>');
+				setTimeout(function() {
+					$(".bill_golden").remove();
+				}, 1000);
+			}
+			//参与抢红包的人列表不同颜色
+			function initItem2() {
+				$("div.item2").each(function(i, dom) {
+					if (i % 3 == 0) {
+						$(dom).find(".iconfont").css({
+							background: "#FFCE3A"
+						});
+					} else if (i % 3 == 1) {
+						$(dom).find(".iconfont").css({
+							background: "#3A95FF"
+						});
+					} else {
+						$(dom).find(".iconfont").css({
+							background: "#A33AFF"
+						});
+					}
+				});
+			}
+			//页面初始化
+			initPage();
+
+			function initPage() {
+				if ((bonus_id_cookie == "" || bonus_id_cookie != bonus_id) || (exposedate != "" && exposedate.getDate() != nowdate.getDate())) {
+					$close.removeClass("hide");
+				} else {
+					ajaxGetBill();
+				}
+			}
+			//ajaxGetBill();
+			//获取红包方法
+			function ajaxGetBill() {
+				var mobile = $("#phone").val();
+				if (mobile == "") {
+					mobile = getcookie("lastphone");
+				}
+				$.ajax({
+					type: "get",
+					url: WapSiteUrl + "/api/index.php?act=common_bonus&op=get_bonus",
+					data: {
+						bonus_id: bonus_id,
+						mobile: mobile,
+						flag: 'wap'
+					},
+					dataType: 'json',
+					success: function(data) {
+						if (data.error === "0") { //成功领取红包.
+							var dete = data.result;
+							$close.addClass("hide");
+							addcookie("bonus_id", dete.bonus_id, 24 * 3);
+							$open.find("#currmoney").html("￥ " + dete.bonus_amount);
+							//myallwarp
+							if (typeof(dete.bonus_total) == "undefined") {
+								$("#myallwarp").html("请下载我们的APP");
+							} else {
+								$open.find("#myall").html(dete.bonus_total);
+							}
+							$open.find("#txt_phone").html(dete.mobile);
+							var html = $("#tplitem").clone().html();
+							var htmlAll = "";
+							$.each(dete.others, function(i, item) {
+								htmlAll = htmlAll + FL.formatStr(html, item.mobile, item.bonus_amount);
+							});
+							$open.find(".line").after(htmlAll);
+							initItem2();
+							$open.removeClass("hide");
+							addcookie("exposedate", dete.add_time, 24 * 3);
+							addcookie("lastphone", dete.mobile, 24 * 3);
+							$('.rule_txt').hide();
+							initGolden();
+						} else {
+							var tip = data.msg;
+							layer.open({
+								time: 2,
+								content: tip
+							});
+						}
+					}
+				});
+			}
+			$('#mask').click(function() {
+					$('#mask').hide();
+				})
+				//分享给好友
+			$('#give').click(function() {
+				//shareByApp('话费红包','【发红包啦】话费红包先到先得，100%中奖！',WapSiteUrl+'/wap/tmpl/phone_bill/img/icon_cai.png',WapSiteUrl+'/wap/tmpl/phone_bill/index.html');
+				//location.href = 'down.html';     
+				$('#mask').show();
+			});
+			//微信分享
+			FL.wxShare('话费红包','【发红包啦】话费红包先到先得，100%中奖！',WapSiteUrl+'/wap/tmpl/phone_bill/index.html?bonus_id='+bonus_id,WapSiteUrl+'/wap/tmpl/phone_bill/img/icon_cai.png');
+            
+			$(function() {
+				//点击打开红包
+				$("#expose").click(function() {
+					if ($(this).hasClass("curr")) {
+						ajaxGetBill();
+					}
+				});
+			});
+		</script>
+	</body>
+
+</html>

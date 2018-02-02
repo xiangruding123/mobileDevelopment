@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <title>秒杀</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+   	<meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta name="format-detection" content="telephone=no">	
+    <link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/animate.css">
+    <link rel="stylesheet" href="../../css/buttons.css">
+    <link rel="stylesheet" href="../../js/plugins/layer/skin/layer.css">
+    <link rel="stylesheet" href="../../css/fhbase.css">
+    <link rel="stylesheet" href="../../css/activity.css">
+</head>
+<body class="fh-bg-white">
+    <div class="container layout" id='seckill'>
+        <div class="row">
+            <header class="fh-header pd-none">
+                <span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+                <h1 class="header-title">秒杀</h1>
+                <a class="header-edit" id="nav-show"></a>
+            </header>
+            <div id="sk_tab" class="sk-tab">
+	            <ul class="nav nav-pills sk-nav" id="tab_ul"></ul>
+	            	<script id="tabUl" type="text/html">
+	            	<%for(var i=0;i<result.length;i++){%>
+	            		<%if(result[i].sequence_state==2&&result[i].if_current==1){%>
+	            			<li class="color-active" s_id="<%=result[i].sequence_id%>" start_time="<%=result[i].start_time%>" end_time="<%=result[i].end_time%>" if_current="<%=result[i].if_current%>" type="<%=result[i].sequence_type%>">
+	            		<%}else{%>
+	            			<li s_id="<%=result[i].sequence_id%>" start_time="<%=result[i].start_time%>" end_time="<%=result[i].end_time%>" if_current="<%=result[i].if_current%>" type="<%=result[i].sequence_type%>">
+	            		<%}%>
+		                	<p>
+		                		<%if(result[i].sequence_title){%>
+		                			<%=result[i].sequence_title%>
+		                		<%}else{%>
+		                			<%=result[i].sequence_time%>
+		                		<%}%>
+		                	</p>
+	                	<%if(result[i].sequence_state==1){%>
+		                		<p state="<%=result[i].sequence_state%>" title="result[i].sequence_title">即将开抢</p>
+		                <%}else if(result[i].sequence_state==2&&result[i].if_current==1){%>
+		                		<p state="<%=result[i].sequence_state%>" title="result[i].sequence_title">今日场</p>
+		               	<%}else if(result[i].sequence_state==2&&result[i].if_current==0){%>
+		                		<p state="<%=result[i].sequence_state%>" title="result[i].sequence_title">已开抢</p>
+		               	<%}else if(result[i].sequence_state==3){%>
+		                		<p state="<%=result[i].sequence_state%>" title="result[i].sequence_title">已结束</p>
+		                <%}else if(result[i].sequence_state==4){%>
+		                		<p state="<%=result[i].sequence_state%>" title="result[i].sequence_title">商家关闭</p>
+	                	<%}%>
+		                	</li>
+		            <%}%>
+	            	</script>
+	        </div>
+	        <!--banner图-->
+	        <script id="sk_banner" type="text/html">
+	        	<%for(var i=0;i<result.length;i++){%>
+	        		<%if(result[i].sequence_banner){%>
+		        		<a href ="<%=result[i].sequence_banner.url%>" >
+			        		<%if(result[i].if_current==1){%>
+		           	 		    <img src="<%=result[i].sequence_banner.pic%>" onerror="javascript:this.src='../../src/images/wap/miaosha_default.png'"  class="sk-t-img img-<%=result[i].sequence_id%>"  />
+		           	 		<%}else{%>
+		           	 			<img src="<%=result[i].sequence_banner.pic%>" onerror="javascript:this.src='../../src/images/wap/miaosha_default.png'" class="sk-t-img img-<%=result[i].sequence_id%>"  style="display:none"/>
+		           	 		<%}%>
+	           	 		</a>
+           	 		<%}%>
+           	 	<%}%>
+            </script>
+            
+           	<div class="sk-hint">
+           		<img src="../../images/wap/clock.svg" class="sk-clock"/>
+           		<span class="sk-title">抢购中 08:00开始</span>
+           		<span class="pull-right" id="sk_tips">
+           			<span class="sk-span1"></span>
+           			<div class="sk-time">
+           				<span class="sk-h"></span><span class="sk-m"></span><span class="sk-s"></span>
+           			</div>
+           		</span>
+           	</div>
+           	
+           	<div id="seckill_list" class="min-scroller"></div>
+           		<script id="seckillList" type="text/html">
+           		<%if(result.length>1){%>
+           			<%if((result.state==2&&result.if_current==1)||result.state==1){%>
+           				<ul class="animated fadeInRight">
+           			<%}else{%>
+	           			<ul class="animated fadeInLeft">
+	           		<%}%>
+	           		<%for(var i=0;i<result.length;i++){%>
+	                <li class="fh-goods">
+	                	<%if(result.state==2||result.state==3){%>
+	                		<%if(result[i].killed_pct==100){%>
+	                			<button class="sk-more" type="button">更多优惠</button>
+	                			<div class="sk-mask">已秒完</div>
+	                		<%}else{%>
+	                			<a href="../shopping/goods_details.html?goods_id=<%=result[i].goods_id%>" good_id="<%=result[i].goods_id%>">
+									<button class="sk-rob" type="button">马上抢</button>
+								</a>
+							<%}%>
+						<%}%>
+	                	<a href="../shopping/goods_details.html?goods_id=<%=result[i].goods_id%>" good_id="<%=result[i].goods_id%>" class="pr dis-b">
+	                        <div class="media-left pr">
+								<img class="media-img" src="<%=result[i].killing_pic%>"  style="display: inline-block;">
+	                        </div>
+	                        <div class="media-body">
+	                            <h4 class="media-heading overhide  pr l150">
+	                            	<%=result[i].killing_title%>
+	                            </h4>
+	                            <div class="sk-price">
+	                                <div class="media-tailing clearfix fh-price">￥<%=result[i].killing_price%></div>
+	                                <del>￥<%=result[i].goods_price%></del>
+	                            </div>
+	                            <%if(result.state==2||result.state==3){%>
+		                            <div class="sk-rdiv">
+		                            	<div class="sk-load">
+		                            		<span class="sk-font">已售<%=result[i].killed_pct%>%</span>
+		                        			<div class="sk-progress">
+		                        				<span class="sk-pro" width = "<%=result[i].killed_pct%>%"></span>
+		                        			</div>
+		                            	</div>
+		                            </div>
+	                            <%}else if(result.state==1){%>
+	                           	 	<div class="sk-ready">即将开始</div>
+	                           	<%}%>
+	                        </div>
+	                    </a>
+	                </li>
+	                <%}%>
+	                </ul>
+	            <%}else if(result.length==1){%>
+	           			<div class="fh-goods animated zoomIn">
+						<p class="sk-s-title"><%=result[0].killing_title%></p>
+						<img class="sk-s-img" src="<%=result[0].killing_pic%>" >
+						<div class="sk-s-price">
+							<span>秒杀价:</span>
+							<span>￥<%=result[0].killing_price%></span>
+							<span class="f12">原价:</span>
+							<del>￥<%=result[0].goods_price%></del>
+						</div>
+						<%if(result.state==2){%>
+	                		<%if(result[0].killed_pct==100){%>
+	                			<button class="sk-s-more" type="button">更多优惠</button>
+	                		<%}else{%>
+	                			<a href="../shopping/goods_details.html?goods_id=<%=result[0].goods_id%>" good_id="<%=result[0].goods_id%>">
+									<button class="sk-s-rob" type="button">马上抢</button>
+								</a>
+							<%}%>
+							<div class="sk-s-rdiv">
+		                    	<div class="sk-load">
+		                    		<span class="sk-font f12">已售<%=result[0].killed_pct%>%</span>
+		                			<div class="sk-s-progress">
+		                				<span class="sk-pro" width="<%=result[0].killed_pct%>%"></span>
+		                			</div>
+		                    	</div>
+		                    </div>
+						<%}else if(result.state==1){%>
+							<p class="sk-s-ready">即将开始</p>
+						<%}%>
+	                </div>
+	            <%}%>
+                </script>
+              
+        	<div class="sk-bottom" id="tab_change">点击切换到下一场<i class="icon-angle-right"></i></div>
+        </div>
+    </div>
+    <script  src="../../js/libs/jquery/jquery-1.8.3.min.js"></script>
+    <script  src="../../js/plugins/fastclick.js"></script>
+    <script  src="../../js/plugins/iscroll.js"></script>
+    <script  src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>	
+    <script  src="../../js/plugins/template.js"></script>
+    <script  src="../../js/config.js"></script>
+    <script  src="../../js/common.js"></script>
+    <script  src="../../src/js/tmpl/activity/seckill.js"></script>
+    <script>
+    	Activity.Seckill.onLoad();
+    </script>
+</body>
+
+</html>

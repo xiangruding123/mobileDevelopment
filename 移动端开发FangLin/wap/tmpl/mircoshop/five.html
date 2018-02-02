@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>我要开店</title>
+		<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+		<link rel="shortcut icon" href="/favicon.ico">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+		<link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+		<link rel="stylesheet" href="../../src/css/mirco.css" media="screen" title="no title">
+		<style>
+			img {
+				display: block;
+				width: 100%;
+			}
+		</style>
+
+	</head>
+
+	<body>
+		<div class="page-group">
+			<!-- 单个page ,第一个.page默认被展示-->
+			<div class="page">
+				<!-- 标题栏 -->
+				<header class="bar bar-nav">
+					<!-- <a class="button button-link button-nav pull-left" href="/demos/card" data-transition='slide-out'> -->
+					<span class="icon icon-left pull-left" onclick="javascript:history.back();"></span>
+					<!-- </a> -->
+
+					<h1 class="title">我要开店</h1>
+				</header>
+				<!-- 这里是页面内容区 -->
+				<div class="content">
+					<img src="../../images/weidian/365_01.jpg" alt="" />
+					<img src="../../images/weidian/365_02.jpg" alt="" />
+					<img src="../../images/weidian/365_03.jpg" alt="" />
+					<img src="../../images/weidian/365_04.jpg" alt="" />
+					<img src="../../images/weidian/365_05.jpg" alt="" />
+					<img src="../../images/weidian/365_06.jpg" alt="" />
+					<img src="../../images/weidian/365_07.jpg" alt="" />
+					<img src="../../images/weidian/365_08.jpg" alt="" />
+					<div class="h50"></div>
+
+				</div>
+                <footer class="footer text-center">
+
+						<!-- <span class="buttondanger">申请大V店</span><span class="buttonsuccess active">申请皇冠店</span> -->
+            <span class="buttonsuccess active" >申请大V店</span>
+
+				</footer>
+			</div>
+
+		</div>
+
+		<script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+		<script>
+			$.config = {
+				router: false
+			}
+		</script>
+		<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+		<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+		<script type="text/javascript" src="../../js/config.js"></script>
+		<script type="text/javascript" src="../../js/apiLink.js"></script>
+		<script type="text/javascript" src="../../js/common.js"></script>
+		<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+		<script src="../../js/fh.js"></script>
+		<script>
+			$(function() {
+				// 页面初始化
+				$.init();
+
+				var deductid = GetQueryString('deductid');
+				var type ;
+
+				var _title = "我是红人店主，邀您共现创富梦",
+					_desc = "【赚钱】独创运营模式，全方位指导，专业团队，引领世界共创富，分红全球购打造亿万大众创富梦想的平台，财富等您加入！！！",
+					_pic = "http://www.fenhongshop.com/wap/images/wap/logo.png",
+					_url = WapSiteUrl + '/wap/tmpl/mircoshop/register.html';
+				//  店铺分享
+
+				FL.wxShare(_title, _desc, _url, _pic,_desc);
+
+
+				$('.buttonsuccess').bind('click',function() {
+            type = '365';
+           loadData();
+
+			 });
+
+
+				//页面数据获取
+
+				function loadData(){
+					if(native_flag=='-1'){
+						if(FL.mid){
+							 loadEVent(FL.mid,FL.token,'wap');//页面
+						}else{
+               FL.logLogin();
+						}
+
+					}else{
+						appMemberInfo({
+								success: getMemberInfo
+						});
+					}
+				}
+
+
+
+				// 用户信息
+
+				function getMemberInfo(info) {
+						mid = info.member_id,
+								token = info.token;
+
+              if(native_flag=='0'){
+               flag= 'android';
+							}else if (native_flag=='1') {
+               flag= 'ios';
+							}
+
+							loadEVent(mid,token,flag);//页面数据
+
+		        //app数据添加token
+
+						addcookie('mid', info.member_id);
+						addcookie('token', info.token);
+
+				}
+
+       function loadEVent(mid,token,flag){
+
+				$.ajax({
+						type: 'post',
+						url: WapSiteUrl + '/api/index.php?act=common_member&op=ucenter',
+						data: {
+								token: token,
+								mid: mid,
+								flag: flag
+						},
+						dataType: 'json',
+						success: function(data) {
+								if (data && data.error === "0") {
+
+                      var obj = data.result;
+
+										if (obj.shop_type == '2') {
+
+													 location.href = "six.html";
+
+										} else if (obj.shop_type == '3') {
+
+													 location.href = "home.html?time="+Math.random();
+
+										}else{
+                            if(type=='365'){
+															location.href = "order.html?shop_money=365&deductid=" + deductid;
+														}else{
+																location.href = "order.html?shop_money=666&deductid=" + deductid;
+														}
+										}
+
+								}
+						},
+						error: function(xhr) {
+
+						}
+				});
+			 }
+
+
+
+
+			});
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <title>立即提现</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+   <meta name="apple-mobile-web-app-status-bar-style" content="black">
+   	<meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/buttons.css">
+    <link rel="stylesheet" href="../../css/fhbase.css">
+    <link rel="stylesheet" href="../../css/fhwap.css">
+</head>
+
+<body>
+    <div class="container layout">
+        <div class="row">
+            <header class="fh-header">
+                <span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+                <h1 class="header-title">立即提现</h1>
+            </header>
+            <section class="poker clearfix bck-color">
+                <p class="pull-left">请选择您的银行卡或支付宝</p>
+            </section>
+            <section class="fill">
+                <a href="choose_card.html" class="skip-link">
+                    <img src="../../images/wap/ccb.png" alt="" class="mr15">
+                    <span class="">代用名</span>
+                    <span class="card">13545464678945445</span>
+                    <i class="icon-angle-right right-arrow vm"></i> </a>
+            </section>
+            <section class="poker clearfix bck-color">
+                <p class="pull-left">输入提现金额</p><span class="fh-red pull-right">剩余金额：￥200</span>
+            </section>
+            <section class="input-box">
+                <input type="text" placeholder="输入提现金额" class="input-cont">
+            </section>
+            <section class="poker clearfix bck-color">
+                <p class="pull-left">输入支付密码</p><a class="pull-right" href="password_pay.html">没有支付密码</a>
+            </section>
+            <section class="input-box">
+                <input type="text" placeholder="输入支付密码" class="input-cont">
+            </section>
+            <section class="empty"></section>
+            <div class="bck-color plr10">
+                <a href="" class="button button-block button-rounded button-caution">去提现</a>
+            </div>
+        </div>
+    </div>
+    <script  src="../../js/libs/zepto.min.js"></script>
+    <script  src="../../js/config.js"></script>
+    <script  src="../../js/plugins/fastclick.js"></script>
+
+    <script  src="../../js/common.js"></script>
+    <script  src="../../js/plugins/template.js"></script>
+
+    <script>
+    $(function() {
+        // 银行卡号字符串截取
+        var card_txt = $('.card').text().slice(0, 4) + '****' + $('.card').text().slice(-4);
+        $('.card').text(card_txt);
+    })
+    </script>
+</body>
+
+</html>

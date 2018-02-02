@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <title>达人首页</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/animate.css">
+    <link rel="stylesheet" href="../../src/css/fhbase.css">
+    <link rel="stylesheet" href="../../src/css/fhwap.css">
+    <link rel="stylesheet" href="../../js/plugins/emoji/emoji.css">
+</head>
+<body id="talentbody">
+    <div class="container layout" id='talent_index'>
+        <script type="text/html" id="talent-tpl">
+        <div class="row">
+            <header> 
+                <img src="../../images/wap/specialty/goback.png" alt="" onclick="javascript:history.back();" class="talentback">
+                <span class="pull-right">
+                    <%if(talent_info.is_own=='1'){%>
+                     <a href="add_time.html"><img src="../../images/wap/specialty/btn_fabu_w.png" alt="" class="mr15"></a>
+                    <%}%>
+                    <img src="../../images/wap/specialty/whiteshare.png" alt="" class="share -mob-share-open" data-content="<%=share.content%>" data-image="<%=share.image%>" data-url="<%=share.url%>" data-title="<%=share.title%>">
+                </span>
+            </header>
+            <div class="plr10 talentcentent">
+
+                <div class="talent-content">
+                    <div class="blockheight"></div>
+                    <div class="fh-bg-white">
+                    <%if(talent_info){%>
+                    <div class="plr10">
+                        <div class="clearfix pt20">
+                            <div class="pull-left w150">
+                                <img src="../../images/weidian/headphone.png" data-original="<%=talent_info.talent_avatar%>" alt="" class="talent-phone" >
+                                <p class="talent-name f22 mt20" style="white-space: nowrap;"><%=talent_info.talent_name%></p>
+                            </div>
+                            <div class="pull-right">
+                                <%if(talent_info.is_own=='1'){%>
+                                <a href="talent_data.html">
+                                <img src="../../images/wap/specialty/icon_bianji.png" alt="" class="mr5">编辑
+                                </a>
+                                <a href="../member/my_commission.html">
+                                <img src="../../images/wap/specialty/icon_yongjin.png" alt="" class="mr5 ml5">佣金统计
+                                </a>
+                                <%}%>
+                                <%if(talent_info.is_own=='0'){%>
+                                <p><i class="icon-angle-up f18 pr5"></i>滑动查看她的时光</p>
+                                <%if(talent_info.is_followed=='1'){%>
+                                <button class="followed isfollow">已关注</button>
+                                <%}else{%>
+                                <button class="follow isfollow">+关注</button>
+                                <%}%>
+                                <%}%>
+                            </div>
+                        </div>
+                        <p class="talent-synopsis"><%=#talent_info.talent_intro%></p>
+                    </div>
+                    <ul class="talent-type clearfix pb30">
+                        <li><a href="time_list.html?talent_id=<%=talent_info.talent_id%>"><p class="color8">时光</p><p class="talent-type-num"><%=talent_info.time_count%></p></a></li>
+                        <li><a href="fans_list.html?talent_id=<%=talent_info.talent_id%>"><p class="color8">粉丝</p><p class="talent-type-num"><%=talent_info.fans_count%></p></a></li>
+                        <li><a href="recommend.html?talent_id=<%=talent_info.talent_id%>"><p class="color8">推荐商品</p><p class="talent-type-num"><%=talent_info.goods_count%></p></a></li>
+                    </ul>
+                    <%}%>
+                    <%if(timePic){%>
+                    <p class="f16 pl15">TA最爱的·时光</p>
+                        <%for(var i in timePic){%>
+                                <div>
+                                    <p class="f16 pl15 mb20 mt30"><%=#timePic[i].time_pic[0].add_time%></p>
+                                    <ul class="clearfix">
+                                        <%for(var k=0;k<timePic[i].time_pic.length;k++){%>
+                                        <li class="time-img">
+                                            <a href="time_detail.html?time_id=<%=timePic[i].time_pic[k].time_id%>"><img src="<%=timePic[i].time_pic[k].time_image%>" alt=""></a>
+                                        </li>
+                                        <%}%>
+                                    </ul>
+                                </div>
+                        <%}%>
+                    <%}%>
+
+                    </div>
+                </div>
+
+            </div>
+        </script>
+        </div>
+    </div>
+    <div class="-mob-share-ui -mob-share-ui-theme -mob-share-ui-theme-slide-bottom">
+        <ul class="-mob-share-list">
+            <li class="-mob-share-weixin"><p>微信</p></li>
+            <li class="-mob-share-qq"><p>QQ好友</p></li>
+            <li class="-mob-share-qzone"><p>QQ空间</p></li>
+            <li class="-mob-share-weibo"><p>新浪微博</p></li>
+        </ul>
+        <div class="-mob-share-close">取消</div>
+    </div>
+    
+    <div class="-mob-share-ui-bg"></div>
+    <script  src="../../js/libs/jquery/jquery-1.8.3.min.js"></script>
+    <script  src="../../js/plugins/fastclick.js"></script>
+    <script  src="../../js/config.js"></script>
+    <script  src="../../js/apiLink.js"></script>
+    <script  src="../../js/plugins/template.js"></script>
+    <script  src="../../js/common.js"></script>
+    <script src="../../js/plugins/jquery.lazyload.js"></script>
+    <script  src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script  src="../../js/plugins/layer/layer.js"></script>
+    <script  src="../../js/plugins/iscroll.js"></script>
+    <script  src="../../js/plugins/swiper/swiper.js"></script>
+    <script  src="../../src/js/tmpl/specialty/talent_index.js"></script>
+    <script id="-mob-share"></script>     
+</body>
+
+</html>

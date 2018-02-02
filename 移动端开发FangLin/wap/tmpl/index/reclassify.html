@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <title>搜索</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+   	<link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+   	<link rel="stylesheet" href="../../css/animate.css">
+    <link rel="stylesheet" href="../../css/fhbase.css">
+    <link rel="stylesheet" href="../../css/fhwap.css">
+</head>
+
+<body>
+    <div class="layout" id="reclassify">
+    
+        <header class="fh-header">
+            <span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+            <h1 class="header-title"></h1>
+            <a class="header-edit" id="nav-show"></a>
+        </header>
+        <ul class="bck-color" id="reclassify_list"></ul>
+        <script type="text/html" id='reclassify-tpl'>
+            <%for(var i=0;i<result.length;i++){%>           
+            <li><a href="../shopping/goods_list.html?gc_id=<%=result[i].gc_id%>&gc_area=<%=result[i].gc_area%>"><img src="<%=result[i].gc_img%>" alt=""></a><a href="../shopping/goods_list.html?gc_id=<%=result[i].gc_id%>&gc_area=<%=result[i].gc_area%>"><p class="over-hidden"><%=result[i].gc_name%></p></a></li>
+            <%}%>
+        </script>
+    </div>
+           
+    <script  src="../../js/libs/jquery/jquery-1.11.3.min.js"></script>    
+	<script  src="../../js/config.js"></script>
+    <script  src="../../js/plugins/fastclick.js"></script>
+    <script  src="../../js/common.js"></script>
+    <script  src="../../js/plugins/layer/layer.js"></script>
+    <script  src="../../js/plugins/template.js"></script>
+    <script  src="../../js/tmpl/index/reclassify.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <title>购物车</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+   <meta name="apple-mobile-web-app-status-bar-style" content="black">
+   	<meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <link rel="stylesheet" href="../../js/plugins/swiper/swiper.css" />
+    <link rel="stylesheet" href="../../css/animate.css"/>
+    <link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/buttons.css">
+    <link rel="stylesheet" href="../../js/plugins/layer/skin/layer.css">
+    <link rel="stylesheet" href="../../css/fhbase.css">
+    <link rel="stylesheet" href="../../src/css/fhwap.css">
+</head>
+
+<body>
+        <!------------------------------------------优惠活动------------------------------------------------>
+        <!--店铺优惠套装-->
+        <div class="context layout" id="shopping" >
+        	<div class="row">
+				<header class="fh-header">
+					<span class="goback icon-angle-left" id="hideServices" onclick="location.replace('shopping_cart_cn.html')"></span>
+					<h1 class="header-title">优惠活动</h1>
+				</header>
+				<section id="z_content" class="bg-body">
+					<div id="send" class="focus-font overhide bg-body"></div>
+					<p class="pd-index f12 focus-font bg-body">
+						<span id="title"></span>
+					</p>
+						<!--列表详情-->
+						<ul class="ul-li-all mb50" id="z_goods_list">
+							<script id="zGoodsList" type="text/html">
+								<%for(var i=0;i<result.length;i++){%>
+								<li class="z-goods">
+									<div class="media fh-goods">
+
+				                            <div class="media-left pr">
+                                      <a href="../shopping/goods_details.html?goods_id=<%=result[i].goods_id%>" class="pr dis-b">
+												<img class="media-img" src="<%=FormatImg(result[i].goods_image)%>" style="display: inline-block;">
+                          </a>
+				                            </div>
+				                            <div class="media-body">
+                                      <a href="../shopping/goods_details.html?goods_id=<%=result[i].goods_id%>" class="pr dis-b">
+
+				                            	<%if(result[i].nation_flag){%>
+				                            		<img src="<%=result[i].nation_flag%>" class="w20 mr5 mt2"/><%=result[i].goods_promise%>
+				                            	<%}%>
+				                                <h4 class="media-heading overhide pr l150">
+				                                	<%=result[i].goods_name%>
+				                                </h4>
+				                                <div class="pull-left">
+				                                    <div class="media-tailing clearfix fh-price mt10">￥<%=result[i].goods_price%></div>
+				                                </div>
+                                          </a>
+				                                <div class="dis-in-b addcartbag">
+				                                <img src="../../images/wap/addcartbag.png"  class="media-cart" goods_id="<%=result[i].goods_id%>" goods_source="<%=result[i].goods_source%>" goods_price="<%=result[i].goods_price%>"/>
+				                                </div>
+				                                </div>
+
+			                     	</div>
+								</li>
+								<%}%>
+							</script>
+						</ul>
+				</section>
+			</div>
+			<div class="z-bottom-frame p-fixed" id="z_bottom">
+                <div id="z_accounts" class="">
+                    <p class="shopping-total">
+                     	<span>小计:</span>
+                        <span  id="z_price"> ￥0.00</span>
+                        <span class="z-marker dis-b"></span>
+                    </p>
+                    <a class="btn-shopping" id="go_cart" onclick="location.replace('shopping_cart_cn.html')">去购物袋</a>
+                </div>
+            </div>
+        </div>
+
+    <script  src="../../js/libs/jquery/jquery-1.8.3.min.js"></script>
+    <script  src="../../js/plugins/fastclick.js"></script>
+    <script  src="../../js/config.js"></script>
+    <script  src="../../js/common.js"></script>
+    <script  src="../../js/plugins/layer/layer.js"></script>
+    <script  src="../../js/plugins/swiper/swiper.js"></script>
+    <script  src="../../js/plugins/template.js"></script>
+    <script  src="../../src/js/tmpl/shopping/shopping_cart_pinkage.js"></script>
+    <script>
+    	Goods.Pinkage.onLoad();
+    </script>
+</body>
+
+</html>

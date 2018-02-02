@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>完善资料</title>
+		<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+		<link rel="shortcut icon" href="/favicon.ico">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+		<link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+		<link rel="stylesheet" href="../../src/css/mirco.css" />
+
+	</head>
+
+	<body class="fh-bg-white">
+		<div class="page-group fh-bg-white">
+			<!-- 单个page ,第一个.page默认被展示-->
+			<div class="page fh-bg-white">
+				<!-- 标题栏 -->
+				<header class="bar bar-nav fh-bg-white">
+					<span class="icon icon-left pull-left" onclick="javascript:history.back();"></span>
+					<h1 class="title">完善资料</h1>
+				</header>
+				<!-- 这里是页面内容区 -->
+
+				<div class="content">
+					<p class='data-title'><span></span>主体类型</p>
+					<div class="buttons-row member_type">
+						<a href="#tab1" class="tab-link active" member_type='1'>个人</a>
+						<a href="#tab2" class="tab-link" member_type='2'>公司</a>
+					</div>
+
+					<div class="tabs">
+						<div id="tab1" class="tab active">
+
+							<form id="test_form" class="form">
+								<div class="list-block m0">
+									<ul>
+										<li>
+											<div class="item-content">
+												<div class="item-media"><i class="icon icon-form-name"></i></div>
+												<div class="item-inner">
+													<div class="item-title label"><span class="fh-red">*</span>姓名</div>
+													<div class="item-input">
+														<input type="text" id="card_name" data-validation="required" data-validation-message="身份证姓名不能为空" placeholder="请输入身份证姓名（必填）">
+													</div>
+												</div>
+											</div>
+										</li>
+										<li>
+											<div class="item-content">
+												<div class="item-media"><i class="icon icon-form-name"></i></div>
+												<div class="item-inner">
+													<div class="item-title label">身份证号码</div>
+													<div class="item-input">
+														<input type="text" id="card_number" placeholder="请输入身份证号码">
+													</div>
+												</div>
+											</div>
+										</li>
+										<li>
+											<div class="item-content">
+												<div class="item-media"><i class="icon icon-form-name"></i></div>
+												<div class="item-inner">
+													<div class="item-title label"><span class="fh-red">*</span>常驻地址</div>
+													<div class="item-input">
+														<input type="text" class='city-picker' data-validation="required"  placeholder="请输入地址（必填）" />
+													</div>
+												</div>
+											</div>
+										</li>
+										<li>
+											<div class="item-content">
+												<div class="item-media"><i class="icon icon-form-name"></i></div>
+												<div class="item-inner">
+													<div class="item-title label"><span class="fh-red">*</span>添加照片</div>
+
+												</div>
+											</div>
+											<div class="clearfix">
+												<div class="text-center upimg">
+													<input type="file" accept="image/*" capture=camera class="fh-file" id="person_pic_url" name="person_pic_url" />
+													<img src="../../images/weidian/updata.png" alt="" id="person_pic_url_img" /> 上传
+												</div>
+												<div class="text-center upimg">
+													<img src="../../images/weidian/moban.png" alt="" /> 模版
+												</div>
+											</div>
+
+										</li>
+									</ul>
+								</div>
+								<div class="empty"></div>
+								<div class='text-center'>联系方式</div>
+								<div class="empty"></div>
+								<div class="list-block mb0 mt0">
+									<ul>
+										<li>
+											<div class="item-content">
+												<div class="item-media"><i class="icon icon-form-name"></i></div>
+												<div class="item-inner">
+													<div class="item-title label"><span class="fh-red">*</span>邮箱</div>
+													<div class="item-input">
+														<input type="text" class='email' value="" data-validation="required" data-validation-message="邮箱不能为空" placeholder="（必填）" />
+													</div>
+												</div>
+											</div>
+										</li>
+										<li>
+											<div class="item-content">
+												<div class="item-media"><i class="icon icon-form-name"></i></div>
+												<div class="item-inner">
+													<div class="item-title label">QQ</div>
+													<div class="item-input">
+														<input type="text" class='qq_number' value="" />
+													</div>
+												</div>
+											</div>
+										</li>
+										<li>
+											<div class="item-content">
+												<div class="item-media"><i class="icon icon-form-name"></i></div>
+												<div class="item-inner">
+													<div class="item-title label">微信</div>
+													<div class="item-input">
+														<input type="text" class='wechat_number' value="" />
+													</div>
+												</div>
+											</div>
+										</li>
+
+									</ul>
+
+								</div>
+
+								<p class="content-block">
+																		<span class="button button-fill button-danger">提交</span>
+
+								</p>
+							</form>
+
+						</div>
+						<div id="tab2" class="tab">
+							<form id="test_form2" class="form">
+								<div class="list-block mb0">
+									<ul>
+										<li>
+											<div class="item-content">
+												<div class="item-media"><i class="icon icon-form-name"></i></div>
+												<div class="item-inner">
+													<div class="item-title label"><span class="fh-red">*</span>公司名称</div>
+													<div class="item-input">
+														<input type="text" id="company_name" data-validation="required" data-validation-message="公司名称不能为空" placeholder="请输入公司名称（必填）">
+													</div>
+												</div>
+											</div>
+										</li>
+
+										<li>
+											<div class="item-content">
+												<div class="item-media"><i class="icon icon-form-name"></i></div>
+												<div class="item-inner">
+													<div class="item-title label"><span class="fh-red">*</span>常驻地址</div>
+													<div class="item-input">
+														<input type="text" class='city-picker' data-validation="required" data-validation-message="常驻地址不能为空" placeholder="请输入地址（必填）" />
+													</div>
+												</div>
+											</div>
+										</li>
+										<li>
+											<div class="item-content">
+												<div class="item-media"><i class="icon icon-form-name"></i></div>
+												<div class="item-inner">
+													<div class="item-title label"><span class="fh-red">*</span>营业执照</div>
+
+												</div>
+											</div>
+											<div class="clearfix">
+												<div class="text-center upimg">
+													<input type="file" accept="image/*" capture=camera class="fh-file" id="company_pic_url" name="company_pic_url" />
+													<img src="../../images/weidian/updata.png" alt="" id="company_pic_url_img" /> 上传
+												</div>
+												<div class="text-center upimg">
+													<img src="../../images/weidian/zhao.png" alt="" /> 模版
+												</div>
+											</div>
+										</li>
+									</ul>
+								</div>
+								<div class="empty"></div>
+								<div class='text-center'>联系方式</div>
+								<div class="empty"></div>
+								<div class="list-block mb0 mt0">
+									<ul>
+										<li>
+											<div class="item-content">
+												<div class="item-media"><i class="icon icon-form-name"></i></div>
+												<div class="item-inner">
+													<div class="item-title label"><span class="fh-red">*</span>邮箱</div>
+													<div class="item-input">
+														<input type="text" class='email' value="" data-validation="required" data-validation-message="邮箱不能为空" placeholder="（必填）"/>
+													</div>
+												</div>
+											</div>
+										</li>
+										<li>
+											<div class="item-content">
+												<div class="item-media"><i class="icon icon-form-name"></i></div>
+												<div class="item-inner">
+													<div class="item-title label">QQ</div>
+													<div class="item-input">
+														<input type="text" class='qq_number' value="" />
+													</div>
+												</div>
+											</div>
+										</li>
+										<li>
+											<div class="item-content">
+												<div class="item-media"><i class="icon icon-form-name"></i></div>
+												<div class="item-inner">
+													<div class="item-title label">微信</div>
+													<div class="item-input">
+														<input type="text" class='wechat_number' value="" />
+													</div>
+												</div>
+											</div>
+										</li>
+
+									</ul>
+
+								</div>
+
+								<p class="content-block">
+									<span class="button button-fill button-danger">提交</span>
+
+								</p>
+							</form>
+
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+
+		<script src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+
+		<script>
+			$.config = {
+				router: false
+			}
+		</script>
+		<script src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+		<script src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+		<script src="//g.alicdn.com/msui/sm/0.6.2/js/sm-city-picker.min.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../../js/plugins/layer/layer.js"></script>
+		<script src="../../js/base64.js"></script>
+        <script src="../../js/fh.js"></script>
+		<script src="../../js/config.js" charset="utf-8"></script>
+		<script src="../../js/apiLink.js" charset="utf-8"></script>
+		<script type="text/javascript" src='../../js/common.js'></script>
+    <script src="../../src/js/tmpl/mircoshop/useinfo.js"></script>
+
+	</body>
+
+</html>

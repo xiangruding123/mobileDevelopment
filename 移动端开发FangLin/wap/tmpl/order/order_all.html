@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>我的订单</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta http-equiv="Cache-Control" content="no-cache">
+    	<meta http-equiv="Pragma" content="no-cache">
+		<link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+	    <link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+	    <link rel="stylesheet" href="../../src/css/fhbase.css">
+	    <link rel="stylesheet" href="../../src/css/fhwap.css">
+	    <link rel="stylesheet" href="../../css/animate.css">
+
+	</head>
+
+	<body class="orderbag">
+		<div class="container layout" id="apply-service">
+			<div class="row bg-body" id="allorder">
+				<header class="fh-header">
+					<span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+					<h1 class="header-title">全部订单</h1>
+					<a class="header-edit" id="nav-show"></a>
+				</header>
+				<ul class="nav nav-pills fh-nav" id="order_state">
+					<li order_state='0' tpl='all_tpl'><a href="#">全部</a></li>
+					<li order_state='10' tpl='pay_tpl'><a href="#">待付款</a></li>
+					<li order_state='20' class="selected" tpl='deliver_tpl'><a href="#">待发货</a></li>
+					<li order_state='30' tpl='get_tpl'><a href="#">待收货</a></li>
+					<li order_state='100' tpl='comment_tpl'><a href="#">待评价</a></li>
+				</ul>
+				<!--取消订单start-->
+				<div id="mask"></div>
+				<div id="maskbox">
+					<h2>取消订单</h2>
+					<p>我不想买了</p>
+					<p>信息填写错误，重新拍</p>
+					<p>付款遇到困难</p>
+					<p>重复下单</p>
+					<p>其他原因</p>
+				</div>
+				<!--取消订单end-->
+			    <!-- 确认收货 -->
+			   <!-- <div id="goods_receipt">
+			      <h2>你是否要确定收货？</h2>
+			      <p>请确保收到货物再确认收货哦！~</p>
+			      <button class="cancle_receipt ">取消</button><button id='goods_ok' class='pull-right'>确认</button>
+			    </div>-->
+				<div class="fh-dialog" id="goods_receipt_dialog">
+					<div class="fh-dialog-wrap">
+						<div class="tc">
+							<img src="../../images/wap/login/fh-dialog-img.png" alt="" class="fh-dialog-img"/></div>
+						<div class="fh-dialog-header">
+							<h3>你是否要确定收货？</h3>
+						</div>
+						<div class="fh-dialog-body">
+							<p class="fh-dialog-brief">请确保收到货物再确认收货哦！~</p>
+						</div>
+						<div class="fh-dialog-footer">
+							<button class="fh-dialog-button" id="leftbtn">取消</button><button class="fh-dialog-button focus-font" id="rightbtn">确认</button>
+						</div>
+					</div>
+				</div>
+			    <!-- 确认收货 end  -->
+			    <!-- 引导去评价 -->
+			    <!--<div id="goods_receipt_success">
+			      <h2 class="focus-font tc">收货成功</h2>
+			      <p class="tc pt10 f14">快来评价得积分吧！</p>
+			      <button class="cancle_receipt">取消</button><a href="order_all.html?index=4&"><button id="receipt_true" class='pull-right'>确认</button></a>
+			    </div>-->
+				<div class="fh-dialog" id="goods_receipt_dialog_success">
+					<div class="fh-dialog-wrap">
+						<div class="tc">
+							<img src="../../images/wap/login/fh-dialog-img.png" alt="" class="fh-dialog-img"/></div>
+						<div class="fh-dialog-header">
+							<h3>收货成功</h3>
+						</div>
+						<div class="fh-dialog-body">
+							<p class="fh-dialog-brief">快来评价得积分吧！</p>
+						</div>
+						<div class="fh-dialog-footer">
+							<button class="fh-dialog-button" id="leftbtn">取消</button><button class="fh-dialog-button focus-font" id="rightbtn">确认</button>
+						</div>
+					</div>
+				</div>
+			    <!-- 引导去评价 end  -->
+			    <!-- 订单为空 -->
+
+		         <div class="ord_empty">
+		         	<img src="../../images/wap/ord_empty.png" alt="">
+		         	<p>没有待付款的订单！</p>
+		         </div>
+
+			    <!-- 订单为空 end-->
+				<section class="tableChange">
+					<script type="text/html" id="all_tpl">
+					<section class="empty"></section>
+				    <%for(var i=0;i<result.length;i++){%>
+					<%if(result[i].merge_order_list){%>
+					<%for(var m=0;m<result[i].merge_order_list.length;m++){%>
+					<div class="media fh-order border-half pl10 pr10 clearfix r_mt1">
+						<div class="title clearfix pb10">
+							<a href="../store/store_index.html?store_id=<%=result[i].merge_order_list[m].store_id%>"><h3 class="pull-left mr10 f14" store_id='<%=result[i].merge_order_list[m].store_id%>'><%=result[i].merge_order_list[m].store_name%></h3><i class="icon-angle-right pull-left"></i>
+								<%if(result[i].merge_order_list[m].validity_pay_time=='0'){%>
+								<p class="pull-right fh-redFF8F8F order_state">过期订单</p>
+								<%}else{%>
+								<p class="pull-right fh-redFF8F8F order_state"><%= result[i].merge_order_list[m].state_desc%></p>
+								<%}%></a>
+						</div>
+						<%for(var k=0;k<result[i].merge_order_list[m].extend_order_goods.length;k++){%>
+						<div class="clearfix pt15 pb15 bg-body">
+							<%if(result[i].merge_order_list[m].pay_count>1){%>
+							<a href="order_merge.html?pay_sn=<%=result[i].merge_order_list[m].pay_sn%>" class="unweixin">
+								<%if(result[i].merge_order_list[m].extend_order_goods[k].bundling){%>
+								<section class="container pr pad0 bg-body">
+									<div class="imglist_1_<%=i%>">
+										<div class="pull-left" id="imglist_tao_<%=i%>">
+											<%for(var w=0;w<result[i].merge_order_list[m].extend_order_goods[k].bundling.bl_list.length;w++){%>
+											<img class="img-size" src="<%=result[i].merge_order_list[m].extend_order_goods[k].bundling.bl_list[w].goods_image%>">
+											<%}%>
+
+										</div>
+
+										<div class="module-top">
+											<%=result[i].merge_order_list[m].extend_order_goods[k].bundling.bl_name%>
+										</div>
+										<div class="font-pink">
+											<%if(result[i].merge_order_list[m].extend_order_goods[k].bundling.bl_list[0].bl_state=="1"){%>
+											<img src="../../images/wap/suit.svg" class="mb5 w40">
+											<%}else{%>
+											<%if(result[i].merge_order_list[m].order_state=="10"){%>
+											<img src="../../images/wap/unsuit.svg" class="mb5 w40">
+											<%}%>
+											<%}%>
+
+											<span class="goods-price">￥<%=result[i].merge_order_list[m].extend_order_goods[k].bundling.bl_price%></span>
+
+
+											<span class="module-num">X<%=result[i].merge_order_list[m].extend_order_goods[k].bundling.bl_num%></span>
+										</div>
+									</div>
+
+								</section>
+								<%}else{%>
+								<div class="media-left">
+									<img class="media-object border-full imgsize" src="<%=result[i].merge_order_list[m].extend_order_goods[k].goods_image%>" alt="...">
+								</div>
+								<div class="media-body">
+									<div class="row">
+										<h4 class="media-heading col-xs-8 overhide overhide"><%=result[i].merge_order_list[m].extend_order_goods[k].goods_name%></h4>
+										<div class="fh-redfa2855 fh-text-sm text-right col-xs-4">￥<%=result[i].merge_order_list[m].extend_order_goods[k].goods_price%></div>
+										<h5 class="media-heading col-xs-8 font-pink"><%if(result[i].merge_order_list[m].extend_order_goods[k].goods_type==4){%>
+											<img src="../../images/wap/suit.svg" class="mb5 w40">
+											<%}else if(result[i].merge_order_list[m].extend_order_goods[k].goods_type==5){%>
+											<img src="../../images/wap/gift.png" class="mb5 w20">
+											<%}else if(result[i].merge_order_list[m].extend_order_goods[k].goods_type==2){%>
+											团购商品
+											<%}else if(result[i].merge_order_list[m].extend_order_goods[k].goods_type==3){%>
+											<img src="../../images/wap/detail/xian.png" class="mb5 w20">
+											<%}%></h5>
+										<div class="fh-text-sm text-right col-xs-4">×<%=result[i].merge_order_list[m].extend_order_goods[k].goods_num%></div>
+
+									</div>
+								</div><%}%>
+							</a>
+
+							<%}else{%>
+							<a href="ord_details.html?order_id=<%=result[i].merge_order_list[m].order_id%>">
+								<%if(result[i].merge_order_list[m].extend_order_goods[k].bundling){%>
+								<section class="container pr pad0 bg-body">
+									<div class="imglist_1_<%=i%>">
+										<div class="pull-left" id="imglist_tao_<%=i%>">
+											<%for(var w=0;w<result[i].merge_order_list[m].extend_order_goods[k].bundling.bl_list.length;w++){%>
+											<img class="img-size" src="<%=result[i].merge_order_list[m].extend_order_goods[k].bundling.bl_list[w].goods_image%>">
+											<%}%>
+
+										</div>
+
+										<div class="module-top">
+											<%=result[i].merge_order_list[m].extend_order_goods[k].bundling.bl_name%>
+										</div>
+										<div class="font-pink">
+											<%if(result[i].merge_order_list[m].extend_order_goods[k].bundling.bl_list[0].bl_state=="1"){%>
+											<img src="../../images/wap/suit.svg" class="mb5 w40">
+											<%}else{%>
+											<%if(result[i].merge_order_list[m].order_state=="10"){%>
+											<img src="../../images/wap/unsuit.svg" class="mb5 w40">
+											<%}%>
+											<%}%>
+
+											<span class="goods-price">￥<%=result[i].merge_order_list[m].extend_order_goods[k].bundling.bl_price%></span>
+
+
+											<span class="module-num">X<%=result[i].merge_order_list[m].extend_order_goods[k].bundling.bl_num%></span>
+										</div>
+									</div>
+
+								</section>
+								<%}else{%>
+								<div class="media-left">
+									<img class="media-object border-full imgsize" src="<%=result[i].merge_order_list[m].extend_order_goods[k].goods_image%>" alt="...">
+								</div>
+								<div class="media-body">
+									<div class="row">
+
+										<h4 class="media-heading col-xs-8 overhide overhide"><%=result[i].merge_order_list[m].extend_order_goods[k].goods_name%></h4>
+										<div class="fh-red fh-text-sm text-right col-xs-4">￥<%=result[i].merge_order_list[m].extend_order_goods[k].goods_price%></div>
+										<h5 class="media-heading col-xs-8 font-pink"><%if(result[i].merge_order_list[m].extend_order_goods[k].goods_type==4){%>
+											<img src="../../images/wap/suit.svg" class="mb5 w40">
+											<%}else if(result[i].merge_order_list[m].extend_order_goods[k].goods_type==5){%>
+											<img src="../../images/wap/gift.png" class="mb5 w20">
+											<%}else if(result[i].merge_order_list[m].extend_order_goods[k].goods_type==2){%>
+											团购商品
+											<%}else if(result[i].merge_order_list[m].extend_order_goods[k].goods_type==3){%>
+											<img src="../../images/wap/detail/xian.png" class="mb5 w20">
+											<%}%></h5>
+										<div class="fh-text-sm text-right col-xs-4">×<%=result[i].merge_order_list[m].extend_order_goods[k].goods_num%></div>
+
+									</div>
+								</div><%}%>
+							</a>
+							<%}%>
+						</div>
+						<%}%>
+						<div class="media-tailing clearfix f12 tr pt10 pb10">共<%=result[i].merge_order_list[m].goods_num%>件商品，应付：￥<%=result[i].merge_order_list[m].real_amount%> （含运费￥<%=result[i].merge_order_list[m].shipping_fee%>）</div>
+
+					</div>
+
+					<%}%>
+					<div class="mergeorder">
+						<p class="pull-right f15">合计：<span class="focus-font">￥<%=result[i].all_real_amount%></span><a href="order_merge.html?pay_sn=<%=result[i].merge_order_list[0].pay_sn%>"><button class="button button-primary  button-rounded button-caution button-small">合并付款</button></a></p>
+					</div>
+					<section class="empty"></section>
+					<%}else{%>
+					<div class="media fh-order border-half pl10 pr10 clearfix">
+						<div class="title clearfix pb10">
+							<a href="../store/store_index.html?store_id=<%=result[i].store_id%>"><h3 class="pull-left mr10 f14" store_id='<%=result[i].store_id%>'><%=result[i].store_name%></h3><i class="icon-angle-right pull-left"></i>
+							<%if(result[i].pintuan_state=='1'){%>
+
+								<p class="pull-right order_state">拼团中</p>
+
+							<%}else if(result[i].pintuan_state=='2'){%>
+								<p class="pull-right order_state">拼团成功 等待发货</p>
+							<%}else if(result[i].pintuan_state=='3'){%>
+								<p class="pull-right order_state">拼团失败 退款中</p>
+							<%}else{%>
+								<%if(result[i].order_state=='10'&&result[i].validity_pay_time=='0'){%>
+								<p class="pull-right order_state">过期订单</p>
+								<%}else{%>
+									<%if(result[i].order_state=='50'){%>
+
+						            <p class="pull-right fh-red order_state">交易失败</p>
+
+									<%}else{%>
+										<p class="pull-right fh-red order_state"><%= result[i].state_desc%></p>
+									 <%}%>
+								<%}%>
+							<%}%>
+							</a>
+						</div>
+						<%for(var k=0;k<result[i].extend_order_goods.length;k++){%>
+						<div class="clearfix pt15 pb15 bg-body">
+							<%if(result[i].pay_count>1&&result[i].order_state!=0){%>
+							    <a href="order_merge.html?pay_sn=<%=result[i].pay_sn%>" class="unweixin">
+							    	<%if(result[i].extend_order_goods[k].bundling){%>
+							    		<section class="container pr pad0 bg-body">
+							    			<div class="imglist_<%=i%>">
+							                <div class="pull-left" id="imglist_tao_<%=i%>">
+							                	 <%for(var w=0;w<result[i].extend_order_goods[k].bundling.bl_list.length;w++){%>
+							                     <img class="img-size" src="<%=result[i].extend_order_goods[k].bundling.bl_list[w].goods_image%>">
+							                     <%}%>
+							                </div>
+
+								                    <div class="module-top">
+								                       <%=result[i].extend_order_goods[k].bundling.bl_name%>
+								                    </div>
+							                    <div class="font-pink">
+							                    	<%if(result[i].extend_order_goods[k].bundling.bl_list[0].bl_state=="1"){%>
+							                    	<img src="../../images/wap/suit.svg" class="mb5 w40">
+							                    	<%}else{%>
+							                    		<%if(result[i].order_state=="10"){%>
+							                    			<img src="../../images/wap/unsuit.svg" class="mb5 w40">
+													    <%}%>
+													<%}%>
+
+							                    	<span class="goods-price">￥<%=result[i].extend_order_goods[k].bundling.bl_price%></span>
+
+
+							                    	 <span class="module-num">X<%=result[i].extend_order_goods[k].bundling.bl_num%></span>
+							                    </div>
+							                    </div>
+
+							            </section>
+							    	<%}else{%>
+							    	<div class="media-left">
+								<img class="media-object border-full imgsize" src="<%=result[i].extend_order_goods[k].goods_image%>" alt="...">
+							</div>
+						    <div class="media-body">
+								<div class="row">
+
+									<h4 class="media-heading col-xs-8 overhide overhide"><%=result[i].extend_order_goods[k].goods_name%></h4>
+									<div class="fh-red fh-text-sm text-right col-xs-4">￥<%=result[i].extend_order_goods[k].goods_price%></div>
+									<h5 class="media-heading col-xs-8 fh-gray"><%if(result[i].extend_order_goods[k].goods_type==4){%>
+			                    		<img src="../../images/wap/suit.svg" class="mb5 w40">
+			                    	<%}else if(result[i].extend_order_goods[k].goods_type==5){%>
+			                    		  <img src="../../images/wap/gift.png" class="mb5 w20">
+			                    	<%}else if(result[i].extend_order_goods[k].goods_type==2){%>
+			                    		团购商品
+			                    	<%}else if(result[i].extend_order_goods[k].goods_type==3){%>
+			                    	          <img src="../../images/wap/detail/xian.png" class="mb5 w20">
+			                    	 <%}%></h5>
+									<div class="fh-text-sm text-right col-xs-4">×<%=result[i].extend_order_goods[k].goods_num%></div>
+
+								</div>
+							</div> <%}%>
+							    </a>
+
+							<%}else{%>
+							<a href="ord_details.html?order_id=<%=result[i].order_id%>">
+								<%if(result[i].extend_order_goods[k].bundling){%>
+							    		<section class="container pr pad0 bg-body">
+							    			<div class="imglist_<%=i%>">
+							                <div class="pull-left" id="imglist_tao_<%=i%>">
+							                	 <%for(var w=0;w<result[i].extend_order_goods[k].bundling.bl_list.length;w++){%>
+							                     <img class="img-size" src="<%=result[i].extend_order_goods[k].bundling.bl_list[w].goods_image%>">
+							                     <%}%>
+
+							                </div>
+
+								                    <div class="module-top">
+								                       <%=result[i].extend_order_goods[k].bundling.bl_name%>
+								                    </div>
+							                    <div class="font-pink">
+							                    	<%if(result[i].extend_order_goods[k].bundling.bl_list[0].bl_state=="1"){%>
+							                    	<img src="../../images/wap/suit.svg" class="mb5 w40">
+							                    	<%}else{%>
+							                    		<%if(result[i].order_state=="10"){%>
+							                    			<img src="../../images/wap/unsuit.svg" class="mb5 w40">
+													    <%}%>
+													<%}%>
+
+							                    	<span class="goods-price">￥<%=result[i].extend_order_goods[k].bundling.bl_price%></span>
+
+
+							                    	 <span class="module-num">X<%=result[i].extend_order_goods[k].bundling.bl_num%></span>
+							                    </div>
+							               		  </div>
+							            </section>
+							    	<%}else{%>
+							<div class="media-left">
+								<img class="media-object border-full imgsize" src="<%=result[i].extend_order_goods[k].goods_image%>" alt="...">
+							</div>
+						    <div class="media-body">
+								<div class="row">
+
+									<h4 class="media-heading col-xs-8 overhide overhide"><%=result[i].extend_order_goods[k].goods_name%></h4>
+									<div class="fh-red fh-text-sm text-right col-xs-4">￥<%=result[i].extend_order_goods[k].goods_price%></div>
+									<h5 class="media-heading col-xs-8 font-pink"><%if(result[i].extend_order_goods[k].goods_type==4){%>
+
+									<img src="../../images/wap/suit.svg" class="mb5 w40">
+
+			                    	<%}else if(result[i].extend_order_goods[k].goods_type==5){%>
+			                    		  <img src="../../images/wap/gift.png" class="mb5 w20">
+			                    	<%}else if(result[i].extend_order_goods[k].goods_type==2){%>
+			                    		团购商品
+			                    	<%}else if(result[i].extend_order_goods[k].goods_type==3){%>
+			                    	          <img src="../../images/wap/detail/xian.png" class="mb5 w20">
+			                    	 <%}%></h5>
+									<div class="fh-text-sm text-right col-xs-4">×<%=result[i].extend_order_goods[k].goods_num%></div>
+
+								</div>
+							</div><%}%>
+							</a>
+							<%}%>
+						</div>
+						<%}%>
+						<div class="media-tailing clearfix f12 tr border-b pt10 pb10">共<%=result[i].goods_num%>件商品，<%if(result[i].order_state==10){%>实付：￥<%=result[i].real_amount%><%}else{%>应付：￥<%=result[i].order_amount%><%}%> （含运费￥<%=result[i].shipping_fee%>）</div>
+						<div class="pull-right">
+
+							<%if(result[i].order_state=='0'){%>
+								<button class="button button-rounded button-small delorder button-caution" order_id='<%=result[i].order_id%>'>删除订单</button>
+							<%}else if(result[i].order_state=='10'&&result[i].validity_pay_time!='0'){%>
+
+								<button class="button button-rounded button-small cancelorder" order_id='<%=result[i].order_id%>'>取消订单</button>
+							    <%if(result[i].pay_count>1){%>
+							    <a href="order_merge.html?pay_sn=<%=result[i].pay_sn%>"><button class="button button-primary  button-rounded button-caution button-small">付款</button></a>
+
+							    <%}else{%>
+
+							    <a class="unweixin" pay_sn="<%=result[i].pay_sn%>" payment='<%=result[i].payment_list.join("|")%>' real_amount="<%=result[i].real_amount%>" country_source=="<%=result[i].country_source%>"><button class="button button-primary  button-rounded button-caution button-small">付款</button></a>
+
+							    <%}%>
+
+							<%}else if(result[i].order_state=='20'){%>
+
+							<!--<a href="http://wpa.b.qq.com/cgi/wpa.php?ln=1&key=XzkzODAwNDY0MV8zMzI5NDJfNDAwNjg4ODUwNl8yXw"><button class="button button-primary  button-rounded button-caution button-small">联系客服</button></a>-->
+							<a href="../logistics/logistics.html?order_id=<%=result[i].order_id%>&shipping_code=<%=result[i].shipping_code%>"><button class="button button-rounded button-small button-caution">订单跟踪</button></a>
+
+
+							<%}else if(result[i].order_state=='30'){%>
+
+								<a href="../logistics/logistics.html?order_id=<%=result[i].order_id%>&shipping_code=<%=result[i].shipping_code%>"><button class="button button-rounded button-small">订单跟踪</button></a>
+							    <a class='receipt' order_id='<%=result[i].order_id%>' order_sn='<%=result[i].order_sn%>' order_state='<%=result[i].order_state%>'><button class="button button-primary  button-rounded button-caution button-small">确认收货</button></a>
+							<%}else if(result[i].order_state=='40'){%>
+
+								<a href="../logistics/logistics.html?order_id=<%=result[i].order_id%>&shipping_code=<%=result[i].shipping_code%>"><button class="button button-rounded button-small">订单跟踪</button></a>
+							    <%if(result[i].evaluation_state=='0'){%>
+
+							    <a href="../order/evaluation_guide.html?order_id=<%=result[i].order_id%>" order_id='<%=result[i].order_id%>' order_sn='<%=result[i].order_sn%>' order_state='<%=result[i].order_state%>'><button class="button button-primary  button-rounded button-caution button-small">去评价</button></a>
+
+	                            <%}else if(result[i].evaluation_state=='1'){%>
+
+	                            	<a href="../shopping/evaluation.html?order_id=<%=result[i].order_id%>&if_append_evaluate=1" order_id='<%=result[i].order_id%>'  order_state='<%=result[i].order_state%>'><button class="button button-rounded button-small button-caution">追加评价</button></a>
+
+	                            <%}else{%>
+
+	                            	<button class="button button-rounded button-small delorder button-caution" order_id='<%=result[i].order_id%>'>删除订单</button>
+
+	                            <%}%>
+        					<%}else if(result[i].order_state=='50'){%>
+        						<a href="http://wpa.b.qq.com/cgi/wpa.php?ln=1&key=XzkzODAwNDY0MV8zMzI5NDJfNDAwNjg4ODUwNl8yXw"><button class="button button-rounded button-small fh-bg-red fh-white button-caution" order_id='<%=result[i].order_id%>'>联系客服</button></a>
+        					<%}else if(result[i].order_state=='10'&&result[i].validity_pay_time=='0'){%>
+        						<button class="button button-rounded button-small cancelorder button-caution" order_id='<%=result[i].order_id%>'>取消订单</button>
+        					<%}%>
+
+						</div>
+					</div>
+					<section class="empty"></section>
+                    <%}%>
+					<%}%>
+					</script>
+				</section>
+				<section class="tableChange">
+					<script type="text/html" id="pay_tpl">
+					<section class="empty"></section>
+				    <%for(var i=0;i<result.length;i++){%>
+				    	<%if(result[i].merge_order_list){%>
+				    		<%for(var m=0;m<result[i].merge_order_list.length;m++){%>
+				    			<div class="media fh-order border-half pl10 pr10 clearfix r_mt1">
+						<div class="title clearfix pb10">
+							<a href="../store/store_index.html?store_id=<%=result[i].merge_order_list[m].store_id%>"><h3 class="pull-left mr10 f14" store_id='<%=result[i].merge_order_list[m].store_id%>'><%=result[i].merge_order_list[m].store_name%></h3><i class="icon-angle-right pull-left"></i>
+							<%if(result[i].merge_order_list[m].validity_pay_time=='0'){%>
+							<p class="pull-right fh-redFF8F8F order_state">过期订单</p>
+							<%}else{%>
+								<p class="pull-right fh-redFF8F8F order_state"><%= result[i].merge_order_list[m].state_desc%></p>
+							<%}%></a>
+						</div>
+						<%for(var k=0;k<result[i].merge_order_list[m].extend_order_goods.length;k++){%>
+						<div class="clearfix pt15 pb15 bg-body">
+								<%if(result[i].merge_order_list[m].pay_count>1){%>
+							    <a href="order_merge.html?pay_sn=<%=result[i].merge_order_list[m].pay_sn%>" class="unweixin">
+							    	<%if(result[i].merge_order_list[m].extend_order_goods[k].bundling){%>
+							    		<section class="container pr pad0 bg-body">
+							    			<div class="imglist_1_<%=i%>">
+							                <div class="pull-left" id="imglist_tao_<%=i%>">
+							                	 <%for(var w=0;w<result[i].merge_order_list[m].extend_order_goods[k].bundling.bl_list.length;w++){%>
+							                     <img class="img-size" src="<%=result[i].merge_order_list[m].extend_order_goods[k].bundling.bl_list[w].goods_image%>">
+							                     <%}%>
+
+							                </div>
+
+								                    <div class="module-top">
+								                       <%=result[i].merge_order_list[m].extend_order_goods[k].bundling.bl_name%>
+								                    </div>
+							                    <div class="font-pink">
+							                    	<%if(result[i].merge_order_list[m].extend_order_goods[k].bundling.bl_list[0].bl_state=="1"){%>
+							                    	<img src="../../images/wap/suit.svg" class="mb5 w40">
+							                    	<%}else{%>
+							                    		<%if(result[i].merge_order_list[m].order_state=="10"){%>
+							                    			<img src="../../images/wap/unsuit.svg" class="mb5 w40">
+													    <%}%>
+													<%}%>
+
+							                    	<span class="goods-price">￥<%=result[i].merge_order_list[m].extend_order_goods[k].bundling.bl_price%></span>
+
+
+							                    	 <span class="module-num">X<%=result[i].merge_order_list[m].extend_order_goods[k].bundling.bl_num%></span>
+							                    </div>
+							                    </div>
+
+							            </section>
+							    	<%}else{%>
+							    	<div class="media-left">
+								<img class="media-object border-full imgsize" src="<%=result[i].merge_order_list[m].extend_order_goods[k].goods_image%>" alt="...">
+							</div>
+						    <div class="media-body">
+								<div class="row">
+									<h4 class="media-heading col-xs-8 overhide overhide"><%=result[i].merge_order_list[m].extend_order_goods[k].goods_name%></h4>
+									<div class="fh-redfa2855 fh-text-sm text-right col-xs-4">￥<%=result[i].merge_order_list[m].extend_order_goods[k].goods_price%></div>
+									<h5 class="media-heading col-xs-8 font-pink"><%if(result[i].merge_order_list[m].extend_order_goods[k].goods_type==4){%>
+			                    		<img src="../../images/wap/suit.svg" class="mb5 w40">
+			                    	<%}else if(result[i].merge_order_list[m].extend_order_goods[k].goods_type==5){%>
+			                    		  <img src="../../images/wap/gift.png" class="mb5 w20">
+			                    	<%}else if(result[i].merge_order_list[m].extend_order_goods[k].goods_type==2){%>
+			                    		团购商品
+			                    	<%}else if(result[i].merge_order_list[m].extend_order_goods[k].goods_type==3){%>
+			                    	          <img src="../../images/wap/detail/xian.png" class="mb5 w20">
+			                    	 <%}%></h5>
+									<div class="fh-text-sm text-right col-xs-4">×<%=result[i].merge_order_list[m].extend_order_goods[k].goods_num%></div>
+
+								</div>
+							</div><%}%>
+							    </a>
+
+							<%}else{%>
+							<a href="ord_details.html?order_id=<%=result[i].merge_order_list[m].order_id%>">
+								<%if(result[i].merge_order_list[m].extend_order_goods[k].bundling){%>
+							    		<section class="container pr pad0 bg-body">
+							    			<div class="imglist_1_<%=i%>">
+							    				<div class="pull-left" id="imglist_tao_<%=i%>">
+							                	 <%for(var w=0;w<result[i].merge_order_list[m].extend_order_goods[k].bundling.bl_list.length;w++){%>
+							                     <img class="img-size" src="<%=result[i].merge_order_list[m].extend_order_goods[k].bundling.bl_list[w].goods_image%>">
+							                     <%}%>
+
+							                     </div>
+
+								                    <div class="module-top">
+								                       <%=result[i].merge_order_list[m].extend_order_goods[k].bundling.bl_name%>
+								                    </div>
+							                    <div class="font-pink">
+							                    	<%if(result[i].merge_order_list[m].extend_order_goods[k].bundling.bl_list[0].bl_state=="1"){%>
+							                    	<img src="../../images/wap/suit.svg" class="mb5 w40">
+							                    	<%}else{%>
+							                    		<%if(result[i].merge_order_list[m].order_state=="10"){%>
+							                    			<img src="../../images/wap/unsuit.svg" class="mb5 w40">
+													    <%}%>
+													<%}%>
+
+							                    	<span class="goods-price">￥<%=result[i].merge_order_list[m].extend_order_goods[k].bundling.bl_price%></span>
+
+
+							                    	 <span class="module-num">X<%=result[i].merge_order_list[m].extend_order_goods[k].bundling.bl_num%></span>
+							                    </div>
+							                    </div>
+
+							            </section>
+							    	<%}else{%>
+							<div class="media-left">
+								<img class="media-object border-full imgsize" src="<%=result[i].merge_order_list[m].extend_order_goods[k].goods_image%>" alt="...">
+							</div>
+						    <div class="media-body">
+								<div class="row">
+
+									<h4 class="media-heading col-xs-8 overhide overhide"><%=result[i].merge_order_list[m].extend_order_goods[k].goods_name%></h4>
+									<div class="fh-red fh-text-sm text-right col-xs-4">￥<%=result[i].merge_order_list[m].extend_order_goods[k].goods_price%></div>
+									<h5 class="media-heading col-xs-8 font-pink"><%if(result[i].merge_order_list[m].extend_order_goods[k].goods_type==4){%>
+			                    		<img src="../../images/wap/suit.svg" class="mb5 w40">
+			                    	<%}else if(result[i].merge_order_list[m].extend_order_goods[k].goods_type==5){%>
+			                    		  <img src="../../images/wap/gift.png" class="mb5 w20">
+			                    	<%}else if(result[i].merge_order_list[m].extend_order_goods[k].goods_type==2){%>
+			                    		团购商品
+			                    	<%}else if(result[i].merge_order_list[m].extend_order_goods[k].goods_type==3){%>
+			                    	          <img src="../../images/wap/detail/xian.png" class="mb5 w20">
+			                    	 <%}%></h5>
+									<div class="fh-text-sm text-right col-xs-4">×<%=result[i].merge_order_list[m].extend_order_goods[k].goods_num%></div>
+
+								</div>
+							</div><%}%>
+							</a>
+							<%}%>
+						</div>
+						<%}%>
+						<div class="media-tailing clearfix f12 tr pt10 pb10">共<%=result[i].merge_order_list[m].goods_num%>件商品，应付：￥<%=result[i].merge_order_list[m].real_amount%> （含运费￥<%=result[i].merge_order_list[m].shipping_fee%>）</div>
+
+					</div>
+
+				    		<%}%>
+					  <div class="mergeorder">
+					         <p class="pull-right f15">合计：<span class="focus-font">￥<%=result[i].all_real_amount%></span><a href="order_merge.html?pay_sn=<%=result[i].merge_order_list[0].pay_sn%>"><button class="button button-primary  button-rounded button-caution button-small">合并付款</button></a></p>
+					  </div>
+					<section class="empty"></section>
+				    	<%}else{%>
+
+					<div class="media fh-order border-half pl10 pr10 clearfix">
+						<div class="title clearfix pb10">
+							<a href="../store/store_index.html?store_id=<%=result[i].store_id%>"><h3 class="pull-left mr10 f14" store_id='<%=result[i].store_id%>'><%=result[i].store_name%></h3><i class="icon-angle-right pull-left"></i>
+							<%if(result[i].pintuan_state=='0'&&result[i].pintuan_id!=0){%>
+
+								<p class="pull-right order_state">拼团中</p>
+
+							<%}else if(result[i].pintuan_state=='1'){%>
+								<p class="pull-right order_state">拼团成功 等待发货</p>
+							<%}else if(result[i].pintuan_state=='2'){%>
+								<p class="pull-right order_state">拼团失败 退款中</p>
+							<%}else{%>
+								<%if(result[i].validity_pay_time=='0'){%>
+								<p class="pull-right fh-red order_state">过期订单</p>
+								<%}else{%>
+									<p class="pull-right fh-red order_state"><%= result[i].state_desc%></p>
+								<%}%>
+							<%}%>
+							</a>
+						</div>
+						<%for(var k=0;k<result[i].extend_order_goods.length;k++){%>
+						<div class="clearfix pt15 pb15 bg-body">
+								<%if(result[i].pay_count>1){%>
+							    <a href="order_merge.html?pay_sn=<%=result[i].pay_sn%>" class="unweixin">
+							    	<%if(result[i].extend_order_goods[k].bundling){%>
+							    		<section class="container pr pad0 bg-body">
+							    			<div class="imglist_1_<%=i%>">
+							                <div class="pull-left" id="imglist_tao_<%=i%>">
+							                	 <%for(var w=0;w<result[i].extend_order_goods[k].bundling.bl_list.length;w++){%>
+							                     <img class="img-size" src="<%=result[i].extend_order_goods[k].bundling.bl_list[w].goods_image%>">
+							                     <%}%>
+
+							                </div>
+
+								                    <div class="module-top">
+								                       <%=result[i].extend_order_goods[k].bundling.bl_name%>
+								                    </div>
+							                    <div class="font-pink">
+							                    	<%if(result[i].extend_order_goods[k].bundling.bl_list[0].bl_state=="1"){%>
+							                    	<img src="../../images/wap/suit.svg" class="mb5 w40">
+							                    	<%}else{%>
+							                    		<%if(result[i].order_state=="10"){%>
+							                    			<img src="../../images/wap/unsuit.svg" class="mb5 w40">
+													    <%}%>
+													<%}%>
+
+							                    	<span class="goods-price">￥<%=result[i].extend_order_goods[k].bundling.bl_price%></span>
+
+
+							                    	 <span class="module-num">X<%=result[i].extend_order_goods[k].bundling.bl_num%></span>
+							                    </div>
+							                    </div>
+
+							            </section>
+							    	<%}else{%>
+							    	<div class="media-left">
+								<img class="media-object border-full imgsize" src="<%=result[i].extend_order_goods[k].goods_image%>" alt="...">
+							</div>
+						    <div class="media-body">
+								<div class="row">
+									<h4 class="media-heading col-xs-8 overhide overhide"><%=result[i].extend_order_goods[k].goods_name%></h4>
+									<div class="fh-red fh-text-sm text-right col-xs-4">￥<%=result[i].extend_order_goods[k].goods_price%></div>
+									<h5 class="media-heading col-xs-8 font-pink"><%if(result[i].extend_order_goods[k].goods_type==4){%>
+			                    		<img src="../../images/wap/suit.svg" class="mb5 w40">
+			                    	<%}else if(result[i].extend_order_goods[k].goods_type==5){%>
+			                    		  <img src="../../images/wap/gift.png" class="mb5 w20">
+			                    	<%}else if(result[i].extend_order_goods[k].goods_type==2){%>
+			                    		团购商品
+			                    	<%}else if(result[i].extend_order_goods[k].goods_type==3){%>
+			                    	          <img src="../../images/wap/detail/xian.png" class="mb5 w20">
+			                    	 <%}%></h5>
+									<div class="fh-text-sm text-right col-xs-4">×<%=result[i].extend_order_goods[k].goods_num%></div>
+
+								</div>
+							</div><%}%>
+							    </a>
+
+							<%}else{%>
+							<a href="ord_details.html?order_id=<%=result[i].order_id%>">
+								<%if(result[i].extend_order_goods[k].bundling){%>
+							    		<section class="container pr pad0 bg-body">
+							    			<div class="imglist_1_<%=i%>">
+							    				<div class="pull-left" id="imglist_tao_<%=i%>">
+							                	 <%for(var w=0;w<result[i].extend_order_goods[k].bundling.bl_list.length;w++){%>
+							                     <img class="img-size" src="<%=result[i].extend_order_goods[k].bundling.bl_list[w].goods_image%>">
+							                     <%}%>
+
+							                     </div>
+
+								                    <div class="module-top">
+								                       <%=result[i].extend_order_goods[k].bundling.bl_name%>
+								                    </div>
+							                    <div class="font-pink">
+							                    	<%if(result[i].extend_order_goods[k].bundling.bl_list[0].bl_state=="1"){%>
+							                    	<img src="../../images/wap/suit.svg" class="mb5 w40">
+							                    	<%}else{%>
+							                    		<%if(result[i].order_state=="10"){%>
+							                    			<img src="../../images/wap/unsuit.svg" class="mb5 w40">
+													    <%}%>
+													<%}%>
+
+							                    	<span class="goods-price">￥<%=result[i].extend_order_goods[k].bundling.bl_price%></span>
+
+
+							                    	 <span class="module-num">X<%=result[i].extend_order_goods[k].bundling.bl_num%></span>
+							                    </div>
+							                    </div>
+
+							            </section>
+							    	<%}else{%>
+							<div class="media-left">
+								<img class="media-object border-full imgsize" src="<%=result[i].extend_order_goods[k].goods_image%>" alt="...">
+							</div>
+						    <div class="media-body">
+								<div class="row">
+
+									<h4 class="media-heading col-xs-8 overhide overhide"><%=result[i].extend_order_goods[k].goods_name%></h4>
+									<div class="fh-red fh-text-sm text-right col-xs-4">￥<%=result[i].extend_order_goods[k].goods_price%></div>
+									<h5 class="media-heading col-xs-8 font-pink"><%if(result[i].extend_order_goods[k].goods_type==4){%>
+			                    		<img src="../../images/wap/suit.svg" class="mb5 w40">
+			                    	<%}else if(result[i].extend_order_goods[k].goods_type==5){%>
+			                    		  <img src="../../images/wap/gift.png" class="mb5 w20">
+			                    	<%}else if(result[i].extend_order_goods[k].goods_type==2){%>
+			                    		团购商品
+			                    	<%}else if(result[i].extend_order_goods[k].goods_type==3){%>
+			                    	          <img src="../../images/wap/detail/xian.png" class="mb5 w20">
+			                    	 <%}%></h5>
+									<div class="fh-text-sm text-right col-xs-4">×<%=result[i].extend_order_goods[k].goods_num%></div>
+
+								</div>
+							</div><%}%>
+							</a>
+							<%}%>
+						</div>
+						<%}%>
+						<div class="media-tailing clearfix f12 tr border-b pt10 pb10">共<%=result[i].goods_num%>件商品，应付：￥<%=result[i].real_amount%> （含运费￥<%=result[i].shipping_fee%>）</div>
+						<div class="pull-right">
+
+							<!--<%if(result[i].store_baidusales){%>
+								<a href="../shopping/store_baidusales.html?store_baidusales=<%=result[i].store_baidusales%>"><button class="button button-rounded button-small">联系卖家</button></a>
+							<%}else{%>
+								<button class="button button-rounded button-small baidustore">联系卖家</button>
+							<%}%>	-->
+							<%if(result[i].order_state=='0'){%>
+							<button class="button button-rounded button-small delorder button-caution" order_id='<%=result[i].order_id%>'>删除订单</button>
+
+							<%}else{%>
+
+							 <%if(result[i].validity_pay_time!='0'){%>
+							 	<button class="button button-rounded button-small cancelorder" order_id='<%=result[i].order_id%>'>取消订单</button>
+
+							   <%if(result[i].pay_count>1){%>
+							    <a href="order_merge.html?pay_sn=<%=result[i].pay_sn%>"><button class="button button-primary  button-rounded button-caution button-small">付款</button></a>
+
+							    <%}else{%>
+
+							    <a class="unweixin" pay_sn="<%=result[i].pay_sn%>" payment='<%=result[i].payment_list.join("|")%>' real_amount="<%=result[i].real_amount%>" country_source="<%=result[i].country_source%>"><button class="button button-primary  button-rounded button-caution button-small">付款</button></a>
+
+							    <%}%>
+
+							<%}else{%>
+        						<button class="button button-rounded button-small cancelorder button-caution" order_id='<%=result[i].order_id%>'>取消订单</button>
+        					<%}%>
+        					<%}%>
+						</div>
+					</div>
+					<section class="empty"></section>
+                    <%}%>
+                    <%}%>
+					</script>
+				</section>
+
+				<section class="tableChange">
+				<script type="text/html" id="deliver_tpl">
+				<section class="empty"></section>
+				    <%for(var i=0;i<result.length;i++){%>
+					<div class="media fh-order border-half pl10 pr10 clearfix">
+						<div class="title clearfix pb10">
+							<a href="../store/store_index.html?store_id=<%=result[i].store_id%>"><h3 class="pull-left mr10 f14" store_id='<%=result[i].store_id%>'><%=result[i].store_name%></h3><i class="icon-angle-right pull-left"></i>
+							<p class="pull-right fh-red order_state"><%= result[i].state_desc%></p></a>
+						</div>
+						<%for(var k=0;k<result[i].extend_order_goods.length;k++){%>
+						<div class="clearfix pt15 pb15 bg-body">
+						<a href="ord_details.html?order_id=<%=result[i].order_id%>">
+							<%if(result[i].extend_order_goods[k].bundling){%>
+							    		<section class="container pr pad0 bg-body">
+							    			<div class="imglist_2_<%=i%>">
+							                <div class="pull-left" id="imglist_tao_<%=i%>">
+							                	 <%for(var w=0;w<result[i].extend_order_goods[k].bundling.bl_list.length;w++){%>
+							                     <img class="img-size" src="<%=result[i].extend_order_goods[k].bundling.bl_list[w].goods_image%>">
+							                     <%}%>
+
+							                </div>
+
+								                    <div class="module-top">
+								                       <%=result[i].extend_order_goods[k].bundling.bl_name%>
+								                    </div>
+							                    <div class="font-pink">
+							                    	<%if(result[i].extend_order_goods[k].bundling.bl_list[0].bl_state=="1"){%>
+							                    	<img src="../../images/wap/suit.svg" class="mb5 w40">
+							                    	<%}else{%>
+							                    		<%if(result[i].order_state=="10"){%>
+							                    			<img src="../../images/wap/unsuit.svg" class="mb5 w40">
+													    <%}%>
+													<%}%>
+
+							                    	<span class="goods-price">￥<%=result[i].extend_order_goods[k].bundling.bl_price%></span>
+
+
+							                    	 <span class="module-num">X<%=result[i].extend_order_goods[k].bundling.bl_num%></span>
+							                    </div>
+							                    </div>
+
+							            </section>
+							    	<%}else{%>
+						 <div class="media-left">
+
+								<img class="media-object border-full imgsize" src="<%=result[i].extend_order_goods[k].goods_image%>" alt="...">
+						 </div>
+						 <div class="media-body">
+							<div class="row">
+								<h4 class="media-heading col-xs-8 overhide "><%=result[i].extend_order_goods[k].goods_name%></h4>
+								<div class="fh-red fh-text-sm text-right col-xs-4">￥<%=result[i].extend_order_goods[k].goods_price%></div>
+								<h5 class="media-heading col-xs-8 font-pink"><%if(result[i].extend_order_goods[k].goods_type==4){%>
+			                    		<img src="../../images/wap/suit.svg" class="mb5 w40">
+			                    	<%}else if(result[i].extend_order_goods[k].goods_type==5){%>
+			                    		  <img src="../../images/wap/gift.png" class="mb5 w20">
+			                    	<%}else if(result[i].extend_order_goods[k].goods_type==2){%>
+			                    		团购商品
+			                    	<%}else if(result[i].extend_order_goods[k].goods_type==3){%>
+			                    	          <img src="../../images/wap/detail/xian.png" class="mb5 w20">
+			                    	 <%}%></h5>
+								<div class="fh-text-sm text-right col-xs-4">×<%=result[i].extend_order_goods[k].goods_num%></div>
+							</div>
+						 </div><%}%>
+						</a>
+						</div>
+						<%}%>
+						<div class="media-tailing clearfix f12 tr border-b pt10 pb10">共<%=result[i].goods_num%>件商品，实付：￥<%=result[i].real_amount%> （含运费￥<%=result[i].shipping_fee%>）</div>
+						<div class="pull-right">
+							<!--<%if(result[i].store_baidusales){%>
+								<a href="../shopping/store_baidusales.html?store_baidusales=<%=result[i].store_baidusales%>"><button class="button button-rounded button-small">联系卖家</button></a>
+							<%}else{%>
+								<button class="button button-rounded button-small baidustore">联系卖家</button>
+							<%}%>-->
+							<!--<a href="http://wpa.b.qq.com/cgi/wpa.php?ln=1&key=XzkzODAwNDY0MV8zMzI5NDJfNDAwNjg4ODUwNl8yXw"><button class="button button-primary  button-rounded button-caution button-small">联系客服</button></a>-->
+						  	<a href="../logistics/logistics.html?order_id=<%=result[i].order_id%>&shipping_code=<%=result[i].shipping_code%>"><button class="button button-rounded button-small button-caution">订单跟踪</button></a>
+
+						</div>
+					</div>
+					<section class="empty"></section>
+                    <%}%>
+					</script>
+				</section>
+
+				<section class="tableChange">
+				<script type="text/html" id="get_tpl">
+				<section class="empty"></section>
+				    <%for(var i=0;i<result.length;i++){%>
+					<div class="media fh-order border-half pl10 pr10 clearfix">
+						<div class="title clearfix pb10">
+							<a href="../store/store_index.html?store_id=<%=result[i].store_id%>"><h3 class="pull-left mr10 f14" store_id='<%=result[i].store_id%>'><%=result[i].store_name%></h3><i class="icon-angle-right pull-left"></i>
+							<p class="pull-right fh-red order_state"><%= result[i].state_desc%></p></a>
+						</div>
+						<%for(var k=0;k<result[i].extend_order_goods.length;k++){%>
+							<div class="clearfix pt15 pb15 bg-body">
+								<a href="ord_details.html?order_id=<%=result[i].order_id%>">
+									<%if(result[i].extend_order_goods[k].bundling){%>
+							    		<section class="container pr pad0 bg-body">
+							    			<div class="imglist_3_<%=i%>">
+							                <div class="pull-left" id="imglist_tao_<%=i%>">
+							                	 <%for(var w=0;w<result[i].extend_order_goods[k].bundling.bl_list.length;w++){%>
+							                     <img class="img-size" src="<%=result[i].extend_order_goods[k].bundling.bl_list[w].goods_image%>">
+							                     <%}%>
+
+							                </div>
+
+								                    <div class="module-top">
+								                       <%=result[i].extend_order_goods[k].bundling.bl_name%>
+								                    </div>
+							                    <div class="font-pink">
+							                    	<%if(result[i].extend_order_goods[k].bundling.bl_list[0].bl_state=="1"){%>
+							                    	<img src="../../images/wap/suit.svg" class="mb5 w40">
+							                    	<%}else{%>
+							                    		<%if(result[i].order_state=="10"){%>
+							                    			<img src="../../images/wap/unsuit.svg" class="mb5 w40">
+													    <%}%>
+													<%}%>
+
+							                    	<span class="goods-price">￥<%=result[i].extend_order_goods[k].bundling.bl_price%></span>
+
+
+							                    	 <span class="module-num">X<%=result[i].extend_order_goods[k].bundling.bl_num%></span>
+							                    </div>
+							                    </div>
+
+							            </section>
+							    	<%}else{%>
+						<div class="media-left">
+
+								<img class="media-object border-full imgsize" src="<%=result[i].extend_order_goods[k].goods_image%>" alt="...">
+
+						</div>
+						<div class="media-body">
+							<div class="row">
+								<h4 class="media-heading col-xs-8 overhide "><%=result[i].extend_order_goods[k].goods_name%></h4>
+								<div class="fh-red fh-text-sm text-right col-xs-4">￥<%=result[i].extend_order_goods[k].goods_price%></div>
+								<h5 class="media-heading col-xs-8 font-pink"><%if(result[i].extend_order_goods[k].goods_type==4){%>
+			                    		<img src="../../images/wap/suit.svg" class="mb5 w40">
+			                    	<%}else if(result[i].extend_order_goods[k].goods_type==5){%>
+			                    		  <img src="../../images/wap/gift.png" class="mb5 w20">
+			                    	<%}else if(result[i].extend_order_goods[k].goods_type==2){%>
+			                    		团购商品
+			                    	<%}else if(result[i].extend_order_goods[k].goods_type==3){%>
+			                    	          <img src="../../images/wap/detail/xian.png" class="mb5 w20">
+			                    	 <%}%></h5>
+								<div class="fh-text-sm text-right col-xs-4">×<%=result[i].extend_order_goods[k].goods_num%></div>
+							</div>
+						</div><%}%>
+						</a>
+						</div>
+						<%}%>
+						<div class="media-tailing clearfix f12 tr border-b pt10 pb10">共<%=result[i].goods_num%>件商品，实付：￥<%=result[i].real_amount%>（含运费￥<%=result[i].shipping_fee%>）</div>
+						<div class="pull-right">
+							    <!--<%if(result[i].store_baidusales){%>
+								<a href="../shopping/store_baidusales.html?store_baidusales=<%=result[i].store_baidusales%>"><button class="button button-rounded button-small">联系卖家</button></a>
+							    <%}else{%>
+								<button class="button button-rounded button-small baidustore">联系卖家</button>
+							    <%}%>-->
+								<a href="../logistics/logistics.html?order_id=<%=result[i].order_id%>&shipping_code=<%=result[i].shipping_code%>"><button class="button button-rounded button-small">订单跟踪</button></a>
+							    <a class="receipt" order_id='<%=result[i].order_id%>' order_sn='<%=result[i].order_sn%>' order_state='<%=result[i].order_state%>'><button class="button button-primary  button-rounded button-caution button-small button-caution">确认收货</button></a>
+
+						</div>
+					</div>
+					<section class="empty"></section>
+                    <%}%>
+					</script>
+				</section>
+				<section class="tableChange">
+				<script type="text/html" id="comment_tpl">
+				<section class="empty"></section>
+				 <%for(var i=0;i<result.length;i++){%>
+					<div class="media fh-order border-half pr10 pl10 clearfix">
+						<div class="title clearfix pb10">
+							<a href="../store/store_index.html?store_id=<%=result[i].store_id%>"><h3 class="pull-left mr10 f14" store_id='<%=result[i].store_id%>'><%=result[i].store_name%></h3><i class="icon-angle-right pull-left"></i>
+							<p class="pull-right fh-red order_state"><%= result[i].state_desc%></p></a>
+						</div>
+						<%for(var k=0;k<result[i].extend_order_goods.length;k++){%>
+							<div class="clearfix pt15 pb15 bg-body">
+						<a href="ord_details.html?order_id=<%=result[i].order_id%>">
+							<%if(result[i].extend_order_goods[k].bundling){%>
+							    		<section class="container pr pad0 bg-body">
+							    			<div class="imglist_4_<%=i%>">
+							                <div class="pull-left" id="imglist_tao_<%=i%>">
+							                	 <%for(var w=0;w<result[i].extend_order_goods[k].bundling.bl_list.length;w++){%>
+							                     <img class="img-size" src="<%=result[i].extend_order_goods[k].bundling.bl_list[w].goods_image%>">
+							                     <%}%>
+
+							                </div>
+
+								                    <div class="module-top">
+								                       <%=result[i].extend_order_goods[k].bundling.bl_name%>
+								                    </div>
+							                    <div class="font-pink">
+							                    	<%if(result[i].extend_order_goods[k].bundling.bl_list[0].bl_state=="1"){%>
+							                    	<img src="../../images/wap/suit.svg" class="mb5 w40">
+							                    	<%}else{%>
+							                    		<%if(result[i].order_state=="10"){%>
+							                    			<img src="../../images/wap/unsuit.svg" class="mb5 w40">
+													    <%}%>
+													<%}%>
+
+							                    	<span class="goods-price">￥<%=result[i].extend_order_goods[k].bundling.bl_price%></span>
+
+
+							                    	 <span class="module-num">X<%=result[i].extend_order_goods[k].bundling.bl_num%></span>
+							                    </div>
+							                    </div>
+
+							            </section>
+							    	<%}else{%>
+						<div class="media-left">
+
+								<img class="media-object border-full imgsize" src="<%=result[i].extend_order_goods[k].goods_image%>" alt="...">
+
+						</div>
+						<div class="media-body">
+							<div class="row">
+
+								<h4 class="media-heading col-xs-8 overhide "><%=result[i].extend_order_goods[k].goods_name%></h4>
+								<div class="fh-red fh-text-sm text-right col-xs-4">￥<%=result[i].extend_order_goods[k].goods_price%></div>
+								<h5 class="media-heading col-xs-8 font-pink"><%if(result[i].extend_order_goods[k].goods_type==4){%>
+			                    		<img src="../../images/wap/suit.svg" class="mb5 w40">
+			                    	<%}else if(result[i].extend_order_goods[k].goods_type==5){%>
+			                    		  <img src="../../images/wap/gift.png" class="mb5 w20">
+			                    	<%}else if(result[i].extend_order_goods[k].goods_type==2){%>
+			                    		团购商品
+			                    	<%}else if(result[i].extend_order_goods[k].goods_type==3){%>
+			                    	          <img src="../../images/wap/detail/xian.png" class="mb5 w20">
+			                    	 <%}%> </h5>
+								<div class="fh-text-sm text-right col-xs-4">×<%=result[i].extend_order_goods[k].goods_num%></div>
+
+							</div>
+						</div><%}%>
+						</a>
+						</div>
+						<%}%>
+						<div class="media-tailing clearfix f12 tr border-b pt10 pb10">共<%=result[i].goods_num%>件商品，实付：￥<%=result[i].real_amount%> （含运费￥<%=result[i].shipping_fee%>）</div>
+						<div class="pull-right">
+
+								<a href="../logistics/logistics.html?order_id=<%=result[i].order_id%>&shipping_code=<%=result[i].shipping_code%>"><button class="button button-rounded button-small">订单跟踪</button></a>
+							    <%if(result[i].evaluation_state=='0'){%>
+
+							    <a href="../order/evaluation_guide.html?order_id=<%=result[i].order_id%>" order_id='<%=result[i].order_id%>'  order_state='<%=result[i].order_state%>'><button class="button button-primary button-rounded button-caution button-small">去评价</button></a>
+
+
+	                            <%}else if(result[i].evaluation_state=='1'){%>
+
+	                            	<a href="../order/shopping/evaluation.html?order_id=<%=result[i].order_id%>&if_append_evaluate=1" order_id='<%=result[i].order_id%>'  order_state='<%=result[i].order_state%>'><button class="button button-rounded button-small button-caution">追加评价</button></a>
+
+	                           <%}else{%>
+	                            		<button class="button button-rounded button-small delorder button-caution" order_id='<%=result[i].order_id%>'>删除订单</button>
+	                           <%}%>
+
+						</div>
+					</div>
+					<section class="empty"></section>
+                    <%}%>
+					</script>
+				</section>
+			</div>
+		</div>
+		<img src="../../images/wap/no-wxpay.png" class="no-wxpay zoomIn animated" style="width: 100%;display: none;" id="no_wxpay"  />
+		<script src="../../js/wap.js"></script>
+		<script  src="../../js/config.js"></script>
+		<script  src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+		<script  src="../../js/plugins/layer/layer.js"></script>
+		<script  src="../../js/common.js"></script>
+		<script  src="../../src/js/tmpl/order/order_all.js"></script>
+		
+		</body>
+
+</html>

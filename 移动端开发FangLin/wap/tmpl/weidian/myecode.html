@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>我的二维码</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta http-equiv="Cache-Control" content="no-cache">
+		<meta http-equiv="Pragma" content="no-cache">
+		<link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+		<link rel="stylesheet" href="../../css/fhbase.css">
+		<link rel="stylesheet" href="../../src/css/fhwap.css">
+		<style type="text/css">
+			.downLoad-fix {
+				display: none;
+			}
+			
+			img {
+				width: 100%;
+			}
+			
+			#friendcode #code {
+				position: absolute;
+				bottom: 7%;
+				left: 9%;
+			}
+			
+			.logo {
+				width: 40px;
+				height: 40px;
+				position: absolute;
+				margin: auto;
+				left: 0;
+				right: 0;
+				right: 0;
+				top: 0;
+				bottom: 0;
+			}
+			
+			#myCanvas {
+				position: fixed;
+				bottom: -1000px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="container layout" id="friendcode">
+			<div class="row">
+				<header class="fh-header none">
+					<span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+					<h1 class="header-title">我的二维码</h1>
+					<img src="../../images/weidian/share.png" class="share" />
+				</header>
+				<img src="../../images/weidian/ecode.png" alt="" id="img1">
+
+				<div id="code">
+					<div class="pr">
+						<img src="../../images/weidian/bgecode.png" class="bg_eweicode" id="img2" />
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="../../js/libs/jquery/jquery-1.8.3.min.js"></script>
+		<script src="../../js/plugins/fastclick.js"></script>
+		<script src="../../js/base64.js"></script>
+		<script src="../../js/fh.js"></script>
+		<script src="../../js/plugins/layer/layer.js"></script>
+		<script src="../../js/config.js"></script>
+		<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+		<script src="../../js/common.js"></script>
+		<script src="../../src/js/tmpl/weidian/myecode.js"></script>
+
+	</body>
+
+</html>

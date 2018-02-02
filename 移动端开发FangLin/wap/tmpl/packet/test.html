@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>		
+	<meta charset="utf-8">
+    <title>分红红包大派送，快来抢吧</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+   	<meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+   	<link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/buttons.css">
+    <link rel="stylesheet" href="../../css/fhbase.css">
+    <link rel="stylesheet" href="../../css/fhwap.css">
+    <link rel="stylesheet" href="../../css/animate.css">
+    	
+	</head>
+	<body>
+		
+		
+		
+	<script  src="../../js/libs/jquery/jquery-1.8.3.min.js"></script>
+    <script  src="../../js/config.js"></script>
+    <script  src="../../js/plugins/fastclick.js"></script>
+    <script  src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script  src="../../js/common.js"></script>
+    <script  src="../../js/plugins/scrollspy.js"></script>
+    <script  src="../../js/plugins/iscroll.js"></script>
+    <script  src="../../js/plugins/layer/layer.js"></script>
+    <script  src="../../js/plugins/swiper/swiper.js"></script>
+    <script  src="../../js/plugins/template.js"></script>
+    
+    <script>
+		$('.new-packet-x,#mask').click(function(){
+			$('#mask').hide();  				
+		});
+		
+	    $('#cover').click(function(){
+	    	if(FL.isWeiXin()){
+	    	$('#covershare').show();
+	    	}else{
+	    	$('.native_tip').show();
+	    	$('#mask').hide();  
+	    	}
+	    	event.stopPropagation();
+	    });
+	    $('#covershare').click(function(){
+	    	$('#covershare').hide();
+	    });
+  	    
+  	    
+  	    
+  	    var wx_title,wx_desc,wx_link,wx_img;
+  	    wx_title="分红全球购亿元红包大派送，318元红包等你拿！";
+  	    wx_desc="亿元红包疯抢中~全球尖货超低价格，海外直购，100%正品，速速来抢！";
+  	    wx_link=WapSiteUrl+"/wap/tmpl/packet/get_bag.html?";
+  	    wx_img=WapSiteUrl+"/wap/images/wap/logo.png";
+  	    friend_title='分红全球购亿元红包大派送，318元红包等你拿!';
+  	    FL.wxShare(wx_title,wx_desc,wx_link,wx_img,friend_title);
+  	    
+  	    
+  	    
+  	    
+    </script>
+	</body>
+	
+</html>

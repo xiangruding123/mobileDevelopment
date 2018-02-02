@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <title>订单确认</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+   	<meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../js/plugins/swiper/swiper.css" />
+    <link rel="stylesheet" href="../../css/animate.css">
+   	<link rel="stylesheet" href="../../js/plugins/layer/skin/layer.css">
+    <link rel="stylesheet" href="../../css/buttons.css" />
+    <link rel="stylesheet" href="../../css/fhbase.css">
+    <link rel="stylesheet" href="../../src/css/fhwap.css">
+</head>
+
+<body>
+    <div class="container layout" id="order-details">
+        <div class="row">
+            <header class="fh-header">
+                <span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+                <h1 class="header-title">订单详情</h1>
+                <a class="header-edit" id="nav-show"></a>
+            </header>
+
+            <section class="order-adr">
+            	<!--没有收货地址-->
+            	<div class="address-bg"></div>
+            	<section id="myAddress" style="height: 80px;"></section>
+            	<script type="text/html" id="my_address">
+	            	<%if(address==""||!address){%>
+	            		<p class="add-address">
+		            		<a onclick="javascript:location.href = '../member/add_address.html?type=buy'" class="new-adr">
+		                    	<i class="icon-plus"></i>&nbsp新建收货地址
+		                	</a>
+	                	</p>
+	            	<%}else{%>
+            			<a onclick="javascript:location.replace('../member/address.html?address_id=<%=address.address_id%>')" >
+		                	<div class="adr-body" address_id="<%=address.address_id%>">
+				                <div class="adr-msg">
+				                    <div class="f14">
+				                        <img src="../../images/wap/name.png" class="adr-icon"><span class="mr40"><%=address.name%></span>
+				                        <img src="../../images/wap/phone.png" class="adr-icon w10"><span><%=address.mob_phone%></span>
+				                    </div>
+				                    <div class="msg-details"><%=address.area_info%> <%=address.address%></div>
+				                </div>
+					            <i class="icon-angle-right adr-right"></i>
+				            </div>
+				        </a>
+            		<%}%>
+            	</script>
+                <div class="address-bg"></div>
+                <!-- 选择收货地址-->
+            </section>
+            <section class="empty"></section>
+            <section id="goods-list"></section>
+            <!--购买的商品信息-->
+             <script id="goods_details" type="text/html">
+	            <%for(var i=0;i<store_cart_list.length;i++){%>
+	            	<section class="store_goods" dutyPrice="<%=tax_list[store_cart_list[i].store_id]%>">
+			            <section class="store-title">
+			            	<a href="../store/store_index.html?store_id=<%=store_cart_list[i].store_id%>">
+				            	<div class="order-transport f16">
+				            		<img src="../../images/wap/dianpu.png" class="store-img"/>
+					                <span class="shop-title"><%=store_cart_list[i].store_name%></span>
+					                <i class="icon-angle-right right-arrow"></i>
+				                </div>
+			                </a>
+			            </section>
+			            <%for(var j=0;j<store_cart_list[i].goods_list.length;j++){%>
+				            <section class="container fh-bg-white" hs_rate="<%=store_cart_list[i].goods_list[j].hs_rate%>">
+				            	<%if(!store_cart_list[i].goods_list[j].bl_list){%>
+				                <div class="pull-left">
+				                    <img class="img-size" src="<%=store_cart_list[i].goods_list[j].goods_image%>">
+				                </div>
+				                <div class="module-body">
+					                    <div class="module-top">
+					                       <%=store_cart_list[i].goods_list[j].goods_name%>
+
+					                    </div>
+					                    <span class="module-num pull-right">X<%=store_cart_list[i].goods_list[j].goods_num%></span>
+				                    <div class="mt20">
+				                    	<%if(store_cart_list[i].goods_list[j].pintuan){%>
+					                    	<%=store_cart_list[i].goods_list[j].pintuan.player_limit%>人拼团订单
+				                  		<%}%>
+				                    	<%if(store_cart_list[i].goods_list[j].seckilling){%>
+				                    		<span class="goods-price seckill-goods pull-right" old_price="<%=store_cart_list[i].goods_list[j].goods_price%>" top_limit="<%=store_cart_list[i].goods_list[j].seckilling.top_limit%>" goods_num ="<%=store_cart_list[i].goods_list[j].goods_num%>">￥<%=store_cart_list[i].goods_list[j].seckilling.price%></span>
+				                    	<%}else if(store_cart_list[i].goods_list[j].pintuan){%>
+				                    	 	<span class="goods-price pull-right">￥<%=store_cart_list[i].goods_list[j].pintuan.price%></span>
+				                    	 <%}else{%>
+				                    	 	<span class="goods-price pull-right">￥<%=store_cart_list[i].goods_list[j].goods_price%></span>
+				                    	<%}%>
+					                    <%if(store_cart_list[i].goods_list[j].xianshi){%>
+					                    	<img src="../../images/wap/limit.png"  class="goods-limit"/>
+				                  		<%}%>
+				                    </div>
+				                </div>
+				                <!--是否秒杀商品-->
+				                <%if(store_cart_list[i].goods_list[j].seckilling){%>
+				                	<span class="sk-no-coupon"><i class="icon-exclamation-sign"></i>此商品不可使用优惠券</span>
+				                <%}%>
+				                <!--套装展示--->
+				           		<%}else if(store_cart_list[i].goods_list[j].bl_list){%>
+					            	<ul class="bl-ul" goods_id="<%=store_cart_list[i].goods_list[j].goods_id%>" bl_id="<%=store_cart_list[i].goods_list[j].bl_id%>">
+					            	<%if(store_cart_list[i].goods_list[j].bl_list.length<=3){%>
+						            	<%for(var k=0;k<store_cart_list[i].goods_list[j].bl_list.length;k++){%>
+					            			<li class="pull-left mr10">
+					            				<img src="<%=store_cart_list[i].goods_list[j].bl_list[k].goods_image%>" class="bl-img" />
+					            			</li>
+						            	<%}%>
+					            	<%}else{%>
+					            		<%for(var k=0;k<3;k++){%>
+					            			<li class="pull-left mr10">
+					            				<img src="<%=store_cart_list[i].goods_list[j].bl_list[k].goods_image%>" class="bl-img" />
+					            			</li>
+						            	<%}%>
+						            	<span class="bl-more">…</span>
+					            	<%}%>
+					            	<i class="icon-angle-right bl-i"></i>
+					            	</ul>
+					            	<p class="f14"><%=store_cart_list[i].goods_list[j].goods_name%></p>
+					            	<p class="mt10">
+					            		<img src="../../images/wap/suit.svg"  class="mb5 w40"/>
+					            		<span class="goods-price">￥<%=store_cart_list[i].goods_list[j].goods_price%></span>
+					            		<span class="module-num">X<%=store_cart_list[i].goods_list[j].goods_num%></span>
+					            	</p>
+					            <%}%>
+				            </section>
+				            <section class="empty"></section>
+				            <!--赠品-->
+				            <%if(store_cart_list[i].goods_list[j].gifts){%>
+				            	<%for(var k=0;k<store_cart_list[i].goods_list[j].gifts.length;k++){%>
+				            		<section class="container">
+						                <div class="pull-left">
+						                    <img class="img-size" src="<%=store_cart_list[i].goods_list[j].gifts[k].goods_image%>">
+						                </div>
+						                <div class="module-body">
+							                    <div class="module-top">
+							                       <%=store_cart_list[i].goods_list[j].gifts[k].goods_name%>
+							                    </div>
+						                    <div class="mt20">
+						                    	<img src="../../images/wap/gift.png"  class="send-icon"/>
+						                    	<span class="module-num">X<%=store_cart_list[i].goods_list[j].gifts[k].goods_num%></span>
+						                    </div>
+						                </div>
+						            </section>
+						            <section class="empty"></section>
+				            	<%}%>
+				            <%}%>
+		                <%}%>
+		                <!--店铺满XXX赠送的商品-->
+		                <%if(mansong&&mansong[store_cart_list[i].store_id]&&mansong[store_cart_list[i].store_id].gift){%>
+		                	<section class="container">
+				                <div class="pull-left">
+				                    <img class="img-size" src="<%=mansong[store_cart_list[i].store_id].gift.goods_image%>">
+				                </div>
+				                <div class="module-body">
+					                    <div class="module-top">
+					                       <%=mansong[store_cart_list[i].store_id].gift.goods_name%>
+					                    </div>
+				                    <div class="mt20">
+				                    	<span class="goods-price">￥0.00</span>
+				                    	<img src="../../images/wap/send.png"  class="send-icon"/>
+				                    	<span class="module-num">X<%=mansong[store_cart_list[i].store_id].gift.goods_num%></span>
+				                    </div>
+				                </div>
+				            </section>
+				            <section class="empty"></section>
+		                <%}%>
+			            <div class="line-lump">
+		                    <span>商品总额</span>
+		                    <span class="fh-black real_price pull-right">￥0.00</span>
+		                </div>
+		                <div class="line-lump">
+		                    <span>快递运费 <span>(<%=store_cart_list[i].shipping_weight%>)</span></span>
+
+	                    		<!--是否已包邮-->
+	                    		<%if(!store_cart_list[i].store_freight||store_cart_list[i].store_freight==0){%>
+	                    		<%if(free_freight_list){%>
+	                    			<p class="prompt" free_freight_list="<%=free_freight_list[store_cart_list[i].store_id]%>">满<%=free_freight_list[store_cart_list[i].store_id]%>元包邮,已包邮<i class="litte-triangle"></i></p>
+                          <%}%>
+                          <%}%>
+
+		                    <%if(!store_cart_list[i].store_freight){%>
+		                    	<span  class="fh-black express_price pull-right">￥0.00</span>
+		                    <%}else{%>
+		                   		<span  class="fh-black express_price pull-right">￥<%=store_cart_list[i].store_freight%></span>
+		                    <%}%>
+		                </div>
+
+		                <!--店铺优惠--->
+		                <div class="line-lump" id="youhui" >
+		                	<%if(mansong&&mansong[store_cart_list[i].store_id]){%>
+		                   		<span>店铺优惠(满<%=floatPrice(mansong[store_cart_list[i].store_id].egt_amount)%>-<%=floatPrice(mansong[store_cart_list[i].store_id].minus_amount)%>)</span>
+		                   		<span class="fh-black pull-right" >-￥<%=mansong[store_cart_list[i].store_id].minus_amount%></span>
+		                    <%}else if(store_cart_list&&store_cart_list[0].manselect_minus_amount){%>
+		                   		<span>店铺优惠</span>
+		                   		<span class="fh-black pull-right" >-￥<%=store_cart_list[0].manselect_minus_amount%></span>
+		                    <%}else{%>
+		                    	<span>店铺优惠</span>
+		                   		<span class="fh-black pull-right" >-￥0.00</span>
+		                    <%}%>
+		                </div>
+		                <!--关税-->
+		                <div class="line-lump border-b0" id="duty" style="display: none;">
+	                    <span>关税</span>
+	                    <!--<img src="../../images/wap/duty-l.png" class="free-duty"/>-->
+	                    <span class="crossed fh-black pull-right" id="dutyMoney">￥00.00</span>
+	                </div>
+		            </section>
+		            <section class="empty"></section>
+		             <!--<div>
+	            <p class="pad10"><span class="pull-left f14">参团流程</span><a href="http://dev.fenhongshop.com/wap/tmpl/andriod/group_agree.html" class="pull-right">拼团规则</a></p>
+
+			             <img src="../../images/wap/group_01.jpg" style="width:100%;padding:18px 0 15px;"/>
+
+		            </div>-->
+	            <%}%>
+
+              <!-- 不配送地区商品列表 -->
+              <div class="fh-dialog" id="noinfoDialog">
+  		        <div class="fh-dialog-wrap">
+  		        	<div class="fh-dialog-body">
+  	                <p class="fh-dialog-brief">选购商品该地区不发货</p>
+  	            </div>
+  	            <div class="dialog-goods">
+                  <%if(not_deliver_areas_goods_list){%>
+                    <%for(var i=0;i<not_deliver_areas_goods_list.length;i++){%>
+                          <section class="container fh-bg-white border-b0" >
+                           <div class="pull-left">
+                               <img class="img-size" src="<%=not_deliver_areas_goods_list[i].goods_image%>">
+                           </div>
+                           <div class="module-body">
+                                 <div class="module-top">
+                                    <%=not_deliver_areas_goods_list[i].goods_name%>
+                                 </div>
+                                 <span class="module-num pull-right">X<%=not_deliver_areas_goods_list[i].goods_num%></span>
+                               <div class="mt20">
+                                   <span class="goods-price pull-right">￥<%=not_deliver_areas_goods_list[i].goods_price%></span>
+                               </div>
+                           </div>
+                       </section>
+                    <%}%>
+                  <%}%>
+  	            </div>
+  		        <div class="fh-dialog-footer">
+  		        <button class="fh-dialog-button" id="leftbtn">更改收货地址</button><button class="fh-dialog-button" id="rightbtn">返回购物车</button>
+  		        </div>
+  		        </div>
+  		    </div>
+
+	        </script>
+	        <!--优惠券-->
+            <div class="line-lump" style="display: none;" id="tickets">
+                <span class="pull-left">优惠券:</span>
+                <div id="ticket_num" class="ticket"></div>
+                <i class="icon-angle-right right-arrow" style="line-height: 20px;"></i>
+            </div>
+	        <section class="empty"></section>
+          <div class="line-lump" id="shoper_save" style="display: none;">
+                  <span class="pull-left"></span>
+                  <span class="fh-black pull-right shoper_save">-￥</span>
+          </div>
+
+	        <!--优惠券抵扣-->
+	        <div class="line-lump" style="display: none;" id="tickets_cancel">
+                <span>优惠券抵扣:</span>
+                <span class="fh-black real_price pull-right" id="cancelMoney">-￥0.00</span>
+            </div>
+            <div>
+
+            </div>
+            <section class="empty"></section>
+
+            <div class="fillDiv"><i class="icon-ok-circle ml10 mr5 f16" id="agree_select"></i>我接受分红全球购的<a href="http://dev.fenhongshop.com/wap/tmpl/andriod/personal_agreement.html">个人申报协议</a>和<a href="http://dev.fenhongshop.com/wap/tmpl/andriod/faq.html">商家服务政策</a></div>
+        </div>
+
+    	<div class="bottom-module fh-bg-white">
+            <div id="accounts" class="bottom-right">
+                <p class="order-msg">
+                    <span  id="total_num" class="order-num">共 0 件</span>
+                    <span>应付总额</span><span id="total_price" class="fh-price ml5">￥0.00</span>
+                </p>
+                <a class="btn-shopping" id="pay_money">立即付款</a>
+            </div>
+        </div>
+    </div>
+
+    <!--优惠券弹出层-->
+    <div class="z-bag animated slideInRight" id="ticket" style="display: none;">
+			<div class="row bg-body">
+				<header class="fh-header">
+					<span class="goback icon-angle-left" id="hideBag"></span>
+					<h1 class="header-title">使用优惠券</h1>
+				</header>
+				<ul class="bag-nav border-b">
+					<li tabId="0" class="selected">可用的优惠券(<span id="use">0</span>)</a><b class="fh-nav-bar"></b></li>
+					<li tabId="1">不可用的优惠券(<span id="unuse">0</span>)<b class="fh-nav-bar"></b></li>
+				</ul>
+				<section id="bag_lists" class="bg-body">
+
+				</section>
+				<script type="text/html" id="bagLists">
+            	<%for(var i in available){%>
+	            		<%if(available[i].use_limit&&available[i].use_limit!=0){%>
+	            		<div class="pr single-bag" coupon_id="<%=available[i].coupon_id%>" coupon_price="<%=available[i].coupon_price%>">
+	            			<i class="icon-circle-blank bag-i"></i>
+	            			<!--<i class="icon-ok-sign bag-i"></i>-->
+							<div class="ticket mb10 bg-body">
+				            	<div class="ticket_content clearfix ticket_bg_yellow">
+								     <div class="clearfix pb20 border-b">
+								    	<div class="pull-left font-yellow w100 tl">
+								    	<span class="f15">￥</span><span class="f40 l100"><%=available[i].coupon_price%></span>
+									    </div>
+									    <div class="pull-left titlebag">
+									    	<h3 class="f16 pb10"><%=available[i].coupon_name%></h3>
+									    	<p class="f12 color7">满<%=available[i].use_limit%>元可以使用</p>
+									    </div>
+									</div>
+								    <div class="ticketbom clearfix color9">
+								    	<%if(available[i].is_own==1){%>
+								    		<p class="pull-left">仅限自营商品使用</p>
+								    	<%}else{%>
+								    		<p class="pull-left">仅限<%=available[i].store_name%>使用</p>
+								    	<%}%>
+								    	<p class="pull-right time-limit">有效期至：<%=format(available[i].end_time)%></p>
+								    </div>
+							    </div>
+						    </div>
+					    </div>
+				    	<%}else{%>
+				    	<div class="pr single-bag" coupon_id="<%=available[i].coupon_id%>" coupon_price="<%=available[i].coupon_price%>">
+				    		<i class="icon-circle-blank bag-i"></i>
+					    	<div class="ticket clearfix mb10 bg-body">
+				            	<div class="ticket_content clearfix ticket_bg_red">
+								     <div class="clearfix pb20 border-b">
+								    	<div class="pull-left font-pink w100 tl">
+								    	<span class="f15">￥</span><span class="f40 l100"><%=available[i].coupon_price%></span>
+									    </div>
+									    <div class="pull-left titlebag">
+									    	<h3 class="f16 pb10"><%=available[i].coupon_name%></h3>
+									    	<p class="f12 color7">无门槛优惠券</p>
+									    </div>
+									</div>
+								    <div class="ticketbom clearfix color9">
+								    	<%if(available[i].is_own==1){%>
+								    		<p class="pull-left">仅限自营商品使用</p>
+								    	<%}else{%>
+								    		<p class="pull-left">仅限<%=available[i].store_name%>使用</p>
+								    	<%}%>
+								    	<p class="pull-right time-limit">有效期至：<%=format(available[i].end_time)%></p>
+								    </div>
+							    </div>
+						    </div>
+					    </div>
+						<%}%>
+					<%}%>
+					</script>
+					<section id="un_bag_lists" class="bg-body" style="display: none;"></section>
+					<script type="text/html" id="unBagLists">
+					<%for(var i in unavailable){%>
+						<div class="ticket clearfix mb10 bg-body plr10">
+			            	<div class="ticket_content clearfix ticket_bg_grey colorC">
+							     <div class="clearfix pb20 border-b">
+							    	<div class="pull-left w100 tl">
+							    	<span class="f15">￥</span><span class="f40 l100"><%=unavailable[i].coupon_price%></span>
+								    </div>
+								    <div class="pull-left titlebag">
+								    	<h3 class="f16 pb10"><%=unavailable[i].coupon_name%></h3>
+								    	<%if(unavailable[i].use_limit){%>
+								    		<p class="f12">满<%=unavailable[i].use_limit%>元可以使用</p>
+								    	<%}else{%>
+								    		<p class="f12">无门槛优惠券</p>
+								    	<%}%>
+								    </div>
+								</div>
+							    <div class="ticketbom clearfix">
+							    	<%if(unavailable[i].is_own==1){%>
+							    		<p class="pull-left">仅限自营店使用</p>
+							    	<%}else{%>
+							    		<p class="pull-left">仅限<%=unavailable[i].store_name%>使用</p>
+							    	<%}%>
+							    	<p class="pull-right time-limit">有效期至：<%=format(unavailable[i].end_time)%></p>
+							    </div>
+						    </div>
+					    </div>
+					<%}%>
+				</script>
+			</div>
+		</div>
+
+	<!--优惠套装弹出层-->
+    <div class="z-bag animated slideInRight" id="suit" style="display: none;">
+			<div class="row bg-body">
+				<header class="fh-header">
+					<span class="goback icon-angle-left" id="hideSuit"></span>
+					<h1 class="header-title">套装详情</h1>
+				</header>
+				<div id="suit_list"></div>
+				<script type="text/html" id="suitList">
+					<%for(var i=0;i<goods_list.length;i++){%>
+						<section class="bl-list">
+				                <div class="pull-left  mr10">
+				                    <img class="img-size" src="<%=goods_list[i].image%>">
+				                </div>
+				                <div class="module-body">
+				                    <div class="module-top">
+				                       <%=goods_list[i].name%>
+				                    </div>
+				                    <div class="mt30">
+				                    	单买价<span class="goods-price">￥<%=goods_list[i].shop_price%></span>
+				                    </div>
+				                </div>
+			            </section>
+		            <%}%>
+		            <p class="f14 mt10 mb10">
+		            	<span>套装价:</span>
+		            	<span class="goods-price">￥<%=current_price%></span>
+		            </p>
+		            <p class="f14 mb50">
+		            	<span class="font-gray">原价:</span>
+		            	<del class="f14">￥<%=cost_price%></del>
+		            	<span class="focus-font pull-right" id="save_price"></span>
+		            </p>
+	            </script>
+			</div>
+		</div>
+    <script  src="../../js/libs/jquery/jquery-1.11.3.min.js"></script>
+    <script  src="../../js/plugins/fastclick.js"></script>
+    <script  src="../../js/config.js"></script>
+    <script  src="../../js/common.js"></script>
+    <script  src="../../js/plugins/layer/layer.js"></script>
+    <script  src="../../js/plugins/swiper/swiper.js"></script>
+    <script  src="../../js/plugins/template.js"></script>
+    <script  src="../../src/js/tmpl/order/order_confirmation.js"></script>
+    <script>
+    	Goods.Confirmation.onLoad();
+    </script>
+</body>
+
+</html>

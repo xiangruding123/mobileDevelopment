@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>我的优惠券</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta http-equiv="Cache-Control" content="no-cache">
+		<meta http-equiv="Pragma" content="no-cache">
+		<link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+		<link rel="stylesheet" href="../../src/css/fhbase.css">
+		<link rel="stylesheet" href="../../src/css/fhwap.css">
+		<link rel="stylesheet" href="../../js/plugins/sweetalert/sweetalert.css">
+		<link rel="stylesheet" href="../../js/plugins/layer/skin/layer.css">
+		<link rel="stylesheet" href="../../css/animate.css">
+	</head>
+
+	<body>
+		<div class="container layout" id="ticket">
+			<div class="row bg-body">
+				<header class="fh-header">
+					<span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+					<h1 class="header-title">我的优惠券</h1>
+					<a class="header-edit" id="nav-show"></a>
+				</header>
+				<ul class="nav nav-pills fh-nav border-b">
+					<li tabId="0" class="selected">未使用(<span id="unuse">0</span>)</a>
+					</li>
+					<li tabId="1">已使用(<span id="use">0</span>)</li>
+					<li tabId="2">已过期(<span id="stale">0</span>)</li>
+				</ul>
+				<div class="ticket-group">
+					<img src="../../images/red-packet/group.png" />
+					<p>还没有红包！</p>
+					<button>赚取红包</button>
+				</div>
+				<section id="coupon_list" class="bg-body"></section>
+				<script type="text/html" id="couponList">
+					<%for(var i=0;i<result.coupon_list.length;i++){%>
+					<%if(result.state==0){%>
+					<%if(result.coupon_list[i].use_limit&&result.coupon_list[i].use_limit!=0){%>
+					<div class="ticket clearfix mb10 bg-body">
+							<a href="baggoods.html?store_id=<%=result.coupon_list[i].store_id%>">
+										<div class="ticketnew">
+											<p class="tickt-head"><%if(result.coupon_list[i].is_own==1){%>
+										<span class="pull-left">仅限自营商品使用</span>
+										<%}else{%>
+										<span class="pull-left">仅限
+											<%=result.coupon_list[i].store_name%>使用</span>
+										<%}%> <span class="pull-right"><span>立即使用<i class="icon-angle-right"></i></span></span>
+											</p>
+					                         <div class="ticket-price">
+													<span class="f15">￥</span><span class="f40 l100"><%=result.coupon_list[i].coupon_price%></span>
+													<!--<p class="f12">无门槛优惠券</p>-->
+													<p class="ticket-tip">满<%=result.coupon_list[i].use_limit%>元可以使用</p>
+													
+											</div>
+											 <div class="ticket-time">
+													<p class="f16 focus-font"><%=result.coupon_list[i].coupon_name%></p>
+													<p class="time-limit">有效期至：<%=format(result.coupon_list[i].end_time)%></p>
+												</div>
+										</div>									
+								</a>
+						</div>
+					<%}else{%>
+					
+						<div class="ticket clearfix mb10 bg-body">
+							<a href="baggoods.html?store_id=<%=result.coupon_list[i].store_id%>">
+										<div class="ticketnew">
+											<p class="tickt-head"><%if(result.coupon_list[i].is_own==1){%>
+										<span class="pull-left">仅限自营商品使用</span>
+										<%}else{%>
+										<span class="pull-left">仅限
+											<%=result.coupon_list[i].store_name%>使用</span>
+										<%}%> <span class="pull-right"><span>立即使用<i class="icon-angle-right"></i></span></span>
+											</p>
+					                         <div class="ticket-price">
+													<span class="f15">￥</span><span class="f40 l100"><%=result.coupon_list[i].coupon_price%></span>
+													<p class="ticket-tip">无门槛优惠券</p>
+													
+											</div>
+											 <div class="ticket-time">
+													<p class="f16 focus-font"><%=result.coupon_list[i].coupon_name%></p>
+													<p class="time-limit">有效期至：<%=format(result.coupon_list[i].end_time)%></p>
+												</div>
+										</div>									
+								</a>
+						</div>
+					<%}%>
+					<%}else{%>
+										
+							<div class="ticket clearfix mb10 bg-body">
+							
+										<div class="bgcolorc">
+											<p class="tickt-head"><%if(result.coupon_list[i].is_own==1){%>
+										<span class="pull-left">仅限自营商品使用</span>
+										<%}else{%>
+										<span class="pull-left">仅限
+											<%=result.coupon_list[i].store_name%>使用</span>
+										<%}%> 
+											</p>
+					                         <div class="ticket-price">
+													<span class="f15">￥</span><span class="f40 l100"><%=result.coupon_list[i].coupon_price%></span>
+													
+													<%if(result.coupon_list[i].use_limit&&result.coupon_list[i].use_limit!=0){%>
+									<p class="ticket-tip">满
+										<%=result.coupon_list[i].use_limit%>元可以使用</p>
+									<%}else{%>
+									<p class="ticket-tip">无门槛优惠券</p>
+									<%}%>
+													
+											</div>
+											 <div class="ticket-time">
+													<p class="f16"><%=result.coupon_list[i].coupon_name%></p>
+													<p class="time-limit">有效期至：<%=format(result.coupon_list[i].end_time)%></p>
+												</div>
+										</div>									
+								
+						</div>
+						
+					<%}%>
+					<%}%>
+				</script>
+				
+                <div class="new-packet-img zoomIn animated" style="z-index: 1000;">
+	            	<img class="new-packet-x" src="../../images/red-packet/x.png"/>
+	            	 <p class="bag_name f"></p>
+					 <a href="../packet/baggoods.html"><button class="button btn1">马上使用</button></a>
+					 <a id="close"><button class="button btn2">查看优惠券</button></a>
+				</div>
+				<script  src="../../js/libs/jquery/jquery-1.8.3.min.js"></script>
+				<script  src="../../js/config.js"></script>
+				<script  src="../../js/plugins/fastclick.js"></script>
+				<script  src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+				<script  src="../../js/plugins/sweetalert/sweetalert.min.js"></script>
+				<script  src="../../js/common.js"></script>
+				<script  src="../../js/plugins/layer/layer.js"></script>
+				<script  src="../../js/plugins/template.js"></script>
+				<script  src="../../src/js/tmpl/packet/coupon_list.js"></script>
+				<script>
+					Packet.CouponList.onLoad();
+				</script>
+	</body>
+
+</html>

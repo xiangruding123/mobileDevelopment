@@ -1,0 +1,1 @@
+!function(i,s,e){"use strict";i(function(){i("#shop_index .shop_list li").click(function(s){i(this).addClass("active").siblings("li").removeClass("active"),i(".tableChange").eq(i(this).index()).show().siblings(".tableChange").hide()})})}($,window,document);

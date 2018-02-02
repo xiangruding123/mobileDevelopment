@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <title>订单确认</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+   <meta name="apple-mobile-web-app-status-bar-style" content="black">
+   	<meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../js/plugins/swiper/swiper.css" />
+    <link rel="stylesheet" href="../../css/animate.css">
+    <link rel="stylesheet" href="../../css/buttons.css" />
+    <link rel="stylesheet" href="../../css/fhbase.css">
+    <link rel="stylesheet" href="../../css/fhwap.css">
+</head>
+
+<body>
+    <div class="container layout" id="order-details">
+        <div class="row">
+            <header class="fh-header">
+                <span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+                <h1 class="header-title">订单确认</h1>
+                <a class="header-edit" id="nav-show"></a>
+            </header>
+            <section class="order-header">
+            	<img src="../images/wap/dingdan.png"></img>
+            	<p>
+            		订单	状态:<span>等待买家付款</span>
+            	</p>
+            	<p>
+            		订单号:<span>70000154574478585</span>
+            	</p>
+            	<p>您的订单已提交,请在11时43分07秒内完成支付超时订单自动取消</p>
+            </section>
+            <section class="empty"></section>
+            <section class="pad10 oh" style="background: url(../images/wap/dizhibg.png);" id="address">
+            	<!--没有收货地址-->
+                <p class="add-address"> <a href="../member/add_address.html" class="a-link font-pink">
+                    <i class="icon-plus"></i>&nbsp新建收货地址</a>
+                </p>
+                <!-- 选择收货地址-->
+                <script type="text/html" id="address-tpl">
+                <div class="message-left">
+                    <div>
+                        <span> <%=result[0].name%> </span>
+                        <span class="pull-right"><%=result[0].mob_phone%> </span>
+                    </div>
+                    <div class="f14 mt10" area_id='<%=result[0].area_id%>' address_id='<%=result[0].address_id%>'><%=result[0].area_info%><%=result[0].address%> </div>
+                </div>
+                <i class="icon-angle-right pull-right f30 mt10"></i>
+                </script>
+            </section>
+            <section class="empty"></section>
+            <section class="pd-index border-b">
+                <div class="border-b pb10 f16">选择支付方式</div>
+                <div class="pay-type">
+                    <img src="../images/global/zhifubao.png" class="pay-icon" />
+                    <span>支付宝支付</span>
+                    <i class="icon-ok-sign pay-chose"></i>
+                </div>
+                <div class="pay-type">
+                    <img src="../images/global/unionpay.png" class="pay-icon" />
+                    <span>银联支付</span>
+                    <i class="icon-circle-blank pay-chose"></i>
+                </div>
+                <div class="pt10 f16">
+                    <img src="../images/global/weixin.png" class="pay-icon" />
+                    <span>微信支付</span>
+                    <i class="icon-circle-blank pay-chose"></i>
+                </div>
+            </section>
+            <section class="empty"></section>
+            <section id="confirm-info"></section>
+            <script type="text/html" id="confirm-tpl">
+                <%for(var i=0;i<result.length;i++){%>
+                <div class="media fh-order border-half clearfix oh">
+                        <div class="title clearfix border-b mb10 pad10">
+                            <a href="../shopping/store_index.html?store_id=<%=result[i].store_id%>"><h3 class="pull-left mr10 mt5"><%=result[i].store_name%></h3></a>
+                            <i class="icon-angle-right pull-right f20"></i>                         
+                        </div>
+                        <%for(var k=0;k<result[i].goods_list.length;k++){%>
+                        <div class="media-left">
+                            <a href="#">
+                                <img class="media-object border-full ml5" src="<%=result[i].goods_list[k].goods_image%>" alt="..." >
+                            </a>
+                        </div>
+                        <div class="media-body pb10">
+                            <div class="row">
+                                <h4 class="media-heading col-xs-12 "><%=result[i].goods_list[k].goods_name%></h4>
+                                <div class="fh-red fh-text-sm text-left col-xs-4 ml15" hs_rate='<%=result[i].goods_list[k].hs_rate%>'>￥<%=result[i].goods_list[k].goods_price%></div>
+                                <div class="fh-text-sm text-right col-xs-7">×<%=result[i].goods_list[k].goods_num%></div>
+                            </div>
+                        </div>
+                        <%}%>
+                </div>
+                <%}%>
+            <section class="empty"></section>
+            <div class="l-r-pad">
+                <div class="line-lump fh-black">
+                    结算
+                </div>
+                <div class="line-lump">
+                    <span>商品总额:</span>
+                    <span class="fh-black">￥59.00</span>
+                </div>
+                <div class="line-lump">
+                    <span>运费:</span>
+                    <%if(!result[0].store_freight){%>
+                      <p class="hint">亲，包邮哦<i class="triangle"></i></p>
+                    <%}%>
+                   
+                    <span>￥<%=result[0].store_freight%></span>
+                </div>
+                <div class="line-lump border-b0">
+                    <span>关税:</span>
+                    <p class="hint">关税
+                        <50,免征哟<i class="triangle">
+                            </i>
+                    </p>
+                    <span class="crossed">￥59.00</span>
+                </div>
+            </div>
+            <div class="bottom-lump">
+                <span class="fontPink f16">实际付款: 59.00元</span>
+                <button class="btn btn-pink f16">提交订单</button>
+            </div>
+            </script>
+        </div>
+    </div>
+    <script  src="../../js/libs/zepto.min.js"></script>
+    <script  src="../../js/config.js"></script>
+    <script  src="../../js/plugins/fastclick.js"></script>
+    <script  src="../../js/common.js"></script>
+    <script  src="../../js/plugins/template.js"></script> 
+    <script  src="../../js/tmpl/order/order_details.js?v=20151125"></script>
+</body>
+
+</html>

@@ -1,0 +1,317 @@
+/*************秒杀*************/
+#seckill .fh-goods {
+	padding: 10px;
+	/*border-bottom: 1px solid #eaeaea;*/
+	position: relative;
+}
+#seckill .media-img {
+	width: 100px;
+	height: 100px;
+}
+#seckill .sk-nav{
+	overflow: hidden; 
+}
+#seckill .sk-nav li{
+	width: 20%;
+	height: 55px;
+	float: left;
+	margin: 0 !important;
+}
+#seckill .color-active{
+	background-color: #fa2855 !important;
+}
+#seckill .sk-nav li{
+	background-color: #252525;
+	color: #fff;
+	border-right: 1px solid #000000;
+}
+/*#seckill .sk-nav li:nth-child(2){
+	background-color: #252525;
+}
+#seckill .sk-nav li:nth-child(3){
+	background-color: #2f2f2f;
+}
+#seckill .sk-nav li:nth-child(4){
+	background-color: #373737;
+}
+#seckill .sk-nav li:nth-child(5){
+	background-color: #414141;
+}*/
+
+#seckill .sk-nav li p:nth-child(1){
+    font-size: 18px;
+    margin-top: 10px;
+    line-height: 18px;
+}
+#seckill .sk-nav li p:nth-child(2){
+    font-size: 12px;
+    margin-top: 5px;
+    line-height: 12px;
+}
+#seckill .sk-t-img{
+	width: 100%;
+	position: relative;
+}
+#seckill .sk-price{
+	position: absolute;
+    bottom: 0px;
+}
+#seckill .sk-hint{
+	height: 45px;
+    line-height: 45px;
+    padding:0 10px;
+    font-size: 14px;
+    border-bottom: 1px solid #eaeaea;
+}
+#seckill .sk-rdiv{
+	position: absolute;
+    right: 0px;
+    bottom: 0px;
+}
+#seckill .sk-rob{
+	border-radius: 5px;
+    font-size: 16px!important;
+    color: #fff;
+    width: 85px;
+    height: 30px;
+    line-height: 20px;
+    background-color: #fa2855;
+    display: block;
+    position: absolute;
+    bottom: 30px;
+    right: 10px;
+    z-index: 100;
+}
+#seckill .sk-more{
+    border-radius: 5px;
+    font-size: 16px!important;
+    color: #fa2855;
+    width: 85px;
+    height: 30px;
+    line-height: 20px;
+    background-color: #fff;
+    display: block;
+    border: 1px solid #fa2855;
+    position: absolute;
+    bottom: 30px;
+    right: 10px;
+    z-index: 100;
+}
+#seckill .sk-clock{
+	width: 16px;
+    margin-top: -3px;
+}
+#seckill .sk-ready{
+	font-size: 15px;
+    color: #29ca41;
+    bottom: 15px;
+    right: 10px;
+    position: absolute;
+}
+#seckill .sk-progress{
+	display: inline-block;
+    width: 85px;
+    height: 8px;
+    border-radius: 60px;
+    border: 1px solid #fa2855;
+    overflow: hidden;
+    margin: 5px 0 0 5px;
+}
+#seckill .sk-s-progress{
+	display: inline-block;
+    height: 8px;
+    border-radius: 60px;
+    border: 1px solid #fa2855;
+    overflow: hidden;
+    width: 130px;
+    /*margin-right: 45px;*/
+}
+#seckill .sk-pro{
+	background-color: #fa2855;
+    width: 0%;
+    height: 100%;
+    z-index: 10;
+    display: block;
+    transition: width 1.5s;
+    -webkit-transition: width 1.5s; 
+}
+#seckill .sk-none{
+	width: 85px;
+    text-align: center;
+}
+#seckill .sk-font{
+	color: #333;
+	font-size:13px;
+}
+#seckill .sk-span1{	
+	font-size: 13px;
+    display: inline-block;
+    float:right;
+}
+#seckill .sk-time{
+	font-size: 13px;
+	/*display: inline-block;*/
+    background-color: transparent !important;
+}
+#seckill .sk-time span{
+	font-size:20px;
+}
+/*单一秒杀商品*/
+#seckill .sk-s-title{
+	font-size: 15px;
+    overflow: hidden;
+    -webkit-line-clamp: 3;
+    display: -webkit-box;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    width:50%;
+}
+#seckill .sk-s-img{
+	width:72%;
+    /*height: 150px;*/
+    margin: 10px auto;
+    display: block;
+}
+#seckill .sk-s-price{
+	text-align: center;
+    font-size: 14px;
+    margin: 15px 0 10px 0;
+}
+#seckill .sk-s-price span:nth-child(1){
+	color: #333;
+	font-size: 12px;
+}
+#seckill .sk-s-price span:nth-child(2){
+	color: #fa2855;
+	font-size: 18px;
+}
+#seckill .sk-s-rob{
+	    border-radius: 3px;
+    font-size: 16px!important;
+    color: #fff;
+    width: 130px;
+    height: 35px;
+    line-height: 30px;
+    background-color: #fa2855;
+    display: block;
+    z-index: 100;
+    margin: 0 auto;
+    margin-top: 10px;
+}
+#seckill .sk-s-more{
+	border-radius: 3px;
+    font-size: 16px!important;
+    color: #fa2855;
+    border:1px solid #fa2855;
+    width: 130px;
+    height: 35px;
+    line-height: 30px;
+    background-color: #fff;
+    display: block;
+    z-index: 100;
+    margin:10px auto 25px;   
+}
+#seckill .sk-s-over{
+	text-align: center;
+	font-size: 12px;
+	margin-top: 10px;
+	color: #bbb;
+}
+#seckill .sk-s-rdiv{
+	text-align: center;
+    margin-top: 15px;
+}
+#seckill .sk-rdiv .progress{
+	float: right;
+}
+#seckill .sk-s-ready{
+	text-align: center;
+    margin-top: 15px;  
+    margin-bottom:25px;  
+    color: #29cb42;
+    font-size: 16px;
+    border: 1px solid #29cb42;
+    padding: 10px;
+    width:130px;
+    display: inline-block;
+    border-radius:3px;
+}
+#seckill .sk-mask{
+	position: absolute;
+    bottom: 10px;
+    text-align: center;
+    width: 100px;
+    background-color: #000000;
+    opacity: 0.6;
+    color: #fff;
+    height: 20px;
+    line-height: 20px;
+    z-index: 10;
+}
+#seckill .sk-title{
+	font-size: 15px;
+}
+#seckill .sk-bottom{
+	    font-size: 13px;
+    background-color: #f0f0f0;
+    line-height: 50px;
+    height: 50px;
+    text-align: center;
+    color: #999;
+    border-bottom: 1px solid #f0f0f0;
+    border-top: 1px solid #f0f0f0;
+        position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+#seckill .sk-bottom i{
+	font-size: 24px;
+    margin-left: 5px;
+    vertical-align: sub;
+}
+#seckill .sk-tab{
+	position: relative;
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+	z-index: 1000000;
+	top: 0px;
+}
+#seckill .sk-tab-fix{
+	position: fixed !important;
+}
+@media only screen and (min-width: 320px) and (max-width: 350px) {
+	#seckill .media-img {
+		width: 85px !important;
+		height: 85px !important;
+	}
+	#seckill .sk-mask{
+		width: 85px !important;
+	}
+	
+}
+#seckill .sk-goods-img{
+	width: 75%;
+    display: inline-block;    
+    margin-left: 12.5%;
+}
+#tab_change{
+	max-width:640px;
+	min-width:320px;
+}
+@media only screen and (min-width: 320px) and (max-width: 350px){
+	#seckill .sk-s-img{
+		width:170px;
+		height:170px;
+	}
+}
+@media only screen and (min-width: 351px) and (max-width: 375px){
+	#seckill .sk-s-img{
+		width:200px;
+		height:200px;
+	}
+}
+.layui-layer-msg{
+	border-radius:5px !important;
+}
+

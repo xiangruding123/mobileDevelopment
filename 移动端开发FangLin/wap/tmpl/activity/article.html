@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+   	<meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/animate.css">
+    <link rel="stylesheet" href="../../css/buttons.css">
+    <link rel="stylesheet" href="../../js/plugins/layer/skin/layer.css">
+    <link rel="stylesheet" href="../../css/fhbase.css">
+    <link rel="stylesheet" href="../../css/fhwap.css">
+    <style>
+    .header-title{
+    	    line-height: 48px;
+    font-size: 18px;
+   
+    width: 70%;
+    
+    margin: 0 auto;
+    overflow: hidden;
+    display: -webkit-box !important;
+  
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    }
+    
+    </style>
+</head>
+<body>
+    <div class="container layout" id='search_goods_list'>
+        <div class="row">
+            <header class="fh-header pd-none none">
+                <span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+                <h1 class="header-title"></h1>
+                <a class="header-edit" id="nav-show"></a>
+            </header>
+			<article id="article_ad">
+				
+			</article>
+        </div>
+    </div>
+    <script  src="../../js/libs/jquery/jquery-1.8.3.min.js"></script>
+    <script  src="../../js/plugins/jquery.lazyload.js"></script>
+    <script  src="../../js/plugins/fastclick.js"></script>
+    <script  src="../../js/plugins/jquery.validate.js"></script>
+    <script  src="../../js/plugins/layer/layer.js"></script>
+    <script  src="../../js/plugins/template.js"></script>
+    <script  src="../../js/plugins/iscroll.js"></script>
+    <script  src="../../js/plugins/fhScroll.js"></script>
+    <script  src="../../js/config.js"></script>
+    <script  src="../../js/common.js"></script> 
+    <script  src="../../js/fh.js" ></script>
+    <script>
+    	$(function(){
+    		var article_id = GetQueryString('article_id');
+    		
+    		if(native_flag==-1){
+    			$('.fh-header').removeClass('none');
+    		}
+    		
+    		$.ajax({
+    			type:"get",
+    			url:WapSiteUrl+"/api/index.php?act=common_article&op=get_article_detail",
+    			dataType:'json',
+    			data:{
+    				flag:'wap',
+    				article_id:article_id
+    			},
+    			success:function(data){
+    				if(data.error==='0'){
+    					
+    					$('title,.header-title').text(data.result.article_title);
+    				
+    					$('article').html(data.result.article_content);
+    				}
+    			}
+    		});
+    	})
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <title>优惠套装</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+   	<meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">    
+    <link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/buttons.css">
+    <link rel="stylesheet" href="../../css/fhbase.css">
+    <link rel="stylesheet" href="../../css/fhwap.css">
+    <link rel="stylesheet" href="../../js/plugins/sweetalert/sweetalert.css">
+    <style type="text/css">
+    	#goods_coupon .suit{
+    		margin:0 10px;
+    		border-bottom:1px solid #eaeaea;
+    	}
+    	#goods_coupon .icon-angle-right{
+    		    float:right;
+			    font-size: 20px;
+    	}
+    	#goods_coupon .coupon_img{
+    		width:90px;
+    	}
+    	#goods_coupon .add{
+    		font-size:30px;
+    		padding:0 20px;
+    	}
+    	#goods_coupon .suit{
+    		overflow: hidden;
+    	}
+    	#goods_coupon .suit .img_suit{
+		    width: 100%;
+            min-width: 320px;
+    	}
+    	#goods_coupon .navbar-nav{
+    		margin-left:5px;
+    	}
+    	#goods_coupon .navbar-nav li {
+		    position: relative;
+		    display: block;
+		    font-size: 16px;
+		    float: left;
+		    width: 160px;
+		    color: #333;
+		    text-align: left;
+		}
+    </style>
+</head>
+
+<body class="nav bg-body">
+    <div class="container layout" id="goods_coupon">
+        <div class="row">
+            <header class="fh-header">
+                <span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+                <h1 class="header-title">优惠套装</h1>
+            </header>
+            <div id="goods_coupon_list">
+            	
+            </div>
+           <script type="text/html" id="coupon_tpl">
+           <%if(result.bundling){%>
+           	
+           <%for(var i=0;i<result.bundling.length;i++){%>           	
+        
+           	  <div class="suit"><a href="coupon_detail.html?typenum=<%=i%>&goods_id=<%=result.bundling[0].goods_list[0].id%>" class="skip-link"><p class="mb10 mt10">套装<%=i+1%> ￥<%=result.bundling[i].current_price%>省<span class="font-pink"><%=(result.bundling[i].cost_price-result.bundling[i].current_price).toFixed(2)%></span>元<i class="icon-angle-right pull-right"></i></p></a>
+            	<div id="t-tabs-<%=i%>">
+            		<a href="coupon_detail.html?typenum=<%=i%>&goods_id=<%=result.bundling[0].goods_list[0].id%>" class="skip-link">
+				        <ul class="nav navbar-nav">
+				        	<%for(var k=0;k<result.bundling[i].goods_list.length;k++){%>				        	
+				          		<li>
+				          			<img src="../../images/wap/guanggao-1.jpg" alt="" data-original="<%=result.bundling[i].goods_list[k].image%>" class="coupon_img"/><span class="add">+</span>
+				          		</li>				          		
+                            <%}%>        	
+				        </ul>
+				     </a>
+			    </div>
+            	
+            </div>
+           <%}%>
+           <%}%>
+           	
+           </script>
+           <!--<div class="suit"><p class="mb10 mt10">套装1 ￥660省<span class="font-pink">100</span>元<i class="icon-angle-right pull-right"></i></p>
+            	<div id="t-tabs-0">
+				        <ul class="nav navbar-nav">
+				          		<li>
+				          			<img src="../../images/wap/guanggao-1.jpg" alt="" class="coupon_img"/><span class="add">+</span>
+				          		</li>
+				          		<li>
+				          			<img src="../../images/wap/guanggao-1.jpg" alt="" class="coupon_img"/><span class="add">+</span>
+				          		</li>
+				          		<li>
+				          			<img src="../../images/wap/guanggao-1.jpg" alt="" class="coupon_img"/><span class="add">+</span>
+				          		</li>	        	
+				        </ul>
+			    </div>
+            	
+            </div>-->
+            <!--<div class="suit"><p class="mb10 mt10">套装1 ￥660省<span class="font-pink">100</span>元<i class="icon-angle-right pull-right"></i></p>
+            	<div id="t-tabs-1">
+				        <ul class="nav navbar-nav">
+				        	
+				          
+				          		<li>
+				          			<img src="../../images/wap/guanggao-1.jpg" alt="" class="coupon_img"/><span class="add">+</span>
+				          		</li>
+				          		<li>
+				          			<img src="../../images/wap/guanggao-1.jpg" alt="" class="coupon_img"/><span class="add">+</span>
+				          		</li>
+				          		<li>
+				          			<img src="../../images/wap/guanggao-1.jpg" alt="" class="coupon_img"/><span class="add">+</span>
+				          		</li>
+				          		<li>
+				          			<img src="../../images/wap/guanggao-1.jpg" alt="" class="coupon_img"/><span class="add">+</span>
+				          		</li>
+				          		<li>
+				          			<img src="../../images/wap/guanggao-1.jpg" alt="" class="coupon_img"/><span class="add">+</span>
+				          		</li>
+				          
+				          					        	
+				        </ul>
+			    </div>
+            	
+            </div>-->
+              
+       </div> 
+    </div>
+    <script src="../../js/wap.js"></script>     
+    <script src="../../js/plugins/sweetalert/sweetalert.min.js"></script>
+    <script  src="../../js/config.js"></script>
+    <script  src="../../js/common.js"></script>
+    <script  src="../../js/plugins/layer/layer.js"></script>  
+    <script src="../../js/tmpl/shopping/coupon.js"  charset="utf-8"></script>
+    <script >
+    	Goods.goodsCouponDetail.onLoad();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <title>个人中心</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+   	<meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/animate.css" />
+    <link rel="stylesheet" href="../../css/buttons.css">
+    <link rel="stylesheet" href="../../src/css/fhbase.css">
+    <link rel="stylesheet" href="../../src/css/fhwap.css">
+    <style>
+       .allBtmFooter li{
+         width:25% !important;
+       }
+    </style>
+</head>
+
+
+<body>
+    <div class="container layout" id="person">
+        <div class="row fh-bg-white">
+            <header id="person-header" class=" tc fh-white">
+            	<!-- <span class="goback icon-angle-left" onclick="javascript:history.back();"></span> -->
+                <!--<a class="header-edit" id="nav-show"></a>-->
+                <a class="circle-out">
+                            <div class="circle-in">
+                            	<img src="../../images/wap/default_header.svg" class="person-img" id="../member/person_photo"/>
+                            	<span class="person-span">登录/注册</span>
+                            </div>
+                </a>
+                <h4 id="person_name" class="f14"></h4>
+                <p class="mb25 none weidianshow"><a href="../weidian/spokeman.html" class="focus-font">您还不是分享达人</a></p>
+                <nav class="coll-nav">
+                    <ul>
+                        <li>
+                        	<a href='../member/history_shop.html?index=0' class="fh-white">
+	                            <p class="coll_nav_num pb5">0</p>
+	                            <p>收藏宝贝</p>
+                            </a>
+                        </li>
+                        <li>
+                        	<a href='../member/history_shop.html?index=1' class="fh-white">
+	                            <p class="coll_nav_num pb5">0</p>
+	                            <p>收藏店铺</p>
+	                        </a>
+                        </li>
+                        <!-- <li>
+                        	<a href='../member/history_shop.html?index=2' class="fh-white">
+	                            <p class="coll_nav_num pb5">0</p>
+	                            <p>收藏微店</p>
+                            </a>
+                        </li>
+                        <li>
+                        	<a href='../member/history_shop.html?index=3' class="fh-white">
+	                            <p class="coll_nav_num pb5">0</p>
+	                            <p>收藏达人</p>
+	                        </a>
+                        </li>
+                        <li>
+                        	<a href='../member/history_shop.html?index=4' class="fh-white">
+	                            <p class="coll_nav_num pb5">0</p>
+	                            <p>收藏时光</p>
+                            </a>
+                        </li> -->
+                        <li>
+                        	<a href='../member/history_shop.html?index=2' class="fh-white">
+	                            <p class="coll_nav_num pb5">0</p>
+	                            <p>关注品牌</p>
+                            </a>
+                        </li>
+                        <li>
+                        	<a href='../member/history_shop.html?index=3' class="fh-white">
+	                            <p class="pb5"><img src="../../images/wap/footprint.png" alt="" class="history"></p>
+	                            <p>我的足迹</p>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </header>
+            <section class="clearfix margin7">
+                <div class="fh-link-bar" style="border-top: 0!important;"><span><!--<img src="../../images/wap/my-order.png" class="p-img1"/>-->我的订单</span>
+                <div class="pull-right">
+                    <a href="../order/order_all.html" class="mr10" >
+                        <span class="order">查看全部订单</span>
+                        <i class="icon-angle-right"></i>
+                    </a>
+                </div></div>
+            </section>
+            <div class="order-nav tc ">
+                <ul class="">
+                    <li>
+                        <a href="../order/order_all.html?index=1" id="wait_pay"><img src="../../images/wap/daifukuan.png" ><span>待付款</span></a>
+                    </li>
+                    <li>
+                        <a href="../order/order_all.html?index=2" id="wait_send"><img src="../../images/wap/daifahuo.png" ><span>待发货</span></a>
+                    </li>
+                    <li>
+                        <a href="../order/order_all.html?index=3" id="wait_receive"><img src="../../images/wap/daishouhuo.png" ><span>待收货</span></a>
+
+                    </li>
+                    <li>
+                        <a href="../order/order_all.html?index=4" id="wait_evaluate"><img src="../../images/wap/daipingjia.png"><span>待评价</span></a>
+                         <span class="arrow_p_t"><span class="arrow_p_sanjiao"></span>评价送积分</span>
+                    </li>
+                    <li>
+                        <a  id="service"><img src="../../images/wap/shenqingshouhou.png" ><span>申请售后</span></a>
+                    </li>
+                </ul>
+            </div>
+            <section class="empty"></section>
+
+			<section id="daren" style="display: none;">
+				<section class="clearfix border-t" >
+					<div class='fh-link-bar margin7' style="border-top:0 !important"><span>达人管理</span></div class='fh-link-bar'>
+				</section>
+				<nav class="order-nav tc">
+					<ul class="">
+						<li class="width25">
+							<a href="../specialty/talent_index.html"><img src="../../images/wap/specialty/talent_index.png" alt="" style="width: 23px;"><span>我的首页</span></a>
+						</li>
+						<li class="width25" id="person_time_list">
+							<img src="../../images/wap/specialty/time.png" alt="" style="width: 23px;"><span>我的时光</span>
+						</li>
+						<li class="width25">
+							<a href="../specialty/fans_list.html"><img src="../../images/wap/specialty/fans.png" alt="" style="width: 23px;"><span>我的粉丝</span></a>
+						</li>
+						<li class="width25">
+							<a href="../member/my_commission.html"><img src="../../images/wap/specialty/money.png" alt="" style="width: 23px;"><span>奖金收入</span></a>
+						</li>
+					</ul>
+				</nav>
+				<section class="empty"></section>
+			</section>
+
+			<section id="store" style="display:none;">
+				<section class="clearfix border-t">
+					<a href="../weidian/my_index.html"><div class="fh-link-bar margin7" style="border-top:0 !important"><span>粉丝管理</span></div></a>
+				</section>
+				<nav class="order-nav tc">
+					<ul class="">
+						<!-- <li class="width25">
+							<a href="../weidian/my_index.html"><img src="../../images/wap/open-store.png" alt="" style="width: 23px;"><span>我的微店</span></a>
+						</li> -->
+						<li class="width25">
+							<a href="../member/my_commission.html"><img src="../../images/wap/yongjin.png" alt="" style="width: 23px;"><span>我的奖金</span></a>
+
+						</li>
+						<li class="width25">
+							<a href="../member/team.html"><img src="../../images/wap/my-team.png" alt="" style="width: 23px;"><span>我的粉丝</span></a>
+						</li>
+						<li class="width25">
+							<a href="../member/generalize.html"><img src="../../images/wap/my-extend.png" alt="" style="width: 23px;"><span>我的推广</span></a>
+						</li>
+            <li class="width25">
+							<a href="../weidian/myecode.html"><img src="../../images/weidian/my-ecode.png" alt="" style="width: 23px;"><span>我的二维码</span></a>
+						</li>
+					</ul>
+				</nav>
+        <p class="nominate none">
+          您是由 [ <span class="focus-font">分红全球购</span> ] 推荐
+        </p>
+				<section class="empty"></section>
+			</section>
+
+            <section class=" clearfix border-t">
+                <div class="fh-link-bar margin7" style="border-top:0!important"><span><!--<img src="../../images/wap/my-wallet.png" class="p-img1"/>-->我的钱包</span></div>
+              <!--  <div class="pull-right">
+                    <a  class="mr10" >
+                        <span class="order">查看全部资产</span>
+                        <i class="icon-angle-right"></i>
+                    </a>
+                </div>-->
+            </section>
+            <section id="wallet" class="">
+
+	            <nav class="order-nav tc">
+	                <ul class="border-b">
+	                    <li class="width33">
+	                        <a ><span class="wallet_val">0.00</span><br /><span>我的余额</span></a>
+	                    </li>
+	                    <li class="width33 ticketlink">
+	                        <span class="wallet_val">0</span><br /><span>优惠券</span>
+	                    </li>
+	                    <li class="width33">
+	                        <a href="../member/my_points.html"><span class="wallet_val">0</span><br /><span>我的积分</span></a>
+	                    </li>
+	                   <!-- <li class="width25">
+	                        <a href="../packet/bag_details.html?batch_id=1"><span>2</span><br /><span>抢</span></a>
+	                    </li>-->
+	                </ul>
+	            </nav>
+	            <section class="empty"></section>
+            </section>
+
+       		<!--<section class="empty"></section>-->
+       	    <!-- <section class="fh-link-bar" style="border-color:#eee!important;">
+                <a class="dis-b friend">
+                    <span>邀请合伙人<span>
+                    <div class="pull-right">
+                    	<i class="icon-angle-right"></i>
+		        	</div>
+		        </a>
+       		</section> -->
+
+       		<section class="empty"></section>
+       		<section class="fh-link-bar border-b0" style="border-color:#eee!important;">
+                <a class="dis-b" id='shop_type'>
+                      <span>红人店铺</span>
+                      <div class="pull-right">
+                        <i class="icon-angle-right"></i>
+                      </div>
+                </a>
+          </section>
+          <!-- <section class="margin7 ">
+          <section class="fh-link-bar border-b0" style="border-color:#eee!important;">
+                <a href="" class="dis-b">
+                    <span>如何推广</span>
+                    <div class="pull-right">
+                    	<i class="icon-angle-right"></i>
+		        	</div>
+		        </a>
+       		</section>
+       		</section> -->
+       		<section class="margin7 ">
+       		<section class="fh-link-bar border-b0" style="border-color:#eee!important;">
+                <a href="../member/address_manage.html" class="dis-b">
+                	<!--<img src="../../images/wap/shddgl.png" class="icon"/>-->
+                    <span>收货地址管理</span>
+                    <div class="pull-right">
+                    	<i class="icon-angle-right"></i>
+		        	</div>
+		        </a>
+       		</section>
+       		</section>
+
+       		<section class="margin7 ">
+                <div class="fh-link-bar border-b0"><a href="../member/setting.html" class="dis-b">
+                                	<!--<img src="../../images/wap/sz.png" class="icon"/>-->
+                                    <span>设置</span>
+                                    <div class="pull-right">
+                                    	<i class="icon-angle-right"></i>
+                		        	</div>
+                		        </a></div class="fh-link-bar">
+       		</section>
+       		<section class="margin7">
+		         <div class="fh-link-bar"><a href="../member/feedback.html" class="dis-b">
+		                             <span>意见反馈</span>
+		                             <div class="pull-right">
+		                             	<i class="icon-angle-right"></i>
+		         		        	</div>
+		         		        </a></div class="fh-link-bar ">
+		    </section>
+		    <section class="fh-link-bar" style="border-top:0 !important;border-color:#eee!important;">
+		    	<a href="tel:4006-888-506" class="dis-b ">
+		    			    		<span>客服电话</span>
+		    	                    <div class="pull-right">
+		    	                    	<p class="tel-p dis-in-b mr15">客服热线 周一至周五 8:30至22:00</p>
+		    	                    	<i class="icon-angle-right"></i>
+		    			        	</div>
+		    				        <!--<div class="pull-left">
+		    		                    <p style="line-height: 8px;">客服电话</p>
+		    				        </div>
+		    				         <div class="pull-right">
+		    	                    	<i class="icon-angle-right"></i>
+		    			        	</div>			        -->
+		    			        </a>
+			</section>
+        <footer class="foot-blank"></footer>
+            <div class="new-packet-img zoomIn animated" style="z-index: 1000;">
+            	<img class="new-packet-x" src="../../images/red-packet/x.png"/>
+            	 <p class="bag_name f"></p>
+				 <a href="../packet/baggoods.html?coupon_type=person"><button class="button btn1">马上使用</button></a>
+				 <a href="../packet/coupon_list.html"><button class="button btn2">查看优惠券</button></a>
+			</div>
+    </div>
+    </div>
+    <section class="empty h100"></section>
+			<section class="allBtmFooter">
+				<li>
+					<a data-href="shop.html" class="homeLink">
+						<img src='../../images/index/shouye.png' />
+					</a>
+				</li>
+				<li>
+					<a data-href="goods.html">
+						<img src='../../images/index/footer3.png' />
+					</a>
+				</li>
+				<li class="pr">
+					<a data-href="../mircoshop/shopping_cart_cn.html" class="shoppingurl">
+						<img src='../../images/index/footer4.png' />
+					</a>
+				</li>
+				<li>
+					<a data-href="person.html">
+						<img src='../../images/index/footer5click.png' />
+					</a>
+				</li>
+			</section>
+    <script src="../../js/libs/jquery/jquery-1.8.3.min.js"></script>
+    <script src="../../js/plugins/fastclick.js"></script>
+    <script src="../../js/plugins/layer/layer.js"></script>
+    <script src="../../js/config.js"></script>
+	  <script src="../../js/apiLink.js"></script>
+    <script src="../../js/common.js"></script>
+    <script src="../../js/plugins/template.js"></script>
+    <script src="../../src/js/tmpl/mircoshop/person.js"></script>
+    <script type="text/javascript">
+      var shop_id =  localStorage.getItem('shop_id');
+       $('.homeLink').attr('data-href',$('.homeLink').attr('data-href')+"?shop_id="+shop_id);
+    </script>
+    <script>
+    	Member.Person.onLoad();
+    </script>
+</body>
+
+</html>

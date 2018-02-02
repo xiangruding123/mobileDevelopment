@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>新品上架</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta http-equiv="Cache-Control" content="no-cache">
+        <meta http-equiv="Pragma" content="no-cache">
+		<link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+		<link rel="stylesheet" href="../../src/css/fhbase.css">
+		<link rel="stylesheet" href="../../src/css/fhwap.css">
+	</head>
+
+	<body>
+		<div class="container layout" id="shop_index">
+			<div class="row">
+				<div class="store_position">
+				 <header class="fh-header">
+					 <span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+                     <h1 class="header-title">新品上架</h1>
+				 </header>
+				<section class="adr-header tc mt100 hide">
+	            			<img class="adr-img" src="../../images/wap/Esearch.png" />
+						<div class="adr-tips color9 mt15">该店铺暂时没有新品上架~</div>
+	            	</section>
+				<!--下方商品列表-->
+				<div id="store_goods" class="min-scroller">
+					<ul class="store-list clearfix bg-body" id="goods_list">
+					</ul>
+					<div class="pullUp"></div>
+					<div class="empty h50" style="z-index:0 !important;"></div>
+				</div>
+				<script id="newGoods" type="text/html">
+						<%for(var i=0;i<result.length;i++){%>
+							<div class="st-module">
+								<%if(result[i].goods_list){%>
+								<div class="st-time"><%=result[i].time%></div>								
+								<%for(var j=0;j<result[i].goods_list.length;j++){%>
+									<li class="store-goods" <%if(result[i].goods_list.length=='1'){%>style="width:100%;"<%}%>>
+				                        <a href="../shopping/goods_details.html?goods_id=<%=result[i].goods_list[j].goods_id%>" class="pr dis-b">
+					                        <%if(result[i].goods_list[j].goods_source>0){%>
+												<img src="../../images/wap/global-icon.png" class="global-icon"/>
+											<%}%>
+					                        <img src="../../images/wap/guanggao-1.jpg" data-original="<%=FormatImg(result[i].goods_list[j].goods_image)%>" class="<%if(result[i].goods_list.length=='1'){%>data-pic<%}%>" />
+				                           <!--<%if(result[i].goods_list[j].goods_state==0){%>
+												<img src="../../images/wap/widthdown.png" class="side-tip"/>
+											<%}else if(result[i].goods_list[j].sale_stop==1){%>
+												<img src="../../images/wap/stop.png" class="side-tip" />
+											<%}else if(result[i].goods_list[j].is_presell==1){%>
+												<img src="../../images/wap/presell.png" class="side-tip"/>
+											<%}else if(result[i].goods_list[j].goods_storage==0){%>
+												<img src="../../images/wap/soldout.png" class="side-tip"/>
+											<%}%>-->
+											<p class="pad7 pt10"><img src="<%=result[i].goods_list[j].nation_flag%>" class="flag mr5 mt2"/><%=result[i].goods_list[j].goods_promise%></p>
+				                           <span class="st-goods">
+				                            	<%=result[i].goods_list[j].goods_name%>
+				                            	
+											<!--	<%if(result[i].goods_list[j].goods_source>0){%>
+													<img class="origin" src="../../images/wap/direct.png"  />
+												<%}else if(result[i].goods_list[j].is_own_shop==1){%>
+													<img class="origin" src="../../images/wap/self.png"  />
+												<%}%>-->
+				                            </span>
+				                        </a>
+				                        <p class="pl10 pb10">
+				                        	<span class="fh-price f12">￥</span><span class="fh-price"><%=result[i].goods_list[j].goods_promotion_price%>
+				                        	</span>
+				                        	<del class="ml10">￥<%=result[i].goods_list[j].goods_marketprice%></del>
+				                        </p>
+				                    </li> 
+			                    <%}%>
+			                 <%}%>
+		                    </div>
+						<%}%>
+				</script>
+		        
+           
+            </div>
+        </div>
+    <script  src="../../js/libs/jquery/jquery-1.8.3.min.js"></script>
+    <script  src="../../js/plugins/jquery.lazyload.js"></script>
+    <script  src="../../js/plugins/fastclick.js"></script>
+    <script  src="../../js/plugins/layer/layer.js"></script>
+    <script  src="../../js/plugins/template.js"></script>
+    <script  src="../../js/plugins/swiper/swiper.js"></script>
+    <script  src="../../js/plugins/iscroll.js"></script>
+    <script  src="../../js/plugins/fhScroll.js"></script>
+    <script  src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script  src="../../js/config.js"></script>
+    <script  src="../../js/common.js"></script>
+    <script  src="../../src/js/tmpl/store/newgoods.js"></script>
+    <script>
+    	Goods.Store.onLoad();
+    </script>
+
+   
+</body> 
+
+</html>

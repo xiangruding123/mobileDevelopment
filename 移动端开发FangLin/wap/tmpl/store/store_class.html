@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>商品分类</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../../js/libs/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" href="../../js/libs/font-awesome/css/font-awesome.min.css">
+		<link rel="stylesheet" href="../../src/css/fhbase.css">
+		<link rel="stylesheet" href="../../src/css/fhwap.css">
+	</head>
+
+	<body>
+		<div class="container layout" id="shop_index">
+			<div class="row">
+				<header class="fh-header">
+					<span class="goback icon-angle-left" onclick="javascript:history.back();"></span>
+					<h1 class="header-title">商品分类</h1>
+					<span class="pull-right pr">
+						 <img src="../../images/wap/specialty/more.png" alt="" class="timemore ptb10">
+					     <span class="updownlog">
+					     <span><a href="../index/index.html">首页</a></span>
+						<span class='store_baidusales'>联系客服</span>
+						<span class="updownloglist color6 shareTime -mob-share-open">分享</span>
+						</span>
+					</span>
+				</header>
+				<div class="empty"></div>
+				<div class="separator fh-bg-white f15 pad7">全部商品 <span class="pull-right"><i class="icon-angle-right f20"></i></span></a>
+				</div>
+
+				<script type="text/html" id="store_tpl">
+					<%if(result){%>
+					<%for(var i =0; i<result.length;i++){%>
+					<div class="empty"></div>
+					<dl class='class-block clearfix '>
+						<dt class="class-title">
+					 	<a class='skip-link' href="class_goods.html?stc_id=<%=result[i].stc_id%>&store_id=<%=result[i].store_id%>">
+					 		<%=result[i].stc_name%>  <span class="pull-right"><span class="f13 color9">查看全部</span></span></a>
+					 	</dt>
+						<%if(result[i].children){%>
+						<%for(var n =0; n<result[i].children.length;n++){%>
+						<dd class="small_class">
+							<a class='skip-link' href="class_goods.html?stc_id=<%=result[i].children[n].stc_id%>&store_id=<%=result[i].children[n].store_id%>">
+							<%=result[i].children[n].stc_name%>
+						  </a>
+						</dd>
+						<%}%>
+						<div class="h10 cb"></div>
+						<%}%>
+
+					</dl>
+					<%}%>
+					<%}%>
+				</script>
+			</div>
+		</div>
+		<div class="-mob-share-ui -mob-share-ui-theme -mob-share-ui-theme-slide-bottom" style="display: none">
+			<ul class="-mob-share-list">
+				<li class="-mob-share-weixin">
+					<p>微信</p>
+				</li>
+				<li class="-mob-share-qq">
+					<p>QQ好友</p>
+				</li>
+				<li class="-mob-share-qzone">
+					<p>QQ空间</p>
+				</li>
+				<li class="-mob-share-weibo">
+					<p>新浪微博</p>
+				</li>
+			</ul>
+			<div class="-mob-share-close">取消</div>
+		</div>
+		<div class="-mob-share-ui-bg"></div>
+		<script  src="../../js/libs/jquery/jquery-1.8.3.min.js"></script>
+		<script  src="../../js/plugins/jquery.lazyload.js"></script>
+		<script  src="../../js/plugins/fastclick.js"></script>
+		<script  src="../../js/plugins/layer/layer.js"></script>
+		<script  src="../../js/plugins/template.js"></script>
+		<script  src="../../js/plugins/swiper/swiper.js"></script>
+		<script  src="../../js/plugins/iscroll.js"></script>
+		<script  src="../../js/plugins/fhScroll.js"></script>
+		<script  src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+		<script id="-mob-share" src="http://f1.webshare.mob.com/code/mob-share.js?appkey=13a3931a47072"  charset="utf-8"></script>
+		<script  src="../../js/config.js"></script>
+		<script  src="../../js/apiLink.js"></script>
+		<script  src="../../js/common.js"></script>
+		<script  src="../../src/js/tmpl/store/store_class.js"></script>
+
+	</body>
+
+</html>
