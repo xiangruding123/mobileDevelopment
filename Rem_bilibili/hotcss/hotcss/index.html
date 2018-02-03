@@ -1,0 +1,26 @@
+//.html
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>这是一个最最普通的演示</title>
+		<!--
+			 根据页面渲染机制，`hotcss.js`必须在其他JS加载前加载，万不可异步加载。
+			
+			 如果可以，你应将`hotcss.js`的内容以内嵌的方式写到`<head>`标签里面进行加载，并且保证在其他js文件之前。
+			
+			 为了避免不必要的bug，请将CSS放到该JS之前加载。
+	    -->
+		<link rel="stylesheet" href="./style.css">
+		<script src="../js/hotcss.js"></script>
+	</head>
+	<body>
+		<div id="header">普通的演示</div>
+		<div id="container1">
+			这是一个普通的演示。在head头加载hotcss.js。 优雅的使用scss书写css。单位均使用了px2rem处理
+		</div>
+		<div id="container2">
+			这个里面的字体没有使用px2rem。具体写法参看css。 如果你在使用chrome。请打开控制台，尝试模拟不同设备，来查看表现。
+		</div>
+	</body>
+</html>

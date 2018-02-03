@@ -1,0 +1,134 @@
+/*media采用媒体查询*/
+@media screen and (min-width: 320px) {html{font-size:50px;}}
+
+@media screen and (min-width: 360px) {html{font-size:56.25px;}}
+@media screen and (min-width: 375px) {html{font-size:58.59375px;}}
+@media screen and (min-width: 400px) {html{font-size:62.5px;}}
+@media screen and (min-width: 414px) {html{font-size:64.6875px;}}
+@media screen and (min-width: 440px) {html{font-size:68.75px;}}
+
+@media screen and (min-width: 480px) {html{font-size:75px;}}
+@media screen and (min-width: 520px) {html{font-size:81.25px;}}
+@media screen and (min-width: 560px) {html{font-size:87.5px;}}
+@media screen and (min-width: 600px) {html{font-size:93.75px;}}
+
+@media screen and (min-width: 640px) {html{font-size:100px;}}
+
+@media screen and (min-width: 680px) {html{font-size:106.25px;}}
+@media screen and (min-width: 720px) {html{font-size:112.5px;}}
+@media screen and (min-width: 760px) {html{font-size:118.75px;}}
+@media screen and (min-width: 800px) {html{font-size:125px;}}
+@media screen and (min-width: 960px) {html{font-size:150px;}}
+/*后来加的 为了适配pc端*/
+@media screen and (min-width: 1000px) {html{font-size:153.125px;}}
+@media screen and (min-width: 1024px) {html{font-size:157.625px;}}
+@media screen and (min-width: 1040px) {html{font-size:162.5px;}}
+@media screen and (min-width: 1080px) {html{font-size:168.75px;}}
+@media screen and (min-width: 1120px) {html{font-size:175px;}}
+@media screen and (min-width: 1160px) {html{font-size:181.25px;}}
+@media screen and (min-width: 1200px) {html{font-size:187.5px;}}
+@media screen and (min-width: 1240px) {html{font-size:193.75px;}}
+@media screen and (min-width: 1280px) {html{font-size:200px;}}
+@media screen and (min-width: 1320px) {html{font-size:212.5px;}}
+@media screen and (min-width: 1360px) {html{font-size:225px;}}
+@media screen and (min-width: 1400px) {html{font-size:237.5px;}}
+@media screen and (min-width: 1440px) {html{font-size:250px;}}
+@media screen and (min-width: 1480px) {html{font-size:262.5px;}}
+@media screen and (min-width: 1520px) {html{font-size:275px;}}
+@media screen and (min-width: 1560px) {html{font-size:287.5px;}}
+@media screen and (min-width: 1600px) {html{font-size:300px;}}
+@media screen and (min-width: 1640px) {html{font-size:312.5px;}}
+@media screen and (min-width: 1680px) {html{font-size:325px;}}
+@media screen and (min-width: 1720px) {html{font-size:338.5px;}}
+@media screen and (min-width: 1760px) {html{font-size:350px;}}
+@media screen and (min-width: 1800px) {html{font-size:362.5px;}}
+@media screen and (min-width: 1840px) {html{font-size:375px;}}
+@media screen and (min-width: 1880px) {html{font-size:387.5px;}}
+@media screen and (min-width: 1920px) {html{font-size:400px;}}
+
+/*================================================================*/
+body{
+	background: #666666;
+}
+.par3{
+	box-sizing: border-box;
+	padding: 0 3%;	
+}
+#content{
+	width: 84%;
+	height: 5.2rem;
+	margin: 30px auto;	
+	background: #fff;
+	cursor: pointer;
+}
+.contenta{
+	text-align: center;
+	width: 100%;
+	height: 100%;
+}
+
+.contenta .title{
+	width: 100%;
+	height: 60%;
+	position: relative;
+}
+.contenta .title img{
+	width: 100%;
+	height: 100%;
+}
+.contenta .title .titledesc{
+	width: 100%;
+	height: 0.8rem;
+	line-height: 0.8rem;
+	background: #000;
+	opacity: 0.4;
+	color: #fff;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	font-size: 0.26rem;
+}
+
+.contenta .article{
+	width: 100%;
+	height: 40%;
+	box-sizing: border-box;
+	padding: 4%;
+}
+
+.contenta .article .abstract{
+	text-align: left;
+	height: 0.8rem;
+	line-height: 0.4rem;
+	font-size: 0.24rem;
+	margin: 3% 0;
+	color: #999;
+	
+	display:-webkit-box;
+	-webkit-box-orient:vertical;
+	-webkit-line-clamp:2; 
+	-moz-line-clamp:2!important; 
+	-o-line-clamp:2!important;
+	overflow:hidden;
+}
+
+.contenta .article .details{
+	height: 0.6rem;
+	line-height: 0.6rem;
+	text-align: left;
+	border-top: 1px solid #eee;
+	font-size: 0.24rem;
+	color: #111;
+	background: url(../img/right.png) no-repeat right center;
+	background-size: 5% 50%;
+}
+
+
+
+
+
+
+

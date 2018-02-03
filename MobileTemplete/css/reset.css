@@ -1,0 +1,83 @@
+@charset "utf-8";
+/**
+ * Global style
+ * @author linxu
+ * @date 2014-02-26
+ */
+/* XHTML, HTML4, HTML5 reset 
+ ---------------------------------------------------------------------------------------------------*/
+
+a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,caption,center,cite,code,dd,del,details,dfn,dialog,div,dl,dt,em,embed,fieldset,figcaption,figure,font,footer,form,h1,h2,h3,h4,h5,h6,header,hgroup,hr,html,i,iframe,img,label,legend,li,mark,menu,meter,nav,object,ol,output,p,pre,progress,q,rp,rt,ruby,samp,section,small,span,strike,strong,sub,summary,sup,table,tbody,td,tfoot,th,thead,time,tr,tt,u,ul,var,video{
+	border: 0;
+	margin: 0;
+	padding: 0;
+}
+article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
+	display: block;
+}
+img {
+	color: transparent;
+	font-size: 0;
+	vertical-align: middle;
+	-ms-interpolation-mode: bicubic;
+}
+li {
+	display: list-item;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+th,td,caption {
+	font-weight: normal;
+	vertical-align: middle;
+}
+i,cite,em,var,address,dfn {
+	font-style: normal;
+	font-weight: normal;
+}
+ol,ul,li {
+	list-style: none;
+}
+a,input,button,select,textarea {
+	outline:none;
+}
+textarea {
+	overflow: auto;
+	resize: none;
+	color: #333;
+	outline: 0;
+}
+h1,h2,h3,h4,h5,h6,small,strong,b {
+	font-size: 100%;
+	font-weight: normal;
+}
+sup,sub {
+	font-size: 75%;
+}
+pre,code,kbd,samp {
+	font-family: inherit;
+}
+q {
+	quotes: none;
+}
+q:before,q:after {
+	content: none;
+	content: '';
+}
+label,summary {
+	cursor: default;
+}
+del,ins,u,s,{
+	text-decoration: none;
+}
+a,a:hover {
+	text-decoration: none;
+	color: #333;
+}
+body,input,button,select,keygen,legend {
+	color: #333;
+	outline: 0;
+}
+a img,img {border:0 none;display: block;}
+

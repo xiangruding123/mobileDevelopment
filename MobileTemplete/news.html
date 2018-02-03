@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<title>文章详情</title>
+		<style type="text/css">
+			body{position: relative;}
+			#nav{position: absolute;top: 0;left: 0;z-index: 10;}
+			body,div,section,header,footer,span,h1,h2,h3,h4,ul,li,form,p,img,dl,dd,dt,a {border: 0 none;margin: 0;padding: 0;}
+			ul,li {list-style: none;}
+			.l{float: left!important;}
+			.r{float: right!important;}
+			
+			/*.header{width: 100%;height: 0.88rem;line-height: 0.88rem;font-size: 0.35rem;background: #363d49;color: #fff;}
+			.header .back{width: 0.88rem;height: 100%;display: box;display: -webkit-box;-webkit-box-align: center;-webkit-box-pack: center;}
+			.header span{display: block;width: 0.36rem;height: 0.36rem;line-height: 0.36rem;text-align: center;}
+			.header .backbg{background: #d163c3 url(img/detail/tab_article_back.png) no-repeat center;background-size: 100% 100%;}
+			
+			.header .hright{text-align: center;width: 1.40rem;height: 100%;}
+			.header .hright span{margin-right: 22%;margin-top:18%;background: #d163c3 url(img/detail/tab_collection_normal.png) no-repeat center;background-size: 100% 100%;}
+			*/
+			
+			
+			#content{width: 100%;height: auto;box-sizing: border-box;padding: 2% 2% 0;}
+			#content h3{width: 100%;line-height: 0.80rem;font-size: 0.5rem;overflow: hidden;}
+			#content .subhead{width: 100%;height: auto;}
+			#content .subhead p{width: 100%;line-height: 0.6rem;font-size: 0.35rem;color: #333;overflow: hidden;}
+			#content .subhead dt{width: 100%;height: 0.8rem;line-height: 0.8rem;font-size: 0.22rem;color: #666;}
+			
+			#content .subhead dt span{margin-left: 0.8rem;color: #666;}
+			#content .subhead dd{width: 100%;height: auto;}
+			#content .subhead img{display: block;width: 100%;height: 100%;}
+			/*---*/
+			#content .contentpic{width: 100%;height: auto;}
+			#content .contentpic .contentpictitle{width: 100%;height: 0.95rem;line-height: 0.9rem;font-size: 0.32rem;color: #666;}
+			#content .contentpic .contentdesc{width: 100%;height: auto;}
+			#content .contentpic .contentdesc p{text-indent: 2em;width: 100%;height: auto;line-height: 0.5rem;font-size: 0.32rem;}
+			
+			
+			#content .contentpic img{margin-top: 0.2rem;display: block;width: 100%;height: auto;}
+			#content .contentpic h4{width: 100%;height: 1.20rem;line-height: 1.20rem;font-size: 0.35rem;color: #333;font-weight: normal;}
+			#copyright{width: 100%;height: 1.50rem;line-height: 0.5rem;font-size: 0.32rem;margin: 0.6rem 0 0.5rem;}
+			
+			/*#shareing{width: 100%;height: 0.9rem;display: flex;}
+			#shareing p{flex: 1;font-size: 0.35rem;line-height: 0.9rem;}
+			#shareing .shareingpic{flex: 4;width: auto;height: 100%;}
+			#shareing .shareingpic span{width: 0.9rem;height: 100%;display: inline-block;float: left;margin: 0 0.2rem;}
+			#shareing .shareingpic span img{width: 100%;height: 100%;}*/
+		</style>
+		<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+		<script type="text/javascript">
+		$(document).ready(function(){
+			var urlinfo = window.location.href.replace("#",""); //获取当前页面的url
+		//	alert("urlinfo="+urlinfo);
+			var len = urlinfo.length; //获取url的长度
+			var offset = urlinfo.indexOf("?"); //设置参数字符串开始的位置
+			var id = "";
+			if(offset>0){
+				var newsidinfo = urlinfo.substr(offset+1,len); //取出参数字符串 这里会获得类似“id=1”这样的字符串
+			//	alert("newsidinfo="+newsidinfo);
+				
+				var newsids = newsidinfo.split("="); //对获得的参数字符串按照“=”进行分割 newsid=newsids[1];//得到参数值 
+				var newsname = newsids[0]; //得到参数名字
+				id = newsids[1].split("&")[0]; //得到参数值
+			}
+			
+			// 得到活动的详细信息
+			$.post("../app/news/queryNewsAPP.action",{newsId:id},function(data){
+			//	alert(data.data.newsId);
+				
+				$("#newsName").html(data.data.newsName); //标题
+				$("#subtitle").html(data.data.subtitle); //副标题
+				$("#staffsName").html(data.data.staffsName+"<span>"+data.data.createTime+"</span>"); //录入者
+				$("#remark").html(data.data.remark); //详情
+			},"json");
+		});
+		</script>
+	</head>
+	<body>
+		<!-----header头部----
+		<header id="nav" class="header">
+			<p class="back l" onclick="javascript:history.back();"><span class="backbg"></span></p>
+			<p class="l">文章详情</p>
+			<p class="hright r">
+				<span class="r like" id="likes"></span>
+			</p>
+		</header>-->
+		<!----------->
+		<!---content内容部分---->
+		<section id="content">
+			<h3 id="newsName"></h3>
+			<div class="subhead">
+				<p id="subtitle"></p>
+				<dl>
+					<dt id="staffsName">编辑作者 <span>2017-07-19</span></dt>
+				</dl>
+			</div>
+			<!-----muban--1----->
+			<div class="contentpic">
+				<div class="contentdesc" id="remark"></div>
+			</div>
+			<!--
+			<div id="shareing">
+				<p>分享到：</p>
+				<p class="shareingpic">
+					<span id="_circle"><img src="img/detail/icon_share_friend_circle.png"/></span>
+					<span id="_blog"><img src="img/detail/icon_share_micro_blog.png"/></span>
+					<span id="_qq"><img src="img/detail/icon_share_qq.png"/></span>
+					<span id="_wechat"><img src="img/detail/icon_share_wechat.png"/></span>
+				</p>
+			</div>-->
+		</section>
+	</body>
+	<!--==引入rem==-->
+	<script type="text/javascript">
+		!function(win){function resize(){var domWidth=domEle.getBoundingClientRect().width;if(domWidth/v>540){domWidth=540*v}win.rem=domWidth/7.5;domEle.style.fontSize=win.rem+"px"}var v,initial_scale,timeCode,dom=win.document,domEle=dom.documentElement,viewport=dom.querySelector('meta[name="viewport"]'),flexible=dom.querySelector('meta[name="flexible"]');if(viewport){var o=viewport.getAttribute("content").match(/initial\-scale=(["']?)([\d\.]+)\1?/);if(o){initial_scale=parseFloat(o[2]);v=parseInt(1/initial_scale)}}else{if(flexible){var o=flexible.getAttribute("content").match(/initial\-dpr=(["']?)([\d\.]+)\1?/);if(o){v=parseFloat(o[2]);initial_scale=parseFloat((1/v).toFixed(2))}}}if(!v&&!initial_scale){var n=(win.navigator.appVersion.match(/android/gi),win.navigator.appVersion.match(/iphone/gi));v=win.devicePixelRatio;v=n?v>=3?3:v>=2?2:1:1,initial_scale=1/v}if(domEle.setAttribute("data-dpr",v),!viewport){if(viewport=dom.createElement("meta"),viewport.setAttribute("name","viewport"),viewport.setAttribute("content","initial-scale="+initial_scale+", maximum-scale="+initial_scale+", minimum-scale="+initial_scale+", user-scalable=no"),domEle.firstElementChild){domEle.firstElementChild.appendChild(viewport)}else{var m=dom.createElement("div");m.appendChild(viewport),dom.write(m.innerHTML)}}win.dpr=v;win.addEventListener("resize",function(){clearTimeout(timeCode),timeCode=setTimeout(resize,300)},false);win.addEventListener("pageshow",function(b){b.persisted&&(clearTimeout(timeCode),timeCode=setTimeout(resize,300))},false);resize()}(window);
+	</script>
+	<!--=========-->
+	<!--<script type="text/javascript">
+		//likes收藏
+		var likes = document.getElementById("likes");
+		var flag = 1;
+		likes.onclick = function(){
+			if (flag) {
+				this.style.background = "#d163c3 url(img/detail/tab_collection_light.png) no-repeat center";
+				this.style.backgroundSize = "100% 100%";
+				flag=0;
+			} else{
+				this.style.background = "#d163c3 url(img/detail/tab_collection_normal.png) no-repeat center";
+				this.style.backgroundSize = "100% 100%";
+				flag=1;	
+			}
+		}
+	</script>-->
+</html>
